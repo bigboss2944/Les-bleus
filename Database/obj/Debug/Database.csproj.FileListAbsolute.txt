@@ -1,0 +1,16 @@
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Database.dll.config
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Database.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Database.pdb
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Entities.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\EntityFramework.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Newtonsoft.Json.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Entities.pdb
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Entities.dll.config
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\EntityFramework.xml
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\bin\Debug\Newtonsoft.Json.xml
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\obj\Debug\Database.csproj.CopyComplete
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\obj\Debug\Database.dll
+C:\Users\IB\Desktop\TP_fileRouge\FilRouge\Database\obj\Debug\Database.pdb
