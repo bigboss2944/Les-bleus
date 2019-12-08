@@ -36,7 +36,6 @@ namespace Entities
             get { return amount; }
             set { amount = value; }
         }
-        //list Orders
         #endregion
 
         #region Constructors

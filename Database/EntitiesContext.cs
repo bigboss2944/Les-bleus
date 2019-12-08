@@ -105,34 +105,30 @@ namespace Database
                     Shop shop1 = new Shop();
 
                     // Implémentation de la db Orders 
-
-                    using (var db = new EntitiesContext())
+                    for (int i = 1; i < 5; i++)
                     {
-                        for (int i = 1; i < 5; i++)
-                        {
-                            Seller seller1 = new Seller();
-                            Payment payMode1 = new Payment();
-                            Customer customer1 = new Customer();
+                        Seller seller1 = new Seller();
+                        Payment payMode1 = new Payment();
+                        Customer customer1 = new Customer();
 
-                            Order order = new Order();
-                            order.Date = DateTime.Now;
-                            order.Discount = 0.1F;
-                            order.Seller = seller1;
-                            order.Customer = customer1;
-                            order.Shop = shop1;
-                            order.LoyaltyPoint = 5 + i;
-                            order.LoyaltyPointUsed = 0;
-                            order.LoyaltyPointEarned = 0;
-                            order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
-                            order.Quantity = 1 + i; // comment lier quantity et Bicycle
-                            order.SumFreeTax = order.SumFreeTaxCalculated();
-                            order.Tax = 0.2F;
-                            order.ShippingCost = 0;
-                            order.PayMode = payMode1;
-                            order.TotalAmount = order.TotalAmountCalculated();
-                            this.Orders.Add(order);
-                            this.SaveChanges();
-                        }
+                        Order order = new Order();
+                        order.Date = DateTime.Now;
+                        order.Discount = 0.1F;
+                        order.Seller = seller1;
+                        order.Customer = customer1;
+                        order.Shop = shop1;
+                        order.LoyaltyPoint = 5 + i;
+                        order.LoyaltyPointUsed = 0;
+                        order.LoyaltyPointEarned = 0;
+                        order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
+                        order.Quantity = 1 + i; // comment lier quantity et Bicycle
+                        order.SumFreeTax = order.SumFreeTaxCalculated();
+                        order.Tax = 0.2F;
+                        order.ShippingCost = 0;
+                        order.PayMode = payMode1;
+                        order.TotalAmount = order.TotalAmountCalculated();
+                        this.Orders.Add(order);
+                        this.SaveChanges();
                     }
                 }
             }
