@@ -115,5 +115,10 @@ namespace Entities
         //    Orders = new List<Order>();
         //}
         #endregion
+
+        public String ToString() 
+            {
+            return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
+            }
     }
 }
