@@ -77,24 +77,6 @@ namespace Entities
         {
 
         }
-
-        //public BicyleCharacteristics(float size,
-        //                             float weight,
-        //                             string color,
-        //                             float wheelSize,
-        //                             bool electric,
-        //                             string state,
-        //                             string brand) 
-
-        //{
-        //    Size = size;
-        //    Weight = weight;
-        //    Color = color;
-        //    WheelSize = wheelSize;
-        //    Electric = electric;
-        //    State = state;
-        //    Brand = brand;
-        //}
         #endregion
     }
 }

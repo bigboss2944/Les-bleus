@@ -16,11 +16,12 @@ namespace Entities
         private string typeOfBike;
         //kids woman man
         private string category;
+        private string reference;
         private float freeTaxPrice;
         private bool exchangeable;
         private bool insurance;
         private bool deliverable;
-        private List<Order> orders;
+        private Order order;
         #endregion
 
         #region Properties
@@ -42,6 +43,12 @@ namespace Entities
         {
             get { return category; }
             set { category = value; }
+        }
+
+        public string Reference
+        {
+            get { return reference; }
+            set { reference = value; }
         }
 
         public float FreeTaxPrice
@@ -69,10 +76,10 @@ namespace Entities
         }
 
         //[ForeignKey()]
-        public List<Order> Orders
+        public Order Order
         {
-            get { return orders; }
-            set { orders = value; }
+            get { return order; }
+            set { order = value; }
         }
         #endregion
 
@@ -85,35 +92,8 @@ namespace Entities
 
         public Bicycle()
         {
-            this.Orders = new List<Order>();
+            
         }
-
-        //public Bicycle(float size,
-        //               float weight,
-        //               string color,
-        //               float wheelSize,
-        //               bool electric,
-        //               string state,
-        //               string brand,
-
-        //               long id,
-        //               string typeOfBike,
-        //               string category,
-        //               float freeTaxPrice,
-        //               bool exchangeable,
-        //               bool insurance,
-        //               bool deliverable
-        //               ) : base(size, weight, color, wheelSize, electric, state, brand)
-        //{
-        //    Id = id;
-        //    TypeOfBike = typeOfBike;
-        //    Category = category;
-        //    FreeTaxPrice = freeTaxPrice;
-        //    Exchangeable = exchangeable;
-        //    Insurance = insurance;
-        //    Deliverable = deliverable;
-        //    Orders = new List<Order>();
-        //}
         #endregion
         #region Functions
         public String ToString() 

@@ -20,6 +20,9 @@ namespace Entities
         private string phone;
         private string email;
         private string website;
+        private List<Order> orders;
+        private List<Seller> sellers;
+        private List<Customer> customers;
         #endregion
 
         #region Properties
@@ -72,6 +75,24 @@ namespace Entities
             get { return website; }
             set { website = value; }
         }
+
+        public List<Order> Orders
+        {
+            get { return orders; }
+            set { orders = value; }
+        }
+
+        public List<Seller> Sellers
+        {
+            get { return sellers; }
+            set { sellers = value; }
+        }
+
+        public List<Customer> Customers
+        {
+            get { return customers; }
+            set { customers = value; }
+        }
         #endregion
 
         #region Constructors
@@ -80,27 +101,10 @@ namespace Entities
         /// </summary>
         public Shop()
         {
-
+            this.Orders = new List<Order>();
+            this.Sellers = new List<Seller>();
+            this.Customers = new List<Customer>();
         }
-
-        //public Shop(long idshop,
-        //            string town,
-        //            int postalcode,
-        //            string adress,
-        //            string nameshop,
-        //            string phone,
-        //            string email,
-        //            string website)
-        //{
-        //    Idshop = idshop;
-        //    Town = town;
-        //    Postalcode = postalcode;
-        //    Adress = adress;
-        //    Nameshop = nameshop;
-        //    Phone = phone;
-        //    Email = email;
-        //    Website = website;
-        //}
         #endregion
     }
 }

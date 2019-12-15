@@ -12,6 +12,7 @@ namespace Entities
     {
         #region Attributs
         private long idOrder;
+        //quantity by reference 
         private int quantity;
         private List<Bicycle> bicycles;
         private Seller seller;
@@ -19,12 +20,13 @@ namespace Entities
         private float sumFreeTax;
         private DateTime date;
         private Shop shop;
-        private Payment payMode;
+        private string payMode;
         private float discount;
-        private int loyaltyPoint;
-        private int loyaltyPointUsed;
-        private int loyaltyPointEarned;
-        private int totalLoyaltyPoint;
+        private bool useLoyaltyPoint;
+        //private int loyaltyPoint;
+        //private int loyaltyPointUsed;
+        //private int loyaltyPointEarned;
+        //private int totalLoyaltyPoint;
         private float tax;
         private float shippingCost;
         private float totalAmount;
@@ -83,7 +85,7 @@ namespace Entities
         }
 
         [Required]
-        public Payment PayMode
+        public string PayMode
         {
             get { return payMode; }
             set { payMode = value; }
@@ -95,29 +97,35 @@ namespace Entities
             set { discount = value; }
         }
 
-        public int LoyaltyPoint
+        public bool UseLoyaltyPoint
         {
-            get { return loyaltyPoint; }
-            set { loyaltyPoint = value; }
+            get { return useLoyaltyPoint; }
+            set { useLoyaltyPoint = value; }
         }
 
-        public int LoyaltyPointUsed
-        {
-            get { return loyaltyPointUsed; }
-            set { loyaltyPointUsed = value; }
-        }
+        //public int LoyaltyPoint
+        //{
+        //    get { return loyaltyPoint; }
+        //    set { loyaltyPoint = value; }
+        //}
 
-        public int LoyaltyPointEarned
-        {
-            get { return loyaltyPointEarned; }
-            set { loyaltyPointEarned = value; }
-        }
+        //public int LoyaltyPointUsed
+        //{
+        //    get { return loyaltyPointUsed; }
+        //    set { loyaltyPointUsed = value; }
+        //}
 
-        public int TotalLoyaltyPoint
-        {
-            get { return totalLoyaltyPoint; }
-            set { totalLoyaltyPoint = value; }
-        }
+        //public int LoyaltyPointEarned
+        //{
+        //    get { return loyaltyPointEarned; }
+        //    set { loyaltyPointEarned = value; }
+        //}
+
+        //public int TotalLoyaltyPoint
+        //{
+        //    get { return totalLoyaltyPoint; }
+        //    set { totalLoyaltyPoint = value; }
+        //}
 
         public float Tax
         {
@@ -143,36 +151,6 @@ namespace Entities
         {
             this.Bicycles = new List<Bicycle>();
         }
-
-        //public Order(long idOrder,
-        //             int quantity,
-        //             Seller seller,
-        //             Customer customer,
-        //             float sumFreeTax,
-        //             DateTime date,
-        //             Shop shop,
-        //             Payment payMode,
-        //             float discount,
-        //             int loyaltyPoint,
-        //             float tax,
-        //             float shippingCost,
-        //             float totalAmount)
-        //{
-        //    IdOrder = idOrder;
-        //    Quantity = quantity;
-        //    Seller = seller;
-        //    Customer = customer;
-        //    SumFreeTax = sumFreeTax;
-        //    Date = date;
-        //    Shop = shop;
-        //    PayMode = payMode;
-        //    Discount = discount;
-        //    LoyaltyPoint = loyaltyPoint;
-        //    Tax = tax;
-        //    ShippingCost = shippingCost;
-        //    TotalAmount = totalAmount;
-        //    Bicycles = new List<Bicycle>();
-        //}
         #endregion
 
         #region Functions
@@ -195,10 +173,10 @@ namespace Entities
         }
         #endregion
 
-        public int LoyaltyPointCalculated()
-        {
-            totalLoyaltyPoint = (loyaltyPoint - loyaltyPointUsed) + loyaltyPointEarned;
-            return totalLoyaltyPoint;
-        }
+        //public int LoyaltyPointCalculated()
+        //{
+        //    totalLoyaltyPoint = (loyaltyPoint - loyaltyPointUsed) + loyaltyPointEarned;
+        //    return totalLoyaltyPoint;
+        //}
     }
 }

@@ -23,13 +23,6 @@ namespace Entities
         {
 
         }
-
-
-        //public User(string lastName, string firstName)
-        //{
-        //    LastName = lastName;
-        //    FirstName = firstName;
-        //}
         #endregion
 
     }

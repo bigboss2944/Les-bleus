@@ -19,6 +19,7 @@ namespace Entities
         private string phone;
         private string email;
         private List<Order> orders;
+        private Shop shop;
         #endregion
 
         #region Properties
@@ -37,6 +38,11 @@ namespace Entities
             get { return orders; }
             set { orders = value; }
         }
+        public Shop Shop
+        {
+            get { return shop; }
+            set { shop = value; }
+        }
         #endregion
 
         #region Constructors
@@ -44,27 +50,6 @@ namespace Entities
         {
             this.Orders = new List<Order>();
         }
-
-        //public Customer(string lastname, 
-        //                string firstname,
-        //                long idCustomer,
-        //                string town,
-        //                int postalCode,
-        //                string address,
-        //                int loyaltyPoints,
-        //                string phone,
-        //                string email
-        //                ) : base(lastname, firstname)
-        //{
-        //    IdCustomer = idCustomer;
-        //    Town = town;
-        //    PostalCode = postalCode;
-        //    Address = address;
-        //    LoyaltyPoints = loyaltyPoints;
-        //    Phone = phone;
-        //    Email = email;
-        //    Orders = new List<Order>();
-        //}
         #endregion     
     }
 }

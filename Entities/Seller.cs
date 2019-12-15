@@ -15,6 +15,7 @@ namespace Entities
         private string category;
         private string password;
         private List<Order> orders;
+        private Shop shop;
         #endregion
 
         #region properties
@@ -41,7 +42,13 @@ namespace Entities
         {
             get { return orders; }
             set { orders = value; }
-        }   
+        }
+
+        public Shop Shop
+        {
+            get { return shop; }
+            set { shop = value; }
+        }
         #endregion
 
         #region constructors
@@ -49,17 +56,6 @@ namespace Entities
         {
             this.Orders = new List<Order>();
         }
-
-        //public Seller(string lastname,
-        //              string firstname,
-        //              string category,
-        //              string password) : base(lastname, firstname)
-        //{
-        //    Category = category;
-        //    Password = password;
-        //    Orders = new List<Order>();
-        //}
-
         #endregion
     }
 }

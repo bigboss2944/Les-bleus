@@ -52,14 +52,17 @@ namespace Database
                 if (this.Database.CreateIfNotExists())
                 {
                     // Implémentation de la db Bicycles
+                    Random random = new Random();
                     for (int i = 1; i < 5; i++)
                     {
                         Bicycle bicycle = new Bicycle();
+                        bicycle.Order = this.Orders.Find(random.Next(1, this.Orders.Count()));
                         bicycle.TypeOfBike = "";
                         bicycle.Exchangeable = true;
                         bicycle.Insurance = true;
                         bicycle.Deliverable = true;
                         bicycle.Category = "";
+                        bicycle.Reference = "";
                         bicycle.Size = 1.75F +i*0.01F;
                         bicycle.Weight = 11.5F +i*0.5F;
                         bicycle.Color = "";
@@ -108,7 +111,6 @@ namespace Database
                     for (int i = 1; i < 5; i++)
                     {
                         Seller seller1 = new Seller();
-                        Payment payMode1 = new Payment();
                         Customer customer1 = new Customer();
 
                         Order order = new Order();
@@ -117,15 +119,15 @@ namespace Database
                         order.Seller = seller1;
                         order.Customer = customer1;
                         order.Shop = shop1;
-                        order.LoyaltyPoint = 5 + i;
-                        order.LoyaltyPointUsed = 0;
-                        order.LoyaltyPointEarned = 0;
-                        order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
-                        order.Quantity = 1 + i; // comment lier quantity et Bicycle
+                        order.UseLoyaltyPoint = false;
+                        //order.LoyaltyPoint = 5 + i;
+                        //order.LoyaltyPointUsed = 0;
+                        //order.LoyaltyPointEarned = 0;
+                        //order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
                         order.SumFreeTax = order.SumFreeTaxCalculated();
                         order.Tax = 0.2F;
                         order.ShippingCost = 0;
-                        order.PayMode = payMode1;
+                        order.PayMode = "CB";
                         order.TotalAmount = order.TotalAmountCalculated();
                         this.Orders.Add(order);
                         this.SaveChanges();
@@ -140,14 +142,14 @@ namespace Database
         #endregion
 
         #region functions
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Order>().HasMany<Bicycle>(o => o.Bicycles).WithMany(b => b.Orders);
-        //    modelBuilder.Entity<Order>().HasRequired<Seller>(o => o.Seller).WithMany(s => s.Orders);
-        //    modelBuilder.Entity<Order>().HasRequired<Customer>(o => o.Customer).WithMany(c => c.Orders);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().HasMany<Bicycle>(o => o.Bicycles).WithOptional(b => b.Order);
+            modelBuilder.Entity<Order>().HasRequired<Seller>(o => o.Seller).WithMany(s => s.Orders);
+            modelBuilder.Entity<Order>().HasRequired<Customer>(o => o.Customer).WithMany(c => c.Orders);
 
-        //    base.OnModelCreating(modelBuilder);
-        //}
+            base.OnModelCreating(modelBuilder);
+        }
         #endregion
 
     }

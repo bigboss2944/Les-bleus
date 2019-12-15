@@ -46,13 +46,6 @@ namespace Entities
         {
 
         }
-
-        //public Login(long idlogin, string password, Seller user) 
-        //{
-        //    Idlogin = idlogin;
-        //    Password = password;
-        //    User = user;
-        //}
         #endregion
     }
 }
