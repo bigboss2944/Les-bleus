@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Databa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayDB", "PlayDB\PlayDB.csproj", "{51FB3D50-893C-43E4-9D1A-EACDF68502E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP-NET_FilRouge", "ASP-NET_FilRouge\ASP-NET_FilRouge.csproj", "{CAD57828-7638-4A4F-9048-FED794FDEE8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{51FB3D50-893C-43E4-9D1A-EACDF68502E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51FB3D50-893C-43E4-9D1A-EACDF68502E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51FB3D50-893C-43E4-9D1A-EACDF68502E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD57828-7638-4A4F-9048-FED794FDEE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD57828-7638-4A4F-9048-FED794FDEE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD57828-7638-4A4F-9048-FED794FDEE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD57828-7638-4A4F-9048-FED794FDEE8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

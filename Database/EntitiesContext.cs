@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿//using Entities;
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -119,7 +120,7 @@ namespace Database
                         order.Seller = seller1;
                         order.Customer = customer1;
                         order.Shop = shop1;
-                        order.UseLoyaltyPoint = false;
+                        order.UseLoyaltyPoint = null;
                         //order.LoyaltyPoint = 5 + i;
                         //order.LoyaltyPointUsed = 0;
                         //order.LoyaltyPointEarned = 0;

@@ -37,3 +37,15 @@ C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\FilR
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\FilRouge\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\FilRouge\Entities\obj\Debug\Entities.dll
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\FilRouge\Entities\obj\Debug\Entities.pdb
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Entities.dll.config
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Entities.dll
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Entities.pdb
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\EntityFramework.dll
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\EntityFramework.xml
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.dll
+C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.pdb
