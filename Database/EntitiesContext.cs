@@ -144,9 +144,14 @@ namespace Database
         #region functions
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Order>().HasMany<Bicycle>(o => o.Bicycles).WithOptional(b => b.Order);
-            modelBuilder.Entity<Order>().HasRequired<Seller>(o => o.Seller).WithMany(s => s.Orders);
-            modelBuilder.Entity<Order>().HasRequired<Customer>(o => o.Customer).WithMany(c => c.Orders);
+            modelBuilder.Entity<Order>().HasMany(o => o.Bicycles).WithOptional(b => b.Order);
+            modelBuilder.Entity<Order>().HasRequired(o => o.Seller).WithMany(s => s.Orders);
+            modelBuilder.Entity<Order>().HasRequired(o => o.Customer).WithMany(c => c.Orders);
+            modelBuilder.Entity<Customer>().HasMany(c => c.Orders).WithOptional(o => o.Customer);
+
+            modelBuilder.Entity<Customer>().HasOptional(c => c.Shop).WithMany(s => s.Customers);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithRequired(s => s.Shop);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithRequired(s => s.Shop);
 
             base.OnModelCreating(modelBuilder);
         }

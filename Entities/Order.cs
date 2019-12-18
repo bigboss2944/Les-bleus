@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities
 {
@@ -22,9 +19,9 @@ namespace Entities
         private Shop shop;
         private string payMode;
         private float discount;
-        private bool useLoyaltyPoint;
+        private int? useLoyaltyPoint;
         //private int loyaltyPoint;
-        //private int loyaltyPointUsed;
+        private int loyaltyPointUsed;
         //private int loyaltyPointEarned;
         //private int totalLoyaltyPoint;
         private float tax;
@@ -97,35 +94,11 @@ namespace Entities
             set { discount = value; }
         }
 
-        public bool UseLoyaltyPoint
+        public int? UseLoyaltyPoint
         {
             get { return useLoyaltyPoint; }
             set { useLoyaltyPoint = value; }
         }
-
-        //public int LoyaltyPoint
-        //{
-        //    get { return loyaltyPoint; }
-        //    set { loyaltyPoint = value; }
-        //}
-
-        //public int LoyaltyPointUsed
-        //{
-        //    get { return loyaltyPointUsed; }
-        //    set { loyaltyPointUsed = value; }
-        //}
-
-        //public int LoyaltyPointEarned
-        //{
-        //    get { return loyaltyPointEarned; }
-        //    set { loyaltyPointEarned = value; }
-        //}
-
-        //public int TotalLoyaltyPoint
-        //{
-        //    get { return totalLoyaltyPoint; }
-        //    set { totalLoyaltyPoint = value; }
-        //}
 
         public float Tax
         {
@@ -173,10 +146,6 @@ namespace Entities
         }
         #endregion
 
-        //public int LoyaltyPointCalculated()
-        //{
-        //    totalLoyaltyPoint = (loyaltyPoint - loyaltyPointUsed) + loyaltyPointEarned;
-        //    return totalLoyaltyPoint;
-        //}
+        
     }
 }

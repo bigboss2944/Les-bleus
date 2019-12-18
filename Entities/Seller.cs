@@ -44,6 +44,7 @@ namespace Entities
             set { orders = value; }
         }
 
+        [Required]
         public Shop Shop
         {
             get { return shop; }

@@ -82,6 +82,7 @@ namespace Entities
             set { orders = value; }
         }
 
+        
         public List<Seller> Sellers
         {
             get { return sellers; }
