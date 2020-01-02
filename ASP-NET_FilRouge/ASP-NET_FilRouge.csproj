@@ -183,6 +183,7 @@
     <Compile Include="Models\Bicycle.cs" />
     <Compile Include="Models\BicycleCharacteristics.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\EntitiesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -279,6 +280,10 @@
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Edit.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
+    <Content Include="Views\Bicycles\Crud.cshtml" />
+    <Content Include="Views\Customers\Crud.cshtml" />
+    <Content Include="Views\Orders\Crud.cshtml" />
+    <Content Include="Views\Sellers\Crud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,14 +9,23 @@ using System.Web;
 using System.Web.Mvc;
 using ASP_NET_FilRouge.Models;
 using Entities;
+using Database;
 
 namespace ASP_NET_FilRouge.Controllers
 {
     public class CustomersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private Database.EntitiesContext db = new Database.EntitiesContext();
+
+        //GET: Customers menu
+        [Route("Customers menu")]
+        public ActionResult Crud()
+        {
+            return View();
+        }
 
         // GET: Customers
+        [Route("Customers index")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Customers.ToListAsync());

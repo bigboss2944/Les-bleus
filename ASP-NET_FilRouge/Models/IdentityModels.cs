@@ -18,16 +18,16 @@ namespace ASP_NET_FilRouge.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class EntitiesContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public EntitiesContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static EntitiesContext Create()
         {
-            return new ApplicationDbContext();
+            return new EntitiesContext();
         }
 
         public System.Data.Entity.DbSet<Entities.Bicycle> Bicycles { get; set; }

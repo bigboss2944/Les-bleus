@@ -9,14 +9,23 @@ using System.Web;
 using System.Web.Mvc;
 using ASP_NET_FilRouge.Models;
 using Entities;
+using Database;
 
 namespace ASP_NET_FilRouge.Controllers
 {
     public class BicyclesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private Database.EntitiesContext db = new Database.EntitiesContext();
+
+        //GET: Bicycles menu
+        [Route("Bicycles menu")]
+        public ActionResult Crud()
+        {
+            return View();
+        }
 
         // GET: Bicycles
+        [Route("Bicycles index")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
@@ -38,6 +47,7 @@ namespace ASP_NET_FilRouge.Controllers
         }
 
         // GET: Bicycles/Create
+        [Route("Bicycles create")]
         public ActionResult Create()
         {
             return View();
