@@ -9,13 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using ASP_NET_FilRouge.Models;
 using Entities;
-using Database;
 
 namespace ASP_NET_FilRouge.Controllers
 {
     public class CustomersController : Controller
     {
-        private Database.EntitiesContext db = new Database.EntitiesContext();
+        private EntitiesContext db = new EntitiesContext();
 
         //GET: Customers menu
         [Route("Customers menu")]

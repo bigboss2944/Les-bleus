@@ -125,11 +125,11 @@ namespace Database
                         //order.LoyaltyPointUsed = 0;
                         //order.LoyaltyPointEarned = 0;
                         //order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
-                        order.SumFreeTax = order.SumFreeTaxCalculated();
+                        //order.SumFreeTax = order.SumFreeTaxCalculated();
                         order.Tax = 0.2F;
                         order.ShippingCost = 0;
                         order.PayMode = "CB";
-                        order.TotalAmount = order.TotalAmountCalculated();
+                        //order.TotalAmount = order.TotalAmountCalculated();
                         this.Orders.Add(order);
                         this.SaveChanges();
                     }

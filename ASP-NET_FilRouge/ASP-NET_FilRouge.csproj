@@ -171,7 +171,6 @@
     <Compile Include="Controllers\BicyclesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
@@ -183,11 +182,10 @@
     <Compile Include="Models\Bicycle.cs" />
     <Compile Include="Models\BicycleCharacteristics.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\EntitiesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\RoleManager.cs" />
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
@@ -260,11 +258,6 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Logins\Create.cshtml" />
-    <Content Include="Views\Logins\Delete.cshtml" />
-    <Content Include="Views\Logins\Details.cshtml" />
-    <Content Include="Views\Logins\Edit.cshtml" />
-    <Content Include="Views\Logins\Index.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />

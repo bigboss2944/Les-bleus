@@ -13,7 +13,7 @@ namespace Entities
         #region Attributs
         private long idLogin;
         private string password;
-        private Seller user;
+        //private Seller user;
         #endregion
 
         #region Properties
@@ -31,11 +31,11 @@ namespace Entities
             set { password = value; }
         }
 
-        public Seller User
-        {
-            get { return user; }
-            set { user = value; }
-        }
+        //public Seller User
+        //{
+        //    get { return user; }
+        //    set { user = value; }
+        //}
         #endregion
 
         #region Constructors

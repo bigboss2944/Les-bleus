@@ -9,13 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using ASP_NET_FilRouge.Models;
 using Entities;
-using Database;
+
 
 namespace ASP_NET_FilRouge.Controllers
 {
     public class BicyclesController : Controller
     {
-        private Database.EntitiesContext db = new Database.EntitiesContext();
+        private EntitiesContext db = new EntitiesContext();
 
         //GET: Bicycles menu
         [Route("Bicycles menu")]
@@ -58,6 +58,7 @@ namespace ASP_NET_FilRouge.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize (Roles ="Admin")]
         public async Task<ActionResult> Create([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)

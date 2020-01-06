@@ -58,7 +58,6 @@ C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bard
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\bin\Debug\EntityFramework.xml
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\bin\Debug\Newtonsoft.Json.xml
-C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.dll
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.pdb
