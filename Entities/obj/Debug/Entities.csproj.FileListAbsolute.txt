@@ -61,3 +61,16 @@ C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bard
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.dll
 C:\Users\oNI\Desktop\Formation_Dev_.NET\Modules\TP_FilRouge_Antoine_Cronier\bardet_chu\Entities\obj\Debug\Entities.pdb
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\Entities.dll.config
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\Entities.dll
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\Entities.pdb
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\EntityFramework.dll
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\EntityFramework.xml
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\obj\Debug\Entities.dll
+C:\Users\IB\Documents\BrancheChuSprintBardetProjetFilRouge\Entities\obj\Debug\Entities.pdb
