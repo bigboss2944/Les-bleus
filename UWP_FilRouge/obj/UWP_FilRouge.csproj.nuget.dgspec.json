@@ -48,6 +48,14 @@
             "MvvmLight": {
               "target": "Package",
               "version": "[5.4.1.1, )"
+            },
+            "SQLiteNetExtensions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "sqlite": {
+              "target": "Package",
+              "version": "[3.13.0, )"
             }
           },
           "imports": [

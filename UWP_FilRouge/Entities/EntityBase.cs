@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Entities
 {
-    public class EntityBase : INotifyPropertyChanged
+    public abstract class EntityBase : INotifyPropertyChanged
     {
+        private int id;
+
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
         {
@@ -18,5 +28,10 @@ namespace UWP_FilRouge.Entities
                 handler(this, new PropertyChangedEventArgs(name));
             }
         }
+
+
+        public abstract Object Copy();
+        public abstract void CopyFrom(Object obj);
+
     }
 }
