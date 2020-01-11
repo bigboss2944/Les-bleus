@@ -25,10 +25,10 @@ namespace UWP_FilRouge
         public MainPage()
         {
             this.InitializeComponent();
-            //this.Loaded += MainPage_Loaded();
+            this.Loaded += MainPage_Loaded;
         }
 
-        private void MainPage_Loaded()
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             Button btn = new Button();            //UIElement            
             btn.Visibility = Visibility.Visible;            
