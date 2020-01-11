@@ -20,8 +20,42 @@ namespace ASP_NET_FilRouge.Controllers
         [Route("Orders menu")]
         public ActionResult Crud()
         {
+            OrdersDbInitialize();
             return View();
         }
+
+        private async Task<ActionResult> OrdersDbInitialize()
+        {
+            Shop shop1 = new Shop();
+            for (int i = 1; i < 5; i++)
+            {
+                Seller seller1 = new Seller();
+                Customer customer1 = new Customer();
+
+                Order order = new Order();
+                order.Date = DateTime.Now;
+                order.Discount = 0.1F;
+                order.Seller = seller1;
+                order.Customer = customer1;
+                order.Shop = shop1;
+                order.UseLoyaltyPoint = null;
+                //order.LoyaltyPoint = 5 + i;
+                //order.LoyaltyPointUsed = 0;
+                //order.LoyaltyPointEarned = 0;
+                //order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
+                //order.SumFreeTax = order.SumFreeTaxCalculated();
+                order.Tax = 0.2F;
+                order.ShippingCost = 0;
+                order.PayMode = "CB";
+                //order.TotalAmount = order.TotalAmountCalculated();
+                db.Orders.Add(order);
+                //this.SaveChanges();
+            }
+            await db.SaveChangesAsync();
+            return View();
+        }
+
+
 
         // GET: Orders
         [Route("Orders index")]

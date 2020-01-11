@@ -21,6 +21,35 @@ namespace ASP_NET_FilRouge.Controllers
         [Route("Bicycles menu")]
         public ActionResult Crud()
         {
+            BicyclesDbInitialize();
+            return View();
+        }
+
+        private async Task<ActionResult> BicyclesDbInitialize()
+        {
+            Random random = new Random();
+            for (int i = 1; i < 5; i++)
+            {
+                Bicycle bicycle = new Bicycle();
+                bicycle.Order = db.Orders.Find(random.Next(1, db.Orders.Count()));
+                bicycle.TypeOfBike = "";
+                bicycle.Exchangeable = true;
+                bicycle.Insurance = true;
+                bicycle.Deliverable = true;
+                bicycle.Category = "";
+                bicycle.Reference = "";
+                bicycle.Size = 1.75F + i * 0.01F;
+                bicycle.Weight = 11.5F + i * 0.5F;
+                bicycle.Color = "";
+                bicycle.Confort = "";
+                bicycle.FreeTaxPrice = 2000F - i * 100;
+                bicycle.Electric = true;
+                bicycle.State = "";
+                bicycle.Brand = "";
+                db.Bicycles.Add(bicycle);
+                //this.SaveChanges();
+            }
+            await db.SaveChangesAsync();
             return View();
         }
 

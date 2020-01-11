@@ -20,6 +20,28 @@ namespace ASP_NET_FilRouge.Controllers
         [Route("Customers menu")]
         public ActionResult Crud()
         {
+            CustomersDbInitialize();
+            return View();
+        }
+
+        private async Task<ActionResult> CustomersDbInitialize()
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                Customer customer = new Customer();
+                customer.Address = "adress" + i;
+                customer.Email = "email" + i;
+                customer.FirstName = "firstname" + i;
+                customer.LastName = "lastname" + i;
+                customer.LoyaltyPoints = 0;
+                customer.Orders = null;
+                customer.Phone = "+33..." + i;
+                customer.PostalCode = 35000;
+                customer.Town = "rennes";
+                db.Customers.Add(customer);
+                //this.SaveChanges();
+            }
+            await db.SaveChangesAsync();
             return View();
         }
 

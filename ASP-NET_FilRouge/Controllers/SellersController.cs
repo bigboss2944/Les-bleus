@@ -20,6 +20,24 @@ namespace ASP_NET_FilRouge.Controllers
         [Route("Sellers menu")]
         public ActionResult Crud()
         {
+            SellersDbInitialize();
+            return View();
+        }
+
+        public async Task<ActionResult> SellersDbInitialize()
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                Seller Seller = new Seller();
+                Seller.Category = "seller" + i;
+                Seller.FirstName = "firstName" + i;
+                Seller.LastName = "lastName" + i;
+                Seller.Password = "password" + i;
+                db.Sellers.Add(Seller);
+                
+                //this.SaveChanges();
+            }
+            await db.SaveChangesAsync();
             return View();
         }
 

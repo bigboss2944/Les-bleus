@@ -9,6 +9,7 @@ namespace ASP_NET_FilRouge
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
         }
     }
 }
