@@ -14,9 +14,17 @@ namespace ASP_NET_FilRouge.Controllers
 {
     public class CustomersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private EntitiesContext db = new EntitiesContext();
+
+        //GET: Customers menu
+        [Route("Customers menu")]
+        public ActionResult Crud()
+        {
+            return View();
+        }
 
         // GET: Customers
+        [Route("Customers index")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Customers.ToListAsync());

@@ -14,7 +14,7 @@ namespace ASP_NET_FilRouge.Controllers
 {
     public class ShopsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private EntitiesContext db = new EntitiesContext();
 
         // GET: Shops
         public async Task<ActionResult> Index()

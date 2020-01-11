@@ -21,7 +21,7 @@ namespace Entities
         private float discount;
         private int? useLoyaltyPoint;
         //private int loyaltyPoint;
-        private int loyaltyPointUsed;
+        //private int loyaltyPointUsed;
         //private int loyaltyPointEarned;
         //private int totalLoyaltyPoint;
         private float tax;
@@ -56,6 +56,7 @@ namespace Entities
             set { seller = value; }
         }
 
+        [Required]
         public Customer Customer
         {
             get { return customer; }
@@ -128,22 +129,22 @@ namespace Entities
 
         #region Functions
         // relier bicycles et quantité pour définir le montant par bicycle et ensuite le montant global
-        public float SumFreeTaxCalculated()
-        {
-            Bicycle bicycle = new Bicycle();
-            sumFreeTax = bicycle.FreeTaxPrice * quantity;
-            return sumFreeTax;
-        }
+        //public float SumFreeTaxCalculated()
+        //{
+        //    Bicycle bicycle = new Bicycle();
+        //    sumFreeTax = bicycle.FreeTaxPrice * quantity;
+        //    return sumFreeTax;
+        //}
 
         // Discount sur le HT
         // TVA de 20%
         //100 loyaltyPoint = 10 euros de réduction
         //fdp
-        public float TotalAmountCalculated()
-        {
-            totalAmount = sumFreeTax * (1F - discount) * (1F + tax) - (loyaltyPointUsed * 0.1F) + shippingCost;
-            return totalAmount;
-        }
+        //public float TotalAmountCalculated()
+        //{
+        //    totalAmount = sumFreeTax * (1F - discount) * (1F + tax) - (loyaltyPointUsed * 0.1F) + shippingCost;
+        //    return totalAmount;
+        //}
         #endregion
 
         

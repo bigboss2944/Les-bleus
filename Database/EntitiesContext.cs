@@ -125,11 +125,11 @@ namespace Database
                         //order.LoyaltyPointUsed = 0;
                         //order.LoyaltyPointEarned = 0;
                         //order.TotalLoyaltyPoint = order.LoyaltyPointCalculated();
-                        order.SumFreeTax = order.SumFreeTaxCalculated();
+                        //order.SumFreeTax = order.SumFreeTaxCalculated();
                         order.Tax = 0.2F;
                         order.ShippingCost = 0;
                         order.PayMode = "CB";
-                        order.TotalAmount = order.TotalAmountCalculated();
+                        //order.TotalAmount = order.TotalAmountCalculated();
                         this.Orders.Add(order);
                         this.SaveChanges();
                     }
@@ -151,7 +151,7 @@ namespace Database
             modelBuilder.Entity<Customer>().HasMany(c => c.Orders).WithOptional(o => o.Customer);
 
             modelBuilder.Entity<Customer>().HasOptional(c => c.Shop).WithMany(s => s.Customers);
-            modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithRequired(s => s.Shop);
+            //modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithRequired(s => s.Shop);
             modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithRequired(s => s.Shop);
 
             base.OnModelCreating(modelBuilder);

@@ -14,9 +14,17 @@ namespace ASP_NET_FilRouge.Controllers
 {
     public class OrdersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private EntitiesContext db = new EntitiesContext();
+
+        //GET: Orders menu
+        [Route("Orders menu")]
+        public ActionResult Crud()
+        {
+            return View();
+        }
 
         // GET: Orders
+        [Route("Orders index")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Orders.ToListAsync());

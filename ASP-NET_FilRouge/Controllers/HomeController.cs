@@ -15,14 +15,14 @@ namespace ASP_NET_FilRouge.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Les bleus bike shop, our story.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "For any question, please :";
 
             return View();
         }

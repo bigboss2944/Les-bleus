@@ -49,3 +49,15 @@ C:\Users\IB\source\repos\Filrouge\Entities\bin\Debug\Newtonsoft.Json.xml
 C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.dll
 C:\Users\IB\source\repos\Filrouge\Entities\obj\Debug\Entities.pdb
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\Entities.dll.config
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\Entities.dll
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\Entities.pdb
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\EntityFramework.dll
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\EntityFramework.xml
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.dll
+C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.pdb
