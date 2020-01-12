@@ -16,6 +16,26 @@ namespace ASP_NET_FilRouge.Controllers
     {
         private EntitiesContext db = new EntitiesContext();
 
+        public List<long> ListBicycleId()
+        {
+            List<long> items = new List<long>();
+
+            foreach (var temps in db.Bicycles.Select(b => b.Id))
+            {
+
+                items.Add(temps);
+            }
+
+            //List<SelectListItem> items = new List<SelectListItem>();
+
+            
+
+            //ViewBag.BicycleId = items;
+
+            return items;
+
+        }
+
         //GET: Orders menu
         [Route("Orders menu")]
         public ActionResult Crud()

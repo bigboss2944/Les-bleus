@@ -21,9 +21,11 @@ namespace ASP_NET_FilRouge.Controllers
         [Route("Bicycles menu")]
         public ActionResult Crud()
         {
-            BicyclesDbInitialize();
+            BicyclesDbInitialize(); //Génération de données aléatoires
             return View();
         }
+
+
 
         private async Task<ActionResult> BicyclesDbInitialize()
         {
