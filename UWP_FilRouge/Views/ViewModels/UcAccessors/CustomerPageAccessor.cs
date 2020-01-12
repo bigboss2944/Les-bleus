@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge.Views.ViewModelLight
+namespace UWP_FilRouge.Views.ViewModels.UcAccessors
 {
-    public class ShopPage
+    class CustomerPageAccessor
     {
     }
 }

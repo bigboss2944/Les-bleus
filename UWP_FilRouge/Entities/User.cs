@@ -41,7 +41,7 @@ namespace Entities
             set
             {
                 seller = value;
-                OnPropertyChanged("Role");
+                OnPropertyChanged("Seller");
             }
         }
 

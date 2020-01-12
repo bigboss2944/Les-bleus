@@ -68,7 +68,13 @@ namespace UWP_FilRouge.Entities
             seller.Id = this.Id;
             seller.Category = this.Category;
             seller.Password = this.Password;
-            seller.Shop = this.Shop;
+            /// seller.Shop = this.Shop;
+            if (this.Shop != null)
+            {
+                seller.Shop = this.Shop.Copy() as Shop;
+            }
+
+
 
             return seller;
            
@@ -79,8 +85,12 @@ namespace UWP_FilRouge.Entities
             Seller seller = obj as Seller;
             this.Id = seller.Id;
             this.Password = seller.Password;
-            this.Shop = seller.Shop;
+            ///this.Shop = seller.Shop;
             this.Category = seller.Category;
+            if (seller.Shop != null)
+            {
+                this.Shop = seller.Shop;
+            }
         }
 
 
