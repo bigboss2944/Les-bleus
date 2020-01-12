@@ -103,6 +103,10 @@ namespace Entities
         #endregion
 
         #region Functions
+        public String ToString()
+        {
+            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
+        }
         #endregion
 
     }

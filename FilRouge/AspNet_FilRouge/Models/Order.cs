@@ -32,31 +32,31 @@ namespace AspNet_FilRouge.Models
             set { idOrder = value; }
         }
 
-        public List<Bicycle> Bicycles
+        public virtual List<Bicycle> Bicycles
         {
             get { return bicycles; }
             set { bicycles = value; }
         }
 
-        public Seller Seller
+        public virtual Seller Seller
         {
             get { return seller; }
             set { seller = value; }
         }
 
-        public Customer Customer
+        public virtual Customer Customer
         {
             get { return customer; }
             set { customer = value; }
         }
 
-        public DateTime Date
+        public virtual DateTime Date
         {
             get { return date; }
             set { date = value; }
         }
 
-        public Shop Shop
+        public virtual Shop Shop
         {
             get { return shop; }
             set { shop = value; }
@@ -102,6 +102,10 @@ namespace AspNet_FilRouge.Models
         #endregion
 
         #region Functions
+        public String ToString()
+        {
+            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
+        }
         #endregion
     }
 }

@@ -26,7 +26,7 @@ namespace AspNet_FilRouge.Models
             set => idSeller = value;
         }
 
-        public Role Role
+        public virtual Role Role
         {
             get { return role; }
             set { role = value; }
@@ -44,7 +44,7 @@ namespace AspNet_FilRouge.Models
             set { orders = value; }
         }
 
-        public Shop Shop
+        public virtual Shop Shop
         {
             get { return shop; }
             set { shop = value; }

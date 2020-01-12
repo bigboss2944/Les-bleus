@@ -74,19 +74,19 @@ namespace AspNet_FilRouge.Models
             set { deliverable = value; }
         }
 
-        public Order Order
+        public virtual Order Order
         {
             get { return order; }
             set { order = value; }
         }
 
-        public Customer Customer
+        public virtual Customer Customer
         {
             get { return customer; }
             set { customer = value; }
         }
 
-        public Shop Shop
+        public virtual Shop Shop
         {
             get { return shop; }
             set { shop = value; }

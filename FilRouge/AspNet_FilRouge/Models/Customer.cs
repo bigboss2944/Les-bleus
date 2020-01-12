@@ -34,7 +34,7 @@ namespace AspNet_FilRouge.Models
         public string Phone { get => phone; set => phone = value; }
         public string Email { get => email; set => email = value; }
 
-        public Shop Shop
+        public virtual Shop Shop
         {
             get { return shop; }
             set { shop = value; }

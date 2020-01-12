@@ -58,5 +58,12 @@ namespace Entities
             this.Orders = new List<Order>();
         }
         #endregion
+
+        #region Functions
+        public String ToString()
+        {
+            return this.idSeller + " " + this.password + " " + this.orders + " " + this.shop + " " + this.role;
+        }
+        #endregion
     }
 }

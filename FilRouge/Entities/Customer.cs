@@ -60,6 +60,13 @@ namespace Entities
             this.Orders = new List<Order>();
         }
         #endregion    
-        
+
+        #region Functions
+        public String ToString()
+        {
+            return this.idCustomer + " " + this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
+        }
+        #endregion
+
     }
 }
