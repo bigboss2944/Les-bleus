@@ -1,0 +1,62 @@
+﻿<UserControl
+    x:Class="UWP_FilRouge.Views.UserControls.CreateBicycleUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_FilRouge.Views.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="bicycleCharacteristics1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock x:Name="Size">Size</TextBlock>
+            <TextBox x:Name="inputSize" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="Weight">Weight</TextBlock>
+            <TextBox x:Name="inputWeight" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="Color">Color</TextBlock>
+            <TextBox x:Name="inputColor" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="WheelSize">WheelSize</TextBlock>
+            <TextBox x:Name="inputWheelSize" Text="{Binding Name, Mode=OneWay}"></TextBox>
+        </StackPanel>
+        <StackPanel x:Name="bicycleCharacteristics2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock x:Name="Confort">Confort</TextBlock>
+            <TextBox x:Name="inputConfort" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="State">State</TextBlock>
+            <TextBox x:Name="inputState" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="Brand">Brand</TextBlock>
+            <TextBox x:Name="inputBrand" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <!--<ComboBox PlaceholderText="Select it" Header="Order" x:Name="comboBikeOrder">
+            </ComboBox>-->
+        </StackPanel>
+        <StackPanel x:Name="bicycle1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock x:Name="TypeOfBike">TypeOfBike</TextBlock>
+            <TextBox x:Name="inputTypeOfBike" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="Category">Category</TextBlock>
+            <TextBox x:Name="inputCategory" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="Reference">Reference</TextBlock>
+            <TextBox x:Name="inputReference" Text="{Binding Name, Mode=OneWay}"></TextBox>
+            <TextBlock x:Name="FreeTaxPrice">FreeTaxPrice</TextBlock>
+            <TextBox x:Name="inputFreeTaxPrice" Text="{Binding Name, Mode=OneWay}"></TextBox>
+        </StackPanel>
+        <StackPanel x:Name="bicycles2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="Exchangeable">Exchangeable</TextBlock>
+            <CheckBox x:Name="SelectExchangeable" Checked="{Binding Name, Mode=OneWay}"></CheckBox>
+            <TextBlock x:Name="Insurance">Insurance</TextBlock>
+            <CheckBox x:Name="SelectInsurance" Checked="{Binding Name, Mode=OneWay}"></CheckBox>
+            <TextBlock x:Name="Deliverable">Deliverable</TextBlock>
+            <CheckBox x:Name="SelecteDeliverable" Checked="{Binding Name, Mode=OneWay}"></CheckBox>
+            <TextBlock x:Name="Electric">Electric</TextBlock>
+            <CheckBox x:Name="inputElectric" Checked="{Binding Name, Mode=OneWay}"></CheckBox>
+           
+            <!--<local:CreateBicycleCharacteristicsUC/>-->
+        </StackPanel>
+    </Grid>
+</UserControl>
