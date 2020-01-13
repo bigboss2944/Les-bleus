@@ -73,7 +73,6 @@
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="Text" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.SellerCheckPage" />

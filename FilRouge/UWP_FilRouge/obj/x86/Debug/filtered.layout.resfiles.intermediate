@@ -21,7 +21,6 @@ Views\Customers\ShowCustomerUC.xbf
 Views\OrderCheckPage.xbf
 Views\Orders\CreateOrderUC.xbf
 Views\Orders\ListOrderUC.xbf
-Views\Orders\OrderUC.xbf
 Views\Orders\ShowOrderUC.xbf
 Views\SellerCheckPage.xbf
 Views\Sellers\EditSellerUC.xbf

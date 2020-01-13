@@ -53,6 +53,12 @@
       <RootProperty Name="Source" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Orders.CreateOrderUC">
+      <RootProperty Name="DataContext" />
+    </RootType>
     <RootType FullName="UWP_FilRouge.Views.OrderCheckPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootProperty Name="Content" />
@@ -63,14 +69,10 @@
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
       <RootProperty Name="Width" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
-      <RootProperty Name="Children" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="Text" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.SellerCheckPage" />
