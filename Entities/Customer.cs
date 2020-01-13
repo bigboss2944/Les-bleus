@@ -18,8 +18,9 @@ namespace Entities
         private int loyaltyPoints;
         private string phone;
         private string email;
-        private List<Order> orders;
         private Shop shop;
+        private List<Order> orders;
+        private string gender;
         #endregion
 
         #region Properties
@@ -33,15 +34,23 @@ namespace Entities
         public int LoyaltyPoints { get => loyaltyPoints; set => loyaltyPoints = value; }
         public string Phone { get => phone; set => phone = value; }
         public string Email { get => email; set => email = value; }
+
+        public Shop Shop
+        {
+            get { return shop; }
+            set { shop = value; }
+        }
+
         public List<Order> Orders
         {
             get { return orders; }
             set { orders = value; }
         }
-        public Shop Shop
+
+        public string Gender
         {
-            get { return shop; }
-            set { shop = value; }
+            get { return gender; }
+            set { gender = value; }
         }
         #endregion
 
@@ -50,6 +59,14 @@ namespace Entities
         {
             this.Orders = new List<Order>();
         }
-        #endregion     
+        #endregion    
+
+        #region Functions
+        public String ToString()
+        {
+            return this.idCustomer + " " + this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
+        }
+        #endregion
+
     }
 }

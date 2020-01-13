@@ -64,10 +64,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ASP-NET_FilRouge\ASP-NET_FilRouge.csproj">
-      <Project>{CAD57828-7638-4A4F-9048-FED794FDEE8E}</Project>
-      <Name>ASP-NET_FilRouge</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Database\Database.csproj">
       <Project>{17CC17D6-224B-4576-91BC-0CB58DA6ED48}</Project>
       <Name>Database</Name>

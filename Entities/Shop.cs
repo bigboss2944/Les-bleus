@@ -12,7 +12,7 @@ namespace Entities
     public class Shop
     {
         #region Attributs
-        private long idShop;
+        private long? shopId;
         private string town;
         private int postalCode;
         private string adress;
@@ -23,15 +23,16 @@ namespace Entities
         private List<Order> orders;
         private List<Seller> sellers;
         private List<Customer> customers;
+        private List<Bicycle> bicycles;
         #endregion
 
         #region Properties
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdShop
+        public long? ShopId
         {
-            get { return idShop; }
-            set { idShop = value; }
+            get { return shopId; }
+            set { shopId = value; }
         }
 
         public string Town
@@ -82,7 +83,6 @@ namespace Entities
             set { orders = value; }
         }
 
-        
         public List<Seller> Sellers
         {
             get { return sellers; }
@@ -93,6 +93,12 @@ namespace Entities
         {
             get { return customers; }
             set { customers = value; }
+        }
+
+        public List<Bicycle> Bicycles
+        {
+            get { return bicycles; }
+            set { bicycles = value; }
         }
         #endregion
 
@@ -105,6 +111,7 @@ namespace Entities
             this.Orders = new List<Order>();
             this.Sellers = new List<Seller>();
             this.Customers = new List<Customer>();
+            this.Bicycles = new  List<Bicycle>();
         }
         #endregion
     }

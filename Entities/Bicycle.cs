@@ -12,16 +12,16 @@ namespace Entities
     {
         #region Attributs
         private long id;
-        //city fitness road xc 
-        private string typeOfBike;
-        //kids woman man
-        private string category;
+        private string typeOfBike;//city fitness road xc 
+        private string category;//kids woman man
         private string reference;
         private float freeTaxPrice;
         private bool exchangeable;
         private bool insurance;
         private bool deliverable;
         private Order order;
+        private Customer customer;
+        private Shop shop;
         #endregion
 
         #region Properties
@@ -75,11 +75,22 @@ namespace Entities
             set { deliverable = value; }
         }
 
-        //[ForeignKey()]
         public Order Order
         {
             get { return order; }
             set { order = value; }
+        }
+
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
+
+        public Shop Shop
+        {
+            get { return shop; }
+            set { shop = value; }
         }
         #endregion
 
@@ -95,6 +106,7 @@ namespace Entities
             
         }
         #endregion
+
         #region Functions
         public String ToString() 
             {
