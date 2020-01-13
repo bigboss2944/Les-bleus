@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{2DAA9DAA-722D-4469-A6ED-A37661F8A737}</Project>
-      <Name>Entities</Name>
+    <ProjectReference Include="..\AspNet_FilRouge\AspNet_FilRouge.csproj">
+      <Project>{703d3597-0412-43d7-bf47-61b32387b3a1}</Project>
+      <Name>AspNet_FilRouge</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

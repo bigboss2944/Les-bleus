@@ -20,6 +20,13 @@ namespace AspNet_FilRouge.Models
         }
     }
 
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base(){ }
+        public ApplicationRole(string roleName) : base(roleName) { }
+
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         #region Attributes
@@ -222,5 +229,7 @@ namespace AspNet_FilRouge.Models
             base.OnModelCreating(modelBuilder);
         }
         #endregion
+
+        public System.Data.Entity.DbSet<AspNet_FilRouge.Models.RoleViewModel> RoleViewModels { get; set; }
     }
 }

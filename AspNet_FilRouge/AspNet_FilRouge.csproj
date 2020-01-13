@@ -173,6 +173,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +186,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
@@ -267,6 +269,11 @@
     <Content Include="Views\Sellers\Details.cshtml" />
     <Content Include="Views\Sellers\Edit.cshtml" />
     <Content Include="Views\Sellers\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\Details.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -283,6 +290,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{2daa9daa-722d-4469-a6ed-a37661f8a737}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
