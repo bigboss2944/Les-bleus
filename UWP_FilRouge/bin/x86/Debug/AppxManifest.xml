@@ -7,8 +7,8 @@
 
     Pour plus d'informations sur les fichiers manifeste, consultez http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="4aa0ceea-22a1-4e5d-914a-36808b111965" Publisher="CN=IB" Version="1.0.0.0" ProcessorArchitecture="x86" />
-  <mp:PhoneIdentity PhoneProductId="4aa0ceea-22a1-4e5d-914a-36808b111965" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="4dfbb287-017b-443d-8eff-96f656e14de1" Publisher="CN=IB" Version="1.0.0.0" ProcessorArchitecture="x86" />
+  <mp:PhoneIdentity PhoneProductId="4dfbb287-017b-443d-8eff-96f656e14de1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UWP_FilRouge</DisplayName>
     <PublisherDisplayName>IB</PublisherDisplayName>
@@ -46,8 +46,8 @@
     <build:Item Name="VisualStudio" Version="16.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2019" />
     <build:Item Name="OperatingSystem" Version="10.0.18362.530 (WinBuild.160101.0800)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="16.0.29507.95" />
-    <build:Item Name="ProjectGUID" Value="{4C464B07-F16E-41B4-9F68-5B830E2FC8EA}" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="16.0.29311.281" />
+    <build:Item Name="ProjectGUID" Value="{C2B8D7C0-7769-47EE-80F5-21E4FD7B0D6B}" />
     <build:Item Name="OptimizingToolset" Value="None" />
     <build:Item Name="TargetRuntime" Value="Managed" />
     <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="10.0.18362.1" />

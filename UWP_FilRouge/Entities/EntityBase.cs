@@ -1,5 +1,4 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,14 +11,15 @@ namespace UWP_FilRouge.Entities
     {
         private int id;
 
-        [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -29,9 +29,7 @@ namespace UWP_FilRouge.Entities
             }
         }
 
-
         public abstract Object Copy();
         public abstract void CopyFrom(Object obj);
-
     }
 }

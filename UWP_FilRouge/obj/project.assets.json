@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "UAP,Version=v10.0.17763": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -474,7 +474,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-arm": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -1087,7 +1087,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-arm-aot": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -1701,7 +1701,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-arm64-aot": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -2309,7 +2309,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-x64": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -2922,7 +2922,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-x64-aot": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -3536,7 +3536,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-x86": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -4149,7 +4149,7 @@
       }
     },
     "UAP,Version=v10.0.17763/win10-x86-aot": {
-      "CommonServiceLocator/2.0.5": {
+      "CommonServiceLocator/2.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/CommonServiceLocator.dll": {}
@@ -4764,26 +4764,21 @@
     }
   },
   "libraries": {
-    "CommonServiceLocator/2.0.5": {
-      "sha512": "Md2q9f6hAuUAm6IWTybQbYvxhDAs2dqmsudVDghpg0Q+C0M2KkmiTDjeGx1PsYhnZPvp+hy1Cx99v0VPW9W6/g==",
+    "CommonServiceLocator/2.0.2": {
+      "sha512": "OeAz2cDGiQuaxpJ2pUm1xyZyklT2HgP5LHoumI0o/pcXdTweJMjKHu92JKa33pZRCrRI0DdPcE5MGHk6GCpDMQ==",
       "type": "package",
-      "path": "commonservicelocator/2.0.5",
+      "path": "commonservicelocator/2.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "commonservicelocator.2.0.5.nupkg.sha512",
+        "commonservicelocator.2.0.2.nupkg.sha512",
         "commonservicelocator.nuspec",
         "lib/net40/CommonServiceLocator.dll",
         "lib/net45/CommonServiceLocator.dll",
-        "lib/net46/CommonServiceLocator.dll",
         "lib/net47/CommonServiceLocator.dll",
-        "lib/net48/CommonServiceLocator.dll",
         "lib/netcoreapp1.0/CommonServiceLocator.dll",
-        "lib/netcoreapp2.0/CommonServiceLocator.dll",
-        "lib/netcoreapp3.0/CommonServiceLocator.dll",
         "lib/netstandard1.0/CommonServiceLocator.dll",
-        "lib/netstandard2.0/CommonServiceLocator.dll",
-        "lib/netstandard2.1/CommonServiceLocator.dll"
+        "lib/netstandard2.0/CommonServiceLocator.dll"
       ]
     },
     "Microsoft.Net.Native.Compiler/2.2.7-rel-27913-00": {
@@ -9544,7 +9539,6 @@
   },
   "projectFileDependencyGroups": {
     "UAP,Version=v10.0.17763": [
-      "CommonServiceLocator >= 2.0.5",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 6.2.9",
       "MvvmLight >= 5.4.1.1",
       "SQLiteNetExtensions >= 2.1.0",
@@ -9588,10 +9582,6 @@
     "frameworks": {
       "uap10.0.17763": {
         "dependencies": {
-          "CommonServiceLocator": {
-            "target": "Package",
-            "version": "[2.0.5, )"
-          },
           "Microsoft.NETCore.UniversalWindowsPlatform": {
             "target": "Package",
             "version": "[6.2.9, )"

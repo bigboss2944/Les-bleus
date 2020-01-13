@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="4aa0ceea-22a1-4e5d-914a-36808b111965"
+    Name="4dfbb287-017b-443d-8eff-96f656e14de1"
     Publisher="CN=IB"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="4aa0ceea-22a1-4e5d-914a-36808b111965" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="4dfbb287-017b-443d-8eff-96f656e14de1" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>UWP_FilRouge</DisplayName>
