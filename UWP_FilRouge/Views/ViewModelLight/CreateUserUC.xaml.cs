@@ -26,46 +26,10 @@ namespace UWP_FilRouge.Views.ViewModelLight
         public CreateUserUC()
         {
             this.InitializeComponent();
-            this.TextFirstName = "";
-            this.TextLastName = "";
-
-            this.DataContext = this;
-            this.Loaded += User_Loaded;
+           
         }
-
-        public string TextFirstName { get; set; }
-
-        public string TextLastName { get; set; }
-
-        private void User_Loaded(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
-        /*
-        public ICommand ButtonClick => new RelayCommand(() =>
-        {
-            String firstName;
-            String lastName;
-
-            firstName = this.TextFirstName;
-            lastName = this.TextLastName;
-
-            Debug.WriteLine(TextFirstName);
-            Debug.WriteLine(TextLastName);
-        });*/
 
         
-
-        public void OnNavigatedTo(NavigationEventArgs e) 
-        { 
-            Debug.WriteLine("Enter Creation Page"); 
-        }
-        public void OnNavigatedFrom(NavigationEventArgs e) 
-        { 
-            Debug.WriteLine("Leave Creation Page"); 
-        }
 
 
     }

@@ -12,7 +12,16 @@ namespace UWP_FilRouge.Views.ViewModelLight
     public class ViewModelLocator
     {   /// <summary>        
         /// Initializes a new instance of the ViewModelLocator class.        
-        /// /// </summary>        
+        /// /// </summary>
+        /// 
+        public enum Pages
+        {
+            CreateUserView,
+            ListUserView,
+            
+            MainPage
+        }
+
         public ViewModelLocator()        
         {            
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            //Register your services used here            
@@ -25,8 +34,10 @@ namespace UWP_FilRouge.Views.ViewModelLight
             });
             SimpleIoc.Default.Register<UserViewModel>();
             SimpleIoc.Default.Register<CreateUserViewModel>();
+            SimpleIoc.Default.Register<ListUserView>();
 
         }                
+
         public UserViewModel UserViewInstance        
         {            
             get { return ServiceLocator.Current.GetInstance<UserViewModel>(); }        
@@ -37,7 +48,10 @@ namespace UWP_FilRouge.Views.ViewModelLight
             get { return ServiceLocator.Current.GetInstance<ListViewModel>(); }
         }
 
-
+        public CreateUserViewModel CreateUserViewInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<CreateUserViewModel>(); }
+        }
     }
 
 }

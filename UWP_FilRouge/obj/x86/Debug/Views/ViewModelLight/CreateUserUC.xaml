@@ -12,9 +12,9 @@
     <Grid>
 
         <StackPanel Orientation="Vertical">
-            <TextBox PlaceholderText="FirstName" Text="{Binding TextFirstName, Mode=TwoWay}"/>
-            <TextBox PlaceholderText="LastName" Text="{Binding TextLastName, Mode=TwoWay}"/>
-            <Button x:ConnectionId='2' x:Name="btn1" Command="{Binding CreateUserViewModel}"/>
+            <TextBox PlaceholderText="FirstName" Text="{Binding User.Firstname, Mode=TwoWay}"/>
+            <TextBox PlaceholderText="LastName" Text="{Binding User.Lastname, Mode=TwoWay}"/>
+            <Button x:ConnectionId='2' x:Name="btn1" Command="{Binding ButtonClick}"/>
 
         </StackPanel>
 

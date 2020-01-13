@@ -2,10 +2,14 @@
     x:Class="UWP_FilRouge.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_FilRouge"
-    xmlns:vm="using:UWP_FilRouge.Views.ViewModels">
-    <Application.Resources>
-        <vm:ViewModelLocator xmlns:vm="using:UWP_FilRouge.Views.ViewModels" x:Key="Locator" />
-    </Application.Resources>
+    xmlns:vm="using:UWP_FilRouge.Views.ViewModelLight"
+    xmlns:local="using:UWP_FilRouge">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <vm:ViewModelLocator xmlns:vm="using:UWP_FilRouge.Views.ViewModelLight" x:Key="Locator" />
+        </ResourceDictionary>
+    </Application.Resources>
 
 </Application>

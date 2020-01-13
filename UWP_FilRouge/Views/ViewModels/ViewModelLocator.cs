@@ -22,6 +22,7 @@ namespace UWP_FilRouge.Views.ViewModels
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<ShopPageViewModel>();
             SimpleIoc.Default.Register<MainPageViewModel>();
+            SimpleIoc.Default.Register<UserPageViewModel>();
         }
 
         public ShopPageViewModel ShopPageInstance
@@ -33,6 +34,12 @@ namespace UWP_FilRouge.Views.ViewModels
         {
             get { return ServiceLocator.Current.GetInstance<MainPageViewModel>(); }
         }
+
+        public ShopPageViewModel UserPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<UserPageViewModel>(); }
+        }
+
 
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Views.ViewModels.UcAccessors
 {
-    class OrderPageAccessor
+    public class OrderPageAccessor
     {
+
     }
 }

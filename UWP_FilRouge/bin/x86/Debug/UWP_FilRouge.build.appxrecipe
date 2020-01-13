@@ -8,7 +8,7 @@
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
     <SolutionConfiguration>Debug|x86</SolutionConfiguration>
     <PackageArchitecture>x86</PackageArchitecture>
-    <PackageIdentityName>4dfbb287-017b-443d-8eff-96f656e14de1</PackageIdentityName>
+    <PackageIdentityName>4aa0ceea-22a1-4e5d-914a-36808b111965</PackageIdentityName>
     <PackageIdentityPublisher>CN=IB</PackageIdentityPublisher>
     <IntermediateOutputPath>C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
@@ -28,7 +28,7 @@
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
       <PackagePath>entrypoint\UWP_FilRouge.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\commonservicelocator\2.0.2\lib\netstandard2.0\CommonServiceLocator.dll">
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\commonservicelocator\2.0.5\lib\netstandard2.0\CommonServiceLocator.dll">
       <PackagePath>CommonServiceLocator.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\mvvmlightlibs\5.4.1.1\lib\uap10.0\GalaSoft.MvvmLight.Extras.dll">
@@ -109,80 +109,23 @@
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Dictionary1.xbf">
+      <PackagePath>Dictionary1.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\BicycleCheckPage.xbf">
-      <PackagePath>Views\BicycleCheckPage.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserUC.xbf">
+      <PackagePath>Views\ViewModelLight\CreateUserUC.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\EditBicycleUC.xbf">
-      <PackagePath>Views\Bicycles\EditBicycleUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserView.xbf">
+      <PackagePath>Views\ViewModelLight\CreateUserView.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ListBicycleUC.xbf">
-      <PackagePath>Views\Bicycles\ListBicycleUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\ListUserView.xbf">
+      <PackagePath>Views\ViewModelLight\ListUserView.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ShowBicycleUC.xbf">
-      <PackagePath>Views\Bicycles\ShowBicycleUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\CustomerCheckPage.xbf">
-      <PackagePath>Views\CustomerCheckPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\EditCustomerUC.xbf">
-      <PackagePath>Views\Customers\EditCustomerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf">
-      <PackagePath>Views\Customers\ListCustomerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf">
-      <PackagePath>Views\Customers\ShowCustomerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\OrderCheckPage.xbf">
-      <PackagePath>Views\OrderCheckPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf">
-      <PackagePath>Views\Orders\EditOrderUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf">
-      <PackagePath>Views\Orders\ListOrderUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf">
-      <PackagePath>Views\Orders\ShowOrderUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\SellerCheckPage.xbf">
-      <PackagePath>Views\SellerCheckPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\EditSellerUC.xbf">
-      <PackagePath>Views\Sellers\EditSellerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ListSellerUC.xbf">
-      <PackagePath>Views\Sellers\ListSellerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ShowSellerUC.xbf">
-      <PackagePath>Views\Sellers\ShowSellerUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ShopCheckPage.xbf">
-      <PackagePath>Views\ShopCheckPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\EditShopUC.xbf">
-      <PackagePath>Views\Shops\EditShopUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\ListShopUC.xbf">
-      <PackagePath>Views\Shops\ListShopUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\ShowShopUC.xbf">
-      <PackagePath>Views\Shops\ShowShopUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserCheckPage.xbf">
-      <PackagePath>Views\UserCheckPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\EditUserUC.xbf">
-      <PackagePath>Views\Users\EditUserUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\ListUserUC.xbf">
-      <PackagePath>Views\Users\ListUserUC.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\ShowUserUC.xbf">
-      <PackagePath>Views\Users\ShowUserUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\UserView.xbf">
+      <PackagePath>Views\ViewModelLight\UserView.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
