@@ -243,8 +243,6 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.g.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\OrderCheckPage.g.i.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\OrderCheckPage.g.cs
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.g.i.cs
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.g.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.g.i.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.g.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.g.i.cs
@@ -285,7 +283,6 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\OrderCheckPage.xaml
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\SellerCheckPage.xaml
@@ -311,7 +308,6 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\OrderCheckPage.xbf
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\SellerCheckPage.xbf
@@ -341,7 +337,6 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\OrderCheckPage.xbf
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\SellerCheckPage.xbf
@@ -403,4 +398,13 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_636885238160000000.json
-C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_636885274160000000.json
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\CreateOrderUC.xbf
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.g.i.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.g.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.xaml
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.xbf
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\OrderUC.g.i.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\OrderUC.g.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\OrderUC.xaml
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\OrderUC.xbf
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\OrderUC.xbf

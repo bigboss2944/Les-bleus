@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Roots >
+  <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="OrderCheckPageInstance" />
+    <RootPropertyPathName Name="Order" />
+    <RootPropertyPathName Name="PayMode" />
+    <RootPropertyPathName Name="hippingCost" />
+    <RootPropertyPathName Name="Date" />
+    <RootPropertyPathName Name="Bicycles" />
+    <RootPropertyPathName Name="shippingCost" />
+    <RootPropertyPathName Name="LoyaltyPoint" />
+    <RootPropertyPathName Name="discount" />
+    <RootPropertyPathName Name="Tax" />
+    <RootPropertyPathName Name="Shop" />
+    <RootPropertyPathName Name="Quantity" />
+    <RootPropertyPathName Name="Customer" />
+    <RootPropertyPathName Name="Seller" />
+  </Roots.PropertyPathNames>
+  <Roots.RootTypes>
+    <RootType FullName="Windows.UI.Xaml.Application">
+      <RootProperty Name="Resources" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.ResourceDictionary" />
+    <RootType FullName="UWP_FilRouge.Views.MvvmLight.ViewModelLocator" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Page">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Content" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Children" />
+      <RootProperty Name="RowDefinitions" />
+      <RootProperty Name="ColumnDefinitions" />
+      <RootMethod Name="GetRow" />
+      <RootMethod Name="SetRow" />
+      <RootMethod Name="GetColumn" />
+      <RootMethod Name="SetColumn" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.MainPage" />
+    <RootType FullName="UWP_FilRouge.Views.BicycleCheckPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.EditBicycleUC" />
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ListBicycleUC" />
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ShowBicycleUC" />
+    <RootType FullName="UWP_FilRouge.Views.CustomerCheckPage" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.ShowCustomerUC" />
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="Source" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="UWP_FilRouge.Views.OrderCheckPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
+      <RootProperty Name="Height" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="Text" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.SellerCheckPage" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.EditSellerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.ListSellerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.ShowSellerUC" />
+    <RootType FullName="UWP_FilRouge.Views.ShopCheckPage" />
+    <RootType FullName="UWP_FilRouge.Views.Shop.EditShopUC" />
+    <RootType FullName="UWP_FilRouge.Views.Roles.ListShopUC" />
+    <RootType FullName="UWP_FilRouge.Views.Shop.MyUserControl1" />
+    <RootType FullName="UWP_FilRouge.Views.UserCheckPage" />
+    <RootType FullName="UWP_FilRouge.Views.Users.EditUserUC" />
+    <RootType FullName="UWP_FilRouge.Views.Users.ListUserUC" />
+    <RootType FullName="UWP_FilRouge.Views.Users.ShowUserUC" />
+  </Roots.RootTypes>
+</Roots>

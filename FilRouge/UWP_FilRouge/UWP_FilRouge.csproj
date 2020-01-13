@@ -159,8 +159,8 @@
     <Compile Include="Views\OrderCheckPage.xaml.cs">
       <DependentUpon>OrderCheckPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Orders\EditOrderUC.xaml.cs">
-      <DependentUpon>EditOrderUC.xaml</DependentUpon>
+    <Compile Include="Views\Orders\CreateOrderUC.xaml.cs">
+      <DependentUpon>CreateOrderUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Orders\ListOrderUC.xaml.cs">
       <DependentUpon>ListOrderUC.xaml</DependentUpon>
@@ -286,7 +286,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Orders\EditOrderUC.xaml">
+    <Page Include="Views\Orders\CreateOrderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

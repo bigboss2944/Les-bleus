@@ -139,8 +139,11 @@
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\OrderCheckPage.xbf">
       <PackagePath>Views\OrderCheckPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf">
-      <PackagePath>Views\Orders\EditOrderUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\CreateOrderUC.xbf">
+      <PackagePath>Views\Orders\CreateOrderUC.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\OrderUC.xbf">
+      <PackagePath>Views\Orders\OrderUC.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf">
       <PackagePath>Views\Orders\ListOrderUC.xbf</PackagePath>

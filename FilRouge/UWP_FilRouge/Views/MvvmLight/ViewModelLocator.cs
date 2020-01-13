@@ -12,6 +12,7 @@ namespace UWP_FilRouge.Views.MvvmLight
 {
     public class ViewModelLocator
     {
+        
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -19,12 +20,20 @@ namespace UWP_FilRouge.Views.MvvmLight
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             //Register your services used here
-            SimpleIoc.Default.Register<INavigationService, NavigationService>();
-            SimpleIoc.Default.Register<OrderCheckPage>();
-            SimpleIoc.Default.Register<MainPageViewModel>();
+            SimpleIoc.Default.Register<INavigationService>(() => 
+            { 
+            var navigationService = new NavigationService();
+            navigationService.Configure("OrderCheckPage", typeof(OrderCheckPage)); 
+            //navigationService.Configure("ListUserView", typeof(ListUserView));
+            return navigationService; }); 
+            SimpleIoc.Default.Register<OrderCheckPage>(); 
+            //SimpleIoc.Default.Register<CreateUserViewModel>(); 
+            //SimpleIoc.Default.Register<ListUserView>();
         }
 
-        public OrderCheckPage ShopPageInstance
+
+
+        public OrderCheckPage OrderCheckPageInstance
         {
             get { return ServiceLocator.Current.GetInstance<OrderCheckPage>(); }
         }
