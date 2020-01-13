@@ -13,7 +13,12 @@ namespace PlayDB
         {
             using (var db = new EntitiesContext())
             { 
-                foreach (var item in db.Bicycles.ToList())
+                //foreach (var item in db.Bicycles.ToList())
+                //{
+                //    Console.WriteLine(item.ToString());
+                //}
+
+                foreach (var item in db.Orders.ToList())
                 {
                     Console.WriteLine(item.ToString());
                 }

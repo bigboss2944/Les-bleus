@@ -12,10 +12,10 @@ namespace Entities
     {
         #region Attributes
         private long idSeller;
-        private string category;
         private string password;
         private List<Order> orders;
         private Shop shop;
+        private Role role;
         #endregion
 
         #region properties
@@ -26,10 +26,11 @@ namespace Entities
             get => idSeller; 
             set => idSeller = value; 
         }
-        public string Category 
-        { 
-            get => category; 
-            set => category = value; 
+
+        public Role Role
+        {
+            get { return role; }
+            set { role = value; }
         }
 
         public string Password
@@ -44,7 +45,6 @@ namespace Entities
             set { orders = value; }
         }
 
-        [Required]
         public Shop Shop
         {
             get { return shop; }
@@ -56,6 +56,13 @@ namespace Entities
         public Seller()
         {
             this.Orders = new List<Order>();
+        }
+        #endregion
+
+        #region Functions
+        public String ToString()
+        {
+            return this.idSeller + " " + this.password + " " + this.orders + " " + this.shop + " " + this.role;
         }
         #endregion
     }

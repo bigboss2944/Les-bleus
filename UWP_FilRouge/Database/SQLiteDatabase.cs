@@ -39,22 +39,22 @@ namespace UWP_FilRouge.Database
 
         public void SaveWithChildren(User item)
         {
-            this.Save(item.Role);
+            //this.Save(item.Role);
             this.sqliteConnection.InsertOrReplaceWithChildren(item);
         }
 
-        public DatabaseService()
-        {
-            Task.Factory.StartNew(async () =>
-            {
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile myDb = await localFolder.CreateFileAsync("mydb.sqlite",
-                        CreationCollisionOption.OpenIfExists);
-                this.sqliteConnection = new SQLiteConnection(myDb.Path);
-                this.sqliteConnection.CreateTable<Role>();
-                this.sqliteConnection.CreateTable<User>();
-            });
-        }
+        //public DatabaseService()
+        //{
+        //    Task.Factory.StartNew(async () =>
+        //    {
+        //        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        //        StorageFile myDb = await localFolder.CreateFileAsync("mydb.sqlite",
+        //                CreationCollisionOption.OpenIfExists);
+        //        this.sqliteConnection = new SQLiteConnection(myDb.Path);
+        //        this.sqliteConnection.CreateTable<Role>();
+        //        this.sqliteConnection.CreateTable<User>();
+        //    });
+        //}
 
     }
 }

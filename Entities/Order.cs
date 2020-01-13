@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Entities
 {
@@ -9,24 +12,16 @@ namespace Entities
     {
         #region Attributs
         private long idOrder;
-        //quantity by reference 
-        private int quantity;
         private List<Bicycle> bicycles;
         private Seller seller;
         private Customer customer;
-        private float sumFreeTax;
         private DateTime date;
         private Shop shop;
         private string payMode;
         private float discount;
-        private int? useLoyaltyPoint;
-        //private int loyaltyPoint;
-        //private int loyaltyPointUsed;
-        //private int loyaltyPointEarned;
-        //private int totalLoyaltyPoint;
+        private bool useLoyaltyPoint;
         private float tax;
         private float shippingCost;
-        private float totalAmount;
         #endregion
 
         #region Properties 
@@ -36,12 +31,6 @@ namespace Entities
         {
             get { return idOrder; }
             set { idOrder = value; }
-        }
-
-        public int Quantity
-        {
-            get { return quantity; }
-            set { quantity = value; }
         }
 
         public List<Bicycle> Bicycles
@@ -62,26 +51,18 @@ namespace Entities
             set { customer = value; }
         }
 
-        public float SumFreeTax
-        {
-            get { return sumFreeTax; }
-            set { sumFreeTax = value; }
-        }
-
         public DateTime Date
         {
             get { return date; }
             set { date = value; }
         }
 
-        [Required]
         public Shop Shop
         {
             get { return shop; }
             set { shop = value; }
         }
 
-        [Required]
         public string PayMode
         {
             get { return payMode; }
@@ -94,7 +75,7 @@ namespace Entities
             set { discount = value; }
         }
 
-        public int? UseLoyaltyPoint
+        public bool UseLoyaltyPoint
         {
             get { return useLoyaltyPoint; }
             set { useLoyaltyPoint = value; }
@@ -112,11 +93,6 @@ namespace Entities
             set { shippingCost = value; }
         }
 
-        public float TotalAmount
-        {
-            get { return totalAmount; }
-            set { totalAmount = value; }
-        }
         #endregion
 
         #region Constructors
@@ -127,25 +103,11 @@ namespace Entities
         #endregion
 
         #region Functions
-        // relier bicycles et quantité pour définir le montant par bicycle et ensuite le montant global
-        public float SumFreeTaxCalculated()
+        public String ToString()
         {
-            Bicycle bicycle = new Bicycle();
-            sumFreeTax = bicycle.FreeTaxPrice * quantity;
-            return sumFreeTax;
-        }
-
-        // Discount sur le HT
-        // TVA de 20%
-        //100 loyaltyPoint = 10 euros de réduction
-        //fdp
-        public float TotalAmountCalculated()
-        {
-            totalAmount = sumFreeTax * (1F - discount) * (1F + tax) - (loyaltyPointUsed * 0.1F) + shippingCost;
-            return totalAmount;
+            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
         }
         #endregion
 
-        
     }
 }

@@ -15,8 +15,7 @@ namespace Entities
         private float wheelSize;
         private bool electric;
         private string confort;
-        // new state or occasion
-        private string state;
+        private string state;// new state or occasion
         private string brand;
         #endregion
 

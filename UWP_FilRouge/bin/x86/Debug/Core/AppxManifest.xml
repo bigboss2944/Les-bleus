@@ -48,7 +48,7 @@
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2019" />
     <build:Item Name="OperatingSystem" Version="10.0.18362.530 (WinBuild.160101.0800)" />
     <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="16.0.29507.95" />
-    <build:Item Name="ProjectGUID" Value="{4C464B07-F16E-41B4-9F68-5B830E2FC8EA}" />
+    <build:Item Name="ProjectGUID" Value="{C2B8D7C0-7769-47EE-80F5-21E4FD7B0D6B}" />
     <build:Item Name="OptimizingToolset" Value="None" />
     <build:Item Name="TargetRuntime" Value="Managed" />
     <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="10.0.18362.1" />

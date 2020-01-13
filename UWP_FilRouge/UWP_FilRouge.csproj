@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{4C464B07-F16E-41B4-9F68-5B830E2FC8EA}</ProjectGuid>
+    <ProjectGuid>{C2B8D7C0-7769-47EE-80F5-21E4FD7B0D6B}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UWP_FilRouge</RootNamespace>
@@ -127,8 +127,11 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\ViewModelLight\CreateUserUC.xaml.cs">
+    <Compile Include="Views\UserUC\CreateUserUC.xaml.cs">
       <DependentUpon>CreateUserUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserUC\ListUserUC.xaml.cs">
+      <DependentUpon>ListUserUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewModelLight\CreateUserView.xaml.cs">
       <DependentUpon>CreateUserView.xaml</DependentUpon>
@@ -172,7 +175,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ViewModelLight\CreateUserUC.xaml">
+    <Page Include="Views\UserUC\CreateUserUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserUC\ListUserUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

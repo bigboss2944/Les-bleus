@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>4aa0ceea-22a1-4e5d-914a-36808b111965</PackageIdentityName>
     <PackageIdentityPublisher>CN=IB</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,8 +18,8 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>29DAE918E25AB776E0AFE0EB0667507AADAD12614F6C574ABED967B23B5C8980</RegisteredManifestChecksum>
+    <LayoutDir>C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\AppX</LayoutDir>
+    <RegisteredManifestChecksum>E6940B8A453D7C00A5A82A45EDBB547EAD07B97600A17716297AD8A46329353D</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>4aa0ceea-22a1-4e5d-914a-36808b111965_1.0.0.0_x86__kv8c6yeekvkh8</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>4aa0ceea-22a1-4e5d-914a-36808b111965_kv8c6yeekvkh8!App</RegisteredUserModeAppID>
     <RegisteredPackageID>4aa0ceea-22a1-4e5d-914a-36808b111965</RegisteredPackageID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-09T16:41:41.793</Modified>
+      <Modified>2020-01-13T17:52:30.602</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
       <PackagePath>entrypoint\UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-09T16:41:40.667</Modified>
+      <Modified>2020-01-13T17:52:29.518</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\commonservicelocator\2.0.5\lib\netstandard2.0\CommonServiceLocator.dll">
       <PackagePath>CommonServiceLocator.dll</PackagePath>
@@ -54,95 +54,135 @@
       <PackagePath>GalaSoft.MvvmLight.dll</PackagePath>
       <Modified>2018-02-04T22:10:46.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\newtonsoft.json\9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll">
+      <PackagePath>Newtonsoft.Json.dll</PackagePath>
+      <Modified>2016-06-13T21:06:14.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\6.2.9\runtimes\win10-x86\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
       <Modified>2019-07-22T12:01:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlite\3.13.0\runtimes\win10-x86\nativeassets\uap10.0\sqlite3.dll">
+      <PackagePath>sqlite3.dll</PackagePath>
+      <Modified>2016-10-18T19:37:00.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlite-net-pcl\1.4.118\lib\netstandard1.1\SQLite-net.dll">
+      <PackagePath>SQLite-net.dll</PackagePath>
+      <Modified>2017-07-27T14:44:06.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitenetextensions\2.1.0\lib\netstandard1.1\SQLiteNetExtensions.dll">
+      <PackagePath>SQLiteNetExtensions.dll</PackagePath>
+      <Modified>2018-08-13T20:28:54.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitepclraw.bundle_green\1.1.5\lib\uap10.0\SQLitePCLRaw.batteries_green.dll">
+      <PackagePath>SQLitePCLRaw.batteries_green.dll</PackagePath>
+      <Modified>2017-05-01T11:27:04.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitepclraw.bundle_green\1.1.5\lib\uap10.0\SQLitePCLRaw.batteries_v2.dll">
+      <PackagePath>SQLitePCLRaw.batteries_v2.dll</PackagePath>
+      <Modified>2017-05-01T11:27:04.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitepclraw.core\1.1.5\lib\uap10.0\SQLitePCLRaw.core.dll">
+      <PackagePath>SQLitePCLRaw.core.dll</PackagePath>
+      <Modified>2017-05-01T11:27:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitepclraw.lib.e_sqlite3.v140\1.1.5\runtimes\win10-x86\native\e_sqlite3.dll">
+      <PackagePath>e_sqlite3.dll</PackagePath>
+      <Modified>2017-05-01T11:27:46.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\sqlitepclraw.provider.e_sqlite3.uwp10\1.1.5\lib\uap10.0\SQLitePCLRaw.provider.e_sqlite3.dll">
+      <PackagePath>SQLitePCLRaw.provider.e_sqlite3.dll</PackagePath>
+      <Modified>2017-05-01T11:27:24.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.18362.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2019-03-18T16:36:56.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2020-01-08T13:10:09.515</Modified>
+      <Modified>2020-01-13T13:21:39.073</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2020-01-08T13:10:09.511</Modified>
+      <Modified>2020-01-13T13:21:38.838</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.511</Modified>
+      <Modified>2020-01-13T13:21:38.861</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.512</Modified>
+      <Modified>2020-01-13T13:21:38.880</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.512</Modified>
+      <Modified>2020-01-13T13:21:38.900</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.512</Modified>
+      <Modified>2020-01-13T13:21:38.921</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.513</Modified>
+      <Modified>2020-01-13T13:21:38.941</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-08T13:10:09.513</Modified>
+      <Modified>2020-01-13T13:21:38.961</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.xr.xml">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.xr.xml">
       <PackagePath>UWP_FilRouge.xr.xml</PackagePath>
-      <Modified>2020-01-09T16:34:57.133</Modified>
+      <Modified>2020-01-13T17:52:29.355</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.527</Modified>
+      <Modified>2020-01-13T17:52:29.366</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Dictionary1.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Dictionary1.xbf">
       <PackagePath>Dictionary1.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.527</Modified>
+      <Modified>2020-01-13T17:52:29.366</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.527</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserUC.xbf">
-      <PackagePath>Views\ViewModelLight\CreateUserUC.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.527</Modified>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserUC\CreateUserUC.xbf">
+      <PackagePath>Views\UserUC\CreateUserUC.xbf</PackagePath>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserView.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserUC\ListUserUC.xbf">
+      <PackagePath>Views\UserUC\ListUserUC.xbf</PackagePath>
+      <Modified>2020-01-13T17:52:29.367</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserView.xbf">
       <PackagePath>Views\ViewModelLight\CreateUserView.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.528</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\ListUserView.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\ListUserView.xbf">
       <PackagePath>Views\ViewModelLight\ListUserView.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.528</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\UserView.xbf">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\UserView.xbf">
       <PackagePath>Views\ViewModelLight\UserView.xbf</PackagePath>
-      <Modified>2020-01-09T16:41:40.528</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2019-03-18T15:33:42.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-01-09T16:41:40.823</Modified>
+      <Modified>2020-01-13T17:52:29.693</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\UWP_FilRouge.exe">
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\UWP_FilRouge.exe">
       <PackagePath>UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-09T16:41:41.788</Modified>
+      <Modified>2020-01-13T17:52:30.597</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

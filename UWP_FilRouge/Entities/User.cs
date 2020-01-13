@@ -9,13 +9,13 @@ namespace Entities
     public class User
     {
         #region Attributs
-        protected string lastName;
-        protected string firstName;
+        protected string lastname;
+        protected string firstname;
         #endregion
 
         #region Properties
-        public string LastName { get => lastName; set => lastName = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
+        public string Lastname { get => lastname; set => lastname = value; }
+        public string Firstname { get => firstname; set => firstname = value; }
         #endregion
 
         #region Constructors

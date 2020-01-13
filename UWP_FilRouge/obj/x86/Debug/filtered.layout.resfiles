@@ -1,4 +1,5 @@
 WinMetadata\Windows.winmd
+e_sqlite3.dll
 Assets\LockScreenLogo.scale-200.png
 Assets\SplashScreen.scale-200.png
 Assets\Square150x150Logo.scale-200.png
@@ -10,7 +11,8 @@ App.xbf
 Dictionary1.xbf
 MainPage.xbf
 UWP_FilRouge.xr.xml
-Views\ViewModelLight\CreateUserUC.xbf
+Views\UserUC\CreateUserUC.xbf
+Views\UserUC\ListUserUC.xbf
 Views\ViewModelLight\CreateUserView.xbf
 Views\ViewModelLight\ListUserView.xbf
 Views\ViewModelLight\UserView.xbf

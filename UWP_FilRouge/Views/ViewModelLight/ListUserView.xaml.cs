@@ -24,7 +24,17 @@ namespace UWP_FilRouge.Views.ViewModelLight
     {
         public ListUserView()
         {
-            this.InitializeComponent();
+            try
+            {
+                this.InitializeComponent();
+            }
+            catch(StackOverflowException e)
+            {
+                Console.WriteLine(e);
+            }
+            
+            
+            
         }
     }
 }
