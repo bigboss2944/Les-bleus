@@ -51,7 +51,7 @@ namespace AspNet_FilRouge.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        //[RoleValidator]
+        //[AdminValidator]
         public async Task<ActionResult> Create([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)

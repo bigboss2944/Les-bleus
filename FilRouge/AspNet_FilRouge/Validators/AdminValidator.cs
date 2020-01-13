@@ -7,10 +7,10 @@ using System.Web;
 
 namespace AspNet_FilRouge.Validators
 {
-    public class RoleValidator : ValidationAttribute
+    public class AdminValidator : ValidationAttribute
 
     {
-        public RoleValidator() : base("Only admin autorized")
+        public AdminValidator() : base("Only admin autorized")
         {
         }
 
