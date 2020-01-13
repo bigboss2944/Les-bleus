@@ -43,9 +43,23 @@ namespace UWP_FilRouge.Views.ViewModelLight
             get { return ServiceLocator.Current.GetInstance<UserViewModel>(); }        
         }
 
-        public ListViewModel ListViewInstance
+        public ListUserView ListUserViewInstance
         {
-            get { return ServiceLocator.Current.GetInstance<ListViewModel>(); }
+            
+            get {
+
+                try //Gérer exception
+                {
+                    return ServiceLocator.Current.GetInstance<ListUserView>();
+
+                }
+                catch(StackOverflowException e)
+                {
+                    Console.WriteLine(e);
+                    return ServiceLocator.Current.GetInstance<ListUserView>();
+                }
+                
+            }
         }
 
         public CreateUserViewModel CreateUserViewInstance

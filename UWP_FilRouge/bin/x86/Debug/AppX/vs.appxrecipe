@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-13T15:44:47.293</Modified>
+      <Modified>2020-01-13T17:52:30.602</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
       <PackagePath>entrypoint\UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-13T15:44:46.405</Modified>
+      <Modified>2020-01-13T17:52:29.518</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\commonservicelocator\2.0.5\lib\netstandard2.0\CommonServiceLocator.dll">
       <PackagePath>CommonServiceLocator.dll</PackagePath>
@@ -138,35 +138,39 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.xr.xml">
       <PackagePath>UWP_FilRouge.xr.xml</PackagePath>
-      <Modified>2020-01-13T14:33:37.415</Modified>
+      <Modified>2020-01-13T17:52:29.355</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.235</Modified>
+      <Modified>2020-01-13T17:52:29.366</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Dictionary1.xbf">
       <PackagePath>Dictionary1.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.235</Modified>
+      <Modified>2020-01-13T17:52:29.366</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.235</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserUC.xbf">
-      <PackagePath>Views\ViewModelLight\CreateUserUC.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.235</Modified>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserUC\CreateUserUC.xbf">
+      <PackagePath>Views\UserUC\CreateUserUC.xbf</PackagePath>
+      <Modified>2020-01-13T17:52:29.367</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserUC\ListUserUC.xbf">
+      <PackagePath>Views\UserUC\ListUserUC.xbf</PackagePath>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\CreateUserView.xbf">
       <PackagePath>Views\ViewModelLight\CreateUserView.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.236</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\ListUserView.xbf">
       <PackagePath>Views\ViewModelLight\ListUserView.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.236</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\UserView.xbf">
       <PackagePath>Views\ViewModelLight\UserView.xbf</PackagePath>
-      <Modified>2020-01-13T15:44:46.236</Modified>
+      <Modified>2020-01-13T17:52:29.367</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -174,11 +178,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-01-13T14:25:16.543</Modified>
+      <Modified>2020-01-13T17:52:29.693</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\UWP_FilRouge.exe">
       <PackagePath>UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-13T15:44:47.278</Modified>
+      <Modified>2020-01-13T17:52:30.597</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
