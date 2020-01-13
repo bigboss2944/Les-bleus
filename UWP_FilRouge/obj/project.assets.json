@@ -9552,11 +9552,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\IB\\source\\repos\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
+      "projectUniqueName": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
       "projectName": "UWP_FilRouge",
-      "projectPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
+      "projectPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
       "packagesPath": "C:\\Users\\IB\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\UWP_FilRouge\\obj\\",
+      "outputPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

@@ -1,1 +1,1 @@
-E:\Projet-Fil-Rouge-Stevie\UWP_FilRouge\UWP_FilRouge.csproj;x86
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\UWP_FilRouge.csproj;x86

@@ -65,29 +65,29 @@ namespace UWP_FilRouge.Services
             return this.sqliteConnection.InsertOrReplace(item);
         }
 
-        public void SaveWithChildren(Seller item)
-        {
-            this.Save(item.Role);
-            this.sqliteConnection.InsertOrReplaceWithChildren(item);
-        }
+        //public void SaveWithChildren(Seller item)
+        //{
+        //    this.Save(item.Role);
+        //    this.sqliteConnection.InsertOrReplaceWithChildren(item);
+        //}
 
-        public void SaveWithChildren(Bicycle item)
-        {
-            this.Save(item.Role);
-            this.sqliteConnection.InsertOrReplaceWithChildren(item);
-        }
+        //public void SaveWithChildren(Bicycle item)
+        //{
+        //    this.Save(item.Role);
+        //    this.sqliteConnection.InsertOrReplaceWithChildren(item);
+        //}
 
-        public void SaveWithChildren(Order item)
-        {
-            this.Save(item.Role);
-            this.sqliteConnection.InsertOrReplaceWithChildren(item);
-        }
+        //public void SaveWithChildren(Order item)
+        //{
+        //    this.Save(item.Role);
+        //    this.sqliteConnection.InsertOrReplaceWithChildren(item);
+        //}
 
-        public void SaveWithChildren(Customer item)
-        {
-            this.Save(item.Role);
-            this.sqliteConnection.InsertOrReplaceWithChildren(item);
-        }
+        //public void SaveWithChildren(Customer item)
+        //{
+        //    this.Save(item.Role);
+        //    this.sqliteConnection.InsertOrReplaceWithChildren(item);
+        //}
 
 
         public DatabaseService()
