@@ -31,10 +31,10 @@
             @Html.DisplayNameFor(model => model.ShippingCost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Customer)
+            @Html.DisplayNameFor(model => model.Seller)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Seller)
+            @Html.DisplayNameFor(model => model.Customer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Shop)
@@ -63,10 +63,10 @@
         @Html.DisplayFor(modelItem => item.ShippingCost)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Customer.IdCustomer)
+        @Html.DisplayFor(modelItem => item.Seller.FirstName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Seller.FirstName)
+        @Html.DisplayFor(modelItem => item.Customer.IdCustomer)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Shop.Nameshop)

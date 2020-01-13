@@ -16,12 +16,14 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bicycles
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
         }
 
         // GET: Bicycles/Details/5
+        [Authorize]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +50,8 @@ namespace AspNet_FilRouge.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+        //[RoleValidator]
         public async Task<ActionResult> Create([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
@@ -60,6 +65,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
@@ -91,6 +97,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)

@@ -50,6 +50,7 @@ namespace AspNet_FilRouge.Models
             set { customer = value; }
         }
 
+        [DataType(DataType.Date)]
         public virtual DateTime Date
         {
             get { return date; }

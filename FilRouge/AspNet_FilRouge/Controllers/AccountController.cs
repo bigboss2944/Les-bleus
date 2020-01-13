@@ -136,7 +136,8 @@ namespace AspNet_FilRouge.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize]
+        //[RoleValidator]
         public ActionResult Register()
         {
             return View();
@@ -145,7 +146,6 @@ namespace AspNet_FilRouge.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

@@ -16,12 +16,16 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Sellers
+        [Authorize]
+        //[RoleValidator]
         public async Task<ActionResult> Index()
         {
             return View(await db.Sellers.ToListAsync());
         }
 
         // GET: Sellers/Details/5
+        [Authorize]
+        //[RoleValidator]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -37,6 +41,8 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Create
+        [Authorize]
+        //[RoleValidator]
         public ActionResult Create()
         {
             return View();
@@ -60,6 +66,8 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Edit/5
+        [Authorize]
+        //[RoleValidator]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
@@ -91,6 +99,8 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Delete/5
+        [Authorize]
+        //[RoleValidator]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)

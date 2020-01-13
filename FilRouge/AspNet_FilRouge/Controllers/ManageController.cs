@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AspNet_FilRouge.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AspNet_FilRouge.Controllers
 {
@@ -25,6 +26,34 @@ namespace AspNet_FilRouge.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+        ////Creation de role
+        //public static IdentityRole CreateOrGetRole(string this.roleName)
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
+
+        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+        //    IdentityRole role = null;
+
+        //    if (!roleManager.RoleExists(this.roleName))
+        //    {
+        //        role = new IdentityRole();
+        //        role.Name = this.roleName;
+        //        roleManager.Create(role);
+        //    }
+
+        //    return role ?? roleManager.FindByName(this.roleName);
+        //}
+
+        ////Attribution de role
+        //public static void AssignRoleToUser(IdentityRole role, ApplicationUser user)
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
+
+        //    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+
+        //    userManager.AddToRole(user.Id, role.Name);
+        //}
 
         public ApplicationSignInManager SignInManager
         {

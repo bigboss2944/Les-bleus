@@ -60,6 +60,30 @@
             @Html.DisplayFor(model => model.ShippingCost)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Seller.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seller.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shop.Nameshop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shop.Nameshop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.IdCustomer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.IdCustomer)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {

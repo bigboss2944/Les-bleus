@@ -46,8 +46,8 @@ namespace AspNet_FilRouge
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
-                AllowOnlyAlphanumericUserNames = true,
-                RequireUniqueEmail = false
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
