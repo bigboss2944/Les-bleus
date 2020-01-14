@@ -33,6 +33,7 @@
                     <TextBox PlaceholderText="Customer" Text="{Binding Order.Customer}"  />
                     <TextBox PlaceholderText="Quantity" Text="{Binding Order.Quantity}"  />
                     <TextBox PlaceholderText="Shop" Text="{Binding Order.Shop}" />
+                    
                 </StackPanel>
 
 
@@ -43,6 +44,7 @@
                     <TextBox PlaceholderText="Discount" Text="{Binding Order.discount}" />
                     <TextBox PlaceholderText="LoyaltyPoint" Text="{Binding Order.LoyaltyPoint}" />
                     <TextBox PlaceholderText="shippingCost" Text="{Binding Order.shippingCost}" />
+                    <!--<Button x:Name="btnback" Command="{Binding}" Click="btnNavigate_Click">Back</Button>-->
 
                 </StackPanel>
 
@@ -53,8 +55,8 @@
                     <TextBox PlaceholderText="TotalAmount" Text="{Binding Order.hippingCost}" />
                     <TextBox PlaceholderText="PayMode" Text="{Binding Order.PayMode}" Grid.Row="2"/>
 
-               
-                     
+
+                    <Button Command="{Binding ButtonClick}">Save</Button>
                 </StackPanel>
 
             </Grid>

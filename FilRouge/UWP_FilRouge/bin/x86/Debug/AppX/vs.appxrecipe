@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-14T08:20:11.621</Modified>
+      <Modified>2020-01-14T12:40:18.133</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
       <PackagePath>entrypoint\UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-14T08:20:10.944</Modified>
+      <Modified>2020-01-14T12:40:17.508</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\.nuget\packages\commonservicelocator\2.0.2\lib\netstandard2.0\CommonServiceLocator.dll">
       <PackagePath>CommonServiceLocator.dll</PackagePath>
@@ -138,111 +138,115 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.xr.xml">
       <PackagePath>UWP_FilRouge.xr.xml</PackagePath>
-      <Modified>2020-01-13T16:44:20.080</Modified>
+      <Modified>2020-01-14T11:18:43.937</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.771</Modified>
+      <Modified>2020-01-14T12:40:17.320</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.771</Modified>
+      <Modified>2020-01-14T12:40:17.320</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\BicycleCheckPage.xbf">
       <PackagePath>Views\BicycleCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.771</Modified>
+      <Modified>2020-01-14T12:40:17.320</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\EditBicycleUC.xbf">
       <PackagePath>Views\Bicycles\EditBicycleUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.320</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ListBicycleUC.xbf">
       <PackagePath>Views\Bicycles\ListBicycleUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.320</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ShowBicycleUC.xbf">
       <PackagePath>Views\Bicycles\ShowBicycleUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\CustomerCheckPage.xbf">
       <PackagePath>Views\CustomerCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\EditCustomerUC.xbf">
       <PackagePath>Views\Customers\EditCustomerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf">
       <PackagePath>Views\Customers\ListCustomerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.772</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf">
       <PackagePath>Views\Customers\ShowCustomerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\OrderCheckPage.xbf">
       <PackagePath>Views\OrderCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\CreateOrderUC.xbf">
       <PackagePath>Views\Orders\CreateOrderUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf">
       <PackagePath>Views\Orders\ListOrderUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf">
       <PackagePath>Views\Orders\ShowOrderUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.321</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\SellerCheckPage.xbf">
       <PackagePath>Views\SellerCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\EditSellerUC.xbf">
       <PackagePath>Views\Sellers\EditSellerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ListSellerUC.xbf">
       <PackagePath>Views\Sellers\ListSellerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.773</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ShowSellerUC.xbf">
       <PackagePath>Views\Sellers\ShowSellerUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ShopCheckPage.xbf">
       <PackagePath>Views\ShopCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\EditShopUC.xbf">
       <PackagePath>Views\Shops\EditShopUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\ListShopUC.xbf">
       <PackagePath>Views\Shops\ListShopUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shops\ShowShopUC.xbf">
       <PackagePath>Views\Shops\ShowShopUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.322</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserCheckPage.xbf">
       <PackagePath>Views\UserCheckPage.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.323</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\EditUserUC.xbf">
       <PackagePath>Views\Users\EditUserUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.323</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\ListUserUC.xbf">
       <PackagePath>Views\Users\ListUserUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.774</Modified>
+      <Modified>2020-01-14T12:40:17.323</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\ShowUserUC.xbf">
       <PackagePath>Views\Users\ShowUserUC.xbf</PackagePath>
-      <Modified>2020-01-14T08:20:10.775</Modified>
+      <Modified>2020-01-14T12:40:17.323</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModels\ListOrderPage.xbf">
+      <PackagePath>Views\ViewModels\ListOrderPage.xbf</PackagePath>
+      <Modified>2020-01-14T12:40:17.323</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -250,11 +254,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-01-14T08:14:53.816</Modified>
+      <Modified>2020-01-14T11:18:44.644</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Core\UWP_FilRouge.exe">
       <PackagePath>UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-01-14T08:20:11.615</Modified>
+      <Modified>2020-01-14T12:40:18.128</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

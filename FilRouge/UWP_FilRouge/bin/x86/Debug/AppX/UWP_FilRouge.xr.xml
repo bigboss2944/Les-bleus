@@ -2,6 +2,7 @@
 <Roots >
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="OrderCheckPageInstance" />
+    <RootPropertyPathName Name="ButtonClick" />
     <RootPropertyPathName Name="Order" />
     <RootPropertyPathName Name="PayMode" />
     <RootPropertyPathName Name="hippingCost" />
@@ -73,6 +74,10 @@
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="Text" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Command" />
+      <RootProperty Name="Content" />
+    </RootType>
     <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
     <RootType FullName="UWP_FilRouge.Views.SellerCheckPage" />
@@ -87,5 +92,6 @@
     <RootType FullName="UWP_FilRouge.Views.Users.EditUserUC" />
     <RootType FullName="UWP_FilRouge.Views.Users.ListUserUC" />
     <RootType FullName="UWP_FilRouge.Views.Users.ShowUserUC" />
+    <RootType FullName="UWP_FilRouge.Views.ViewModels.ListOrder" />
   </Roots.RootTypes>
 </Roots>

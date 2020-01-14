@@ -185,10 +185,7 @@ namespace UWP_FilRouge.Entities
             order.TotalAmount = this.TotalAmount;
             order.UseLoyaltyPoint = this.UseLoyaltyPoint;
 
-
-            {
-                return order;  
-            }
+            return order;
         }
 
         public override void CopyFrom(object obj)
@@ -205,10 +202,7 @@ namespace UWP_FilRouge.Entities
             order.Tax = this.Tax;
             order.TotalAmount = this.TotalAmount;
             order.UseLoyaltyPoint = this.UseLoyaltyPoint;
-
-            {
-                
-            }
+            
         }
     }
     

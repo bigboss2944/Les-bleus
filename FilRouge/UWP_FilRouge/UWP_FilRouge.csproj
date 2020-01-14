@@ -208,6 +208,9 @@
     <Compile Include="Views\MvvmLight\ViewModelLocator.cs" />
     <Compile Include="Views\ViewModels\BicycleCheckPageViewModel.cs" />
     <Compile Include="Views\ViewModels\CustomerCheckPageViewModel.cs" />
+    <Compile Include="Views\ViewModels\ListOrderPage.xaml.cs">
+      <DependentUpon>ListOrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewModels\MainPageViewModel.cs" />
     <Compile Include="Views\ViewModels\OrderCheckPageViewModel.cs" />
     <Compile Include="Views\ViewModels\SellerCheckPageViewModel.cs" />
@@ -343,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Users\ShowUserUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewModels\ListOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

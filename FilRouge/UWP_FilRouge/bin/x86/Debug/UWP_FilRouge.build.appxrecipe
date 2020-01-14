@@ -184,6 +184,9 @@
     <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Users\ShowUserUC.xbf">
       <PackagePath>Views\Users\ShowUserUC.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModels\ListOrderPage.xbf">
+      <PackagePath>Views\ViewModels\ListOrderPage.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>

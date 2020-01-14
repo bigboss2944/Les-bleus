@@ -403,4 +403,9 @@ C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRoug
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.g.cs
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.xaml
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Orders\CreateOrderUC.xbf
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\ViewModels\ListOrderPage.g.i.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\ViewModels\ListOrderPage.g.cs
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\ViewModels\ListOrderPage.xaml
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\ViewModels\ListOrderPage.xbf
+C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\ViewModels\ListOrderPage.xbf
 C:\Users\IB\Desktop\ProjetFilRouge\SprintContador\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\UWP_FilRouge.csprojAssemblyReference.cache

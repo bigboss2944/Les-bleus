@@ -34,4 +34,5 @@ Views\UserCheckPage.xbf
 Views\Users\EditUserUC.xbf
 Views\Users\ListUserUC.xbf
 Views\Users\ShowUserUC.xbf
+Views\ViewModels\ListOrderPage.xbf
 Properties\Default.rd.xml
