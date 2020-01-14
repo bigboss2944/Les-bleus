@@ -661,3 +661,6 @@ C:\Users\fabrice\source\repos\fafa-noel29\AspNet_FilRouge\obj\Debug\AspNet_FilRo
 C:\Users\fabrice\source\repos\fafa-noel29\AspNet_FilRouge\obj\Debug\AspNet_FilRouge.csproj.CopyComplete
 C:\Users\fabrice\source\repos\fafa-noel29\AspNet_FilRouge\obj\Debug\AspNet_FilRouge.dll
 C:\Users\fabrice\source\repos\fafa-noel29\AspNet_FilRouge\obj\Debug\AspNet_FilRouge.pdb
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.pdb
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.dll.config

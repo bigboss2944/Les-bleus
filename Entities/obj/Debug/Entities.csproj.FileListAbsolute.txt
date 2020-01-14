@@ -76,3 +76,16 @@ C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.csprojAsse
 C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.dll
 C:\Users\fabrice\source\repos\fafa-noel29\Entities\obj\Debug\Entities.pdb
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Entities.dll.config
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Entities.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Entities.pdb
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\EntityFramework.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\EntityFramework.xml
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.pdb

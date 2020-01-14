@@ -34,7 +34,7 @@ namespace UWP_FilRouge.Views.ViewModelLight
             });
             SimpleIoc.Default.Register<UserViewModel>();
             SimpleIoc.Default.Register<CreateUserViewModel>();
-            SimpleIoc.Default.Register<ListUserView>();
+            SimpleIoc.Default.Register<ListViewModel>();
 
         }                
 
@@ -43,21 +43,16 @@ namespace UWP_FilRouge.Views.ViewModelLight
             get { return ServiceLocator.Current.GetInstance<UserViewModel>(); }        
         }
 
-        public ListUserView ListUserViewInstance
+        public ListViewModel ListUserViewInstance
         {
             
             get {
 
-                try //Gérer exception
-                {
-                    return ServiceLocator.Current.GetInstance<ListUserView>();
+                
+                    return ServiceLocator.Current.GetInstance<ListViewModel>();
 
-                }
-                catch(StackOverflowException e)
-                {
-                    Console.WriteLine(e);
-                    return ServiceLocator.Current.GetInstance<ListUserView>();
-                }
+                
+               
                 
             }
         }

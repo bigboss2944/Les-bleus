@@ -5,6 +5,7 @@
     xmlns:local="using:UWP_FilRouge.Views.ViewModelLight"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:UWP_FilRouge.Views.UserUC"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding ListUserViewInstance, Source={StaticResource Locator}}"
@@ -12,7 +13,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <local:ListUserView DataContext="{Binding}"/>
+            <local1:ListUserUC DataContext="{Binding}"/>
 
 
         </StackPanel>

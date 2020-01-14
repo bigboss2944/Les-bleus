@@ -11,6 +11,7 @@ App.xbf
 Dictionary1.xbf
 MainPage.xbf
 UWP_FilRouge.xr.xml
+Views\Shared\_layout.xbf
 Views\UserUC\CreateUserUC.xbf
 Views\UserUC\ListUserUC.xbf
 Views\ViewModelLight\CreateUserView.xbf

@@ -115,6 +115,9 @@
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shared\_layout.xbf">
+      <PackagePath>Views\Shared\_layout.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\UserUC\CreateUserUC.xbf">
       <PackagePath>Views\UserUC\CreateUserUC.xbf</PackagePath>
     </AppxPackagedFile>

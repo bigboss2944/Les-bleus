@@ -162,3 +162,9 @@ C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\UserUC\ListUserUC.xaml
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\UserUC\CreateUserUC.xbf
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\UserUC\ListUserUC.xbf
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\UWP_FilRouge.csprojAssemblyReference.cache
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Shared\_layout.xaml
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Shared\_layout.xbf
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\bin\x86\Debug\Views\Shared\_layout.xbf
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Shared\_layout.g.i.cs
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\obj\x86\Debug\Views\Shared\_layout.g.cs

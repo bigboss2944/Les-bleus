@@ -11,8 +11,8 @@
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <!--<TextBlock Text="{Binding User.Firstname, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding User.Lastname, Mode=TwoWay}"/>-->
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
 
 
         </StackPanel>

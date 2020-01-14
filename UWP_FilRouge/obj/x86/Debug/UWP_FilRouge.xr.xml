@@ -2,7 +2,7 @@
 <Roots >
   <Roots.PropertyPathNames>
     <RootPropertyPathName Name="ButtonClick" />
-    <RootPropertyPathName Name="User" />
+    <RootPropertyPathName Name="user" />
     <RootPropertyPathName Name="Lastname" />
     <RootPropertyPathName Name="Firstname" />
     <RootPropertyPathName Name="CreateUserViewInstance" />
@@ -77,6 +77,7 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Inlines" />
+      <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="HorizontalAlignment" />
@@ -97,6 +98,7 @@
       <RootProperty Name="Source" />
     </RootType>
     <RootType FullName="UWP_FilRouge.MainPage" />
+    <RootType FullName="HeaderTemplateDemo.MainPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
       <RootProperty Name="Content" />
     </RootType>
@@ -107,11 +109,11 @@
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.CreateUserUC">
       <RootProperty Name="DataContext" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.UserUC.ListUserUC" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.CreateUserView" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.ListUserView">
+    <RootType FullName="UWP_FilRouge.Views.UserUC.ListUserUC">
       <RootProperty Name="DataContext" />
     </RootType>
+    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.CreateUserView" />
+    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.ListUserView" />
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.UserView" />
   </Roots.RootTypes>
 </Roots>

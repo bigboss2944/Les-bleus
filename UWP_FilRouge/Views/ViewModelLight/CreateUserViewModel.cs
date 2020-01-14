@@ -8,15 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml.Navigation;
 using static UWP_FilRouge.Views.ViewModelLight.ViewModelLocator;
 
 namespace UWP_FilRouge.Views.ViewModelLight
 {
-    public class CreateUserViewModel
+    public class CreateUserViewModel : INavigationEvent
     {
         private INavigationService navigationService;
 
-        public User User { get; set; }
+        public User user { get; set; }
 
         public string ButtonContent { get; set; }
 
@@ -27,19 +28,34 @@ namespace UWP_FilRouge.Views.ViewModelLight
             {
                 return new RelayCommand(() =>
                 {
-                    this.navigationService.NavigateTo(Pages.ListUserView.ToString());
-                    Debug.WriteLine(User.Firstname);
-                    Debug.WriteLine(User.Lastname);
+                    this.navigationService.NavigateTo(Pages.ListUserView.ToString(),user);
+                    Debug.WriteLine(user.Firstname);
+                    Debug.WriteLine(user.Lastname);
                 });
             }
         }
 
-        
+        public void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Debug.WriteLine("Enter OtherPage");
+        }
+
+        public void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Debug.WriteLine("Leave OtherPage");
+        }
+
 
         public CreateUserViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
-            this.User = new User();
+            this.user = new User();
+        }
+
+        public interface INavigationEvent
+        {
+            void OnNavigatedTo(NavigationEventArgs e);
+            void OnNavigatedFrom(NavigationEventArgs e);
         }
     }
 }

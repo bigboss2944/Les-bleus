@@ -8,12 +8,13 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
     <Grid>
+        
+        
 
         <StackPanel Orientation="Vertical">
-            <TextBox PlaceholderText="FirstName" Text="{Binding User.Firstname, Mode=TwoWay}"/>
-            <TextBox PlaceholderText="LastName" Text="{Binding User.Lastname, Mode=TwoWay}"/>
+            <TextBox PlaceholderText="FirstName" Text="{Binding user.Firstname, Mode=TwoWay}"/>
+            <TextBox PlaceholderText="LastName" Text="{Binding user.Lastname, Mode=TwoWay}"/>
             <Button x:Name="btn1" Command="{Binding ButtonClick}"/>
 
         </StackPanel>
