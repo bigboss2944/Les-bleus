@@ -16,7 +16,7 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bicycles
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
