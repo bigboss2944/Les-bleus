@@ -26,16 +26,16 @@ namespace UWP_FilRouge.Views.MvvmLight
             navigationService.Configure("OrderCheckPage", typeof(OrderCheckPage)); 
             //navigationService.Configure("ListUserView", typeof(ListUserView));
             return navigationService; }); 
-            SimpleIoc.Default.Register<OrderCheckPage>(); 
+            SimpleIoc.Default.Register<OrderCheckPageViewModel>(); 
             //SimpleIoc.Default.Register<CreateUserViewModel>(); 
             //SimpleIoc.Default.Register<ListUserView>();
         }
 
 
 
-        public OrderCheckPage OrderCheckPageInstance
+        public OrderCheckPageViewModel OrderCheckPageInstance
         {
-            get { return ServiceLocator.Current.GetInstance<OrderCheckPage>(); }
+            get { return ServiceLocator.Current.GetInstance<OrderCheckPageViewModel>(); }
         }
 
         //public MainPageViewModel MyProperty

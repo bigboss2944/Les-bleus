@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Views.ViewModels
 {
-    class OrderCheckPageViewModel
+    public class OrderCheckPageViewModel
     {
     }
 }

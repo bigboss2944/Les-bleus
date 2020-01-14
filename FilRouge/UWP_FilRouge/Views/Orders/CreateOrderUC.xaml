@@ -53,6 +53,8 @@
                     <TextBox PlaceholderText="TotalAmount" Text="{Binding Order.hippingCost}" />
                     <TextBox PlaceholderText="PayMode" Text="{Binding Order.PayMode}" Grid.Row="2"/>
 
+               
+                     
                 </StackPanel>
 
             </Grid>
