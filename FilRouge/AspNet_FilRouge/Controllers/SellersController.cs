@@ -16,7 +16,7 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Sellers
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         //[AdminValidator]
         public async Task<ActionResult> Index()
         {
@@ -24,7 +24,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Details/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         //[AdminValidator]
         public async Task<ActionResult> Details(long? id)
         {
@@ -41,7 +41,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         //[AdminValidator]
         public ActionResult Create()
         {
@@ -66,7 +66,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         //[AdminValidator]
         public async Task<ActionResult> Edit(long? id)
         {

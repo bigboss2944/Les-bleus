@@ -8,7 +8,7 @@ namespace AspNet_FilRouge.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public ActionResult Index()
         {
             return View();

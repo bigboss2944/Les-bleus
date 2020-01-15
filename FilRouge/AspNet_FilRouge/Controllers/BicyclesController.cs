@@ -16,14 +16,15 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bicycles
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
         }
 
         // GET: Bicycles/Details/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -50,7 +51,7 @@ namespace AspNet_FilRouge.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         //[AdminValidator]
         public async Task<ActionResult> Create([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {

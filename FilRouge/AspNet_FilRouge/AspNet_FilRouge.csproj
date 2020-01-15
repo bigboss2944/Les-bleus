@@ -188,6 +188,7 @@
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\AdminValidator.cs" />

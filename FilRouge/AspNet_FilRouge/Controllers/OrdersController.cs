@@ -16,7 +16,7 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Orders
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             return View(await db.Orders.ToListAsync());
@@ -24,6 +24,7 @@ namespace AspNet_FilRouge.Controllers
 
         // GET: Orders/Details/5
         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -39,7 +40,8 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Orders/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public ActionResult Create()
         {
             return View();
@@ -64,6 +66,7 @@ namespace AspNet_FilRouge.Controllers
 
         // GET: Orders/Edit/5
         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Seller")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)

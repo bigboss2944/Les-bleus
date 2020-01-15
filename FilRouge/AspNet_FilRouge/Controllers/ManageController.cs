@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AspNet_FilRouge.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

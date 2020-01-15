@@ -136,8 +136,8 @@ namespace AspNet_FilRouge.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize]
-        //[AdminValidator]
+        //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
