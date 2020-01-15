@@ -1,0 +1,11 @@
+﻿@model AspNet_FilRouge.Models.BicycleOrdersViewModel
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Bicycles, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(x => x.Bicycles,
+            new SelectList(Model.Bicycles, "Id", "Reference"),
+            "Référence du vélo",
+            new { @class = "form-control", Name = "BicycleId" })
+    </div>
+</div>

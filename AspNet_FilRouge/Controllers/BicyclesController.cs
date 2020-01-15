@@ -8,9 +8,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspNet_FilRouge.Models;
+using System.Web.Http.Description;
+using System.Web.Http;
+using System.Data.Entity.Infrastructure;
+using System.Web.Http.Description;
+
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
+using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
+using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 
 namespace AspNet_FilRouge.Controllers
 {
+    [Authorize]
     public class BicyclesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -37,6 +46,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Create
+     
         public ActionResult Create()
         {
             return View();
@@ -115,6 +125,9 @@ namespace AspNet_FilRouge.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        
+
 
         protected override void Dispose(bool disposing)
         {

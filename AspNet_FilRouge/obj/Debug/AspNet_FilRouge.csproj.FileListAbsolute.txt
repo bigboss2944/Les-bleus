@@ -664,3 +664,7 @@ C:\Users\fabrice\source\repos\fafa-noel29\AspNet_FilRouge\obj\Debug\AspNet_FilRo
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.dll
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.pdb
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\Entities.dll.config
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\System.Net.Http.Formatting.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\System.Web.Http.dll
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\System.Net.Http.Formatting.xml
+C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\AspNet_FilRouge\bin\System.Web.Http.xml

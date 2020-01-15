@@ -6,15 +6,35 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-10 col-md-3 col-lg-2">
-                <h3>Main menu</h3>
+                @if (Request.IsAuthenticated)
+                {
+                    <h3>Main menu</h3>
+                    <br />
+                    <p><a href="/Sellers/Index" class="btn btn-primary btn-lg btn-block">Sellers &raquo;</a></p>
+                    <br />
+                    <p><a href="/Customers/Index" class="btn btn-primary btn-lg btn-block">Customers &raquo;</a></p>
+                    <br />
+                    <p><a href="/Orders/Index" class="btn btn-primary btn-lg btn-block">Orders &raquo;</a></p>
+                    <br />
+                    <p><a href="/Bicycles/Index" class="btn btn-primary btn-lg btn-block">Bicycles &raquo;</a></p>
+                }
+
+                else
+                {
+
+            <div style="text-align:center">
                 <br />
-                <p><a href="/Sellers/Index" class="btn btn-primary btn-lg btn-block">Sellers &raquo;</a></p>
-                <br />
-                <p><a href="/Customers/Index" class="btn btn-primary btn-lg btn-block">Customers &raquo;</a></p>
-                <br />
-                <p><a href="/Orders/Index" class="btn btn-primary btn-lg btn-block">Orders &raquo;</a></p>
-                <br />
-                <p><a href="/Bicycles/Index" class="btn btn-primary btn-lg btn-block">Bicycles &raquo;</a></p>
+                <h2>W</h2>
+                <h2>E</h2>
+                <h2>L</h2>
+                <h2>C</h2>
+                <h2>O</h2>
+                <h2>M</h2>
+                <h2>E</h2>
+
+            </div>
+                    
+                }
             </div>
             <div class="col-xs-2 col-md-9 col-lg-10">
                 <div class="embed-responsive embed-responsive-16by9">

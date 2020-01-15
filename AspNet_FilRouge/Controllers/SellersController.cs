@@ -11,6 +11,7 @@ using AspNet_FilRouge.Models;
 
 namespace AspNet_FilRouge.Controllers
 {
+    [Authorize]
     public class SellersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
