@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\IB\\Documents\\SprintContador\\Les-bleus\\FilRouge\\UWP_ProjetFilRouge\\UWP_ProjetFilRouge.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\IB\\Documents\\SprintContador\\Les-bleus\\FilRouge\\UWP_ProjetFilRouge\\UWP_ProjetFilRouge.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\IB\\Documents\\SprintContador\\Les-bleus\\FilRouge\\UWP_ProjetFilRouge\\UWP_ProjetFilRouge.csproj",
+        "projectName": "UWP_ProjetFilRouge",
+        "projectPath": "C:\\Users\\IB\\Documents\\SprintContador\\Les-bleus\\FilRouge\\UWP_ProjetFilRouge\\UWP_ProjetFilRouge.csproj",
+        "packagesPath": "C:\\Users\\IB\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\IB\\Documents\\SprintContador\\Les-bleus\\FilRouge\\UWP_ProjetFilRouge\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\IB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "uap10.0.17763"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "uap10.0.17763": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "uap10.0.17763": {
+          "dependencies": {
+            "Microsoft.NETCore.UniversalWindowsPlatform": {
+              "target": "Package",
+              "version": "[6.2.9, )"
+            },
+            "MvvmLight": {
+              "target": "Package",
+              "version": "[5.4.1.1, )"
+            },
+            "SQLiteNetExtensions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "sqlite": {
+              "target": "Package",
+              "version": "[3.13.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "win10-arm": {
+          "#import": []
+        },
+        "win10-arm-aot": {
+          "#import": []
+        },
+        "win10-arm64-aot": {
+          "#import": []
+        },
+        "win10-x64": {
+          "#import": []
+        },
+        "win10-x64-aot": {
+          "#import": []
+        },
+        "win10-x86": {
+          "#import": []
+        },
+        "win10-x86-aot": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
