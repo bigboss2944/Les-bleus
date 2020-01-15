@@ -16,7 +16,7 @@ namespace AspNet_FilRouge.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Sellers
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         //[AdminValidator]
         public async Task<ActionResult> Index()
         {
@@ -99,7 +99,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Sellers/Delete/5
-        [Authorize]
+        [Authorize (Roles = "Admin")]
         //[AdminValidator]
         public async Task<ActionResult> Delete(long? id)
         {

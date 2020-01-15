@@ -39,7 +39,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -65,7 +65,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
@@ -97,7 +97,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)
