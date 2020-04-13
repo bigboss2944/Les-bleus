@@ -9,14 +9,16 @@
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
+            <RowDefinition x:ConnectionId='2' x:Name="Header" Height="*"/>
 
-        </Grid.ColumnDefinitions>
+            <RowDefinition x:ConnectionId='3' x:Name="Body" Height="2*"/>
+            <RowDefinition x:ConnectionId='4' x:Name="Footer" Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <GridView Background="#FF558C2F" Grid.Row="0" HorizontalAlignment="Right" Width="1500">
+
+            
+        </GridView>
     </Grid>
 
 

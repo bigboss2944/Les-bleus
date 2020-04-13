@@ -137,9 +137,18 @@
       <DependentUpon>CreateUserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewModelLight\CreateUserViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewModelLight\ListViewModel.cs" />
     <Compile Include="Views\ViewModelLight\ListUserView.xaml.cs">
       <DependentUpon>ListUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewModelLight\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewModelLight\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewModelLight\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
@@ -153,13 +162,34 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\bg.png" />
+    <Content Include="Assets\bike.gif" />
+    <Content Include="Assets\bike.mp4" />
+    <Content Include="Assets\bike.png" />
+    <Content Include="Assets\bike1.png" />
+    <Content Include="Assets\bike2.png" />
+    <Content Include="Assets\customer.gif" />
+    <Content Include="Assets\customer.jpg" />
+    <Content Include="Assets\customer1.png" />
+    <Content Include="Assets\customer2.png" />
+    <Content Include="Assets\facture.png" />
+    <Content Include="Assets\homePage.jpg" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\order.gif" />
+    <Content Include="Assets\order1.png" />
+    <Content Include="Assets\order2.png" />
+    <Content Include="Assets\retour.png" />
+    <Content Include="Assets\seller.gif" />
+    <Content Include="Assets\seller1.png" />
+    <Content Include="Assets\seller2.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\velo.gif" />
+    <Content Include="Assets\velo.jpg" />
+    <Content Include="Assets\vendeuse.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +197,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dictionary1.xaml">
+    <Page Include="Views\ViewModelLight\Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,7 +221,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ViewModelLight\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ViewModelLight\ListUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewModelLight\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewModelLight\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj": {}
+    "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj": {
+    "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
+        "projectUniqueName": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
         "projectName": "UWP_FilRouge",
-        "projectPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
-        "packagesPath": "C:\\Users\\IB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\obj\\",
+        "projectPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
+        "packagesPath": "C:\\Users\\fabrice\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\IB\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\fabrice\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "uap10.0.17763"

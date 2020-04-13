@@ -4860,7 +4860,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "ok+RPAtESz/9MUXeIEz6Lv5XAGQsaNmEYXMsgVALj4D7kqC8gveKWXWXbufLySR2fWrwZf8smyN5RmHu0e4BHA==",
+      "sha512": "GmkKfoyerqmsHMn7OZj0AKpcBabD+GaafqphvX2Mw406IwiJRy1pKcKqdCfKJfYmkRyJ6+e+RaUylgdJoDa1jQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
@@ -9552,25 +9552,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\IB\\.nuget\\packages\\": {},
+    "C:\\Users\\fabrice\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
+      "projectUniqueName": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
       "projectName": "UWP_FilRouge",
-      "projectPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
-      "packagesPath": "C:\\Users\\IB\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\obj\\",
+      "projectPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
+      "packagesPath": "C:\\Users\\fabrice\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\IB\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\fabrice\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "uap10.0.17763"

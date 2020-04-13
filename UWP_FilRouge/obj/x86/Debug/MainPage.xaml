@@ -10,7 +10,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionary1.xaml"/>
+                <ResourceDictionary Source="Views/UserUC/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <x:String x:Key="greeting">Hello world</x:String>
         </ResourceDictionary>

@@ -1,1 +1,1 @@
-C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\UWP_FilRouge\UWP_FilRouge.csproj;x86
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\UWP_FilRouge.csproj;x86

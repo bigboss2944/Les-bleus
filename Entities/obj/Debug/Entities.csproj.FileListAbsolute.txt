@@ -88,3 +88,17 @@ C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\bin\Debug\Newtonso
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.dll
 C:\Users\IB\source\repos\FilRouge\Les-bleus\FilRouge\Entities\obj\Debug\Entities.pdb
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\Entities.dll.config
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\Entities.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\Entities.pdb
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\EntityFramework.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\EntityFramework.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\obj\Debug\Entities.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\Entities\obj\Debug\Entities.pdb
