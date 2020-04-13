@@ -18,10 +18,10 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="GridViewHeader.Background"
-                                Value="Green" />
+                                Value="#558c2f" />
 
                         <Setter Target="GridViewFooter.Background"
-                                Value="Green" />
+                                Value="#558c2f" />
 
                     </VisualState.Setters>
                 </VisualState>
@@ -31,7 +31,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="GridViewHeader.Background"
-                                Value="Green" />
+                                Value="#558c2f" />
                         <Setter Target="GridViewHeader.RowSpan"
                                 Value="3" />
 
@@ -71,7 +71,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="GridViewHeader.Background"
-                                Value="Green" />
+                                Value="#558c2f" />
                         <Setter Target="GridViewHeader.RowSpan"
                                 Value="3" />
 

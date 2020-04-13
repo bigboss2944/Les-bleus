@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-   
+
     <Grid x:ConnectionId='2' Width="Auto" x:Name="mainGrid" >
 
         <VisualStateManager.VisualStateGroups>
@@ -122,7 +122,7 @@
             <Button x:ConnectionId='11' x:Name="SellerButton" Content="Seller" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
             <Button x:ConnectionId='12' x:Name="CustomerButton" Content="Customer" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
             <Button x:ConnectionId='13' x:Name="OrderButton" Content="Order" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='14' x:Name="LoginButton" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='14' x:Name="LoginButton" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33"/>
             <Button x:ConnectionId='15' x:Name="RegisterButton" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
 
         </Grid>
@@ -146,7 +146,7 @@
             <TextBox x:ConnectionId='7' x:Name="password"  Grid.Row="1" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-            <Button x:ConnectionId='8' x:Name="ConnectButton" Content="Connect" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Button x:ConnectionId='8' x:Name="ConnectButton" Content="Connect" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0,50,0,0" Grid.RowSpan="2"/>
             <Button x:ConnectionId='9' x:Name="CancelButton" Content="Cancel" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </Grid>
 
@@ -163,6 +163,6 @@
     </Grid>
 
 
-    
+
 </Page>
 
