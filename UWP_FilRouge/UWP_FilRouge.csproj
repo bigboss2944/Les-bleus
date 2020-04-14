@@ -127,33 +127,29 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\UserUC\CreateUserUC.xaml.cs">
-      <DependentUpon>CreateUserUC.xaml</DependentUpon>
+    <Compile Include="Views\ViewModelLight\Views\CustomerMainPage.xaml.cs">
+      <DependentUpon>CustomerMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserUC\ListUserUC.xaml.cs">
-      <DependentUpon>ListUserUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelLight\CreateUserView.xaml.cs">
-      <DependentUpon>CreateUserView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelLight\CreateUserViewModel.cs" />
-    <Compile Include="Views\ViewModelLight\HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelLight\ListViewModel.cs" />
-    <Compile Include="Views\ViewModelLight\ListUserView.xaml.cs">
-      <DependentUpon>ListUserView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelLight\LoginPage.xaml.cs">
+    <Compile Include="Views\ViewModelLight\CustomerMainPageViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewModelLight\RegisterPage.xaml.cs">
+    <Compile Include="Views\ViewModelLight\LoginPageViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewModelLight\Views\OrderMainPage.xaml.cs">
+      <DependentUpon>OrderMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewModelLight\OrderMainPageViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewModelLight\UserView.xaml.cs">
-      <DependentUpon>UserView.xaml</DependentUpon>
+    <Compile Include="Views\ViewModelLight\RegisterPageViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\Views\SellerMainPage.xaml.cs">
+      <DependentUpon>SellerMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewModelLight\UserViewModel.cs" />
+    <Compile Include="Views\ViewModelLight\SellerMainPageViewModel.cs" />
     <Compile Include="Views\ViewModelLight\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,7 +193,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ViewModelLight\Dictionary1.xaml">
+    <Page Include="Views\ViewModelLight\Views\CustomerMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewModelLight\Views\Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,35 +209,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserUC\CreateUserUC.xaml">
+    <Page Include="Views\ViewModelLight\Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserUC\ListUserUC.xaml">
+    <Page Include="Views\ViewModelLight\Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ViewModelLight\CreateUserView.xaml">
+    <Page Include="Views\ViewModelLight\Views\OrderMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ViewModelLight\HomePage.xaml">
+    <Page Include="Views\ViewModelLight\Views\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ViewModelLight\ListUserView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ViewModelLight\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ViewModelLight\RegisterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ViewModelLight\UserView.xaml">
+    <Page Include="Views\ViewModelLight\Views\SellerMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

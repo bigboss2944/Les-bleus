@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using System;
@@ -16,8 +17,8 @@ namespace UWP_FilRouge.Views.ViewModelLight
         /// 
         public enum Pages
         {
-            CreateUserView,
-            ListUserView,
+            LoginPage,
+            RegisterPage,
             
             MainPage
         }
@@ -25,42 +26,62 @@ namespace UWP_FilRouge.Views.ViewModelLight
         public ViewModelLocator()        
         {            
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            //Register your services used here            
-            SimpleIoc.Default.Register<INavigationService>(() =>
+            var navigationService = new NavigationService();
+            navigationService.Configure("Login Page", typeof(LoginPage));
+            navigationService.Configure("Register Page", typeof(RegisterPage));
+            navigationService.Configure("Seller Main Page", typeof(SellerMainPage));
+            navigationService.Configure("Customer Main Page", typeof(CustomerMainPage));
+            navigationService.Configure("Order Main Page", typeof(OrderMainPage));
+            navigationService.Configure("Main Page", typeof(MainPage));
+            if (ViewModelBase.IsInDesignModeStatic)
             {
-                var navigationService = new NavigationService();
-                navigationService.Configure("CreateUserView", typeof(CreateUserView));
-                navigationService.Configure("ListUserView", typeof(ListUserView));
-                return navigationService;
-            });
-            SimpleIoc.Default.Register<UserViewModel>();
-            SimpleIoc.Default.Register<CreateUserViewModel>();
-            SimpleIoc.Default.Register<ListViewModel>();
+                // Create design time view services and models
+            }
+            else
+            {
+                // Create run time view services and models
+            }
+
+            SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+
+            SimpleIoc.Default.Register<LoginPageViewModel>();
+
+            SimpleIoc.Default.Register<RegisterPageViewModel>();
+
+            SimpleIoc.Default.Register<SellerMainPageViewModel>();
+
+            SimpleIoc.Default.Register<CustomerMainPageViewModel>();
+
+            SimpleIoc.Default.Register<OrderMainPageViewModel>();
 
         }                
 
-        public UserViewModel UserViewInstance        
+        public LoginPageViewModel LoginPageInstance        
         {            
-            get { return ServiceLocator.Current.GetInstance<UserViewModel>(); }        
+            get { return ServiceLocator.Current.GetInstance<LoginPageViewModel>(); }        
         }
 
-        public ListViewModel ListUserViewInstance
+        public RegisterPageViewModel RegisterPageInstance
         {
-            
-            get {
-
-                
-                    return ServiceLocator.Current.GetInstance<ListViewModel>();
-
-                
-               
-                
-            }
+            get { return ServiceLocator.Current.GetInstance<RegisterPageViewModel>(); }
         }
 
-        public CreateUserViewModel CreateUserViewInstance
+        public SellerMainPageViewModel SellerMainPageInstance
         {
-            get { return ServiceLocator.Current.GetInstance<CreateUserViewModel>(); }
+            get { return ServiceLocator.Current.GetInstance<SellerMainPageViewModel>(); }
         }
+
+        public CustomerMainPageViewModel CustomerMainPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<CustomerMainPageViewModel>(); }
+        }
+
+        public OrderMainPageViewModel OrderMainPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<OrderMainPageViewModel>(); }
+        }
+
+
     }
 
 }
