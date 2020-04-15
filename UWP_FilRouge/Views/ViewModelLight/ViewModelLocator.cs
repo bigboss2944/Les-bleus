@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_FilRouge.Views.ViewModelLight.Views;
 
 namespace UWP_FilRouge.Views.ViewModelLight
 {
@@ -33,6 +34,9 @@ namespace UWP_FilRouge.Views.ViewModelLight
             navigationService.Configure("Customer Main Page", typeof(CustomerMainPage));
             navigationService.Configure("Order Main Page", typeof(OrderMainPage));
             navigationService.Configure("Main Page", typeof(MainPage));
+            navigationService.Configure("Home Page", typeof(HomePage));
+            navigationService.Configure("Contact Page", typeof(ContactPage));
+            navigationService.Configure("About Page", typeof(AboutPage));
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 // Create design time view services and models
@@ -54,7 +58,29 @@ namespace UWP_FilRouge.Views.ViewModelLight
 
             SimpleIoc.Default.Register<OrderMainPageViewModel>();
 
-        }                
+            SimpleIoc.Default.Register<HomePageViewModel>();
+
+            SimpleIoc.Default.Register<ContactPageViewModel>();
+
+            SimpleIoc.Default.Register<AboutPageViewModel>();
+
+        }
+
+
+        public HomePageViewModel HomePageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<HomePageViewModel>(); }
+        }
+
+        public ContactPageViewModel ContactPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<ContactPageViewModel>(); }
+        }
+
+        public AboutPageViewModel AboutPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<AboutPageViewModel>(); }
+        }
 
         public LoginPageViewModel LoginPageInstance        
         {            

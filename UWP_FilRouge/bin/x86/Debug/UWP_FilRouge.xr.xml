@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Roots >
   <Roots.PropertyPathNames>
-    <RootPropertyPathName Name="CustomerMainPageInstance" />
+    <RootPropertyPathName Name="AboutPageInstance" />
     <RootPropertyPathName Name="MoveToRegisterPage" />
     <RootPropertyPathName Name="MoveToLoginPage" />
-    <RootPropertyPathName Name="MoveToOrderPage" />
-    <RootPropertyPathName Name="MoveToCustomerPage" />
-    <RootPropertyPathName Name="MoveToSellerPage" />
+    <RootPropertyPathName Name="MoveToContactPage" />
+    <RootPropertyPathName Name="MoveToAboutPage" />
+    <RootPropertyPathName Name="MoveToHomePage" />
+    <RootPropertyPathName Name="ContactPageInstance" />
+    <RootPropertyPathName Name="CustomerMainPageInstance" />
+    <RootPropertyPathName Name="HomePageInstance" />
     <RootPropertyPathName Name="LoginPageInstance" />
-    <RootPropertyPathName Name="NavigateCommand" />
     <RootPropertyPathName Name="OrderMainPageInstance" />
     <RootPropertyPathName Name="RegisterPageInstance" />
     <RootPropertyPathName Name="SellerMainPageInstance" />
@@ -34,11 +36,11 @@
       <RootProperty Name="Width" />
       <RootProperty Name="RowDefinitions" />
       <RootProperty Name="Children" />
+      <RootProperty Name="Margin" />
       <RootProperty Name="ColumnDefinitions" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Padding" />
-      <RootProperty Name="Margin" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
       <RootMethod Name="GetRow" />
@@ -71,21 +73,25 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Children" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Width" />
       <RootProperty Name="Margin" />
-      <RootProperty Name="Children" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.Button">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Content" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="Command" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Background" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="FontWeight" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
+      <RootProperty Name="Width" />
       <RootProperty Name="MaxWidth" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Inlines" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Image">
       <RootProperty Name="Source" />
@@ -98,7 +104,28 @@
       <RootProperty Name="Opacity" />
       <RootProperty Name="Stretch" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Command" />
+      <RootProperty Name="Content" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="FontWeight" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="MaxWidth" />
+    </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
+    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.AboutPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="AcceptsReturn" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.ContactPage" />
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.CustomerMainPage" />
     <RootType FullName="Windows.UI.Xaml.ResourceDictionary">
       <RootProperty Name="MergedDictionaries" />
@@ -110,28 +137,8 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.NavigationViewItem" />
     <RootType FullName="System.String" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
-      <RootProperty Name="Width" />
-      <RootProperty Name="MaxWidth" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="FontSize" />
-      <RootProperty Name="Inlines" />
-      <RootProperty Name="Text" />
-      <RootProperty Name="TextWrapping" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Text" />
-      <RootProperty Name="TextWrapping" />
-      <RootProperty Name="Background" />
-      <RootProperty Name="AcceptsReturn" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
       <RootProperty Name="HorizontalAlignment" />
@@ -147,6 +154,13 @@
       <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="HeaderTemplateDemo.MainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.MediaElement">
+      <RootProperty Name="Source" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Height" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.HomePage" />
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.LoginPage" />
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.MainPage" />
     <RootType FullName="UWP_FilRouge.Views.ViewModelLight.OrderMainPage" />

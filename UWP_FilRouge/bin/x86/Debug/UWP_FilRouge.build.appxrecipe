@@ -172,6 +172,12 @@
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\AboutPage.xbf">
+      <PackagePath>Views\ViewModelLight\Views\AboutPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\ContactPage.xbf">
+      <PackagePath>Views\ViewModelLight\Views\ContactPage.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\CustomerMainPage.xbf">
       <PackagePath>Views\ViewModelLight\Views\CustomerMainPage.xbf</PackagePath>
     </AppxPackagedFile>
@@ -183,6 +189,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shared\_layout.xbf">
       <PackagePath>Views\Shared\_layout.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\HomePage.xbf">
+      <PackagePath>Views\ViewModelLight\Views\HomePage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\LoginPage.xbf">
       <PackagePath>Views\ViewModelLight\Views\LoginPage.xbf</PackagePath>

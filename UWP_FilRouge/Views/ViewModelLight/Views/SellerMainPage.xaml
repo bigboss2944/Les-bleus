@@ -60,13 +60,13 @@
                         <Setter Target="bike.Margin"
                                 Value="15,15,0,0"/>
 
-                        <Setter Target="SellerButton.Margin"
+                        <Setter Target="HomePageButton.Margin"
                                 Value="15,125,0,0"/>
 
-                        <Setter Target="CustomerButton.Margin"
+                        <Setter Target="ContactPageButton.Margin"
                                 Value="15,200,0,0"/>
 
-                        <Setter Target="OrderButton.Margin"
+                        <Setter Target="AboutPageButton.Margin"
                                 Value="15,275,0,0"/>
 
                         <Setter Target="LoginButton.Margin"
@@ -112,13 +112,13 @@
                         <Setter Target="bike.Margin"
                                 Value="15,15,0,0"/>
 
-                        <Setter Target="SellerButton.Margin"
+                        <Setter Target="HomePageButton.Margin"
                                 Value="15,125,0,0"/>
 
-                        <Setter Target="CustomerButton.Margin"
+                        <Setter Target="ContactPageButton.Margin"
                                 Value="15,200,0,0"/>
 
-                        <Setter Target="OrderButton.Margin"
+                        <Setter Target="AboutPageButton.Margin"
                                 Value="15,275,0,0"/>
 
                         <Setter Target="LoginButton.Margin"
@@ -155,9 +155,9 @@
 
         <Grid x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
             <Image x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
-            <Button x:Name="SellerButton" Command="{Binding MoveToSellerPage}" Content="Seller" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:Name="CustomerButton" Command="{Binding MoveToCustomerPage}" Content="Customer" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:Name="OrderButton" Command="{Binding MoveToOrderPage}" Content="Order" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
             <Button x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
             <Button x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
 

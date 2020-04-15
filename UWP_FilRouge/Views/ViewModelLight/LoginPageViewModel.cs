@@ -14,9 +14,9 @@ namespace UWP_FilRouge.Views.ViewModelLight
         private readonly INavigationService _navigationService;
         public RelayCommand MoveToRegisterPage { get; private set; }
         public RelayCommand MoveToLoginPage { get; private set; }
-        public RelayCommand MoveToSellerPage { get; private set; }
-        public RelayCommand MoveToCustomerPage { get; private set; }
-        public RelayCommand MoveToOrderPage { get; private set; }
+        public RelayCommand MoveToHomePage { get; private set; }
+        public RelayCommand MoveToContactPage { get; private set; }
+        public RelayCommand MoveToAboutPage { get; private set; }
         private bool _isLoading = false;
 
         public bool IsLoading
@@ -55,9 +55,9 @@ namespace UWP_FilRouge.Views.ViewModelLight
             _navigationService = navigationService;
             Title = "Login Page";
             MoveToRegisterPage = new RelayCommand(ToRegisterPage);
-            MoveToSellerPage = new RelayCommand(ToSellerPage);
-            MoveToCustomerPage = new RelayCommand(ToCustomerPage);
-            MoveToOrderPage = new RelayCommand(ToOrderPage);
+            MoveToHomePage = new RelayCommand(ToHomePage);
+            MoveToContactPage = new RelayCommand(ToContactPage);
+            MoveToAboutPage = new RelayCommand(ToAboutPage);
         }
 
         private void ToRegisterPage()
@@ -66,22 +66,22 @@ namespace UWP_FilRouge.Views.ViewModelLight
             _navigationService.NavigateTo("Register Page");
         }
 
-        private void ToSellerPage()
+        private void ToHomePage()
         {
             // Do Something
-            _navigationService.NavigateTo("Seller Main Page");
+            _navigationService.NavigateTo("Home Page");
         }
 
-        private void ToCustomerPage()
+        private void ToAboutPage()
         {
             // Do Something
-            _navigationService.NavigateTo("Customer Main Page");
+            _navigationService.NavigateTo("About Page");
         }
 
-        private void ToOrderPage()
+        private void ToContactPage()
         {
             // Do Something
-            _navigationService.NavigateTo("Order Main Page");
+            _navigationService.NavigateTo("Contact Page");
         }
     }
 }

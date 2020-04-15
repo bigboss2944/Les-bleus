@@ -33,8 +33,11 @@ App.xbf
 MainPage.xbf
 UWP_FilRouge.xr.xml
 Views\Shared\_layout.xbf
+Views\ViewModelLight\Views\AboutPage.xbf
+Views\ViewModelLight\Views\ContactPage.xbf
 Views\ViewModelLight\Views\CustomerMainPage.xbf
 Views\ViewModelLight\Views\Dictionary1.xbf
+Views\ViewModelLight\Views\HomePage.xbf
 Views\ViewModelLight\Views\LoginPage.xbf
 Views\ViewModelLight\Views\MainPage.xbf
 Views\ViewModelLight\Views\OrderMainPage.xbf

@@ -1,0 +1,183 @@
+﻿<Page
+    x:Class="UWP_FilRouge.Views.ViewModelLight.Views.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_FilRouge.Views.ViewModelLight.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding AboutPageInstance, Source={StaticResource Locator}}"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Width="Auto" x:Name="mainGrid" >
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridViewHeader.Background"
+                                Value="#558c2f" />
+
+                        <Setter Target="GridViewFooter.Background"
+                                Value="#558c2f" />
+
+                        
+
+                        
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridViewHeader.Background"
+                                Value="#558c2f" />
+                        <Setter Target="GridViewHeader.RowSpan"
+                                Value="3" />
+
+                        <Setter Target="GridViewHeader.HorizontalAlignment"
+                                Value="left" />
+
+                        <Setter Target="GridViewHeader.Width"
+                                Value="100px" />
+
+                        <Setter Target="GridViewFooter.Visibility"
+                                Value="Collapsed" />
+
+                        <Setter Target="bike.Margin"
+                                Value="15,15,0,0"/>
+
+                        <Setter Target="HomePageButton.Margin"
+                                Value="15,125,0,0"/>
+
+                        <Setter Target="ContactPageButton.Margin"
+                                Value="15,200,0,0"/>
+
+                        <Setter Target="AboutPageButton.Margin"
+                                Value="15,275,0,0"/>
+
+                        <Setter Target="LoginButton.Margin"
+                                Value="15,600,0,0"/>
+
+                        <Setter Target="RegisterButton.Margin"
+                                Value="15,675,0,0"/>
+
+                        
+
+
+
+
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridViewHeader.Background"
+                                Value="#558c2f" />
+                        <Setter Target="GridViewHeader.RowSpan"
+                                Value="3" />
+
+                        <Setter Target="GridViewHeader.HorizontalAlignment"
+                                Value="left" />
+
+                        <Setter Target="GridViewHeader.Width"
+                                Value="100px" />
+
+                        <Setter Target="GridViewFooter.Visibility"
+                                Value="Collapsed" />
+
+                        <Setter Target="bike.Margin"
+                                Value="15,15,0,0"/>
+
+                        <Setter Target="HomePageButton.Margin"
+                                Value="15,125,0,0"/>
+
+                        <Setter Target="ContactPageButton.Margin"
+                                Value="15,200,0,0"/>
+
+                        <Setter Target="AboutPageButton.Margin"
+                                Value="15,275,0,0"/>
+
+                        <Setter Target="LoginButton.Margin"
+                                Value="15,600,0,0"/>
+
+                        <Setter Target="RegisterButton.Margin"
+                                Value="15,675,0,0"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <Grid x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
+            <Image x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
+            <Button x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}" FontWeight="Bold"/>
+            <Button x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" />
+            <Button x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="AboutGrid" Margin="100,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+            <StackPanel HorizontalAlignment="Center" Height="auto" Grid.Column="2">
+
+                <TextBlock HorizontalAlignment="Center" Text="Created in november 2019" Grid.Row="1" Width="auto" Height="auto"/>
+
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" Height="auto" Grid.Column="0">
+
+                <TextBlock HorizontalAlignment="Left" Text="Stevie Levesque: CEO and cofounder" Grid.Row="1" Width="auto" Height="auto"/>
+
+                <TextBlock HorizontalAlignment="Left" Text="Chu Ya : Accountant and cofounder " Grid.Row="1" Width="auto" Height="auto"/>
+
+                <TextBlock HorizontalAlignment="Left" Text="Cyrille Nzally: Cofounder" Grid.Row="1" Width="auto" Height="auto"/>
+
+                <TextBlock HorizontalAlignment="Left" Text="Fabrice Noël :cofounder " Grid.Row="1" Width="auto" Height="auto"/>
+            </StackPanel>
+        </Grid>
+
+        
+
+
+
+
+        
+
+        
+
+        <Grid x:Name="GridViewFooter" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+
+
+
+        </Grid>
+        <StackPanel Grid.Row="1"/>
+
+    </Grid>
+</Page>
