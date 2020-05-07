@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+
 using UWP_FilRouge.Views.ViewModelLight;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+
 using Windows.UI.Xaml.Navigation;
+using DataAccessLibraryUWP;
+
+
 
 namespace UWP_FilRouge
 {
@@ -31,6 +27,7 @@ namespace UWP_FilRouge
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            DataAccess.InitializeDatabase();
         }
 
         /// <summary>
@@ -69,6 +66,7 @@ namespace UWP_FilRouge
                     // paramètre
                     rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                 }
+                //SQLiteDatabase.Database();
                 // Vérifiez que la fenêtre actuelle est active
                 Window.Current.Activate();
             }
@@ -97,5 +95,8 @@ namespace UWP_FilRouge
             //TODO: enregistrez l'état de l'application et arrêtez toute activité en arrière-plan
             deferral.Complete();
         }
+
+
+        
     }
 }

@@ -3,43 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UWP_FilRouge.Entities;
 
-namespace Entities
+namespace UWP_FilRouge
 {
-    public class User : EntityBase
+    public class User
     {
         #region Attributs
-        protected string lastname;
-        protected string firstname;
+        protected string firstName;
+        protected string password;
         #endregion
 
         #region Properties
-        public string Lastname { get => lastname; set => lastname = value; }
-        public string Firstname { get => firstname; set => firstname = value; }
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string Password { get => password; set => password = value; }
         #endregion
 
         #region Constructors
         public User()
         {
 
-
-        }
-
-        public override object Copy()
-        {
-            User user = new User();
-            user.Lastname = this.lastname;
-            user.Firstname = this.firstname;
-
-            return user;
-        }
-
-        public override void CopyFrom(object obj)
-        {
-            User user = obj as User;
-            user.Lastname = this.lastname;
-            user.Firstname = this.firstname;
         }
         #endregion
 

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP_FilRouge", "UWP_FilRoug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge", "AspNet_FilRouge\AspNet_FilRouge.csproj", "{703D3597-0412-43D7-BF47-61B32387B3A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLibraryUWP", "DataAccessLibraryUWP\DataAccessLibraryUWP.csproj", "{F95DDC20-D9AB-499D-B660-E5312993F138}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,26 @@ Global
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x64.Build.0 = Release|Any CPU
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x86.Build.0 = Release|Any CPU
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|ARM.Build.0 = Debug|ARM
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|ARM64.Build.0 = Debug|ARM64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|x64.ActiveCfg = Debug|x64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|x64.Build.0 = Debug|x64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|x86.ActiveCfg = Debug|x86
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Debug|x86.Build.0 = Debug|x86
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|ARM.ActiveCfg = Release|ARM
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|ARM.Build.0 = Release|ARM
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|ARM64.ActiveCfg = Release|ARM64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|ARM64.Build.0 = Release|ARM64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|x64.ActiveCfg = Release|x64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|x64.Build.0 = Release|x64
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|x86.ActiveCfg = Release|x86
+		{F95DDC20-D9AB-499D-B660-E5312993F138}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

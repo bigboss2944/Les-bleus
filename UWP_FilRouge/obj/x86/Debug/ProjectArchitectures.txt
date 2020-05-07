@@ -1,1 +1,2 @@
+C:\Users\fabrice\source\repos\Contador_fabrice\DataAccessLibraryUWP\DataAccessLibraryUWP.csproj;neutral
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\UWP_FilRouge.csproj;x86

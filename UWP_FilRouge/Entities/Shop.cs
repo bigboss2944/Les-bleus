@@ -1,64 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace UWP_FilRouge.Entities
+namespace UWP_FilRouge
 {
-    public class Shop : EntityBase
-
+    public class Shop
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
-        public override object Copy()
-        {
-            Shop shop = new Shop();
-            shop.IdShop = this.IdShop;
-            shop.Adress = this.Adress;
-            shop.Email = this.Email;
-            shop.Nameshop = this.Nameshop;
-            shop.Phone = this.Phone;
-            shop.Postalcode = this.Postalcode;
-            shop.Town = this.Town;
-            shop.Website = this.Website;
-            /*if (this.Role != null)
-            {
-                shop.Role = this.Role.Copy() as Role;
-            }*/
-
-            return shop;
-        }
-
-        public override void CopyFrom(object obj)
-        {
-            Shop shop = obj as Shop;
-            this.IdShop = shop.Id;
-            this.Adress = shop.Adress;
-            this.Email = shop.Email;
-            this.Nameshop = shop.Nameshop;
-            this.Phone = shop.Phone;
-            this.Postalcode = shop.Postalcode;
-            this.Town = shop.Town;
-            this.Website = shop.Website;
-            /*if (user.Role != null)
-            {
-                this.Role = user.Role;
-            }*/
-        }
-
-        private long idShop;
+        #region Attributs
+        private long? shopId;
         private string town;
         private int postalCode;
         private string adress;
@@ -66,90 +20,72 @@ namespace UWP_FilRouge.Entities
         private string phone;
         private string email;
         private string website;
-        /*private List<Order> orders;
+        private List<Order> orders;
         private List<Seller> sellers;
-        private List<Customer> customers;*/
+        private List<Customer> customers;
+        private List<Bicycle> bicycles;
 
-        public long IdShop
+
+
+
+        #endregion
+
+        #region Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long? ShopId
         {
-            get { return idShop; }
-            set { 
-                idShop = value;
-                OnPropertyChanged("IdShop");
-            
-            }
+            get { return shopId; }
+            set { shopId = value; }
         }
 
         public string Town
         {
             get { return town; }
-            set { 
-                town = value;
-                OnPropertyChanged("Town");
-            }
+            set { town = value; }
         }
 
         public int Postalcode
         {
             get { return postalCode; }
-            set { 
-                postalCode = value;
-                OnPropertyChanged("PostalCode");
-         
-            }
+            set { postalCode = value; }
         }
 
         public string Adress
         {
             get { return adress; }
-            set { 
-                adress = value;
-                OnPropertyChanged("Adress");
-            }
+            set { adress = value; }
         }
 
         public string Nameshop
         {
             get { return nameShop; }
-            set { 
-                nameShop = value;
-                OnPropertyChanged("NameShop");
-            }
+            set { nameShop = value; }
         }
 
         public string Phone
         {
             get { return phone; }
-            set { 
-                phone = value;
-                OnPropertyChanged("Phone");
-            }
+            set { phone = value; }
         }
 
         public string Email
         {
             get { return email; }
-            set { 
-                email = value;
-                OnPropertyChanged("Email");
-            }
+            set { email = value; }
         }
 
         public string Website
         {
             get { return website; }
-            set { 
-                website = value;
-                OnPropertyChanged("Website");
-            }
+            set { website = value; }
         }
 
-        /*public List<Order> Orders
+        public List<Order> Orders
         {
             get { return orders; }
             set { orders = value; }
         }
-
 
         public List<Seller> Sellers
         {
@@ -161,9 +97,26 @@ namespace UWP_FilRouge.Entities
         {
             get { return customers; }
             set { customers = value; }
-        } */
+        }
 
+        public List<Bicycle> Bicycles
+        {
+            get { return bicycles; }
+            set { bicycles = value; }
+        }
+        #endregion
 
-
+        #region Constructors
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public Shop()
+        {
+            this.Orders = new List<Order>();
+            this.Sellers = new List<Seller>();
+            this.Customers = new List<Customer>();
+            this.Bicycles = new  List<Bicycle>();
+        }
+        #endregion
     }
 }

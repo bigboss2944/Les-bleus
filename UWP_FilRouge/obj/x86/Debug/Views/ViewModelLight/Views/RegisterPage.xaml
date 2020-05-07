@@ -142,8 +142,8 @@
 
 
             </Grid.ColumnDefinitions>
-            <TextBox x:ConnectionId='6' x:Name="ID" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"  Text="Please enter your ID" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
-            <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBox x:ConnectionId='6' x:Name="firstName" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"  Text="Please enter your first name" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+            <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Text="First name:" TextWrapping="Wrap" VerticalAlignment="Center"/>
             
             <TextBox x:ConnectionId='7' x:Name="password" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
             <TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Center" />
@@ -151,7 +151,7 @@
             <TextBox x:ConnectionId='8' x:Name="confirm_password" Grid.Row="2" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
             <TextBlock HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Text="Please confirm your password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-            <Button x:ConnectionId='9' x:Name="ConnectButton" Content="Connect" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Button x:ConnectionId='9'                       x:Name="Register_Button" Content="Register" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <Button x:ConnectionId='10' x:Name="CancelButton" Content="Cancel" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </Grid>
 

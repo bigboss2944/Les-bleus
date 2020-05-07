@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge.Entities
+namespace UWP_FilRouge
 {
-    public class Customer :EntityBase
+    public class Customer : User
     {
+        #region Attributes
         private long idCustomer;
         private string town;
         private int postalCode;
@@ -16,135 +18,55 @@ namespace UWP_FilRouge.Entities
         private int loyaltyPoints;
         private string phone;
         private string email;
-        /// private List<Order> orders;
         private Shop shop;
+        private List<Order> orders;
+        private string gender;
+        #endregion
 
-        public long IdCustomer
-        {
-            get { return idCustomer; }
-            set
-            {
-                idCustomer = value;
-                OnPropertyChanged("IdCustomer");
-            }
-        }
+        #region Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long IdCustomer { get => idCustomer; set => idCustomer = value; }
 
-        public string Town
-        {
-            get { return town; }
-            set
-            {
-                town = value;
-                OnPropertyChanged("Town");
-            }
-        }
-        public int PostalCode
-        {
-            get { return postalCode; }
-            set
-            {
-                postalCode = value;
-                OnPropertyChanged("PostalCode");
-            }
-        }
-        public string Address
-        {
-            get { return address; }
-            set
-            {
-                address = value;
-                OnPropertyChanged("Address");
-            }
-        }
-        public int LoyaltyPoints
-        {
-            get { return loyaltyPoints; }
-            set
-            {
-                loyaltyPoints = value;
-                OnPropertyChanged("LoyaltyPoints");
-            }
-        }
-        public string Phone
-        {
-            get { return phone; }
-            set
-            {
-                phone = value;
-                OnPropertyChanged("Phone");
-            }
-        }
-        public string Email
-        {
-            get { return email; }
-            set
-            {
-                email = value;
-                OnPropertyChanged("Email");
-            }
-        }
-        /*public List<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }*/
+        public string Town { get => town; set => town = value; }
+        public int PostalCode { get => postalCode; set => postalCode = value; }
+        public string Address { get => address; set => address = value; }
+        public int LoyaltyPoints { get => loyaltyPoints; set => loyaltyPoints = value; }
+        public string Phone { get => phone; set => phone = value; }
+        public string Email { get => email; set => email = value; }
+
         public Shop Shop
         {
             get { return shop; }
-            set
-            {
-                shop = value;
-                OnPropertyChanged("Shop");
-            }
+            set { shop = value; }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public override object Copy()
+        public List<Order> Orders
         {
-            Customer customer = new Customer();
-            customer.Id = this.Id;
-            /// customer.IdCustomer = this.IdCustomer;
-            customer.Address = this.Address;
-            customer.Email = this.Email;
-            customer.LoyaltyPoints = this.LoyaltyPoints;
-            customer.Phone = this.Phone;
-            customer.PostalCode = this.PostalCode;
-            /// customer.Shop = this.Shop;
-            if (this.Shop != null)
-            {
-                customer.Shop = this.Shop.Copy() as Shop;
-            }
-            customer.Town = this.Town;
-
-            return customer;
+            get { return orders; }
+            set { orders = value; }
         }
 
-        public override void CopyFrom(object obj)
+        public string Gender
         {
-            Customer customer = obj as Customer;
-            customer.Id = this.Id;
-            /// customer.IdCustomer = this.IdCustomer;
-            customer.Address = this.Address;
-            customer.Email = this.Email;
-            customer.LoyaltyPoints = this.LoyaltyPoints;
-            customer.Phone = this.Phone;
-            customer.PostalCode = this.PostalCode;
-            /// customer.Shop = this.Shop;
-            if (customer.Shop != null)
-            {
-                this.Shop = customer.Shop;
-            }
-            customer.Town = this.Town;
+            get { return gender; }
+            set { gender = value; }
         }
+        #endregion
 
-        protected void OnPropertyChanged(string name)
+        #region Constructors
+        public Customer() : base()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            this.Orders = new List<Order>();
         }
+        #endregion    
+
+        #region Functions
+        public String ToString()
+        {
+            return this.idCustomer + " " + this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
+        }
+        #endregion
+
     }
 }

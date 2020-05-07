@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge.Entities
+namespace UWP_FilRouge
 {
-    public class Bicycle : BicycleCharacteristics
+    public class Bicycle : BicyleCharacteristics
     {
         #region Attributs
         private long id;
-        //city fitness road xc 
-        private string typeOfBike;
-        //kids woman man
-        private string category;
+        private string typeOfBike;//city fitness road xc 
+        private string category;//kids woman man
         private string reference;
         private float freeTaxPrice;
         private bool exchangeable;
         private bool insurance;
         private bool deliverable;
-        //private Order order;
+        private Order order;
+        private Customer customer;
+        private Shop shop;
         #endregion
 
         #region Properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id
         {
             get { return id; }
@@ -71,53 +75,43 @@ namespace UWP_FilRouge.Entities
             set { deliverable = value; }
         }
 
-        //[ForeignKey()]
-        //public Order Order
-        //{
-        //    get { return order; }
-        //    set { order = value; }
-        //}
+        public Order Order
+        {
+            get { return order; }
+            set { order = value; }
+        }
+
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
+
+        public Shop Shop
+        {
+            get { return shop; }
+            set { shop = value; }
+        }
         #endregion
 
-        public override object Copy()
+        #region Constructors
+        /// <summary>
+
+        /// Default constructor.
+
+        /// </summary>
+
+        public Bicycle()
         {
-            Bicycle bicycle = new Bicycle();
-            bicycle.Id = this.Id;
-            bicycle.TypeOfBike = this.TypeOfBike;
-            bicycle.Category = this.Category;
-            bicycle.Reference = this.Reference;
-            bicycle.FreeTaxPrice = this.FreeTaxPrice;
-            bicycle.Exchangeable = this.Exchangeable;
-            bicycle.Insurance = this.Insurance;
-            bicycle.Deliverable = this.Deliverable;
-            //bicycle.Order = this.Order;
-            bicycle.Size = this.Size;
-            bicycle.Weight = this.Weight;
-            bicycle.Color = this.Color;
-            bicycle.WheelSize = this.WheelSize;
-            bicycle.Electric = this.Electric;
-            bicycle.State = this.State;
-            bicycle.Size = this.Size;
-            bicycle.Brand = this.Brand;
-            bicycle.Confort = this.Confort;
-
-            return bicycle;
-
-            /// a
+            
         }
+        #endregion
 
-        public override void CopyFrom(object obj)
-        {
-            Bicycle bicycle = obj as Bicycle;
-            this.Size = bicycle.Size;
-            this.Weight = bicycle.Weight;
-            this.Color = bicycle.Color;
-            this.WheelSize = bicycle.WheelSize;
-            this.Electric = bicycle.Electric;
-            this.State = bicycle.State;
-            this.Size = bicycle.Size;
-            this.Brand = bicycle.Brand;
-            this.Confort = bicycle.Confort;
-        }
+        #region Functions
+        public String ToString() 
+            {
+            return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
+            }
+        #endregion
     }
 }

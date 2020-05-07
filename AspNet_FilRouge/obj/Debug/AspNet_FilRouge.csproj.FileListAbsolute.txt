@@ -782,8 +782,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\System.Web
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\System.Web.WebPages.resources.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\System.Web.WebPages.Deployment.resources.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\System.Web.WebPages.Razor.resources.dll
-C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\EntityFramework.resources.dll
-C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\EntityFramework.SqlServer.resources.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\AspNet_FilRouge\bin\fr\Microsoft.AspNet.Identity.EntityFramework.resources.dll

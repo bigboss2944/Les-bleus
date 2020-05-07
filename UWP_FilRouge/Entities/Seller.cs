@@ -1,107 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge.Entities
+namespace UWP_FilRouge
 {
-    public class Seller : EntityBase
+    public class Seller : User
     {
-
+        #region Attributes
         private long idSeller;
-        private string category;
-        private string password;
-        /*private List<Order> orders;*/
+        
+        private List<Order> orders;
         private Shop shop;
+        
 
-        public long IdSeller
+        private enum RoleRight
         {
-            get { return idSeller; }
-            set
-            {
-                idSeller = value;
-                OnPropertyChanged("IdSeller");
-            }
-        }
-        public string Category
-        {
-            get { return category; }
-            set
-            {
-                category = value;
-                OnPropertyChanged("Category");
-            }
+            basic,
+            medium,
+            admin
         }
 
-        public string Password
-        {
-            get { return password; }
-            set
-            {
-                password = value;
-                OnPropertyChanged("Password");
-            }
+        #endregion
+
+        #region properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long IdSeller 
+        { 
+            get => idSeller; 
+            set => idSeller = value; 
         }
 
-        /*public List<Order> Orders
+        public List<Order> Orders
         {
             get { return orders; }
             set { orders = value; }
-        }*/
+        }
 
         public Shop Shop
         {
             get { return shop; }
-            set
-            {
-                shop = value;
-                OnPropertyChanged("Shop");
-            }
+            set { shop = value; }
         }
+        #endregion
 
-
-        public override object Copy()
+        #region constructors
+        public Seller()
         {
-            Seller seller = new Seller();
-            seller.Id = this.Id;
-            seller.Category = this.Category;
-            seller.Password = this.Password;
-            /// seller.Shop = this.Shop;
-            if (this.Shop != null)
-            {
-                seller.Shop = this.Shop.Copy() as Shop;
-            }
-
-
-
-            return seller;
-           
+            this.Orders = new List<Order>();
         }
+        #endregion
 
-        public override void CopyFrom(object obj)
+        #region Functions
+        public String ToString()
         {
-            Seller seller = obj as Seller;
-            this.Id = seller.Id;
-            this.Password = seller.Password;
-            ///this.Shop = seller.Shop;
-            this.Category = seller.Category;
-            if (seller.Shop != null)
-            {
-                this.Shop = seller.Shop;
-            }
+            return this.idSeller + " " + this.password + " " + this.orders + " " + this.shop + " ";
         }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        #endregion
     }
 }

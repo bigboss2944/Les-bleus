@@ -285,14 +285,8 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\GalaSo
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\GalaSoft.MvvmLight.Platform.pdb
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\GalaSoft.MvvmLight.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\GalaSoft.MvvmLight.pdb
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Newtonsoft.Json.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\System.Runtime.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\sqlite3.dll
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLite-net.dll
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLite-net.pdb
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLiteNetExtensions.dll
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLiteNetExtensions.pdb
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLitePCLRaw.batteries_green.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLitePCLRaw.batteries_v2.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLitePCLRaw.core.dll
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
@@ -383,3 +377,12 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\AboutPage.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\ContactPage.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ViewModelLight\Views\HomePage.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\DataAccessLibraryUWP.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\DataAccessLibraryUWP.pdb
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\DataAccessLibraryUWP.pri
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\DataAccessLibraryUWP.pri.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Microsoft.Data.Sqlite\en-US\Microsoft.Data.Sqlite.Properties.Resources.resw
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\resources.en-us.resfiles
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\resources.en-us.resfiles.intermediate
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.dll

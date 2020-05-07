@@ -24,8 +24,6 @@
                         <Setter Target="GridViewFooter.Background"
                                 Value="#558c2f" />
 
-                        
-
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>

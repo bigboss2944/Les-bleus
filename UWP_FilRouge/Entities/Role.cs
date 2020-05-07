@@ -1,46 +1,31 @@
-﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UWP_FilRouge.Entities;
+﻿using System.Collections.Generic;
 
-namespace UWP.FilRouge.Entities
+namespace UWP_FilRouge
 {
-    [Table("role")]
-    public class Role : EntityBase
+    public class Role
     {
-        private String name;
-        private long id;
+        #region Attributs
+        
 
-        [Column("name")]
-        [Unique]
-        [NotNull]
-        public String Name
+        #endregion
+
+        #region Properties
+        
+        #endregion
+
+        #region Constructors
+        public Role()
         {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
+            //this.Sellers = new List<Seller>();
+        }
+        #endregion
+
+        public enum RoleRight
+        {
+            basic,
+            medium,
+            admin
         }
 
-        public override object Copy()
-        {
-            Role role = new Role();
-            role.Id = this.Id;
-            role.Name = this.Name;
-
-            return role;
-        }
-
-        public override void CopyFrom(object obj)
-        {
-            Role role = obj as Role;
-            this.Id = role.Id;
-            this.Name = role.Name;
-        }
     }
 }

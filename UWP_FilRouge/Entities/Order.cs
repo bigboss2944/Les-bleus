@@ -1,250 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge.Entities
+namespace UWP_FilRouge
 {
-    public class Order : EntityBase
+    public class Order
     {
+        #region Attributs
         private long idOrder;
-        //quantity by reference 
-        private int quantity;
         private List<Bicycle> bicycles;
         private Seller seller;
         private Customer customer;
-        private float sumFreeTax;
         private DateTime date;
         private Shop shop;
         private string payMode;
         private float discount;
-        private int? useLoyaltyPoint;
-        //private int loyaltyPoint;
-        //private int loyaltyPointUsed;
-        //private int loyaltyPointEarned;
-        //private int totalLoyaltyPoint;
+        private bool useLoyaltyPoint;
         private float tax;
         private float shippingCost;
-        private float totalAmount;
+        #endregion
 
+        #region Properties 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IdOrder
         {
             get { return idOrder; }
-            set
-            {
-                idOrder = value;
-                OnPropertyChanged("IdOrder");
-            }
+            set { idOrder = value; }
         }
 
-        public int Quantity
-        {
-            get { return quantity; }
-            set
-            {
-                quantity = value;
-                OnPropertyChanged("Quantity");
-            }
-        }
-
-        /*public List<Bicycle> Bicycles
+        public List<Bicycle> Bicycles
         {
             get { return bicycles; }
-            set
-            {
-                bicycles = value;
-                OnPropertyChanged("Bicycle");
-            }
-        }*/
+            set { bicycles = value; }
+        }
 
         public Seller Seller
         {
             get { return seller; }
-            set
-            {
-                seller = value;
-                OnPropertyChanged("Seller");
-            }
+            set { seller = value; }
         }
 
         public Customer Customer
         {
             get { return customer; }
-            set
-            {
-                customer = value;
-                OnPropertyChanged("Customer");
-            }
-        }
-
-        public float SumFreeTax
-        {
-            get { return sumFreeTax; }
-            set
-            {
-                sumFreeTax = value;
-                OnPropertyChanged("SumFreeTax");
-            }
-
+            set { customer = value; }
         }
 
         public DateTime Date
         {
             get { return date; }
-            set
-            {
-                date = value;
-                OnPropertyChanged("Date");
-            }
+            set { date = value; }
         }
 
         public Shop Shop
         {
             get { return shop; }
-            set
-            {
-                shop = value;
-                OnPropertyChanged("Shop");
-            }
+            set { shop = value; }
         }
 
         public string PayMode
         {
             get { return payMode; }
-            set
-            {
-                payMode = value;
-                OnPropertyChanged("PayMode");
-            }
+            set { payMode = value; }
         }
 
         public float Discount
         {
             get { return discount; }
-            set
-            {
-                discount = value;
-                OnPropertyChanged("Discount");
-            }
+            set { discount = value; }
         }
 
-        public int? UseLoyaltyPoint
+        public bool UseLoyaltyPoint
         {
             get { return useLoyaltyPoint; }
-            set
-            {
-                useLoyaltyPoint = value;
-                OnPropertyChanged("UseLoyaltyPoint");
-            }
+            set { useLoyaltyPoint = value; }
         }
 
         public float Tax
         {
             get { return tax; }
-            set
-            {
-                tax = value;
-                OnPropertyChanged("Tax");
-            }
+            set { tax = value; }
         }
 
         public float ShippingCost
         {
             get { return shippingCost; }
-            set
-            {
-                shippingCost = value;
-                OnPropertyChanged("ShippingCost");
-            }
+            set { shippingCost = value; }
         }
 
-        public float TotalAmount
+        #endregion
+
+        #region Constructors
+        public Order()
         {
-            get { return totalAmount; }
-            set
-            {
-                totalAmount = value;
-                OnPropertyChanged("TotalAmount");
-            }
+            this.Bicycles = new List<Bicycle>();
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public override object Copy()
+        #region Functions
+        public String ToString()
         {
-            Order order = new Order();
-            order.Id = this.Id;
-            /// order.IdOrder = this.IdOrder;
-            /// order.Customer = this.Customer;
-            if (this.Customer != null)
-            {
-                order.Customer = this.Customer.Copy() as Customer;
-            }
-            order.Date = this.Date;
-            order.Discount = this.Discount;
-            order.PayMode = this.PayMode;
-            order.Quantity = this.Quantity;
-            /// order.Seller = this.Seller;
-            if (this.Seller != null)
-            {
-                order.Seller = this.Seller.Copy() as Seller;
-            }
-            order.ShippingCost = this.ShippingCost;
-            /// order.Shop = this.Shop;
-            if (this.Shop != null)
-            {
-                order.Shop = this.Shop.Copy() as Shop;
-            }
-            order.SumFreeTax = this.SumFreeTax;
-            order.Tax = this.Tax;
-            order.TotalAmount = this.TotalAmount;
-            order.UseLoyaltyPoint = this.UseLoyaltyPoint;
-            
-            return order;
+            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
         }
-
-        public override void CopyFrom(object obj)
-        {
-            Order order = obj as Order;
-            order.Id = this.Id;
-            /// order.IdOrder = this.IdOrder;
-            /// order.Customer = this.Customer;
-            if (order.Customer != null)
-            {
-                this.Customer = order.Customer;
-            }
-            order.Date = this.Date;
-            order.Discount = this.Discount;
-            order.PayMode = this.PayMode;
-            order.Quantity = this.Quantity;
-            /// order.Seller = this.Seller;
-            if (order.Seller != null)
-            {
-                this.Seller = order.Seller;
-            }
-            order.ShippingCost = this.ShippingCost;
-            /// order.Shop = this.Shop;
-            if (order.Shop != null)
-            {
-                this.Shop = order.Shop;
-            }
-            order.SumFreeTax = this.SumFreeTax;
-            order.Tax = this.Tax;
-            order.TotalAmount = this.TotalAmount;
-            order.UseLoyaltyPoint = this.UseLoyaltyPoint;
-        }
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        #endregion
 
     }
-    
 }

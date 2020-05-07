@@ -24,6 +24,7 @@ namespace UWP_FilRouge.Views.ViewModelLight
     {
         public LoginPage()
         {
+            
             this.InitializeComponent();
         }
 
