@@ -12,7 +12,6 @@ namespace UWP_FilRouge
     {
         #region Attributes
         private long idSeller;
-        
         private List<Order> orders;
         private Shop shop;
         
@@ -41,6 +40,8 @@ namespace UWP_FilRouge
             set { orders = value; }
         }
 
+
+        
         public Shop Shop
         {
             get { return shop; }
