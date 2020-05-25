@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_FilRouge.Database;
 using UWP_FilRouge.Views.ViewModelLight.Views;
 
 namespace UWP_FilRouge.Views.ViewModelLight
@@ -63,6 +64,11 @@ namespace UWP_FilRouge.Views.ViewModelLight
             SimpleIoc.Default.Register<ContactPageViewModel>();
 
             SimpleIoc.Default.Register<AboutPageViewModel>();
+
+            SimpleIoc.Default.Register<DatabaseService>(() =>
+            {
+                return new DatabaseService();
+            }, true);
 
         }
 

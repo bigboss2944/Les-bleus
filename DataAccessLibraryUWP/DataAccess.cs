@@ -70,7 +70,7 @@ namespace DataAccessLibraryUWP
                     "Password NVARCHAR(2048) NULL, " +
                     "LastName NVARCHAR(2048) NULL, " +
                     "FirstName NVARCHAR(2048) NULL, " +
-                    "Role_Id NVARCHAR(2048) NON NULL, " +
+                    "Role_Id NVARCHAR(2048) NULL, " +
                     "Shop_ShopId INTEGER NON NULL)";
 
                 String tableCommand5 = "CREATE TABLE IF NOT " +
@@ -115,7 +115,6 @@ namespace DataAccessLibraryUWP
 
                 db.Close();
             }
-
         }
 
         public static List<String> GetData()

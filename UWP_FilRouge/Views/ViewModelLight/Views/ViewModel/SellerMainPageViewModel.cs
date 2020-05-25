@@ -3,13 +3,15 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Views.ViewModelLight
 {
-    public class SellerMainPageViewModel : ViewModelBase
+    public class SellerMainPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private readonly INavigationService _navigationService;
         public RelayCommand MoveToRegisterPage { get; private set; }
@@ -18,6 +20,27 @@ namespace UWP_FilRouge.Views.ViewModelLight
         public RelayCommand MoveToCustomerPage { get; private set; }
         public RelayCommand MoveToOrderPage { get; private set; }
         private bool _isLoading = false;
+        private bool _addingNewSeller = false;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public bool AddingNewSeller
+        {
+            get => _addingNewSeller;
+            set
+            {
+                if (_addingNewSeller != value)
+                {
+                    _addingNewSeller = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        
 
         public bool IsLoading
         {

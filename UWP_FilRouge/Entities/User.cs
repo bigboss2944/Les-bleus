@@ -11,11 +11,13 @@ namespace UWP_FilRouge
         #region Attributs
         protected string firstName;
         protected string password;
+        protected Role role = new Role();
         #endregion
 
         #region Properties
         public string FirstName { get => firstName; set => firstName = value; }
         public string Password { get => password; set => password = value; }
+        public Role Role { get => role; set => role = value; }
         #endregion
 
         #region Constructors
