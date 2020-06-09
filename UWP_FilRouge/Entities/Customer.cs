@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge
 {
+    [Table("Customer")]
     public class Customer : User
     {
         #region Attributes
@@ -24,9 +25,8 @@ namespace UWP_FilRouge
         #endregion
 
         #region Properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdCustomer { get => idCustomer; set => idCustomer = value; }
+        
+        
 
         public string Town { get => town; set => town = value; }
         public int PostalCode { get => postalCode; set => postalCode = value; }

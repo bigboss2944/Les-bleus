@@ -12,7 +12,6 @@
     <RootPropertyPathName Name="HomePageInstance" />
     <RootPropertyPathName Name="LoginPageInstance" />
     <RootPropertyPathName Name="OrderMainPageInstance" />
-    <RootPropertyPathName Name="RegisterPageInstance" />
     <RootPropertyPathName Name="SellerMainPageInstance" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
@@ -20,7 +19,7 @@
       <RootProperty Name="Resources" />
     </RootType>
     <RootType FullName="System.Double" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.ViewModelLocator" />
+    <RootType FullName="UWP_FilRouge.Views.MVVMLight.ViewModelLocator" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="DataContext" />
       <RootProperty Name="Background" />
@@ -114,10 +113,15 @@
       <RootProperty Name="Height" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="MaxWidth" />
-      <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.AboutPage" />
+    <RootType FullName="UWP_FilRouge.Views.AboutPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.EditBicycleUC" />
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ListBicycleUC" />
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ShowBicycleUC" />
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Text" />
@@ -126,8 +130,11 @@
       <RootProperty Name="Background" />
       <RootProperty Name="AcceptsReturn" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.ContactPage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.CustomerMainPage" />
+    <RootType FullName="UWP_FilRouge.Views.ContactPage" />
+    <RootType FullName="UWP_FilRouge.Views.CustomerMainPage" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.ShowCustomerUC" />
     <RootType FullName="Windows.UI.Xaml.ResourceDictionary">
       <RootProperty Name="MergedDictionaries" />
       <RootProperty Name="Source" />
@@ -145,10 +152,14 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
-      <RootProperty Name="Fill" />
-    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle" />
     <RootType FullName="UWP_FilRouge.MainPage" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.EditSellerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.ListSellerUC" />
+    <RootType FullName="UWP_FilRouge.Views.Sellers.ShowSellerUC" />
     <RootType FullName="Windows.UI.Xaml.Controls.GridView">
       <RootProperty Name="Background" />
       <RootProperty Name="HorizontalAlignment" />
@@ -161,11 +172,17 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Height" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.Views.HomePage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.LoginPage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.MainPage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.OrderMainPage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.RegisterPage" />
-    <RootType FullName="UWP_FilRouge.Views.ViewModelLight.SellerMainPage" />
+    <RootType FullName="UWP_FilRouge.Views.HomePage" />
+    <RootType FullName="UWP_FilRouge.Views.LoginPage" />
+    <RootType FullName="UWP_FilRouge.Views.MainMenu" />
+    <RootType FullName="UWP_FilRouge.Views.OrderMainPage" />
+    <RootType FullName="UWP_FilRouge.Views.RegisterPage" />
+    <RootType FullName="UWP_FilRouge.Views.SellerMainPage" />
+    <RootType FullName="UWP_FilRouge.Views.Shop.EditShopUC" />
+    <RootType FullName="UWP_FilRouge.Views.Roles.ListShopUC" />
+    <RootType FullName="UWP_FilRouge.Views.Shop.MyUserControl1" />
+    <RootType FullName="UWP_FilRouge.Views.Users.EditUserUC" />
+    <RootType FullName="UWP_FilRouge.Views.Users.ListUserUC" />
+    <RootType FullName="UWP_FilRouge.Views.Users.ShowUserUC" />
   </Roots.RootTypes>
 </Roots>

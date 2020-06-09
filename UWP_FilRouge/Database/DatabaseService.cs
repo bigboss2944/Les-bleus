@@ -1,10 +1,9 @@
 ﻿
-
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -21,24 +20,48 @@ namespace UWP_FilRouge.Database
             get { return sqliteConnection; }
         }
 
-        public TableQuery<Role> Roles
+        
+
+        public TableQuery<Seller> Sellers
         {
-            get { return this.sqliteConnection.Table<Role>(); }
+            get { return this.sqliteConnection.Table<Seller>(); }
         }
 
-        public TableQuery<User> Users
+        public TableQuery<Customer> Customers
         {
-            get { return this.sqliteConnection.Table<User>(); }
+            get { return this.sqliteConnection.Table<Customer>(); }
         }
 
-        public List<Role> RolesEager
+        public TableQuery<Bicycle> Bicycles
         {
-            get { return this.sqliteConnection.GetAllWithChildren<Role>(); }
+            get { return this.sqliteConnection.Table<Bicycle>(); }
         }
 
-        public List<User> UsersEager
+        public TableQuery<Order> Orders
         {
-            get { return this.sqliteConnection.GetAllWithChildren<User>(); }
+            get { return this.sqliteConnection.Table<Order>(); }
+        }
+
+        public List<Order> OrdersEager
+        {
+            get { return this.sqliteConnection.GetAllWithChildren<Order>(); }
+        }
+
+        public List<Bicycle> BicyclesEager
+        {
+            get { return this.sqliteConnection.GetAllWithChildren<Bicycle>(); }
+        }
+
+        
+
+        public List<Customer> CustomersEager
+        {
+            get { return this.sqliteConnection.GetAllWithChildren<Customer>(); }
+        }
+
+        public List<Seller> SellersEager
+        {
+            get { return this.sqliteConnection.GetAllWithChildren<Seller>(); }
         }
 
         public int Save(object item)
@@ -46,23 +69,39 @@ namespace UWP_FilRouge.Database
             return this.sqliteConnection.InsertOrReplace(item);
         }
 
-        public void SaveWithChildren(User item)
+        public void SaveWithChildren(Seller item)
         {
-            this.Save(item.Role);
+            this.Save(item.FirstName);
             this.sqliteConnection.InsertOrReplaceWithChildren(item);
         }
 
-        public DatabaseService()
+        public async void InitializeDatabase()
         {
-            Task.Factory.StartNew(async () =>
-            {
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile myDb = await localFolder.CreateFileAsync("mydb.sqlite",
-                        CreationCollisionOption.OpenIfExists);
-                this.sqliteConnection = new SQLiteConnection(myDb.Path);
-                this.sqliteConnection.CreateTable<Role>();
-                this.sqliteConnection.CreateTable<User>();
-            });
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile mydb = await localFolder.CreateFileAsync("FilRougeUWPdatabase.sqlite",
+                    CreationCollisionOption.OpenIfExists);
+            Debug.WriteLine("{0}", mydb.Path);
+            this.sqliteConnection = new SQLiteConnection(mydb.Path);
+
+            sqliteConnection.CreateTable<Seller>();
+            sqliteConnection.CreateTable<Bicycle>();
+            sqliteConnection.CreateTable<Order>();
+            sqliteConnection.CreateTable<Customer>();
+
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            //    StorageFile mydb = await localFolder.CreateFileAsync("FilRougeUWPdatabase.sqlite",
+            //            CreationCollisionOption.OpenIfExists);
+            //    Debug.WriteLine("{0}",mydb.Path);
+            //    this.sqliteConnection = new SQLiteConnection(mydb.Path);
+                
+            //    sqliteConnection.CreateTable<Seller>();
+            //    sqliteConnection.CreateTable<Bicycle>();
+            //    sqliteConnection.CreateTable<Order>();
+            //    sqliteConnection.CreateTable<Customer>();
+                
+            //});
         }
     }
 }

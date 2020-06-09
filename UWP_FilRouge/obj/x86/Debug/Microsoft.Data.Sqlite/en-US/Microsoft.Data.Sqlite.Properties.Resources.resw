@@ -187,7 +187,7 @@
     <value>The size of a blob may not be changed by the SqliteBlob API. Use an UPDATE command instead.</value>
   </data>
   <data name="DefaultNativeError" xml:space="preserve">
-    <value>For more information on this error code see http://sqlite.org/rescode.html</value>
+    <value>For more information on this error code see https://www.sqlite.org/rescode.html</value>
   </data>
   <data name="InvalidCommandType" xml:space="preserve">
     <value>The CommandType '{commandType}' is invalid.</value>

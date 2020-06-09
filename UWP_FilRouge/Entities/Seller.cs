@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge
 {
+    [Table("Seller")]
     public class Seller : User
     {
         #region Attributes
-        private long idSeller;
-        private List<Order> orders;
-        private Shop shop;
+        
+        //private List<Order> orders;
+        //private Shop shop;
         
 
         private enum RoleRight
@@ -26,40 +27,34 @@ namespace UWP_FilRouge
         #endregion
 
         #region properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdSeller 
-        { 
-            get => idSeller; 
-            set => idSeller = value; 
-        }
-
-        public List<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }
-
-
         
-        public Shop Shop
-        {
-            get { return shop; }
-            set { shop = value; }
-        }
+        //public List<Order> Orders
+        //{
+        //    get { return orders; }
+        //    set { orders = value; }
+        //}
+
+     
+
+        //public Shop Shop
+        //{
+        //    get { return shop; }
+        //    set { shop = value; }
+        //}
         #endregion
 
         #region constructors
         public Seller()
         {
-            this.Orders = new List<Order>();
+            
+            //this.Orders = new List<Order>();
         }
         #endregion
 
         #region Functions
         public String ToString()
         {
-            return this.idSeller + " " + this.password + " " + this.orders + " " + this.shop + " ";
+            return base.Id + " " + this.password + " " + this.orders + " " + this.shop + " ";
         }
         #endregion
     }

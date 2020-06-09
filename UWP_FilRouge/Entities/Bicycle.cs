@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge
 {
+    [Table("Bicycle")]
     public class Bicycle : BicyleCharacteristics
     {
         #region Attributs

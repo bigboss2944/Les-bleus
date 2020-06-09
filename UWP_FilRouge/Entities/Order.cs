@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge
 {
+    [Table("Order")]
     public class Order
     {
         #region Attributs

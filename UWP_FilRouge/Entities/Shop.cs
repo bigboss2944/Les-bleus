@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 namespace UWP_FilRouge
 {
+    [Table("Shop")]
     public class Shop
     {
         #region Attributs

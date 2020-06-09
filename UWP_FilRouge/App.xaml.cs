@@ -9,8 +9,8 @@ using Windows.UI.Xaml.Controls;
 
 using Windows.UI.Xaml.Navigation;
 using DataAccessLibraryUWP;
-
-
+using UWP_FilRouge.Views;
+using UWP_FilRouge.Database;
 
 namespace UWP_FilRouge
 {
@@ -19,6 +19,7 @@ namespace UWP_FilRouge
     /// </summary>
     sealed partial class App : Application
     {
+        DatabaseService databaseService = new DatabaseService();
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé
         /// à être exécutée. Elle correspond donc à l'équivalent logique de main() ou WinMain().
@@ -27,7 +28,10 @@ namespace UWP_FilRouge
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            DataAccess.InitializeDatabase();
+            databaseService.InitializeDatabase();
+            //DataAccess.InitializeDatabase();
+
+
         }
 
         /// <summary>
