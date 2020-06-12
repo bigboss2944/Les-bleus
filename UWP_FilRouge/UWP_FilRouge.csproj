@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Database\DatabaseService.cs" />
     <Compile Include="Entities\Bicycle.cs" />
+    <Compile Include="Entities\BicycleOrder.cs" />
     <Compile Include="Entities\BicyleCharacteristics.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\EntityBase.cs" />
@@ -149,6 +150,9 @@
     </Compile>
     <Compile Include="Views\Customers\ShowCustomerUC.xaml.cs">
       <DependentUpon>ShowCustomerUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Orders\EditOrderUC.xaml.cs">
       <DependentUpon>EditOrderUC.xaml</DependentUpon>
@@ -205,6 +209,7 @@
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewModel\AdminPageViewModel.cs" />
     <Compile Include="Views\ViewModel\LoginPageViewModel.cs" />
     <Compile Include="Views\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -315,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AdminPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -12,11 +12,13 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
     {
         public ObservableCollection<Seller> sellers { get; set; }
         public ListViewAccessor<Seller> listView { get; set; }
+        
 
         public SellerListAccessor()
         {
             this.sellers = new ObservableCollection<Seller>();
             this.listView = new ListViewAccessor<Seller>();
+            
         }
     }
 }

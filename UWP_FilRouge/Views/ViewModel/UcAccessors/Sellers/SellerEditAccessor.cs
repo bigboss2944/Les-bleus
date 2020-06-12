@@ -10,12 +10,14 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
     public class SellerEditAccessor
     {
         public Seller seller { get; set; }
-        public ButtonAccessor button { get; set; }
+        public ButtonAccessor validateButton { get; set; }
+        public ButtonAccessor cancelButton { get; set; }
 
         public SellerEditAccessor()
         {
             this.seller = new Seller();
-            this.button = new ButtonAccessor();
+            this.validateButton = new ButtonAccessor();
+            this.cancelButton = new ButtonAccessor();
         }
     }
 }

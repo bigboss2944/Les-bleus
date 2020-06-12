@@ -19,17 +19,19 @@ namespace UWP_FilRouge.Database
         {
             get { return sqliteConnection; }
         }
-
-        
-
-        public TableQuery<Seller> Sellers
+        public TableQuery<Shop> Shops
         {
-            get { return this.sqliteConnection.Table<Seller>(); }
+            get { return this.sqliteConnection.Table<Shop>(); }
         }
 
         public TableQuery<Customer> Customers
         {
             get { return this.sqliteConnection.Table<Customer>(); }
+        }
+
+        public TableQuery<Seller> Sellers
+        {
+            get { return this.sqliteConnection.Table<Seller>(); }
         }
 
         public TableQuery<Bicycle> Bicycles
@@ -42,6 +44,11 @@ namespace UWP_FilRouge.Database
             get { return this.sqliteConnection.Table<Order>(); }
         }
 
+        public List<Shop> ShopsEager
+        {
+            get { return this.sqliteConnection.GetAllWithChildren<Shop>(); }
+        }
+
         public List<Order> OrdersEager
         {
             get { return this.sqliteConnection.GetAllWithChildren<Order>(); }
@@ -51,8 +58,6 @@ namespace UWP_FilRouge.Database
         {
             get { return this.sqliteConnection.GetAllWithChildren<Bicycle>(); }
         }
-
-        
 
         public List<Customer> CustomersEager
         {
@@ -75,33 +80,25 @@ namespace UWP_FilRouge.Database
             this.sqliteConnection.InsertOrReplaceWithChildren(item);
         }
 
-        public async void InitializeDatabase()
+        public DatabaseService()
         {
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile mydb = await localFolder.CreateFileAsync("FilRougeUWPdatabase.sqlite",
-                    CreationCollisionOption.OpenIfExists);
-            Debug.WriteLine("{0}", mydb.Path);
-            this.sqliteConnection = new SQLiteConnection(mydb.Path);
+            
 
-            sqliteConnection.CreateTable<Seller>();
-            sqliteConnection.CreateTable<Bicycle>();
-            sqliteConnection.CreateTable<Order>();
-            sqliteConnection.CreateTable<Customer>();
+            Task.Factory.StartNew(async () =>
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile mydb = await localFolder.CreateFileAsync("FilRougeUWPdatabase.sqlite",
+                        CreationCollisionOption.OpenIfExists);
+                Debug.WriteLine("{0}", mydb.Path);
+                this.sqliteConnection = new SQLiteConnection(mydb.Path);
 
-            //Task.Factory.StartNew(async () =>
-            //{
-            //    StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            //    StorageFile mydb = await localFolder.CreateFileAsync("FilRougeUWPdatabase.sqlite",
-            //            CreationCollisionOption.OpenIfExists);
-            //    Debug.WriteLine("{0}",mydb.Path);
-            //    this.sqliteConnection = new SQLiteConnection(mydb.Path);
-                
-            //    sqliteConnection.CreateTable<Seller>();
-            //    sqliteConnection.CreateTable<Bicycle>();
-            //    sqliteConnection.CreateTable<Order>();
-            //    sqliteConnection.CreateTable<Customer>();
-                
-            //});
+                this.sqliteConnection.CreateTable<Shop>();
+                this.sqliteConnection.CreateTable<Seller>();
+                this.sqliteConnection.CreateTable<Bicycle>();
+                this.sqliteConnection.CreateTable<Order>();
+                this.sqliteConnection.CreateTable<Customer>();
+
+            });
         }
     }
 }

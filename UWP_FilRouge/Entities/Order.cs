@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,10 @@ namespace UWP_FilRouge
         private bool useLoyaltyPoint;
         private float tax;
         private float shippingCost;
+        private List<Bicycle> listBicycle;
+        private Seller subSeller;
+        private Customer subCustomer;
+        private Shop subShop;
         #endregion
 
         #region Properties 
@@ -34,23 +39,11 @@ namespace UWP_FilRouge
             set { idOrder = value; }
         }
 
-        public List<Bicycle> Bicycles
-        {
-            get { return bicycles; }
-            set { bicycles = value; }
-        }
+        [ManyToMany(typeof(BicycleOrder))]
+        public List<Bicycle> ListBicycle { get => listBicycle; set => listBicycle = value; }
 
-        public Seller Seller
-        {
-            get { return seller; }
-            set { seller = value; }
-        }
-
-        public Customer Customer
-        {
-            get { return customer; }
-            set { customer = value; }
-        }
+        [ManyToOne]
+        public Customer SubCustomer { get => subCustomer; set => subCustomer = value; }
 
         public DateTime Date
         {
@@ -58,11 +51,8 @@ namespace UWP_FilRouge
             set { date = value; }
         }
 
-        public Shop Shop
-        {
-            get { return shop; }
-            set { shop = value; }
-        }
+        [ManyToOne]
+        public Shop SubShop { get => subShop; set => subShop = value; }
 
         public string PayMode
         {
@@ -99,7 +89,7 @@ namespace UWP_FilRouge
         #region Constructors
         public Order()
         {
-            this.Bicycles = new List<Bicycle>();
+            //this.Bicycles = new List<Bicycle>();
         }
         #endregion
 

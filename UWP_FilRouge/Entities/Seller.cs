@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,11 +12,13 @@ namespace UWP_FilRouge
     [Table("Seller")]
     public class Seller : User
     {
+        private Shop subShop;
+        private Seller subSeller;
         #region Attributes
-        
+
         //private List<Order> orders;
         //private Shop shop;
-        
+
 
         private enum RoleRight
         {
@@ -27,35 +30,35 @@ namespace UWP_FilRouge
         #endregion
 
         #region properties
-        
-        //public List<Order> Orders
+
+        //[ManyToOne]      // Many to one relationship with Stock
+
+        //public Order Order
         //{
-        //    get { return orders; }
-        //    set { orders = value; }
+        //    get; set;
         //}
 
-     
 
-        //public Shop Shop
-        //{
-        //    get { return shop; }
-        //    set { shop = value; }
-        //}
+
+        [ManyToOne]
+        public Shop SubShop { get => subShop; set => subShop = value; }
         #endregion
 
         #region constructors
-        public Seller()
+        public Seller() : base()
         {
-            
-            //this.Orders = new List<Order>();
+
         }
+
+        [ManyToOne]
+        public Seller SubSeller { get => subSeller; set => subSeller = value; }
         #endregion
 
         #region Functions
-        public String ToString()
-        {
-            return base.Id + " " + this.password + " " + this.orders + " " + this.shop + " ";
-        }
+        //public String ToString()
+        //{
+        //    //return base.Id + " " + this.password + " " + this.orders + " " + this.shop + " ";
+        //}
         #endregion
     }
 }

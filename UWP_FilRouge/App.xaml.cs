@@ -28,7 +28,7 @@ namespace UWP_FilRouge
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            databaseService.InitializeDatabase();
+            //databaseService.InitializeDatabase();
             //DataAccess.InitializeDatabase();
 
 

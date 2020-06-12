@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,11 +23,13 @@ namespace UWP_FilRouge
         private Shop shop;
         private List<Order> orders;
         private string gender;
+        private Customer subCustomer;
+        private Shop subShop;
         #endregion
 
         #region Properties
-        
-        
+
+
 
         public string Town { get => town; set => town = value; }
         public int PostalCode { get => postalCode; set => postalCode = value; }
@@ -35,17 +38,11 @@ namespace UWP_FilRouge
         public string Phone { get => phone; set => phone = value; }
         public string Email { get => email; set => email = value; }
 
-        public Shop Shop
-        {
-            get { return shop; }
-            set { shop = value; }
-        }
+        [ManyToOne]
+        public Customer SubCustomer { get => subCustomer; set => subCustomer = value; }
 
-        public List<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }
+        [ManyToOne]
+        public Shop SubShop { get => subShop; set => subShop = value; }
 
         public string Gender
         {
@@ -57,7 +54,7 @@ namespace UWP_FilRouge
         #region Constructors
         public Customer() : base()
         {
-            this.Orders = new List<Order>();
+            //this.Orders = new List<Order>();
         }
         #endregion    
 

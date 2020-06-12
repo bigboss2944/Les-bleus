@@ -480,3 +480,8 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ListShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ShowShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\sqlite3.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.g.i.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.g.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.xaml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\AdminPage.xbf

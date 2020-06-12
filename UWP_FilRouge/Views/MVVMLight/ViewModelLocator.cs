@@ -19,10 +19,12 @@ namespace UWP_FilRouge.Views.MVVMLight
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            //Register your services used here            
             var navigationService = new NavigationService();
             navigationService.Configure("Login Page", typeof(LoginPage));
+            navigationService.Configure("Admin Page", typeof(AdminPage));
             navigationService.Configure("Register Page", typeof(RegisterPage));
             navigationService.Configure("Seller Main Page", typeof(SellerMainPage));
             navigationService.Configure("Customer Main Page", typeof(CustomerMainPage));
             navigationService.Configure("Order Main Page", typeof(OrderMainPage));
+            //navigationService.Configure("Product Main Page", typeof(OrderMainPage));
             navigationService.Configure("Menu Page", typeof(MainMenu));
             navigationService.Configure("Home Page", typeof(HomePage));
             navigationService.Configure("Contact Page", typeof(ContactPage));
@@ -39,6 +41,8 @@ namespace UWP_FilRouge.Views.MVVMLight
             SimpleIoc.Default.Register<INavigationService>(() => navigationService);
 
             SimpleIoc.Default.Register<LoginPageViewModel>();
+
+            SimpleIoc.Default.Register<AdminPageViewModel>();
 
             SimpleIoc.Default.Register<CustomerPageViewModel>();
 
@@ -61,6 +65,10 @@ namespace UWP_FilRouge.Views.MVVMLight
 
         }
 
+        public AdminPageViewModel AdminPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<AdminPageViewModel>(); }
+        }
 
         public HomePageViewModel HomePageInstance
         {

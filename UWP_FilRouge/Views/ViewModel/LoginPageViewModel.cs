@@ -6,17 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors;
 
 namespace UWP_FilRouge.Views.ViewModel
 {
     public class LoginPageViewModel : ViewModelBase
     {
-        private readonly INavigationService _navigationService;
+        private readonly INavigationService navigationService;
         public RelayCommand MoveToRegisterPage { get; private set; }
         public RelayCommand MoveToLoginPage { get; private set; }
         public RelayCommand MoveToHomePage { get; private set; }
         public RelayCommand MoveToContactPage { get; private set; }
         public RelayCommand MoveToAboutPage { get; private set; }
+        public RelayCommand ValidateButton { get; private set; }
+        public RelayCommand CancelButton { get; private set; }
+
+        
+
+        private String firstName;
+        private String password;
+
+        private String Admin = "Admin";
+        private String passwordAdmin = "Admin";
+
         private bool _isLoading = false;
 
         public bool IsLoading
@@ -50,38 +62,65 @@ namespace UWP_FilRouge.Views.ViewModel
             }
         }
 
+        public string FirstName { get => firstName; set => firstName = value; }
+        public string Password { get => password; set => password = value; }
+
         public LoginPageViewModel(INavigationService navigationService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
+
             Title = "Login Page";
             MoveToRegisterPage = new RelayCommand(ToRegisterPage);
             MoveToHomePage = new RelayCommand(ToHomePage);
             MoveToContactPage = new RelayCommand(ToContactPage);
             MoveToAboutPage = new RelayCommand(ToAboutPage);
+            ValidateButton = new RelayCommand(Validate);
+            CancelButton = new RelayCommand(Cancel);
         }
 
         private void ToRegisterPage()
         {
             // Do Something
-            _navigationService.NavigateTo("Register Page");
+            navigationService.NavigateTo("Register Page");
         }
 
         private void ToHomePage()
         {
             // Do Something
-            _navigationService.NavigateTo("Home Page");
+            navigationService.NavigateTo("Home Page");
         }
 
         private void ToAboutPage()
         {
             // Do Something
-            _navigationService.NavigateTo("About Page");
+            navigationService.NavigateTo("About Page");
         }
 
         private void ToContactPage()
         {
             // Do Something
-            _navigationService.NavigateTo("Contact Page");
+            navigationService.NavigateTo("Contact Page");
+        }
+
+        private void Validate()
+        {
+            // Do Something
+            if ((firstName == Admin) && (password == passwordAdmin))
+            {
+                navigationService.NavigateTo("Admin Page");//Mode admin
+            }
+            else
+            {
+
+            }
+
+        }
+
+        private void Cancel()
+        {
+            navigationService.GoBack();//Mode admin
+            
+            
         }
     }
 }

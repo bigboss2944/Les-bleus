@@ -1,7 +1,8 @@
-﻿using System;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,15 @@ namespace UWP_FilRouge
         private string phone;
         private string email;
         private string website;
-        private List<Order> orders;
-        private List<Seller> sellers;
-        private List<Customer> customers;
-        private List<Bicycle> bicycles;
+        private Shop subShop;
+        private Seller subSeller;
+        private Customer subCustomer;
+        private Bicycle subBicycle;
+
+        //private List<Order> orders;
+        //private List<Seller> sellers;
+        //private List<Customer> customers;
+        //private List<Bicycle> bicycles;
 
 
 
@@ -32,8 +38,7 @@ namespace UWP_FilRouge
         #endregion
 
         #region Properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [PrimaryKey, AutoIncrement]
         public long? ShopId
         {
             get { return shopId; }
@@ -81,30 +86,22 @@ namespace UWP_FilRouge
             get { return website; }
             set { website = value; }
         }
+ 
 
-        public List<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }
+        [ManyToOne]
+        public Shop SubShop { get => subShop; set => subShop = value; }
 
-        public List<Seller> Sellers
-        {
-            get { return sellers; }
-            set { sellers = value; }
-        }
+        [ForeignKey(typeof(Shop))]
+        public int SubShopId { get; set; }
 
-        public List<Customer> Customers
-        {
-            get { return customers; }
-            set { customers = value; }
-        }
+        [ManyToOne]
+        public Seller SubSeller { get => subSeller; set => subSeller = value; }
 
-        public List<Bicycle> Bicycles
-        {
-            get { return bicycles; }
-            set { bicycles = value; }
-        }
+        [ManyToOne]
+        public Customer SubCustomer { get => subCustomer; set => subCustomer = value; }
+
+        [ManyToOne]
+        public Bicycle SubBicycle { get => subBicycle; set => subBicycle = value; }
         #endregion
 
         #region Constructors
@@ -113,10 +110,10 @@ namespace UWP_FilRouge
         /// </summary>
         public Shop()
         {
-            this.Orders = new List<Order>();
-            this.Sellers = new List<Seller>();
-            this.Customers = new List<Customer>();
-            this.Bicycles = new  List<Bicycle>();
+            //this.Orders = new List<Order>();
+            //this.Sellers = new List<Seller>();
+            //this.Customers = new List<Customer>();
+            //this.Bicycles = new  List<Bicycle>();
         }
         #endregion
     }

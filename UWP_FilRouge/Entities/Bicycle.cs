@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,8 +22,11 @@ namespace UWP_FilRouge
         private bool insurance;
         private bool deliverable;
         private Order order;
-        private Customer customer;
+        //private Customer customer;
         private Shop shop;
+        private Bicycle subBicycle;
+        private List<Order> listOrder;
+        private Shop subShop;
         #endregion
 
         #region Properties
@@ -76,23 +80,20 @@ namespace UWP_FilRouge
             set { deliverable = value; }
         }
 
-        public Order Order
-        {
-            get { return order; }
-            set { order = value; }
-        }
+        [ManyToOne]
+        public Bicycle SubBicycle { get => subBicycle; set => subBicycle = value; }
 
-        public Customer Customer
-        {
-            get { return customer; }
-            set { customer = value; }
-        }
+        [ManyToMany(typeof(BicycleOrder))]
+        public List<Order> ListOrder { get => listOrder; set => listOrder = value; }
 
-        public Shop Shop
-        {
-            get { return shop; }
-            set { shop = value; }
-        }
+        //public Customer Customer
+        //{
+        //    get { return customer; }
+        //    set { customer = value; }
+        //}
+
+        [ManyToOne]
+        public Shop SubShop { get => subShop; set => subShop = value; }
         #endregion
 
         #region Constructors

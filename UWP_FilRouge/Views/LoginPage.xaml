@@ -9,8 +9,6 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
-    
-
     <Grid Width="Auto" x:Name="mainGrid" >
 
         <VisualStateManager.VisualStateGroups>
@@ -143,13 +141,13 @@
 
 
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="ID"  Grid.Row="0" Grid.Column="1" Text="Please enter your ID" TextWrapping="Wrap"/>
-            <TextBlock Text="ID:" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center"/>
-            <TextBox x:Name="password"  Grid.Row="1" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBox x:Name="ID"  Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, Mode=TwoWay}" TextWrapping="Wrap"/>
+            <TextBlock Text="FirstName" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center"/>
+            <TextBox x:Name="password"  Grid.Row="1" Grid.Column="1" Text="{Binding Password, Mode=TwoWay}" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Password" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-            <Button x:Name="ConnectButton" Content="Connect" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0,50,0,0" Grid.RowSpan="2"/>
-            <Button x:Name="CancelButton" Content="Cancel" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <Button Command="{Binding ValidateButton}" x:Name="ConnectButton" Content="Connect" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0,50,0,0" Grid.RowSpan="2"/>
+            <Button Command="{Binding CancelButton}" x:Name="CancelButton" Content="Cancel" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </Grid>
 
 

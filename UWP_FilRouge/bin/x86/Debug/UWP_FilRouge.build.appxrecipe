@@ -211,6 +211,9 @@
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\AdminPage.xbf">
+      <PackagePath>Views\AdminPage.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf">
       <PackagePath>Views\Orders\EditOrderUC.xbf</PackagePath>
     </AppxPackagedFile>

@@ -26,7 +26,7 @@ namespace UWP_FilRouge.Views.ViewModel
         private bool _isLoading = false;
         private bool _addingNewSeller = false;
 
-        public SellerPageAccessor Datas { get; set; }
+        public SellerPageAccessor DataSeller { get; set; }
         private DatabaseService databaseService;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,8 +46,6 @@ namespace UWP_FilRouge.Views.ViewModel
                 }
             }
         }
-
-        
 
         public bool IsLoading
         {
@@ -86,7 +84,7 @@ namespace UWP_FilRouge.Views.ViewModel
             this.databaseService = databaseService;
             SetupSellerDatas();
             Title = "Seller Main Page";
-            MoveToRegisterPage = new RelayCommand(ToRegisterPage);
+            //MoveToRegisterPage = new RelayCommand(ToRegisterPage);
             MoveToLoginPage = new RelayCommand(ToLoginPage);
             MoveToOrderPage = new RelayCommand(ToOrderPage);
             //MoveToSellerPage = new RelayCommand(ToSellerPage);
@@ -95,7 +93,7 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SetupSellerDatas()
         {
-            Datas = new SellerPageAccessor();
+            DataSeller = new SellerPageAccessor();
             SetupSellerEdit();
             SetupSellerList();
             SetupSellerShow();
@@ -103,20 +101,27 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SetupSellerEdit()
         {
-            Datas.sellerEdit.button.Content = "Valider";
-            Datas.sellerEdit.button.Action = new RelayCommand(SellerEditCommand);
-            Datas.sellerEdit.seller = new Seller();
+            DataSeller.sellerEdit.validateButton.Content = "Valider";
+            DataSeller.sellerEdit.validateButton.Action = new RelayCommand(SellerEditCommand);
+            DataSeller.sellerEdit.cancelButton.Content = "Cancel";
+            DataSeller.sellerEdit.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerEdit.seller = new Seller();
+        }
+
+        private void SellerEditCancel()
+        {
+            navigationService.GoBack();
         }
 
         private void SellerEditCommand()
         {
             Seller seller = new Seller();
-            seller.CopyFrom(Datas.sellerEdit.seller);
+            seller.CopyFrom(DataSeller.sellerEdit.seller);
 
             try
             {
                 databaseService.SqliteConnection.Insert(seller);
-                Datas.sellerList.sellers.Add(seller);
+                DataSeller.sellerList.sellers.Add(seller);
             }
             catch (Exception e)
             {
@@ -131,34 +136,31 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SetupSellerShow()
         {
-            Datas.sellerShow.seller = new Seller();
+            DataSeller.sellerShow.seller = new Seller();
         }
 
         private void SetupSellerList()
         {
-            Datas.sellerList.sellers = new ObservableCollection<Seller>();
+            DataSeller.sellerList.sellers = new ObservableCollection<Seller>();
             foreach (var item in databaseService.Sellers)
             {
-                Datas.sellerList.sellers.Add(item);
+                DataSeller.sellerList.sellers.Add(item);
             }
-            Datas.sellerList.listView.SelectedItem = new Seller();
-            Datas.sellerList.listView.SelectionChanged = new RelayCommand(SellerListSelectionChanged);
+            DataSeller.sellerList.listView.SelectedItem = new Seller();
+            DataSeller.sellerList.listView.SelectionChanged = new RelayCommand(SellerListSelectionChanged);
+           
+
+
         }
+
 
         private void SellerListSelectionChanged()
         {
-            Seller seller = Datas.sellerList.listView.SelectedItem;
+            Seller seller = DataSeller.sellerList.listView.SelectedItem;
             if (seller != null)
             {
-                Datas.sellerShow.seller.CopyFrom(seller);
+                DataSeller.sellerShow.seller.CopyFrom(seller);
             }
-        }
-
-
-        private void ToRegisterPage()
-        {
-            // Do Something
-            navigationService.NavigateTo("Register Page");
         }
 
         private void ToLoginPage()
@@ -176,7 +178,7 @@ namespace UWP_FilRouge.Views.ViewModel
         private void ToOrderPage()
         {
             // Do Something
-            navigationService.NavigateTo("Customer Main Page");
+            navigationService.NavigateTo("Order Main Page");
         }
     }
 }

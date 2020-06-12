@@ -2,14 +2,47 @@
     x:Class="UWP_FilRouge.Views.Sellers.ListSellerUC"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_FilRouge.Views.Sellers"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid x:Name="ListSellerGrid">
+        <ScrollViewer Grid.Row="0">
+            <ListView x:Name="listView" 
+                   ItemsSource="{Binding sellers}"
+                   SelectedItem="{Binding listView.SelectedItem, Mode=TwoWay}" Height="243" Width="394">
+             
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock MinWidth="200" Text="FirstName"/>
+                            <TextBlock MinWidth="200" Text="Password"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ContextFlyout>
+                    <Flyout>
+                        <StackPanel>
+                            
+                            <MenuFlyoutItem Text="Supprimer"> </MenuFlyoutItem>
+                        </StackPanel>
+                    </Flyout>
+                </ListView.ContextFlyout>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock MinWidth="200" Text="{Binding FirstName}"/>
+                            <TextBlock MinWidth="200" Text="{Binding Password}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
