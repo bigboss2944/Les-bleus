@@ -14,6 +14,7 @@ namespace UWP_FilRouge
     {
         private Shop subShop;
         private Seller subSeller;
+        //public Action<Seller> OnRemoveCallback { get; set; }
         #region Attributes
 
         //private List<Order> orders;
@@ -53,6 +54,13 @@ namespace UWP_FilRouge
         [ManyToOne]
         public Seller SubSeller { get => subSeller; set => subSeller = value; }
         #endregion
+
+        
+
+        public void OnRemove()
+        {
+            //OnRemoveCallback(this);
+        }
 
         #region Functions
         //public String ToString()

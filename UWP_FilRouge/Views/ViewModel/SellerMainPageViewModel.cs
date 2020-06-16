@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -134,6 +135,30 @@ namespace UWP_FilRouge.Views.ViewModel
             }
         }
 
+        private void SellerRemoveCommand()
+        {
+            Seller seller = new Seller();
+            
+            seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
+
+            System.Diagnostics.Debug.WriteLine("{0}", DataSeller.sellerList.listView.SelectedItem.Id);
+
+            try
+            {
+                databaseService.SqliteConnection.Delete(seller);
+                DataSeller.sellerList.sellers.Remove(seller);
+            }
+            catch (Exception e)
+            {
+                ContentDialog contentDialog = new ContentDialog();
+                contentDialog.Title = "Error";
+                contentDialog.Content = e.Message;
+                contentDialog.IsSecondaryButtonEnabled = false;
+                contentDialog.PrimaryButtonText = "ok";
+                contentDialog.ShowAsync();
+            }
+        }
+
         private void SetupSellerShow()
         {
             DataSeller.sellerShow.seller = new Seller();
@@ -142,17 +167,48 @@ namespace UWP_FilRouge.Views.ViewModel
         private void SetupSellerList()
         {
             DataSeller.sellerList.sellers = new ObservableCollection<Seller>();
+            DataSeller.sellerList.deleteButton.Content = "Delete";
+            DataSeller.sellerList.deleteButton.Action = new RelayCommand(SellerRemoveCommand);
+            DataSeller.sellerList.updateButton.Content = "Update";
+            //DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateCommand);
+            DataSeller.sellerList.updateButton.Content = "Nimp";
+            DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateCommand);
+            DataSeller.sellerList.cancelButton.Content = "portequoi";
+            DataSeller.sellerList.cancelButton.Action = new RelayCommand(SellerEditCancel);
+
             foreach (var item in databaseService.Sellers)
             {
                 DataSeller.sellerList.sellers.Add(item);
             }
             DataSeller.sellerList.listView.SelectedItem = new Seller();
             DataSeller.sellerList.listView.SelectionChanged = new RelayCommand(SellerListSelectionChanged);
-           
-
 
         }
 
+        private void SellerUpdateCommand()
+        {
+            
+            Seller seller = new Seller();
+            
+            seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
+            DataSeller.sellerShow.seller.CopyFrom(seller);
+            Debug.WriteLine("{0}", seller.FirstName);
+
+            try
+            {
+                databaseService.SqliteConnection.Update(seller);
+                //DataSeller.sellerList.sellers.(seller);
+            }
+            catch (Exception e)
+            {
+                ContentDialog contentDialog = new ContentDialog();
+                contentDialog.Title = "Error";
+                contentDialog.Content = e.Message;
+                contentDialog.IsSecondaryButtonEnabled = false;
+                contentDialog.PrimaryButtonText = "ok";
+                contentDialog.ShowAsync();
+            }
+        }
 
         private void SellerListSelectionChanged()
         {

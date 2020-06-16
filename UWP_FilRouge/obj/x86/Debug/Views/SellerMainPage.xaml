@@ -25,8 +25,6 @@
                         <Setter Target="GridViewFooter.Background"
                                 Value="#558c2f" />
 
-                        
-
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -65,9 +63,6 @@
 
                         <Setter Target="RegisterButton.Margin"
                                 Value="15,675,0,0"/>
-
-                        
-
 
                     </VisualState.Setters>
                 </VisualState>
@@ -108,8 +103,6 @@
                         <Setter Target="RegisterButton.Margin"
                                 Value="15,675,0,0"/>
 
-                        
-
                     </VisualState.Setters>
                 </VisualState>
 
@@ -122,8 +115,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-
         <Grid x:ConnectionId='3' x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
             <Image x:ConnectionId='10' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
             <Button x:ConnectionId='11' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
@@ -134,26 +125,18 @@
 
         </Grid>
         
-        
-
-        
-            <Pivot x:ConnectionId='4' x:Name="Pivot" Grid.Row="1">
-                <PivotItem x:ConnectionId='6' x:Name="PivotItemCreate" Header="Create Sellers">
+        <Pivot x:ConnectionId='4' x:Name="Pivot" Grid.Row="1">
+            <PivotItem x:ConnectionId='6' x:Name="PivotItemCreate" Header="Create Sellers">
                 <sellerUc:EditSellerUC x:ConnectionId='9' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerEdit, Mode=TwoWay}" x:Name="sellerCreate"/>
-                </PivotItem>
-                <PivotItem x:ConnectionId='7' x:Name="PivotItemList" Header="List Sellers">
-                    <sellerUc:ListSellerUC x:ConnectionId='8' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerList, Mode=TwoWay}" x:Name="sellerList"/>
-                </PivotItem>
-                
+            </PivotItem>
+            <PivotItem x:ConnectionId='7' x:Name="PivotItemList" Header="List Sellers">
+                <sellerUc:ListSellerUC x:ConnectionId='8' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerList, Mode=TwoWay}" x:Name="sellerList"/>
+            </PivotItem>
 
-            </Pivot>
-        
+        </Pivot>
 
-        
 
         <Grid x:ConnectionId='5' x:Name="GridViewFooter" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
-
-
 
         </Grid>
         <StackPanel Grid.Row="1"/>

@@ -82,7 +82,6 @@ namespace UWP_FilRouge.Database
 
         public DatabaseService()
         {
-            
 
             Task.Factory.StartNew(async () =>
             {

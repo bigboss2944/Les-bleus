@@ -33,6 +33,14 @@ namespace UWP_FilRouge.Views.Sellers
             this.SellerList = new ObservableCollection<Seller>();
             this.DataContext = SellerList;
         }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGrid.Visibility=Visibility.Visible;
+
+        }
+
+        
     }
 }
 

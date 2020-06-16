@@ -6,43 +6,83 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    
+    xmlns:sellerUc="using:UWP_FilRouge.Views.Sellers"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="1000">
 
     <Grid x:Name="ListSellerGrid">
-        <ScrollViewer Grid.Row="0">
-            <ListView x:Name="listView" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" x:Name="DeleteButton" Content="Delete" Command="{Binding deleteButton.Action}"/>
+        <Button Grid.Row="0" Grid.Column="0" x:Name="UpdateButton" Content="Update" Command="{Binding updateButton.Action}" Click="UpdateButton_Click" Margin="71,0,0,0" />
+        <ScrollViewer Grid.Row="1" Grid.Column="0">
+
+            <ListView Grid.Row="1" Grid.Column="0" x:Name="listView" 
                    ItemsSource="{Binding sellers}"
-                   SelectedItem="{Binding listView.SelectedItem, Mode=TwoWay}" Height="243" Width="394">
-             
+                   SelectionChanged="UpdateButton_Click"
+                
+                   SelectedItem="{Binding listView.SelectedItem, Mode=TwoWay}" Height="300" Width="600">
+
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
+                            <TextBlock MinWidth="200" Text="Id"/>
                             <TextBlock MinWidth="200" Text="FirstName"/>
                             <TextBlock MinWidth="200" Text="Password"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
-                <ListView.ContextFlyout>
-                    <Flyout>
-                        <StackPanel>
-                            
-                            <MenuFlyoutItem Text="Supprimer"> </MenuFlyoutItem>
-                        </StackPanel>
-                    </Flyout>
-                </ListView.ContextFlyout>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock MinWidth="200" Text="{Binding FirstName}"/>
-                            <TextBlock MinWidth="200" Text="{Binding Password}"/>
+                            <TextBlock x:Name="IdTB" MinWidth="200" Text="{Binding Id}"/>
+                            <TextBlock x:Name="FirstNameTB" MinWidth="200" Text="{Binding FirstName}"/>
+                            <TextBlock x:Name="PasswordTB" MinWidth="200" Text="{Binding Password}"/>
                         </StackPanel>
+
+
                     </DataTemplate>
+
+
                 </ListView.ItemTemplate>
             </ListView>
-
         </ScrollViewer>
+
+        <Grid x:Name="UpdateGrid" Visibility="Collapsed" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+
+
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="firstName" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"  Text="{Binding sellerShow.seller.FirstName, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+            <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Text="First name:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+            <TextBox x:Name="password" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding sellerShow.seller.Password, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+            <TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Center" />
+
+            <TextBox x:Name="confirm_password" Grid.Row="2" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+            <TextBlock HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Text="Please confirm your password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+            <Button x:Name="Register_Button" Command="{Binding updateButton.Action}" Content="{Binding updateButton.Content}" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Button x:Name="CancelButton" Command="{Binding cancelButton.Action}" Content="{Binding cancelButton.Content}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        </Grid>
 
     </Grid>
 </UserControl>

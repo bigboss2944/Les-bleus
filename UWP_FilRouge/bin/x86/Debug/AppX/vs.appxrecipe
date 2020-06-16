@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-06-12T15:42:31.330</Modified>
+      <Modified>2020-06-16T16:05:28.335</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.exe">
       <PackagePath>entrypoint\UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-06-12T15:42:28.910</Modified>
+      <Modified>2020-06-16T16:05:26.425</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\.nuget\packages\commonservicelocator\2.0.5\lib\netstandard2.0\CommonServiceLocator.dll">
       <PackagePath>CommonServiceLocator.dll</PackagePath>
@@ -230,135 +230,135 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\UWP_FilRouge.xr.xml">
       <PackagePath>UWP_FilRouge.xr.xml</PackagePath>
-      <Modified>2020-06-12T15:42:28.392</Modified>
+      <Modified>2020-06-16T16:05:26.051</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.555</Modified>
+      <Modified>2020-06-16T16:02:40.695</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\AboutPage.xbf">
       <PackagePath>Views\AboutPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.492</Modified>
+      <Modified>2020-06-16T16:02:40.633</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\EditBicycleUC.xbf">
       <PackagePath>Views\Bicycles\EditBicycleUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.556</Modified>
+      <Modified>2020-06-16T16:02:40.695</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ListBicycleUC.xbf">
       <PackagePath>Views\Bicycles\ListBicycleUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.556</Modified>
+      <Modified>2020-06-16T16:02:40.695</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ShowBicycleUC.xbf">
       <PackagePath>Views\Bicycles\ShowBicycleUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.556</Modified>
+      <Modified>2020-06-16T16:02:40.696</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\ContactPage.xbf">
       <PackagePath>Views\ContactPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.500</Modified>
+      <Modified>2020-06-16T16:02:40.640</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\CustomerMainPage.xbf">
       <PackagePath>Views\CustomerMainPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.505</Modified>
+      <Modified>2020-06-16T16:02:40.645</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\EditCustomerUC.xbf">
       <PackagePath>Views\Customers\EditCustomerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.557</Modified>
+      <Modified>2020-06-16T16:02:40.696</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf">
       <PackagePath>Views\Customers\ListCustomerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.557</Modified>
+      <Modified>2020-06-16T16:02:40.696</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf">
       <PackagePath>Views\Customers\ShowCustomerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.557</Modified>
+      <Modified>2020-06-16T16:02:40.696</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Dictionary1.xbf">
       <PackagePath>Views\Dictionary1.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.555</Modified>
+      <Modified>2020-06-16T16:05:26.069</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.558</Modified>
+      <Modified>2020-06-16T16:02:40.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\AdminPage.xbf">
       <PackagePath>Views\AdminPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.515</Modified>
+      <Modified>2020-06-16T16:02:40.654</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf">
       <PackagePath>Views\Orders\EditOrderUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.558</Modified>
+      <Modified>2020-06-16T16:02:40.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf">
       <PackagePath>Views\Orders\ListOrderUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.558</Modified>
+      <Modified>2020-06-16T16:02:40.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf">
       <PackagePath>Views\Orders\ShowOrderUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.558</Modified>
+      <Modified>2020-06-16T16:02:40.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\EditSellerUC.xbf">
       <PackagePath>Views\Sellers\EditSellerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.558</Modified>
+      <Modified>2020-06-16T16:02:40.697</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ListSellerUC.xbf">
       <PackagePath>Views\Sellers\ListSellerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.559</Modified>
+      <Modified>2020-06-16T16:05:26.069</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ShowSellerUC.xbf">
       <PackagePath>Views\Sellers\ShowSellerUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.559</Modified>
+      <Modified>2020-06-16T16:02:40.698</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shared\_layout.xbf">
       <PackagePath>Views\Shared\_layout.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.559</Modified>
+      <Modified>2020-06-16T16:02:40.698</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\HomePage.xbf">
       <PackagePath>Views\HomePage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.525</Modified>
+      <Modified>2020-06-16T16:02:40.666</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\LoginPage.xbf">
       <PackagePath>Views\LoginPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.530</Modified>
+      <Modified>2020-06-16T16:02:40.672</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\MainMenu.xbf">
       <PackagePath>Views\MainMenu.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.535</Modified>
+      <Modified>2020-06-16T16:02:40.676</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\OrderMainPage.xbf">
       <PackagePath>Views\OrderMainPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.541</Modified>
+      <Modified>2020-06-16T16:02:40.681</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\RegisterPage.xbf">
       <PackagePath>Views\RegisterPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.545</Modified>
+      <Modified>2020-06-16T16:02:40.686</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\SellerMainPage.xbf">
       <PackagePath>Views\SellerMainPage.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.551</Modified>
+      <Modified>2020-06-16T16:02:40.691</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\EditShopUC.xbf">
       <PackagePath>Views\Shops\EditShopUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.560</Modified>
+      <Modified>2020-06-16T16:02:40.698</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ListShopUC.xbf">
       <PackagePath>Views\Shops\ListShopUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.560</Modified>
+      <Modified>2020-06-16T16:02:40.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ShowShopUC.xbf">
       <PackagePath>Views\Shops\ShowShopUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.560</Modified>
+      <Modified>2020-06-16T16:02:40.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Users\EditUserUC.xbf">
       <PackagePath>Views\Users\EditUserUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.561</Modified>
+      <Modified>2020-06-16T16:02:40.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Users\ListUserUC.xbf">
       <PackagePath>Views\Users\ListUserUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.561</Modified>
+      <Modified>2020-06-16T16:02:40.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Users\ShowUserUC.xbf">
       <PackagePath>Views\Users\ShowUserUC.xbf</PackagePath>
-      <Modified>2020-06-12T15:42:28.561</Modified>
+      <Modified>2020-06-16T16:02:40.700</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -370,7 +370,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Core\UWP_FilRouge.exe">
       <PackagePath>UWP_FilRouge.exe</PackagePath>
-      <Modified>2020-06-12T15:42:31.320</Modified>
+      <Modified>2020-06-16T16:05:28.330</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
