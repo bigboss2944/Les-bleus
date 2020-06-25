@@ -27,6 +27,7 @@ namespace UWP_FilRouge.Views.Sellers
             get { return seller; }
             set { seller = value; }
         }
+
         public EditSellerUC()
         {
             this.InitializeComponent();

@@ -129,8 +129,12 @@
             <PivotItem x:Name="PivotItemCreate" Header="Create Sellers">
                 <sellerUc:EditSellerUC VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerEdit, Mode=TwoWay}" x:Name="sellerCreate"/>
             </PivotItem>
-            <PivotItem x:Name="PivotItemList" Header="List Sellers">
+            <PivotItem x:Name="PivotItemList" Header="Delete Sellers">
                 <sellerUc:ListSellerUC VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerList, Mode=TwoWay}" x:Name="sellerList"/>
+            </PivotItem>
+            <PivotItem x:Name="PivotItemUpdate" Header="Update Sellers">
+                
+                <sellerUc:UpdateSellerUC VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerUpdate, Mode=TwoWay}" x:Name="sellerUpdate"/>
             </PivotItem>
 
         </Pivot>

@@ -34,6 +34,12 @@
     <AppxPackagedFile Include="C:\Users\fabrice\.nuget\packages\microsoft.data.sqlite.core\5.0.0-preview.4.20220.10\lib\netstandard2.0\Microsoft.Data.Sqlite.dll">
       <PackagePath>Microsoft.Data.Sqlite.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\.nuget\packages\microsoft.xaml.behaviors.uwp.managed\2.0.1\lib\uap10.0\Microsoft.Xaml.Interactions.dll">
+      <PackagePath>Microsoft.Xaml.Interactions.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\fabrice\.nuget\packages\microsoft.xaml.behaviors.uwp.managed\2.0.1\lib\uap10.0\Microsoft.Xaml.Interactivity.dll">
+      <PackagePath>Microsoft.Xaml.Interactivity.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\.nuget\packages\mvvmlightlibs\5.4.1.1\lib\uap10.0\GalaSoft.MvvmLight.Extras.dll">
       <PackagePath>GalaSoft.MvvmLight.Extras.dll</PackagePath>
     </AppxPackagedFile>
@@ -229,8 +235,8 @@
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ListSellerUC.xbf">
       <PackagePath>Views\Sellers\ListSellerUC.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ShowSellerUC.xbf">
-      <PackagePath>Views\Sellers\ShowSellerUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\UpdateSellerUC.xbf">
+      <PackagePath>Views\Sellers\UpdateSellerUC.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shared\_layout.xbf">
       <PackagePath>Views\Shared\_layout.xbf</PackagePath>

@@ -11,10 +11,6 @@ namespace UWP_FilRouge.Entities
     public abstract class EntityBase : INotifyPropertyChanged
     {
         
-
-        
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string name)

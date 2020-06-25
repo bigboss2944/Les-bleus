@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "unJUll7fO6SL/8rPMqI/UpSGnkPIlr2QaA60Bh5zm1AMz/W5E3WZlvjWRx+xAZxOgqLA/lFVTCflQ+dgZvW01A==",
+  "dgSpecHash": "TST76isEJ9emWrhB6KGl7xJzvtxDPgxpSkjb9Y3dWgN1oKdtBs1njY8qEMuSBYL2h2f3TqvNAw9Pb5iAURtgNw==",
   "success": true,
   "projectFilePath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\fabrice\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.2.10\\microsoft.net.uwpcoreruntimesdk.2.2.10.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.0\\microsoft.netcore.platforms.2.1.0.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\microsoft.netcore.universalwindowsplatform\\6.2.10\\microsoft.netcore.universalwindowsplatform.6.2.10.nupkg.sha512",
+    "C:\\Users\\fabrice\\.nuget\\packages\\microsoft.xaml.behaviors.uwp.managed\\2.0.1\\microsoft.xaml.behaviors.uwp.managed.2.0.1.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\mvvmlight\\5.4.1.1\\mvvmlight.5.4.1.1.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\mvvmlightlibs\\5.4.1.1\\mvvmlightlibs.5.4.1.1.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

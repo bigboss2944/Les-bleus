@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,20 +19,23 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP_FilRouge.Views.Sellers
 {
-    public sealed partial class ShowSellerUC : UserControl/*Base*/
+    public sealed partial class UpdateSellerUC : UserControl/*Base*/
     {
         private Seller seller;
+        public ObservableCollection<Seller> SellerList { get; set; }
 
         public Seller Seller
         {
             get { return seller; }
             set { seller = value; }
         }
-        public ShowSellerUC()
+
+        public UpdateSellerUC()
         {
             this.InitializeComponent();
+            this.SellerList = new ObservableCollection<Seller>();
             this.Seller = new Seller();
-            this.DataContext = Seller;
+            this.DataContext = SellerList;
         }
     }
 }

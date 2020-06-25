@@ -53,7 +53,7 @@ Views\RegisterPage.xbf
 Views\SellerMainPage.xbf
 Views\Sellers\EditSellerUC.xbf
 Views\Sellers\ListSellerUC.xbf
-Views\Sellers\ShowSellerUC.xbf
+Views\Sellers\UpdateSellerUC.xbf
 Views\Shared\_layout.xbf
 Views\Shops\EditShopUC.xbf
 Views\Shops\ListShopUC.xbf

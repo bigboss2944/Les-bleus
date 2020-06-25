@@ -107,7 +107,7 @@ namespace UWP_FilRouge.Views.ViewModel
             DataSeller = new SellerPageAccessor();
             SetupSellerEdit();
             SetupSellerList();
-            SetupSellerShow();
+            SetupSellerUpdate();
         }
 
         private void SetupSellerEdit()
@@ -145,9 +145,13 @@ namespace UWP_FilRouge.Views.ViewModel
             }
         }
 
-        private void SetupSellerShow()
+        private void SetupSellerUpdate()
         {
-            DataSeller.sellerShow.seller = new Seller();
+            DataSeller.sellerUpdate.validateButton.Content = "Valider";
+            DataSeller.sellerUpdate.validateButton.Action = new RelayCommand(SellerEditCommand);
+            DataSeller.sellerUpdate.cancelButton.Content = "Cancel";
+            DataSeller.sellerUpdate.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerUpdate.seller = new Seller();
         }
 
         private void SetupSellerList()
@@ -166,7 +170,7 @@ namespace UWP_FilRouge.Views.ViewModel
             Seller seller = DataSeller.sellerList.listView.SelectedItem;
             if (seller != null)
             {
-                DataSeller.sellerShow.seller.CopyFrom(seller);
+                DataSeller.sellerUpdate.seller.CopyFrom(seller);
             }
         }
 

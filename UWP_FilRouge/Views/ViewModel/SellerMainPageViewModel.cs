@@ -97,7 +97,7 @@ namespace UWP_FilRouge.Views.ViewModel
             DataSeller = new SellerPageAccessor();
             SetupSellerEdit();
             SetupSellerList();
-            SetupSellerShow();
+            SetupSellerUpdate();
         }
 
         private void SetupSellerEdit()
@@ -121,8 +121,24 @@ namespace UWP_FilRouge.Views.ViewModel
 
             try
             {
-                databaseService.SqliteConnection.Insert(seller);
-                DataSeller.sellerList.sellers.Add(seller);
+                foreach (var item in databaseService.Sellers)
+                {
+                    Debug.WriteLine("{0}", item.Id);
+                    if (seller.Id == item.Id)
+                    {
+                        Debug.WriteLine("{0}", item.Id);
+                        databaseService.SqliteConnection.Update(seller);
+                        DataSeller.sellerList.sellers.IndexOf(seller);
+                    }
+                    else
+                    {
+                        //databaseService.SqliteConnection.Insert(seller);
+                    }
+                    //DataSeller.sellerList.sellers.Add(item);
+                }
+
+
+                //DataSeller.sellerList.sellers.(seller);
             }
             catch (Exception e)
             {
@@ -141,7 +157,7 @@ namespace UWP_FilRouge.Views.ViewModel
             
             seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
 
-            System.Diagnostics.Debug.WriteLine("{0}", DataSeller.sellerList.listView.SelectedItem.Id);
+            System.Diagnostics.Debug.WriteLine("{0}", seller.Id);
 
             try
             {
@@ -159,14 +175,22 @@ namespace UWP_FilRouge.Views.ViewModel
             }
         }
 
-        private void SetupSellerShow()
+        private void SetupSellerUpdate()
         {
-            DataSeller.sellerShow.seller = new Seller();
+            DataSeller.sellerUpdate.validateButton.Content = "Valider";
+            DataSeller.sellerUpdate.validateButton.Action = new RelayCommand(SellerUpdateCommand);
+            DataSeller.sellerUpdate.cancelButton.Content = "Cancel";
+            DataSeller.sellerUpdate.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerUpdate.seller = new Seller();
+
+            DataSeller.sellerUpdate.listView.SelectedItem = new Seller();
+            DataSeller.sellerUpdate.listView.SellerSelected = new RelayCommand(SellerListSellerSelected);
         }
 
         private void SetupSellerList()
         {
             DataSeller.sellerList.sellers = new ObservableCollection<Seller>();
+
             DataSeller.sellerList.deleteButton.Content = "Delete";
             DataSeller.sellerList.deleteButton.Action = new RelayCommand(SellerRemoveCommand);
             DataSeller.sellerList.updateButton.Content = "Update";
@@ -179,6 +203,7 @@ namespace UWP_FilRouge.Views.ViewModel
             foreach (var item in databaseService.Sellers)
             {
                 DataSeller.sellerList.sellers.Add(item);
+                DataSeller.sellerUpdate.sellers.Add(item);
             }
             DataSeller.sellerList.listView.SelectedItem = new Seller();
             DataSeller.sellerList.listView.SelectionChanged = new RelayCommand(SellerListSelectionChanged);
@@ -187,16 +212,32 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerUpdateCommand()
         {
-            
-            Seller seller = new Seller();
-            
-            seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
-            DataSeller.sellerShow.seller.CopyFrom(seller);
-            Debug.WriteLine("{0}", seller.FirstName);
 
+            Seller seller = new Seller();
+
+            seller.CopyFrom(DataSeller.sellerUpdate.listView.SelectedItem);
+
+            seller.FirstName = DataSeller.sellerUpdate.seller.FirstName;
+
+            seller.Password = DataSeller.sellerUpdate.seller.Password;
+
+            Debug.WriteLine("{0}", seller.Id);
+            Debug.WriteLine("{0}", seller.FirstName);
+            Debug.WriteLine("{0}", seller.Password);
             try
             {
-                databaseService.SqliteConnection.Update(seller);
+                foreach (var item in databaseService.Sellers)
+                {
+                    Debug.WriteLine("{0}", item.Id);
+                    if (seller.Id == item.Id){
+                        Debug.WriteLine("{0}", item.Id);
+                        databaseService.SqliteConnection.Update(seller);
+                        DataSeller.sellerList.sellers.IndexOf(seller);
+                    }
+                    //DataSeller.sellerList.sellers.Add(item);
+                }
+
+                
                 //DataSeller.sellerList.sellers.(seller);
             }
             catch (Exception e)
@@ -212,11 +253,32 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerListSelectionChanged()
         {
-            Seller seller = DataSeller.sellerList.listView.SelectedItem;
-            if (seller != null)
+            DataSeller.sellerList.seller = new Seller();
+
+            DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
+            //DataSeller.sellerList.sellers.Add(seller);
+            if (DataSeller.sellerList.seller != null)
             {
-                DataSeller.sellerShow.seller.CopyFrom(seller);
+                //DataSeller.sellerList.seller = new Seller();
+                DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.seller);
             }
+
+            
+        }
+
+        private void SellerListSellerSelected()
+        {
+            DataSeller.sellerList.seller = new Seller();
+
+            DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
+            //DataSeller.sellerList.sellers.Add(seller);
+            if (DataSeller.sellerList.seller != null)
+            {
+                //DataSeller.sellerList.seller = new Seller();
+                DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.seller);
+            }
+
+
         }
 
         private void ToLoginPage()

@@ -116,21 +116,25 @@
         </Grid.RowDefinitions>
 
         <Grid x:ConnectionId='3' x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
-            <Image x:ConnectionId='10' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
-            <Button x:ConnectionId='11' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='12' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='13' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='14' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
-            <Button x:ConnectionId='15' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Image x:ConnectionId='12' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
+            <Button x:ConnectionId='13' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='14' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='15' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='16' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
+            <Button x:ConnectionId='17' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
 
         </Grid>
         
         <Pivot x:ConnectionId='4' x:Name="Pivot" Grid.Row="1">
             <PivotItem x:ConnectionId='6' x:Name="PivotItemCreate" Header="Create Sellers">
-                <sellerUc:EditSellerUC x:ConnectionId='9' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerEdit, Mode=TwoWay}" x:Name="sellerCreate"/>
+                <sellerUc:EditSellerUC x:ConnectionId='11' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerEdit, Mode=TwoWay}" x:Name="sellerCreate"/>
             </PivotItem>
-            <PivotItem x:ConnectionId='7' x:Name="PivotItemList" Header="List Sellers">
-                <sellerUc:ListSellerUC x:ConnectionId='8' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerList, Mode=TwoWay}" x:Name="sellerList"/>
+            <PivotItem x:ConnectionId='7' x:Name="PivotItemList" Header="Delete Sellers">
+                <sellerUc:ListSellerUC x:ConnectionId='10' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerList, Mode=TwoWay}" x:Name="sellerList"/>
+            </PivotItem>
+            <PivotItem x:ConnectionId='8' x:Name="PivotItemUpdate" Header="Update Sellers">
+                
+                <sellerUc:UpdateSellerUC x:ConnectionId='9' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding DataSeller.sellerUpdate, Mode=TwoWay}" x:Name="sellerUpdate"/>
             </PivotItem>
 
         </Pivot>

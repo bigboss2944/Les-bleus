@@ -18,6 +18,8 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
         public ButtonAccessor updateButton { get; set; }
         public ButtonAccessor validateButton { get; set; }
         public ButtonAccessor cancelButton { get; set; }
+        public Seller seller { get; set; }
+
 
         public SellerListAccessor()
         {
@@ -28,6 +30,7 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
             //this.updateButton = new ButtonAccessor();
             this.updateButton = new ButtonAccessor();
             this.cancelButton = new ButtonAccessor();
+            //this.seller = new Seller();
         }
     }
 }

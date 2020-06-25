@@ -13,13 +13,13 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors
     {
         public SellerEditAccessor sellerEdit { get; set; }
         public SellerListAccessor sellerList { get; set; }
-        public SellerShowAccessor sellerShow { get; set; }
+        public SellerUpdateAccessor sellerUpdate { get; set; }
 
         public SellerPageAccessor()
         {
             this.sellerEdit = new SellerEditAccessor();
             this.sellerList = new SellerListAccessor();
-            this.sellerShow = new SellerShowAccessor();
+            this.sellerUpdate = new SellerUpdateAccessor();
         }
     }
 }

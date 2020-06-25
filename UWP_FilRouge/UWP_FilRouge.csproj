@@ -169,8 +169,8 @@
     <Compile Include="Views\Sellers\ListSellerUC.xaml.cs">
       <DependentUpon>ListSellerUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Sellers\ShowSellerUC.xaml.cs">
-      <DependentUpon>ShowSellerUC.xaml</DependentUpon>
+    <Compile Include="Views\Sellers\UpdateSellerUC.xaml.cs">
+      <DependentUpon>UpdateSellerUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shops\EditShopUC.xaml.cs">
       <DependentUpon>EditShopUC.xaml</DependentUpon>
@@ -191,7 +191,6 @@
       <DependentUpon>ShowUserUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewModel\AboutPageViewModel.cs" />
-    <Compile Include="Views\ViewModel\ButtonAccessor.cs" />
     <Compile Include="Views\ViewModel\ContactPageViewModel.cs" />
     <Compile Include="Views\ViewModel\HomePageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -231,7 +230,7 @@
     <Compile Include="Views\ViewModel\UcAccessors\Sellers\SellerEditAccessor.cs" />
     <Compile Include="Views\ViewModel\UcAccessors\Sellers\SellerListAccessor.cs" />
     <Compile Include="Views\ViewModel\UcAccessors\Sellers\SellerPageAccessor.cs" />
-    <Compile Include="Views\ViewModel\UcAccessors\Sellers\SellerShowAccessor.cs" />
+    <Compile Include="Views\ViewModel\UcAccessors\Sellers\SellerUpdateAccessor.cs" />
     <Compile Include="Views\ViewModel\UcAccessors\Customers\CustomerPageAccessor.cs" />
     <Compile Include="Views\ViewModel\UcAccessors\Customers\CustomerEditAccessor.cs" />
     <Compile Include="Views\ViewModel\UcAccessors\Customers\CustomerListAccessor.cs" />
@@ -347,7 +346,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Sellers\ShowSellerUC.xaml">
+    <Page Include="Views\Sellers\UpdateSellerUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -416,6 +415,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>

@@ -21,7 +21,6 @@ using UWP_FilRouge.Entities;
 namespace UWP_FilRouge.Views.Sellers
 {
     public sealed partial class ListSellerUC : UserControl/*Base*/
-
     {
 
         public ObservableCollection<Seller> SellerList { get; set; }

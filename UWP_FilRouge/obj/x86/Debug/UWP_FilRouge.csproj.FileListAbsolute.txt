@@ -426,8 +426,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\EditSellerUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ListSellerUC.g.i.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ListSellerUC.g.cs
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ShowSellerUC.g.i.cs
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ShowSellerUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\EditShopUC.g.i.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\EditShopUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\ListShopUC.g.i.cs
@@ -444,7 +442,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ListSellerUC.xaml
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ShowSellerUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\EditShopUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\ListShopUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\ShowShopUC.xaml
@@ -459,7 +456,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ListSellerUC.xbf
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\ShowSellerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\EditShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\ListShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Shops\ShowShopUC.xbf
@@ -475,7 +471,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\EditSellerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ListSellerUC.xbf
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\ShowSellerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\EditShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ListShopUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Shops\ShowShopUC.xbf
@@ -485,3 +480,14 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\AdminPage.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\AdminPage.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Microsoft.Xaml.Interactions.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Microsoft.Xaml.Interactions.pdb
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Microsoft.Xaml.Interactivity.dll
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Microsoft.Xaml.Interactivity.pdb
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Microsoft.Xaml.Interactions.pri.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Microsoft.Xaml.Interactivity.pri.xml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.g.i.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.g.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.xaml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\UpdateSellerUC.xbf

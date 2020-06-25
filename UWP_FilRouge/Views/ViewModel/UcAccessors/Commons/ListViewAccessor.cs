@@ -11,6 +11,7 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Commons
     {
         public T SelectedItem { get; set; }
         public ICommand SelectionChanged { get; set; }
+        public ICommand SellerSelected { get; set; }
 
         public ListViewAccessor()
         {
