@@ -31,7 +31,7 @@ namespace UWP_FilRouge.Views.Sellers
         public EditSellerUC()
         {
             this.InitializeComponent();
-            this.Seller = new Seller();
+            this.Seller = new Seller();//To Create a new seller
             this.DataContext = Seller;
         }
 

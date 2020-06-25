@@ -33,9 +33,9 @@ namespace UWP_FilRouge.Views.Sellers
         public UpdateSellerUC()
         {
             this.InitializeComponent();
-            this.SellerList = new ObservableCollection<Seller>();
-            this.Seller = new Seller();
-            this.DataContext = SellerList;
+            this.SellerList = new ObservableCollection<Seller>();//To show the seller list
+            this.Seller = new Seller();//To Update selected seller's infos
+            this.DataContext = SellerList;//To show the seller list
         }
     }
 }

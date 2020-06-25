@@ -29,7 +29,7 @@ namespace UWP_FilRouge.Views.Sellers
         public ListSellerUC()
         {
             this.InitializeComponent();
-            this.SellerList = new ObservableCollection<Seller>();
+            this.SellerList = new ObservableCollection<Seller>(); //To show the seller list
             this.DataContext = SellerList;
         }
 
