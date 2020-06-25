@@ -9,7 +9,7 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Commons
 {
     public class ButtonAccessor
     {
-        public String Content { get; set; }
-        public ICommand Action { get; set; }
+        public String Content { get; set; } //To change the button's content showed to the user
+        public ICommand Action { get; set; }//Each time the button is used, a specific function is activated
     }
 }

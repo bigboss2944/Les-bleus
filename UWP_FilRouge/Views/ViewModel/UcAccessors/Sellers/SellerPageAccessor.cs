@@ -17,9 +17,9 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors
 
         public SellerPageAccessor()
         {
-            this.sellerEdit = new SellerEditAccessor();
-            this.sellerList = new SellerListAccessor();
-            this.sellerUpdate = new SellerUpdateAccessor();
+            this.sellerEdit = new SellerEditAccessor(); //Allows to access created seller's informations
+            this.sellerList = new SellerListAccessor();//Allows to access seller list informations
+            this.sellerUpdate = new SellerUpdateAccessor();//Allows to access updated seller's informations
         }
     }
 }

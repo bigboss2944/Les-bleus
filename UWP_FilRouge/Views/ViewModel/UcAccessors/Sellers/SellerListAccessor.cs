@@ -23,12 +23,12 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
 
         public SellerListAccessor()
         {
-            this.sellers = new ObservableCollection<Seller>();
-            this.listView = new ListViewAccessor<Seller>();
+            this.sellers = new ObservableCollection<Seller>(); //To fulfill the seller list
+            this.listView = new ListViewAccessor<Seller>(); //To select a specific seller in the list
             this.sellerEdit = new SellerEditAccessor();
-            this.deleteButton = new ButtonAccessor();
+            this.deleteButton = new ButtonAccessor();// To delete a seller
             //this.updateButton = new ButtonAccessor();
-            this.updateButton = new ButtonAccessor();
+            this.updateButton = new ButtonAccessor();//Refresh the list
             this.cancelButton = new ButtonAccessor();
             //this.seller = new Seller();
         }

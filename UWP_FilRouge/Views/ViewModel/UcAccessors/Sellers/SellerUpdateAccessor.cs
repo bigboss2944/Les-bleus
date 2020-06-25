@@ -20,9 +20,9 @@ namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users
 
         public SellerUpdateAccessor()
         {
-            this.sellers = new ObservableCollection<Seller>();
-            this.listView = new ListViewAccessor<Seller>();
-            this.seller = new Seller();
+            this.sellers = new ObservableCollection<Seller>(); //To fulfill the seller list
+            this.listView = new ListViewAccessor<Seller>(); //To select a specific seller in the list
+            this.seller = new Seller(); //To update the selected seller's informations 
             //this.editSellerUC = new UserControl();
             this.validateButton = new ButtonAccessor();
             this.cancelButton = new ButtonAccessor();

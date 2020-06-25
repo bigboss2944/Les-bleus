@@ -103,15 +103,15 @@ namespace UWP_FilRouge.Views.ViewModel
         private void SetupSellerEdit()
         {
             DataSeller.sellerEdit.validateButton.Content = "Valider";
-            DataSeller.sellerEdit.validateButton.Action = new RelayCommand(SellerEditCommand);
+            DataSeller.sellerEdit.validateButton.Action = new RelayCommand(SellerEditCommand); //Press on validateButton to activate the SellerEdit function
             DataSeller.sellerEdit.cancelButton.Content = "Cancel";
-            DataSeller.sellerEdit.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerEdit.cancelButton.Action = new RelayCommand(SellerEditCancel); //Press on cancelButton to activate the SellerEdit function
             DataSeller.sellerEdit.seller = new Seller();
         }
 
         private void SellerEditCancel()
         {
-            navigationService.GoBack();
+            navigationService.GoBack(); 
         }
 
         private void SellerEditCommand()
@@ -125,7 +125,7 @@ namespace UWP_FilRouge.Views.ViewModel
                 foreach (var item in databaseService.Sellers)
                 {
                     Debug.WriteLine("{0}", item.Id);
-                    if (seller.Id == item.Id)
+                    if (seller.Id == item.Id) //check if the id is not already present in the Seller table
                     {
                         Debug.WriteLine("{0}", item.Id);
                         databaseService.SqliteConnection.Update(seller);
@@ -143,11 +143,11 @@ namespace UWP_FilRouge.Views.ViewModel
 
                 if (insert)
                 {
-                    databaseService.SqliteConnection.Insert(seller);
+                    databaseService.SqliteConnection.Insert(seller);// Insert Seller in the database
                 }
 
 
-                //DataSeller.sellerList.sellers.(seller);
+                
             }
             catch (Exception e)
             {
@@ -164,7 +164,7 @@ namespace UWP_FilRouge.Views.ViewModel
         {
             Seller seller = new Seller();
             
-            seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
+            seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);//Catch the information about the seller we want to delete in the database and the list
 
             System.Diagnostics.Debug.WriteLine("{0}", seller.Id);
 
@@ -187,17 +187,23 @@ namespace UWP_FilRouge.Views.ViewModel
         private void SetupSellerUpdate()
         {
             DataSeller.sellerUpdate.validateButton.Content = "Valider";
-            DataSeller.sellerUpdate.validateButton.Action = new RelayCommand(SellerUpdateCommand);
+            DataSeller.sellerUpdate.validateButton.Action = new RelayCommand(SellerUpdateCommand); //Press on validateButton to activate the "SellerUpdateCommand" function
             DataSeller.sellerUpdate.cancelButton.Content = "Cancel";
-            DataSeller.sellerUpdate.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerUpdate.cancelButton.Action = new RelayCommand(SellerEditCancel); //Press on cancelButton to activate the function "SellerEditCancel" to cancel the operation
             DataSeller.sellerUpdate.seller = new Seller();
 
             DataSeller.sellerUpdate.listView.SelectedItem = new Seller();
-            DataSeller.sellerUpdate.listView.SellerSelected = new RelayCommand(SellerListSellerSelected);
+            DataSeller.sellerUpdate.listView.SellerSelected = new RelayCommand(SellerListSellerSelected);//The function "SellerListSellerSelected" must be activated each time a Seller item is selected
         }
 
         private void SetupSellerList()
         {
+            /*
+             * The role of this function is to show the seller list to the user,to allow him to refresh the list showed
+             * and to delete a seller
+             * 
+             */
+
             DataSeller.sellerList.sellers = new ObservableCollection<Seller>();
 
             DataSeller.sellerList.deleteButton.Content = "Delete";
@@ -209,10 +215,12 @@ namespace UWP_FilRouge.Views.ViewModel
             //DataSeller.sellerList.updateButton.Content = "Nimp";
             //DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateCommand);
             DataSeller.sellerList.cancelButton.Content = "portequoi";
-            DataSeller.sellerList.cancelButton.Action = new RelayCommand(SellerEditCancel);
+            DataSeller.sellerList.cancelButton.Action = new RelayCommand(SellerEditCancel);//back
 
             foreach (var item in databaseService.Sellers)
             {
+                //Updating the lists in sellerList and sellerUpdate
+
                 DataSeller.sellerList.sellers.Add(item);
                 DataSeller.sellerUpdate.sellers.Add(item);
             }
@@ -223,6 +231,8 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerUpdateList()
         {
+            //Refresh the lists
+
             DataSeller.sellerList.sellers.Clear();
             DataSeller.sellerUpdate.sellers.Clear();
 
@@ -235,15 +245,12 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerUpdateCommand()
         {
+            //Updating the seller infos
 
             Seller seller = new Seller();
-
-            seller.CopyFrom(DataSeller.sellerUpdate.listView.SelectedItem);
-
-            seller.FirstName = DataSeller.sellerUpdate.seller.FirstName;
-
+            seller.CopyFrom(DataSeller.sellerUpdate.listView.SelectedItem);//Catching the selected seller's infos
+            seller.FirstName = DataSeller.sellerUpdate.seller.FirstName;//Updating his/her informations
             seller.Password = DataSeller.sellerUpdate.seller.Password;
-
             Debug.WriteLine("{0}", seller.Id);
             Debug.WriteLine("{0}", seller.FirstName);
             Debug.WriteLine("{0}", seller.Password);
@@ -251,11 +258,14 @@ namespace UWP_FilRouge.Views.ViewModel
             {
                 foreach (var item in databaseService.Sellers)
                 {
+                    //looking for seller's id
+
                     Debug.WriteLine("{0}", item.Id);
                     if (seller.Id == item.Id){
                         Debug.WriteLine("{0}", item.Id);
-                        databaseService.SqliteConnection.Update(seller);
-                        DataSeller.sellerList.sellers.IndexOf(seller);
+                        databaseService.SqliteConnection.Update(seller);//Updating seller info in the database
+                        SellerUpdateList();//Updating the lists
+                        
                     }
                     //DataSeller.sellerList.sellers.Add(item);
                 }
@@ -276,6 +286,8 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerListSelectionChanged()
         {
+            //Catching the seller selected
+
             DataSeller.sellerList.seller = new Seller();
 
             DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
@@ -291,6 +303,9 @@ namespace UWP_FilRouge.Views.ViewModel
 
         private void SellerListSellerSelected()
         {
+
+            //Catching the seller selected
+
             DataSeller.sellerList.seller = new Seller();
 
             DataSeller.sellerList.seller.CopyFrom(DataSeller.sellerList.listView.SelectedItem);
