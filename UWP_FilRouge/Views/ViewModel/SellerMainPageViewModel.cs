@@ -118,6 +118,7 @@ namespace UWP_FilRouge.Views.ViewModel
         {
             Seller seller = new Seller();
             seller.CopyFrom(DataSeller.sellerEdit.seller);
+            bool insert = true;
 
             try
             {
@@ -129,12 +130,20 @@ namespace UWP_FilRouge.Views.ViewModel
                         Debug.WriteLine("{0}", item.Id);
                         databaseService.SqliteConnection.Update(seller);
                         DataSeller.sellerList.sellers.IndexOf(seller);
+                        insert = false;
+                        break;
                     }
                     else
                     {
-                        //databaseService.SqliteConnection.Insert(seller);
+                        continue;
+                        
                     }
-                    //DataSeller.sellerList.sellers.Add(item);
+                    
+                }
+
+                if (insert)
+                {
+                    databaseService.SqliteConnection.Insert(seller);
                 }
 
 
@@ -193,10 +202,12 @@ namespace UWP_FilRouge.Views.ViewModel
 
             DataSeller.sellerList.deleteButton.Content = "Delete";
             DataSeller.sellerList.deleteButton.Action = new RelayCommand(SellerRemoveCommand);
+
             DataSeller.sellerList.updateButton.Content = "Update";
+            DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateList);
+
+            //DataSeller.sellerList.updateButton.Content = "Nimp";
             //DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateCommand);
-            DataSeller.sellerList.updateButton.Content = "Nimp";
-            DataSeller.sellerList.updateButton.Action = new RelayCommand(SellerUpdateCommand);
             DataSeller.sellerList.cancelButton.Content = "portequoi";
             DataSeller.sellerList.cancelButton.Action = new RelayCommand(SellerEditCancel);
 
@@ -208,6 +219,18 @@ namespace UWP_FilRouge.Views.ViewModel
             DataSeller.sellerList.listView.SelectedItem = new Seller();
             DataSeller.sellerList.listView.SelectionChanged = new RelayCommand(SellerListSelectionChanged);
 
+        }
+
+        private void SellerUpdateList()
+        {
+            DataSeller.sellerList.sellers.Clear();
+            DataSeller.sellerUpdate.sellers.Clear();
+
+            foreach (var item in databaseService.Sellers)
+            {
+                DataSeller.sellerList.sellers.Add(item);
+                DataSeller.sellerUpdate.sellers.Add(item);
+            }
         }
 
         private void SellerUpdateCommand()
