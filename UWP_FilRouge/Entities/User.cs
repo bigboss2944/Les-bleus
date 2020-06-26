@@ -59,6 +59,7 @@ namespace UWP_FilRouge
             this.FirstName = user.FirstName;
             this.Password = user.Password;
             
+            
         }
     }
 }

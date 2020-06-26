@@ -251,9 +251,11 @@ namespace UWP_FilRouge.Views.ViewModel
             seller.CopyFrom(DataSeller.sellerUpdate.listView.SelectedItem);//Catching the selected seller's infos
             seller.FirstName = DataSeller.sellerUpdate.seller.FirstName;//Updating his/her informations
             seller.Password = DataSeller.sellerUpdate.seller.Password;
+            seller.RoleRight = DataSeller.sellerUpdate.seller.RoleRight;
             Debug.WriteLine("{0}", seller.Id);
             Debug.WriteLine("{0}", seller.FirstName);
             Debug.WriteLine("{0}", seller.Password);
+            Debug.WriteLine("{0}", seller.RoleRight);
             try
             {
                 foreach (var item in databaseService.Sellers)

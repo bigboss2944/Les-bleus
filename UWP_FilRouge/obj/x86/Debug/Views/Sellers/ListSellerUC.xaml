@@ -41,9 +41,10 @@
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock MinWidth="200" Text="Id"/>
-                            <TextBlock MinWidth="200" Text="FirstName"/>
-                            <TextBlock MinWidth="200" Text="Password"/>
+                            <TextBlock MinWidth="100" Text="Id"/>
+                            <TextBlock MinWidth="100" Text="FirstName"/>
+                            <TextBlock MinWidth="100" Text="Password"/>
+                            <TextBlock MinWidth="100" Text="Role"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -51,9 +52,10 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="IdTB" MinWidth="200" Text="{Binding Id}"/>
-                            <TextBlock x:Name="FirstNameTB" MinWidth="200" Text="{Binding FirstName}"/>
-                            <TextBlock x:Name="PasswordTB" MinWidth="200" Text="{Binding Password}"/>
+                            <TextBlock x:Name="IdTB" MinWidth="100" Text="{Binding Id}"/>
+                            <TextBlock x:Name="FirstNameTB" MinWidth="100" Text="{Binding FirstName}"/>
+                            <TextBlock x:Name="PasswordTB" MinWidth="00" Text="{Binding Password}"/>
+                            <TextBlock x:Name="RoleTB" MinWidth="100" Text="{Binding RoleRight}"/>
                         </StackPanel>
 
 

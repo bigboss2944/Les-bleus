@@ -34,7 +34,7 @@ namespace UWP_FilRouge.Views.Sellers
         {
             this.InitializeComponent();
             this.SellerList = new ObservableCollection<Seller>();//To show the seller list
-            this.Seller = new Seller();//To Update selected seller's infos
+            this.seller = new Seller();//To Update selected seller's infos
             this.DataContext = SellerList;//To show the seller list
         }
     }

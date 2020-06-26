@@ -27,6 +27,7 @@
     <RootPropertyPathName Name="listView" />
     <RootPropertyPathName Name="SelectedItem" />
     <RootPropertyPathName Name="SelectionChanged" />
+    <RootPropertyPathName Name="RoleRight" />
     <RootPropertyPathName Name="Id" />
     <RootPropertyPathName Name="deleteButton" />
     <RootPropertyPathName Name="HomePageInstance" />

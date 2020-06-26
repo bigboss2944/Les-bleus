@@ -14,6 +14,10 @@ namespace UWP_FilRouge
     {
         private Shop subShop;
         private Seller subSeller;
+        private string roleRight;
+        
+
+
         //public Action<Seller> OnRemoveCallback { get; set; }
         #region Attributes
 
@@ -21,12 +25,7 @@ namespace UWP_FilRouge
         //private Shop shop;
 
 
-        private enum RoleRight
-        {
-            basic,
-            medium,
-            admin
-        }
+        
 
         #endregion
 
@@ -53,9 +52,10 @@ namespace UWP_FilRouge
 
         [ManyToOne]
         public Seller SubSeller { get => subSeller; set => subSeller = value; }
+        public string RoleRight { get => roleRight; set => roleRight = value; }
         #endregion
 
-        
+
 
         public void OnRemove()
         {

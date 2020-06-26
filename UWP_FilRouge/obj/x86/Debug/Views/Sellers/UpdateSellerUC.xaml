@@ -11,11 +11,6 @@
     d:DesignHeight="400"
     d:DesignWidth="500">
 
-    
-        
-        
-        
-    
     <Grid x:ConnectionId='2' x:Name="main" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,14 +25,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
 
-
         </Grid.ColumnDefinitions>
 
-
-
         <ComboBox ItemsSource="{Binding sellers,Mode=TwoWay}" Header="Id" Width="200" SelectedItem="{Binding listView.SelectedItem, Mode=TwoWay}">
-
-         
 
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="SelectionChanged">
@@ -49,13 +39,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
                         <TextBlock x:Name="Id" Text="{Binding Id,Mode=TwoWay}"/>
-
                     </StackPanel>
-
-
                 </DataTemplate>
-
-
             </ComboBox.ItemTemplate>
 
         </ComboBox>
@@ -69,8 +54,11 @@
         <TextBox x:ConnectionId='5' x:Name="confirm_password" Grid.Row="3" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
         <TextBlock HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Text="Please confirm your password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
-        <Button x:ConnectionId='6' x:Name="Register_Button" Command="{Binding validateButton.Action}" Content="{Binding validateButton.Content}" Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Button x:ConnectionId='7' x:Name="CancelButton" Command="{Binding cancelButton.Action}" Content="{Binding cancelButton.Content}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <TextBox x:ConnectionId='6' Text="{Binding seller.RoleRight, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" x:Name="Role" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Text="Role:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+        
+        <Button x:ConnectionId='7' x:Name="Register_Button" Command="{Binding validateButton.Action}" Content="{Binding validateButton.Content}" Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:ConnectionId='8' x:Name="CancelButton" Command="{Binding cancelButton.Action}" Content="{Binding cancelButton.Content}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </Grid>
     
 </UserControl>
