@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UWP_FilRouge.Views"
+    xmlns:customerUc="using:UWP_FilRouge.Views.Customers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding CustomerMainPageInstance, Source={StaticResource Locator}}"
@@ -24,17 +25,7 @@
                         <Setter Target="GridViewFooter.Background"
                                 Value="#558c2f" />
 
-                        <Setter Target="ListCustomer.Width"
-                                Value="400"/>
-
-                        <Setter Target="CreateCustomer.Width"
-                                Value="400"/>
-
-                        <Setter Target="UpdateCustomer.Width"
-                                Value="400"/>
-
-                        <Setter Target="DeleteCustomer.Width"
-                                Value="400"/>
+                        
 
                     </VisualState.Setters>
                 </VisualState>
@@ -75,19 +66,6 @@
                         <Setter Target="RegisterButton.Margin"
                                 Value="15,675,0,0"/>
 
-                        <Setter Target="ListCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="CreateCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="UpdateCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="DeleteCustomer.Width"
-                                Value="100"/>
-
-
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -127,17 +105,6 @@
                         <Setter Target="RegisterButton.Margin"
                                 Value="15,675,0,0"/>
 
-                        <Setter Target="ListCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="CreateCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="UpdateCustomer.Width"
-                                Value="100"/>
-
-                        <Setter Target="DeleteCustomer.Width"
-                                Value="100"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -154,23 +121,29 @@
 
 
         <Grid x:ConnectionId='3' x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
-            <Image x:ConnectionId='9' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
-            <Button x:ConnectionId='10' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='11' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='12' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='13' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
-            <Button x:ConnectionId='14' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Image x:ConnectionId='12' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
+            <Button x:ConnectionId='13' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='14' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='15' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='16' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
+            <Button x:ConnectionId='17' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
 
         </Grid>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="auto" Margin="50,0,0,0">
-            <Button x:ConnectionId='5' x:Name="ListCustomer" HorizontalAlignment="Center" Content="List Customer" Margin="0,0,0,50"/>
-            <Button x:ConnectionId='6' x:Name="CreateCustomer" HorizontalAlignment="Center" Content="Create Customer" Margin="0,0,0,50"/>
-            <Button x:ConnectionId='7' x:Name="UpdateCustomer" HorizontalAlignment="Center" Content="Update Customer" Margin="0,0,0,50"/>
-            <Button x:ConnectionId='8' x:Name="DeleteCustomer" HorizontalAlignment="Center" Content="Delete Customer"/>
-        </StackPanel>
+        <Pivot x:ConnectionId='4' x:Name="Pivot" Grid.Row="1">
+            <PivotItem x:ConnectionId='6' x:Name="PivotItemCreate" Header="Create Customers">
+                <customerUc:EditCustomerUC x:ConnectionId='11' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding dataCustomer.customerEdit, Mode=TwoWay}" x:Name="customerCreate"/>
+            </PivotItem>
+            <PivotItem x:ConnectionId='7' x:Name="PivotItemList" Header="Delete Customers">
+                <customerUc:ListCustomerUC x:ConnectionId='10' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding dataCustomer.customerList, Mode=TwoWay}" x:Name="customerList"/>
+            </PivotItem>
+            <PivotItem x:ConnectionId='8' x:Name="PivotItemUpdate" Header="Update Customers">
+                <customerUc:UpdateCustomerUC x:ConnectionId='9' VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding dataCustomer.customerUpdate, Mode=TwoWay}" x:Name="customerUpdate"/>
+            </PivotItem>
 
-        <Grid x:ConnectionId='4' x:Name="GridViewFooter" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+        </Pivot>
+
+        <Grid x:ConnectionId='5' x:Name="GridViewFooter" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
 
 
 

@@ -40,7 +40,7 @@ Views\ContactPage.xbf
 Views\CustomerMainPage.xbf
 Views\Customers\EditCustomerUC.xbf
 Views\Customers\ListCustomerUC.xbf
-Views\Customers\ShowCustomerUC.xbf
+Views\Customers\UpdateCustomerUC.xbf
 Views\Dictionary1.xbf
 Views\HomePage.xbf
 Views\LoginPage.xbf

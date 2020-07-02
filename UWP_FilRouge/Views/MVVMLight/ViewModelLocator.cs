@@ -25,7 +25,7 @@ namespace UWP_FilRouge.Views.MVVMLight
             navigationService.Configure("Customer Main Page", typeof(CustomerMainPage));
             navigationService.Configure("Order Main Page", typeof(OrderMainPage));
             //navigationService.Configure("Product Main Page", typeof(OrderMainPage));
-            navigationService.Configure("Menu Page", typeof(MainMenu));
+            navigationService.Configure("Main Menu Page", typeof(MainMenu));
             navigationService.Configure("Home Page", typeof(HomePage));
             navigationService.Configure("Contact Page", typeof(ContactPage));
             navigationService.Configure("About Page", typeof(AboutPage));
@@ -58,11 +58,18 @@ namespace UWP_FilRouge.Views.MVVMLight
 
             SimpleIoc.Default.Register<AboutPageViewModel>();
 
+            SimpleIoc.Default.Register<MainMenuPageViewModel>();
+
             SimpleIoc.Default.Register<DatabaseService>(() =>
             {
                 return new DatabaseService();
             }, true);
 
+        }
+
+        public MainMenuPageViewModel MainMenuPageInstance
+        {
+            get { return ServiceLocator.Current.GetInstance<MainMenuPageViewModel>(); }
         }
 
         public AdminPageViewModel AdminPageInstance
@@ -90,7 +97,7 @@ namespace UWP_FilRouge.Views.MVVMLight
             get { return ServiceLocator.Current.GetInstance<LoginPageViewModel>(); }        
         }
 
-        public CustomerPageViewModel CustomerPageInstance
+        public CustomerPageViewModel CustomerMainPageInstance
         {
             get { return ServiceLocator.Current.GetInstance<CustomerPageViewModel>(); }
         }

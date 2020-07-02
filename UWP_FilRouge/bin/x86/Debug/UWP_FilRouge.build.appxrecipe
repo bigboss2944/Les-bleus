@@ -208,8 +208,8 @@
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf">
       <PackagePath>Views\Customers\ListCustomerUC.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf">
-      <PackagePath>Views\Customers\ShowCustomerUC.xbf</PackagePath>
+    <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\UpdateCustomerUC.xbf">
+      <PackagePath>Views\Customers\UpdateCustomerUC.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Dictionary1.xbf">
       <PackagePath>Views\Dictionary1.xbf</PackagePath>

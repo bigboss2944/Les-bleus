@@ -9,37 +9,48 @@
     <RootPropertyPathName Name="MoveToHomePage" />
     <RootPropertyPathName Name="ContactPageInstance" />
     <RootPropertyPathName Name="CustomerMainPageInstance" />
-    <RootPropertyPathName Name="AdminPageInstance" />
-    <RootPropertyPathName Name="MoveToProductPage" />
-    <RootPropertyPathName Name="MoveToOrderPage" />
-    <RootPropertyPathName Name="MoveToCustomerPage" />
-    <RootPropertyPathName Name="MoveToSellerPage" />
+    <RootPropertyPathName Name="dataCustomer" />
+    <RootPropertyPathName Name="customerUpdate" />
+    <RootPropertyPathName Name="customerList" />
+    <RootPropertyPathName Name="customerEdit" />
     <RootPropertyPathName Name="cancelButton" />
     <RootPropertyPathName Name="Action" />
     <RootPropertyPathName Name="Content" />
     <RootPropertyPathName Name="validateButton" />
-    <RootPropertyPathName Name="seller" />
-    <RootPropertyPathName Name="Password" />
+    <RootPropertyPathName Name="customer" />
+    <RootPropertyPathName Name="Gender" />
+    <RootPropertyPathName Name="Phone" />
+    <RootPropertyPathName Name="Mail" />
+    <RootPropertyPathName Name="Address" />
     <RootPropertyPathName Name="FirstName" />
-    <RootPropertyPathName Name="updateButton" />
-    <RootPropertyPathName Name="sellerList" />
-    <RootPropertyPathName Name="sellers" />
+    <RootPropertyPathName Name="customers" />
     <RootPropertyPathName Name="listView" />
     <RootPropertyPathName Name="SelectedItem" />
     <RootPropertyPathName Name="SelectionChanged" />
-    <RootPropertyPathName Name="RoleRight" />
+    <RootPropertyPathName Name="LoyaltyPoints" />
+    <RootPropertyPathName Name="Email" />
     <RootPropertyPathName Name="Id" />
+    <RootPropertyPathName Name="updateButton" />
     <RootPropertyPathName Name="deleteButton" />
+    <RootPropertyPathName Name="seller" />
+    <RootPropertyPathName Name="RoleRight" />
+    <RootPropertyPathName Name="Password" />
+    <RootPropertyPathName Name="AdminPageInstance" />
+    <RootPropertyPathName Name="DataSeller" />
+    <RootPropertyPathName Name="sellerUpdate" />
+    <RootPropertyPathName Name="sellerList" />
+    <RootPropertyPathName Name="sellerEdit" />
+    <RootPropertyPathName Name="sellers" />
     <RootPropertyPathName Name="HomePageInstance" />
     <RootPropertyPathName Name="LoginPageInstance" />
     <RootPropertyPathName Name="CancelButton" />
     <RootPropertyPathName Name="ValidateButton" />
+    <RootPropertyPathName Name="MainMenuPageInstance" />
+    <RootPropertyPathName Name="MoveToOrderPage" />
+    <RootPropertyPathName Name="MoveToCustomerPage" />
     <RootPropertyPathName Name="OrderMainPageInstance" />
     <RootPropertyPathName Name="SellerMainPageInstance" />
     <RootPropertyPathName Name="Datas" />
-    <RootPropertyPathName Name="sellerEdit" />
-    <RootPropertyPathName Name="DataSeller" />
-    <RootPropertyPathName Name="sellerUpdate" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
     <RootType FullName="Windows.UI.Xaml.Application">
@@ -103,10 +114,10 @@
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Height" />
       <RootProperty Name="Children" />
+      <RootProperty Name="Orientation" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Width" />
       <RootProperty Name="Margin" />
-      <RootProperty Name="Orientation" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
       <RootProperty Name="Width" />
@@ -119,9 +130,9 @@
       <RootProperty Name="Height" />
       <RootProperty Name="TextWrapping" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="MinWidth" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Inlines" />
-      <RootProperty Name="MinWidth" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Image">
       <RootProperty Name="Source" />
@@ -144,7 +155,6 @@
       <RootProperty Name="Height" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="MaxWidth" />
-      <RootProperty Name="Width" />
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
@@ -164,37 +174,31 @@
       <RootProperty Name="AcceptsReturn" />
     </RootType>
     <RootType FullName="UWP_FilRouge.Views.ContactPage" />
-    <RootType FullName="UWP_FilRouge.Views.CustomerMainPage" />
-    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC" />
-    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC" />
-    <RootType FullName="UWP_FilRouge.Views.Customers.ShowCustomerUC" />
-    <RootType FullName="Windows.UI.Xaml.ResourceDictionary">
-      <RootProperty Name="MergedDictionaries" />
-      <RootProperty Name="Source" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
+      <RootProperty Name="Items" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.GridViewHeaderItem" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Control">
-      <RootProperty Name="Background" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.NavigationViewItem" />
-    <RootType FullName="System.String" />
-    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+    <RootType FullName="Windows.UI.Xaml.Controls.PivotItem">
+      <RootProperty Name="Header" />
       <RootProperty Name="Content" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
-      <RootProperty Name="HorizontalAlignment" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.UpdateCustomerUC">
       <RootProperty Name="VerticalAlignment" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle" />
-    <RootType FullName="UWP_FilRouge.MainPage" />
-    <RootType FullName="UWP_FilRouge.Views.AdminPage" />
-    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
-    <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
-    <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
-    <RootType FullName="UWP_FilRouge.Views.Sellers.EditSellerUC">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC">
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.CustomerMainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="ItemsSource" />
@@ -218,11 +222,6 @@
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Sellers.ListSellerUC">
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="DataContext" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Header" />
@@ -230,11 +229,41 @@
       <RootProperty Name="SelectedItem" />
       <RootProperty Name="ItemTemplate" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.ResourceDictionary">
+      <RootProperty Name="MergedDictionaries" />
+      <RootProperty Name="Source" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.GridViewHeaderItem" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Control">
+      <RootProperty Name="Background" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.NavigationViewItem" />
+    <RootType FullName="System.String" />
+    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle" />
+    <RootType FullName="UWP_FilRouge.MainPage" />
     <RootType FullName="UWP_FilRouge.Views.Sellers.UpdateSellerUC">
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="DataContext" />
     </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Sellers.ListSellerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Sellers.EditSellerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.AdminPage" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.EditOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ListOrderUC" />
+    <RootType FullName="UWP_FilRouge.Views.Orders.ShowOrderUC" />
     <RootType FullName="Windows.UI.Xaml.Controls.GridView">
       <RootProperty Name="Background" />
       <RootProperty Name="HorizontalAlignment" />
@@ -252,13 +281,6 @@
     <RootType FullName="UWP_FilRouge.Views.MainMenu" />
     <RootType FullName="UWP_FilRouge.Views.OrderMainPage" />
     <RootType FullName="UWP_FilRouge.Views.RegisterPage" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
-      <RootProperty Name="Items" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.PivotItem">
-      <RootProperty Name="Header" />
-      <RootProperty Name="Content" />
-    </RootType>
     <RootType FullName="UWP_FilRouge.Views.SellerMainPage" />
     <RootType FullName="UWP_FilRouge.Views.Shop.EditShopUC" />
     <RootType FullName="UWP_FilRouge.Views.Roles.ListShopUC" />

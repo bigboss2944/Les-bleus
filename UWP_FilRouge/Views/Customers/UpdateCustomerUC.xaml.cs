@@ -17,9 +17,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP_FilRouge.Views.Customers
 {
-    public sealed partial class ShowCustomerUC : UserControl
+    public sealed partial class UpdateCustomerUC : UserControl
     {
-        public ShowCustomerUC()
+        public UpdateCustomerUC()
         {
             this.InitializeComponent();
         }

@@ -19,9 +19,19 @@ namespace UWP_FilRouge.Views.Customers
 {
     public sealed partial class EditCustomerUC : UserControl
     {
+        private Customer customer;
+
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
+
         public EditCustomerUC()
         {
             this.InitializeComponent();
+            this.Customer = new Customer();
+            this.DataContext = Customer;
         }
     }
 }

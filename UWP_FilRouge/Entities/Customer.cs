@@ -29,8 +29,6 @@ namespace UWP_FilRouge
 
         #region Properties
 
-
-
         public string Town { get => town; set => town = value; }
         public int PostalCode { get => postalCode; set => postalCode = value; }
         public string Address { get => address; set => address = value; }
@@ -63,6 +61,34 @@ namespace UWP_FilRouge
         {
             return this.idCustomer + " " + this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
         }
+
+        public override object Copy()
+        {
+            Customer customer = new Customer();
+            customer.Id = this.Id;
+            customer.FirstName = this.FirstName;
+            customer.Phone = this.Phone;
+            customer.Gender = this.Gender;
+            customer.Email = this.Email;
+            customer.LoyaltyPoints = this.LoyaltyPoints;
+            customer.Address = this.Address;
+
+            return customer;
+        }
+
+        public override void CopyFrom(object obj)
+        {
+            Customer customer = obj as Customer;
+            this.Id = customer.Id;
+            this.FirstName = customer.FirstName;
+            this.Phone = customer.Phone;
+            this.Gender = customer.Gender;
+            this.Email = customer.Email;
+            this.LoyaltyPoints = customer.LoyaltyPoints;
+            this.Address = customer.Address;
+        }
+
+
         #endregion
 
     }

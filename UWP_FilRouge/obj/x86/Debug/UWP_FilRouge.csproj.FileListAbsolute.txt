@@ -414,8 +414,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\EditCustomerUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.g.i.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.g.cs
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.g.i.cs
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.g.i.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.g.cs
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.g.i.cs
@@ -437,7 +435,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Bicycles\ShowBicycleUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\EditCustomerUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.xaml
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xaml
@@ -451,7 +448,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Bicycles\ShowBicycleUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\EditCustomerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ListCustomerUC.xbf
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\ShowCustomerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\EditOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ListOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Orders\ShowOrderUC.xbf
@@ -465,7 +461,6 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Bicycles\ShowBicycleUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\EditCustomerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ListCustomerUC.xbf
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\ShowCustomerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\EditOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\ListOrderUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Orders\ShowOrderUC.xbf
@@ -491,3 +486,8 @@ C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.xaml
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Sellers\UpdateSellerUC.xbf
 C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Sellers\UpdateSellerUC.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\UpdateCustomerUC.g.i.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\UpdateCustomerUC.g.cs
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\UpdateCustomerUC.xaml
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\obj\x86\Debug\Views\Customers\UpdateCustomerUC.xbf
+C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\bin\x86\Debug\Views\Customers\UpdateCustomerUC.xbf

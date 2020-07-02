@@ -74,6 +74,7 @@ namespace UWP_FilRouge.Views.ViewModel
             MoveToHomePage = new RelayCommand(ToHomePage);
             MoveToContactPage = new RelayCommand(ToContactPage);
             MoveToAboutPage = new RelayCommand(ToAboutPage);
+
             ValidateButton = new RelayCommand(Validate);
             CancelButton = new RelayCommand(Cancel);
         }
@@ -111,7 +112,7 @@ namespace UWP_FilRouge.Views.ViewModel
             }
             else
             {
-
+                navigationService.NavigateTo("Main Menu Page");
             }
 
         }

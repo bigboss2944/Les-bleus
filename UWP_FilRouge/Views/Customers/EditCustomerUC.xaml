@@ -9,7 +9,38 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid x:Name="main" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
 
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+
+
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="firstName" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"  Text="{Binding customer.FirstName, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Text="First name:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <TextBox x:Name="address" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding customer.Address, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Text="Address:" TextWrapping="Wrap" VerticalAlignment="Center" />
+
+        <TextBox x:Name="email" Grid.Row="2" Grid.Column="1" Text="{Binding customer.Mail, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Text="Email:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <TextBox Text="{Binding customer.Phone, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" x:Name="phone" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Text="Phone:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <TextBox Text="{Binding customer.Gender, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" x:Name="gender" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Button x:Name="Register_Button" Command="{Binding validateButton.Action}" Content="{Binding validateButton.Content}" Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="CancelButton" Command="{Binding cancelButton.Action}" Content="{Binding cancelButton.Content}" Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

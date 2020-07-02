@@ -55,7 +55,7 @@ namespace UWP_FilRouge.Views.ViewModel
 
         public AboutPageViewModel(INavigationService navigationService)
         {
-            _navigationService = navigationService;
+            navigationService = navigationService;
             Title = "About Page";
             MoveToRegisterPage = new RelayCommand(ToRegisterPage);
             MoveToLoginPage = new RelayCommand(ToLoginPage);
