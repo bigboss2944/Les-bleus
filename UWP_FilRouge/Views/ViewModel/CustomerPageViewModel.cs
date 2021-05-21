@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using UWP_FilRouge.Database;
+using UWP_FilRouge.Entities;
 using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors;
 using Windows.UI.Xaml.Controls;
 

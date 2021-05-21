@@ -33,6 +33,7 @@ MainPage.xbf
 UWP_FilRouge.xr.xml
 Views\AboutPage.xbf
 Views\AdminPage.xbf
+Views\BicyclePage.xbf
 Views\Bicycles\EditBicycleUC.xbf
 Views\Bicycles\ListBicycleUC.xbf
 Views\Bicycles\ShowBicycleUC.xbf

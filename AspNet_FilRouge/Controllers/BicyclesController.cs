@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AspNet_FilRouge.Models;
-using System.Web.Http.Description;
-using System.Web.Http;
-using System.Data.Entity.Infrastructure;
-using System.Web.Http.Description;
+using Entities;
 
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
@@ -24,7 +16,7 @@ namespace AspNet_FilRouge.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Bicycles
+        // GET:
         public async Task<ActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
@@ -125,9 +117,6 @@ namespace AspNet_FilRouge.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-        
-
 
         protected override void Dispose(bool disposing)
         {

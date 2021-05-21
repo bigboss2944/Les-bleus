@@ -1,18 +1,14 @@
-﻿using SQLiteNetExtensions.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge
+namespace UWP_FilRouge.Entities
 {
-    [Table("Customer")]
     public class Customer : User
     {
-        #region Attributes
         private long idCustomer;
         private string town;
         private int postalCode;
@@ -20,58 +16,106 @@ namespace UWP_FilRouge
         private int loyaltyPoints;
         private string phone;
         private string email;
+        /// private List<Order> orders;
         private Shop shop;
-        private List<Order> orders;
-        private string gender;
-        private Customer subCustomer;
-        private Shop subShop;
-        #endregion
 
-        #region Properties
-
-        public string Town { get => town; set => town = value; }
-        public int PostalCode { get => postalCode; set => postalCode = value; }
-        public string Address { get => address; set => address = value; }
-        public int LoyaltyPoints { get => loyaltyPoints; set => loyaltyPoints = value; }
-        public string Phone { get => phone; set => phone = value; }
-        public string Email { get => email; set => email = value; }
-
-        [ManyToOne]
-        public Customer SubCustomer { get => subCustomer; set => subCustomer = value; }
-
-        [ManyToOne]
-        public Shop SubShop { get => subShop; set => subShop = value; }
-
-        public string Gender
+        public long IdCustomer
         {
-            get { return gender; }
-            set { gender = value; }
+            get { return idCustomer; }
+            set
+            {
+                idCustomer = value;
+                OnPropertyChanged("IdCustomer");
+            }
         }
-        #endregion
 
-        #region Constructors
-        public Customer() : base()
+        public string Town
         {
-            //this.Orders = new List<Order>();
+            get { return town; }
+            set
+            {
+                town = value;
+                OnPropertyChanged("Town");
+            }
         }
-        #endregion    
+        public int PostalCode
+        {
+            get { return postalCode; }
+            set
+            {
+                postalCode = value;
+                OnPropertyChanged("PostalCode");
+            }
+        }
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+        public int LoyaltyPoints
+        {
+            get { return loyaltyPoints; }
+            set
+            {
+                loyaltyPoints = value;
+                OnPropertyChanged("LoyaltyPoints");
+            }
+        }
+        public string Phone
+        {
+            get { return phone; }
+            set
+            {
+                phone = value;
+                OnPropertyChanged("Phone");
+            }
+        }
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+        /*public List<Order> Orders
+        {
+            get { return orders; }
+            set { orders = value; }
+        }*/
+        public Shop Shop
+        {
+            get { return shop; }
+            set
+            {
+                shop = value;
+                OnPropertyChanged("Shop");
+            }
+        }
 
-        #region Functions
-        public String ToString()
-        {
-            return this.idCustomer + " " + this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public override object Copy()
         {
             Customer customer = new Customer();
-            customer.Id = this.Id;
-            customer.FirstName = this.FirstName;
-            customer.Phone = this.Phone;
-            customer.Gender = this.Gender;
+            customer.idCustomer = this.idCustomer;
+            /// customer.IdCustomer = this.IdCustomer;
+            customer.Address = this.Address;
             customer.Email = this.Email;
             customer.LoyaltyPoints = this.LoyaltyPoints;
-            customer.Address = this.Address;
+            customer.Phone = this.Phone;
+            customer.PostalCode = this.PostalCode;
+            /// customer.Shop = this.Shop;
+            if (this.Shop != null)
+            {
+                customer.Shop = this.Shop.Copy() as Shop;
+            }
+            customer.Town = this.Town;
 
             return customer;
         }
@@ -79,17 +123,28 @@ namespace UWP_FilRouge
         public override void CopyFrom(object obj)
         {
             Customer customer = obj as Customer;
-            this.Id = customer.Id;
-            this.FirstName = customer.FirstName;
-            this.Phone = customer.Phone;
-            this.Gender = customer.Gender;
-            this.Email = customer.Email;
-            this.LoyaltyPoints = customer.LoyaltyPoints;
-            this.Address = customer.Address;
+            customer.idCustomer = this.idCustomer;
+            /// customer.IdCustomer = this.IdCustomer;
+            customer.Address = this.Address;
+            customer.Email = this.Email;
+            customer.LoyaltyPoints = this.LoyaltyPoints;
+            customer.Phone = this.Phone;
+            customer.PostalCode = this.PostalCode;
+            /// customer.Shop = this.Shop;
+            if (customer.Shop != null)
+            {
+                this.Shop = customer.Shop;
+            }
+            customer.Town = this.Town;
         }
 
-
-        #endregion
-
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
     }
 }

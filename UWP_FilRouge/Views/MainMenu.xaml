@@ -156,7 +156,8 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="auto" Margin="50,0,0,0">
             <Button x:Name="Customer" Command="{Binding MoveToCustomerPage}" HorizontalAlignment="Center" Content="Customer" Margin="0,0,0,50"/>
-            <Button x:Name="Order" Command="{Binding MoveToOrderPage}" HorizontalAlignment="Center" Content="Order"/>
+            <Button x:Name="Order" Command="{Binding MoveToOrderPage}" HorizontalAlignment="Center" Content="Order" Margin="0,0,0,50"/>
+            <Button x:Name="Bicycle" Command="{Binding MoveToBicyclePage}" HorizontalAlignment="Center" Content="Bicycle" />
         </StackPanel>
 
         <Grid x:Name="GridViewFooter" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">

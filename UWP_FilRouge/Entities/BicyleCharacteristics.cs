@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_FilRouge
+namespace UWP_FilRouge.Entities
 {
-    public class BicyleCharacteristics
+    public abstract class BicycleCharacteristics : EntityBase
     {
         #region Attributs
         private float size;
@@ -15,7 +15,8 @@ namespace UWP_FilRouge
         private float wheelSize;
         private bool electric;
         private string confort;
-        private string state;// new state or occasion
+        // new state or occasion
+        private string state;
         private string brand;
         #endregion
 
@@ -23,58 +24,80 @@ namespace UWP_FilRouge
         public float Size
         {
             get { return size; }
-            set { size = value; }
+            set
+            {
+                size = value;
+                OnPropertyChanged("Size");
+            }
         }
 
         public float Weight
         {
             get { return weight; }
-            set { weight = value; }
+            set
+            {
+                weight = value;
+                OnPropertyChanged("Weight");
+            }
         }
 
         public string Color
         {
             get { return color; }
-            set { color = value; }
+            set
+            {
+                color = value;
+                OnPropertyChanged("Color");
+            }
         }
         public float WheelSize
         {
             get { return wheelSize; }
-            set { wheelSize = value; }
+            set
+            {
+                wheelSize = value;
+                OnPropertyChanged("WheelSize");
+            }
         }
 
-       public bool Electric
+        public bool Electric
         {
             get { return electric; }
-            set { electric = value; }
+            set
+            {
+                electric = value;
+                OnPropertyChanged("Electric");
+            }
         }
 
         public string State
         {
             get { return state; }
-            set { state = value; }
+            set
+            {
+                state = value;
+                OnPropertyChanged("State");
+            }
         }
 
         public string Brand
         {
             get { return brand; }
-            set { brand = value; }
+            set
+            {
+                brand = value;
+                OnPropertyChanged("Brand");
+            }
         }
 
         public string Confort
         {
             get { return confort; }
-            set { confort = value; }
-        }
-        #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public BicyleCharacteristics()
-        {
-
+            set
+            {
+                confort = value;
+                OnPropertyChanged("Confort");
+            }
         }
         #endregion
     }

@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UWP_FilRouge.Database;
+using UWP_FilRouge.Entities;
 using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors;
 using Windows.UI.Xaml.Controls;
 
@@ -24,6 +25,7 @@ namespace UWP_FilRouge.Views.ViewModel
         public RelayCommand MoveToSellerPage { get; private set; }
         public RelayCommand MoveToCustomerPage { get; private set; }
         public RelayCommand MoveToOrderPage { get; private set; }
+        public RelayCommand MoveToBicyclePage { get; private set; }
         private bool _isLoading = false;
         private bool _addingNewSeller = false;
 
@@ -90,7 +92,10 @@ namespace UWP_FilRouge.Views.ViewModel
             MoveToOrderPage = new RelayCommand(ToOrderPage);
             //MoveToSellerPage = new RelayCommand(ToSellerPage);
             MoveToCustomerPage = new RelayCommand(ToCustomerPage);
+            MoveToBicyclePage = new RelayCommand(ToBicyclePage);
         }
+
+        
 
         private void SetupSellerDatas()
         {
@@ -337,6 +342,11 @@ namespace UWP_FilRouge.Views.ViewModel
         {
             // Do Something
             navigationService.NavigateTo("Order Main Page");
+        }
+
+        private void ToBicyclePage()
+        {
+            navigationService.NavigateTo("Bicycle Main Page");
         }
     }
 }

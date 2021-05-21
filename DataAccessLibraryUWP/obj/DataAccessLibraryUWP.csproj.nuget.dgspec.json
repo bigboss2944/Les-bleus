@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj": {}
+    "D:\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj": {
+    "D:\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj",
+        "projectUniqueName": "D:\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj",
         "projectName": "DataAccessLibraryUWP",
-        "projectPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj",
+        "projectPath": "D:\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\DataAccessLibraryUWP.csproj",
         "packagesPath": "C:\\Users\\fabrice\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\obj\\",
+        "outputPath": "D:\\source\\repos\\Contador_fabrice\\DataAccessLibraryUWP\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

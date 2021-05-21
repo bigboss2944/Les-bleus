@@ -116,18 +116,19 @@
         </Grid.RowDefinitions>
 
         <Grid x:ConnectionId='3' x:Name="GridViewHeader" Grid.Column="0" Grid.Row="0">
-            <Image x:ConnectionId='7' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
-            <Button x:ConnectionId='8' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='9' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='10' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
-            <Button x:ConnectionId='11' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
-            <Button x:ConnectionId='12' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Image x:ConnectionId='8' x:Name="bike" Source="/Assets/bike.png" HorizontalAlignment="Left" Height="75" Margin="274,5,0,0" VerticalAlignment="Top" Width="75" AllowDrop="True" Opacity="100"/>
+            <Button x:ConnectionId='9' x:Name="HomePageButton" Command="{Binding MoveToHomePage}" Content="Home" Margin="420,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='10' x:Name="AboutPageButton" Command="{Binding MoveToAboutPage}" Content="About" Margin="509,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='11' x:Name="ContactPageButton" Command="{Binding MoveToContactPage}" Content="Contact" Margin="620,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
+            <Button x:ConnectionId='12' x:Name="LoginButton" Command="{Binding MoveToLoginPage}" Content="Login" Margin="1109,40,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="33" FontWeight="Bold"/>
+            <Button x:ConnectionId='13' x:Name="RegisterButton" Command="{Binding MoveToRegisterPage}" Content="Register" Margin="1200,40,0,0" VerticalAlignment="Top" Background="{x:Null}"/>
 
         </Grid>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="auto" Margin="50,0,0,0">
             <Button x:ConnectionId='5' x:Name="Customer" Command="{Binding MoveToCustomerPage}" HorizontalAlignment="Center" Content="Customer" Margin="0,0,0,50"/>
-            <Button x:ConnectionId='6' x:Name="Order" Command="{Binding MoveToOrderPage}" HorizontalAlignment="Center" Content="Order"/>
+            <Button x:ConnectionId='6' x:Name="Order" Command="{Binding MoveToOrderPage}" HorizontalAlignment="Center" Content="Order" Margin="0,0,0,50"/>
+            <Button x:ConnectionId='7' x:Name="Bicycle" Command="{Binding MoveToBicyclePage}" HorizontalAlignment="Center" Content="Bicycle" />
         </StackPanel>
 
 

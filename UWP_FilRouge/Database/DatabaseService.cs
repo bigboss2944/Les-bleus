@@ -1,11 +1,12 @@
 ﻿
+using Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
+using UWP_FilRouge.Entities;
 using Windows.Storage;
 
 

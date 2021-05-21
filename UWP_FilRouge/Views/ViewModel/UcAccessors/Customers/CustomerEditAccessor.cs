@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_FilRouge.Entities;
 using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Commons;
 
 namespace UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Users

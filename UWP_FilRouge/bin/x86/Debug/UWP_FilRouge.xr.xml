@@ -7,6 +7,21 @@
     <RootPropertyPathName Name="MoveToContactPage" />
     <RootPropertyPathName Name="MoveToAboutPage" />
     <RootPropertyPathName Name="MoveToHomePage" />
+    <RootPropertyPathName Name="BicyclePageInstance" />
+    <RootPropertyPathName Name="DataBicycle" />
+    <RootPropertyPathName Name="bicycleList" />
+    <RootPropertyPathName Name="bicycles" />
+    <RootPropertyPathName Name="listView" />
+    <RootPropertyPathName Name="SelectedItem" />
+    <RootPropertyPathName Name="SelectionChanged" />
+    <RootPropertyPathName Name="Deliverable" />
+    <RootPropertyPathName Name="Insurance" />
+    <RootPropertyPathName Name="Exchangeable" />
+    <RootPropertyPathName Name="FreeTaxPrice" />
+    <RootPropertyPathName Name="Reference" />
+    <RootPropertyPathName Name="Category" />
+    <RootPropertyPathName Name="TypeOfBike" />
+    <RootPropertyPathName Name="Id" />
     <RootPropertyPathName Name="ContactPageInstance" />
     <RootPropertyPathName Name="CustomerMainPageInstance" />
     <RootPropertyPathName Name="dataCustomer" />
@@ -24,12 +39,8 @@
     <RootPropertyPathName Name="Address" />
     <RootPropertyPathName Name="FirstName" />
     <RootPropertyPathName Name="customers" />
-    <RootPropertyPathName Name="listView" />
-    <RootPropertyPathName Name="SelectedItem" />
-    <RootPropertyPathName Name="SelectionChanged" />
     <RootPropertyPathName Name="LoyaltyPoints" />
     <RootPropertyPathName Name="Email" />
-    <RootPropertyPathName Name="Id" />
     <RootPropertyPathName Name="updateButton" />
     <RootPropertyPathName Name="deleteButton" />
     <RootPropertyPathName Name="seller" />
@@ -46,6 +57,7 @@
     <RootPropertyPathName Name="CancelButton" />
     <RootPropertyPathName Name="ValidateButton" />
     <RootPropertyPathName Name="MainMenuPageInstance" />
+    <RootPropertyPathName Name="MoveToBicyclePage" />
     <RootPropertyPathName Name="MoveToOrderPage" />
     <RootPropertyPathName Name="MoveToCustomerPage" />
     <RootPropertyPathName Name="OrderMainPageInstance" />
@@ -128,9 +140,9 @@
       <RootProperty Name="Text" />
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
+      <RootProperty Name="MinWidth" />
       <RootProperty Name="TextWrapping" />
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="MinWidth" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="Inlines" />
     </RootType>
@@ -159,21 +171,6 @@
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.NullExtension" />
     <RootType FullName="UWP_FilRouge.Views.AboutPage" />
-    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
-      <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Bicycles.EditBicycleUC" />
-    <RootType FullName="UWP_FilRouge.Views.Bicycles.ListBicycleUC" />
-    <RootType FullName="UWP_FilRouge.Views.Bicycles.ShowBicycleUC" />
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="Text" />
-      <RootProperty Name="TextWrapping" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Background" />
-      <RootProperty Name="AcceptsReturn" />
-    </RootType>
-    <RootType FullName="UWP_FilRouge.Views.ContactPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.Pivot">
       <RootProperty Name="Items" />
     </RootType>
@@ -181,22 +178,23 @@
       <RootProperty Name="Header" />
       <RootProperty Name="Content" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Customers.UpdateCustomerUC">
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ShowBicycleUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.ListBicycleUC">
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="DataContext" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC">
+    <RootType FullName="UWP_FilRouge.Views.Bicycles.EditBicycleUC">
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="DataContext" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC">
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="DataContext" />
+    <RootType FullName="UWP_FilRouge.Views.BicyclePage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.UserControl">
+      <RootProperty Name="Content" />
     </RootType>
-    <RootType FullName="UWP_FilRouge.Views.CustomerMainPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootProperty Name="Content" />
     </RootType>
@@ -222,6 +220,31 @@
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="TextWrapping" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Background" />
+      <RootProperty Name="AcceptsReturn" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.ContactPage" />
+    <RootType FullName="UWP_FilRouge.Views.Customers.UpdateCustomerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Customers.ListCustomerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.Customers.EditCustomerUC">
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="DataContext" />
+    </RootType>
+    <RootType FullName="UWP_FilRouge.Views.CustomerMainPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
       <RootProperty Name="ItemsSource" />
       <RootProperty Name="Header" />

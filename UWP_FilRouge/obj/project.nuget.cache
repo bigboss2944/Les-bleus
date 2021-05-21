@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TST76isEJ9emWrhB6KGl7xJzvtxDPgxpSkjb9Y3dWgN1oKdtBs1njY8qEMuSBYL2h2f3TqvNAw9Pb5iAURtgNw==",
+  "dgSpecHash": "p1toQbzFlRxx/qXs7HI0LluHObSxhd8yVfNd8DjNjQB7vtrDh/yqfEqxtvUYF163gjwZlqXj51usXSe4o4D2Tg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fabrice\\source\\repos\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
+  "projectFilePath": "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fabrice\\.nuget\\packages\\commonservicelocator\\2.0.5\\commonservicelocator.2.0.5.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\microsoft.data.sqlite\\3.1.3\\microsoft.data.sqlite.3.1.3.nupkg.sha512",
@@ -34,7 +34,6 @@
     "C:\\Users\\fabrice\\.nuget\\packages\\runtime.win10-x86.microsoft.net.native.sharedlibrary\\2.2.7-rel-28605-00\\runtime.win10-x86.microsoft.net.native.sharedlibrary.2.2.7-rel-28605-00.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\\2.2.10\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk.2.2.10.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\\6.2.10\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform.6.2.10.nupkg.sha512",
-    "C:\\Users\\fabrice\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\sqlite-net-pcl\\1.7.335\\sqlite-net-pcl.1.7.335.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\sqlitenetextensions\\2.1.0\\sqlitenetextensions.2.1.0.nupkg.sha512",
     "C:\\Users\\fabrice\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.2\\sqlitepclraw.bundle_e_sqlite3.2.0.2.nupkg.sha512",

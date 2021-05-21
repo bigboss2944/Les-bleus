@@ -1,2 +1,2 @@
-C:\Users\fabrice\source\repos\Contador_fabrice\DataAccessLibraryUWP\DataAccessLibraryUWP.csproj;neutral
-C:\Users\fabrice\source\repos\Contador_fabrice\UWP_FilRouge\UWP_FilRouge.csproj;x86
+D:\source\repos\Projets\FilRouge\Contador_fabrice\DataAccessLibraryUWP\DataAccessLibraryUWP.csproj;neutral
+D:\source\repos\Projets\FilRouge\Contador_fabrice\UWP_FilRouge\UWP_FilRouge.csproj;x86

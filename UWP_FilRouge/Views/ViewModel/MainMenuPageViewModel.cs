@@ -24,7 +24,7 @@ namespace UWP_FilRouge.Views.ViewModel
         public RelayCommand MoveToContactPage { get; private set; }
         public RelayCommand MoveToAboutPage { get; private set; }
         public RelayCommand MoveToOrderPage { get; private set; }
-        public RelayCommand MoveToProductPage { get; private set; }
+        public RelayCommand MoveToBicyclePage { get; private set; }
         public RelayCommand MoveToCustomerPage { get; private set; }
 
         private bool _isLoading = false;
@@ -72,6 +72,7 @@ namespace UWP_FilRouge.Views.ViewModel
             MoveToAboutPage = new RelayCommand(ToAboutPage);
             MoveToOrderPage = new RelayCommand(ToOrderPage);
             MoveToCustomerPage = new RelayCommand(ToCustomerPage);
+            MoveToBicyclePage = new RelayCommand(ToBicyclePage);
         }
 
         private void ToLoginPage()
@@ -112,6 +113,11 @@ namespace UWP_FilRouge.Views.ViewModel
         {
             // Do Something
             navigationService.NavigateTo("Customer Main Page");
+        }
+
+        private void ToBicyclePage()
+        {
+            navigationService.NavigateTo("Bicycle Main Page");
         }
 
 

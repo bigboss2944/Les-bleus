@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_FilRouge.Entities;
 using UWP_FilRouge.Views.ViewModel;
 using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors.Commons;
 

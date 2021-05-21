@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UWP_FilRouge.Database;
+using UWP_FilRouge.Entities;
 using UWP_FilRouge.Views.ViewModelLight.Views.ViewModel.UcAccessors;
 using Windows.UI.Xaml.Controls;
 

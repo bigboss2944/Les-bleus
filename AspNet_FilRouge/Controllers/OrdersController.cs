@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AspNet_FilRouge.Models;
-
+using Entities;
 namespace AspNet_FilRouge.Controllers
 
 

@@ -48,7 +48,8 @@
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
     <uap3:Capability Name="backgroundMediaPlayback"/>
+    <Capability Name="internetClientServer"/>
+    <uap:Capability Name="sharedUserCertificates"/>
   </Capabilities>
 </Package>

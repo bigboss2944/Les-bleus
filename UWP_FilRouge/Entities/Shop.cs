@@ -1,20 +1,63 @@
-﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace UWP_FilRouge
+namespace UWP_FilRouge.Entities
 {
-    [Table("Shop")]
-    public class Shop
+    public class Shop : EntityBase
     {
-        #region Attributs
-        private long? shopId;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public override object Copy()
+        {
+            Shop shop = new Shop();
+            shop.IdShop = this.IdShop;
+            shop.Adress = this.Adress;
+            shop.Email = this.Email;
+            shop.Nameshop = this.Nameshop;
+            shop.Phone = this.Phone;
+            shop.Postalcode = this.Postalcode;
+            shop.Town = this.Town;
+            shop.Website = this.Website;
+            /*if (this.Role != null)
+            {
+                shop.Role = this.Role.Copy() as Role;
+            }*/
+
+            return shop;
+        }
+
+        public override void CopyFrom(object obj)
+        {
+            Shop shop = obj as Shop;
+            this.IdShop = shop.IdShop;
+            this.Adress = shop.Adress;
+            this.Email = shop.Email;
+            this.Nameshop = shop.Nameshop;
+            this.Phone = shop.Phone;
+            this.Postalcode = shop.Postalcode;
+            this.Town = shop.Town;
+            this.Website = shop.Website;
+            /*if (user.Role != null)
+            {
+                this.Role = user.Role;
+            }*/
+        }
+
+        private long idShop;
         private string town;
         private int postalCode;
         private string adress;
@@ -22,99 +65,109 @@ namespace UWP_FilRouge
         private string phone;
         private string email;
         private string website;
-        private Shop subShop;
-        private Seller subSeller;
-        private Customer subCustomer;
-        private Bicycle subBicycle;
+        /*private List<Order> orders;
+        private List<Seller> sellers;
+        private List<Customer> customers;*/
 
-        //private List<Order> orders;
-        //private List<Seller> sellers;
-        //private List<Customer> customers;
-        //private List<Bicycle> bicycles;
-
-
-
-
-        #endregion
-
-        #region Properties
-        [PrimaryKey, AutoIncrement]
-        public long? ShopId
+        public long IdShop
         {
-            get { return shopId; }
-            set { shopId = value; }
+            get { return idShop; }
+            set
+            {
+                idShop = value;
+                OnPropertyChanged("IdShop");
+
+            }
         }
 
         public string Town
         {
             get { return town; }
-            set { town = value; }
+            set
+            {
+                town = value;
+                OnPropertyChanged("Town");
+            }
         }
 
         public int Postalcode
         {
             get { return postalCode; }
-            set { postalCode = value; }
+            set
+            {
+                postalCode = value;
+                OnPropertyChanged("PostalCode");
+
+            }
         }
 
         public string Adress
         {
             get { return adress; }
-            set { adress = value; }
+            set
+            {
+                adress = value;
+                OnPropertyChanged("Adress");
+            }
         }
 
         public string Nameshop
         {
             get { return nameShop; }
-            set { nameShop = value; }
+            set
+            {
+                nameShop = value;
+                OnPropertyChanged("NameShop");
+            }
         }
 
         public string Phone
         {
             get { return phone; }
-            set { phone = value; }
+            set
+            {
+                phone = value;
+                OnPropertyChanged("Phone");
+            }
         }
 
         public string Email
         {
             get { return email; }
-            set { email = value; }
+            set
+            {
+                email = value;
+                OnPropertyChanged("Email");
+            }
         }
 
         public string Website
         {
             get { return website; }
-            set { website = value; }
+            set
+            {
+                website = value;
+                OnPropertyChanged("Website");
+            }
         }
- 
 
-        [ManyToOne]
-        public Shop SubShop { get => subShop; set => subShop = value; }
-
-        [ForeignKey(typeof(Shop))]
-        public int SubShopId { get; set; }
-
-        [ManyToOne]
-        public Seller SubSeller { get => subSeller; set => subSeller = value; }
-
-        [ManyToOne]
-        public Customer SubCustomer { get => subCustomer; set => subCustomer = value; }
-
-        [ManyToOne]
-        public Bicycle SubBicycle { get => subBicycle; set => subBicycle = value; }
-        #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public Shop()
+        /*public List<Order> Orders
         {
-            //this.Orders = new List<Order>();
-            //this.Sellers = new List<Seller>();
-            //this.Customers = new List<Customer>();
-            //this.Bicycles = new  List<Bicycle>();
+            get { return orders; }
+            set { orders = value; }
         }
-        #endregion
+        public List<Seller> Sellers
+        {
+            get { return sellers; }
+            set { sellers = value; }
+        }
+        public List<Customer> Customers
+        {
+            get { return customers; }
+            set { customers = value; }
+        } */
+
+
+
     }
 }
