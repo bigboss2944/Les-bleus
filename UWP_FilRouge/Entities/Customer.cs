@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Entities
 {
-    public class Customer :EntityBase
+    public class Customer : User
     {
         private long idCustomer;
         private string town;
@@ -103,7 +103,7 @@ namespace UWP_FilRouge.Entities
         public override object Copy()
         {
             Customer customer = new Customer();
-            customer.Id = this.Id;
+            customer.idCustomer = this.idCustomer;
             /// customer.IdCustomer = this.IdCustomer;
             customer.Address = this.Address;
             customer.Email = this.Email;
@@ -123,7 +123,7 @@ namespace UWP_FilRouge.Entities
         public override void CopyFrom(object obj)
         {
             Customer customer = obj as Customer;
-            customer.Id = this.Id;
+            customer.idCustomer = this.idCustomer;
             /// customer.IdCustomer = this.IdCustomer;
             customer.Address = this.Address;
             customer.Email = this.Email;

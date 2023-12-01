@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,13 +20,12 @@ namespace UWP_FilRouge.Views.Users
 {
     public sealed partial class ShowUserUC : UserControl
     {
-        public User User { get; set; }
+        
 
         public ShowUserUC()
         {
             this.InitializeComponent();
-            this.User = new User();
-            this.DataContext = this.User;
+            
         }
     }
 }

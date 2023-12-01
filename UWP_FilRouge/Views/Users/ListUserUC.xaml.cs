@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,13 +21,12 @@ namespace UWP_FilRouge.Views.Users
 {
     public sealed partial class ListUserUC : UserControl
     {
-        public ObservableCollection<User> UserList { get; set; }
+        
 
         public ListUserUC()
         {
             this.InitializeComponent();
-            this.UserList = new ObservableCollection<User>();
-            this.DataContext = UserList;
+            
         }
 
         /*private void MenuFlyoutDelete_Click(object sender, RoutedEventArgs e)

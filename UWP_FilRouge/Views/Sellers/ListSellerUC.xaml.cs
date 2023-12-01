@@ -21,7 +21,6 @@ using UWP_FilRouge.Entities;
 namespace UWP_FilRouge.Views.Sellers
 {
     public sealed partial class ListSellerUC : UserControl/*Base*/
-
     {
 
         public ObservableCollection<Seller> SellerList { get; set; }
@@ -30,9 +29,17 @@ namespace UWP_FilRouge.Views.Sellers
         public ListSellerUC()
         {
             this.InitializeComponent();
-            this.SellerList = new ObservableCollection<Seller>();
+            this.SellerList = new ObservableCollection<Seller>(); //To show the seller list
             this.DataContext = SellerList;
         }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateGrid.Visibility=Visibility.Visible;
+
+        }
+
+        
     }
 }
 

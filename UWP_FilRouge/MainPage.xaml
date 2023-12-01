@@ -10,7 +10,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionary1.xaml"/>
+                <ResourceDictionary Source="Views/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <x:String x:Key="greeting">Hello world</x:String>
         </ResourceDictionary>
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="{StaticResource Background-header}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
             <Image x:Name="headerLogo" Grid.Column="0" Grid.Row="0" Stretch="Fill" Source="ms-appx:///Assets/img1.jpg"/>
         </Grid>
 
@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="{StaticResource Background-footer}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Rectangle  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
             
         </Grid>
 

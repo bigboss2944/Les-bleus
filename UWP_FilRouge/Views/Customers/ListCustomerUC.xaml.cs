@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_FilRouge.Entities;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,9 +21,13 @@ namespace UWP_FilRouge.Views.Customers
 {
     public sealed partial class ListCustomerUC : UserControl
     {
+        public ObservableCollection<Customer> CustomerList { get; set; }
+
         public ListCustomerUC()
         {
             this.InitializeComponent();
+            this.CustomerList = new ObservableCollection<Customer>(); //To show the seller list
+            this.DataContext = CustomerList;
         }
     }
 }

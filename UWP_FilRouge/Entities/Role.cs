@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UWP_FilRouge.Entities;
 
-namespace UWP.FilRouge.Entities
+
+namespace UWP_FilRouge.Entities
 {
     [Table("role")]
     public class Role : EntityBase
@@ -30,7 +30,7 @@ namespace UWP.FilRouge.Entities
         public override object Copy()
         {
             Role role = new Role();
-            role.Id = this.Id;
+            role.id = this.id;
             role.Name = this.Name;
 
             return role;
@@ -39,7 +39,7 @@ namespace UWP.FilRouge.Entities
         public override void CopyFrom(object obj)
         {
             Role role = obj as Role;
-            this.Id = role.Id;
+            this.id = role.id;
             this.Name = role.Name;
         }
     }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
@@ -32,31 +33,31 @@ namespace AspNet_FilRouge.Models
             set { idOrder = value; }
         }
 
-        public virtual List<Bicycle> Bicycles
+        public List<Bicycle> Bicycles
         {
             get { return bicycles; }
             set { bicycles = value; }
         }
 
-        public virtual Seller Seller
+        public Seller Seller
         {
             get { return seller; }
             set { seller = value; }
         }
 
-        public virtual Customer Customer
+        public Customer Customer
         {
             get { return customer; }
             set { customer = value; }
         }
 
-        public virtual DateTime Date
+        public DateTime Date
         {
             get { return date; }
             set { date = value; }
         }
 
-        public virtual Shop Shop
+        public Shop Shop
         {
             get { return shop; }
             set { shop = value; }
@@ -107,5 +108,6 @@ namespace AspNet_FilRouge.Models
             return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
         }
         #endregion
+
     }
 }

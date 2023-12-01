@@ -43,7 +43,7 @@ namespace UWP_FilRouge
             btn.HorizontalAlignment = HorizontalAlignment.Stretch;            
             btn.Margin = new Thickness(5, 10, 15, 20);            // Button            
             btn.Content = "click me";            
-            stack.Children.Add(btn) ;
+            //stack.Children.Add(btn) ;
         }
     }
 }

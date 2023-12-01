@@ -53,78 +53,6 @@ namespace AspNet_FilRouge.Controllers
 
             viewModel.Bicycles = bicycles;
 
-            //List<Bicycle> listeBicycle = new List<Bicycle>
-            //{
-            //    new Bicycle {
-            //        Id=1,
-            //        //Shop = "Les bleus",
-            //        //bicycle.Order = 1;
-            //        //bicycle.Customer = this.Customers.Find(random.Next(1, this.Customers.Count()));
-            //        TypeOfBike = "fitness",
-            //        Exchangeable = true,
-            //        Insurance = true,
-            //        Deliverable = true,
-            //        Category = "woman",
-            //        Reference = "fitness0001",
-            //        Size = 1.70F,
-            //        Weight = 8.5F,
-            //        Color = "yellow and white",
-            //        Confort = "",
-            //        FreeTaxPrice = 2000F,
-            //        Electric = false,
-            //        State = "new",
-            //        Brand = "les bleus"
-            //        },
-
-            //    new Bicycle {
-            //        Id=2,
-            //        //Shop = "Les bleus",
-            //        //bicycle.Order = 1;
-            //        //bicycle.Customer = this.Customers.Find(random.Next(1, this.Customers.Count()));
-            //        TypeOfBike = "fitness",
-            //        Exchangeable = true,
-            //        Insurance = true,
-            //        Deliverable = true,
-            //        Category = "woman",
-            //        Reference = "fitness0001",
-            //        Size = 1.70F,
-            //        Weight = 8.5F,
-            //        Color = "yellow and white",
-            //        Confort = "",
-            //        FreeTaxPrice = 2000F,
-            //        Electric = false,
-            //        State = "new",
-            //        Brand = "les bleus"
-            //        },
-
-            //    new Bicycle {
-            //        Id=3,
-            //        //Shop = "Les bleus",
-            //        //bicycle.Order = 1;
-            //        //bicycle.Customer = this.Customers.Find(random.Next(1, this.Customers.Count()));
-            //        TypeOfBike = "fitness",
-            //        Exchangeable = true,
-            //        Insurance = true,
-            //        Deliverable = true,
-            //        Category = "woman",
-            //        Reference = "fitness0001",
-            //        Size = 1.70F,
-            //        Weight = 8.5F,
-            //        Color = "yellow and white",
-            //        Confort = "",
-            //        FreeTaxPrice = 2000F,
-            //        Electric = false,
-            //        State = "new",
-            //        Brand = "les bleus"
-            //        },
-
-
-
-
-            //};
-
-
-
             return PartialView("~/Views/Shared/_listBicycleDropDownList.cshtml", viewModel);
 
         }
@@ -136,10 +64,6 @@ namespace AspNet_FilRouge.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "IdOrder,Bicycles,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order, long? BicycleId)
         {
-            
-           
-
-
             if (ModelState.IsValid)
             {
                 db.Orders.Add(order);

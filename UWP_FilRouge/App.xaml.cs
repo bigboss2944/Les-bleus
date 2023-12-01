@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+
 using UWP_FilRouge.Views.ViewModelLight;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+
 using Windows.UI.Xaml.Navigation;
+using DataAccessLibraryUWP;
+using UWP_FilRouge.Views;
+using UWP_FilRouge.Database;
 
 namespace UWP_FilRouge
 {
@@ -23,6 +19,7 @@ namespace UWP_FilRouge
     /// </summary>
     sealed partial class App : Application
     {
+        DatabaseService databaseService = new DatabaseService();
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé
         /// à être exécutée. Elle correspond donc à l'équivalent logique de main() ou WinMain().
@@ -31,6 +28,10 @@ namespace UWP_FilRouge
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            //databaseService.InitializeDatabase();
+            //DataAccess.InitializeDatabase();
+
+
         }
 
         /// <summary>
@@ -67,8 +68,9 @@ namespace UWP_FilRouge
                     // Quand la pile de navigation n'est pas restaurée, accédez à la première page,
                     // puis configurez la nouvelle page en transmettant les informations requises en tant que
                     // paramètre
-                    rootFrame.Navigate(typeof(CreateUserView), e.Arguments);
+                    rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                 }
+                //SQLiteDatabase.Database();
                 // Vérifiez que la fenêtre actuelle est active
                 Window.Current.Activate();
             }
@@ -97,5 +99,8 @@ namespace UWP_FilRouge
             //TODO: enregistrez l'état de l'application et arrêtez toute activité en arrière-plan
             deferral.Complete();
         }
+
+
+        
     }
 }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace UWP_FilRouge.Entities
 {
     public class Shop : EntityBase
-
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,7 +43,7 @@ namespace UWP_FilRouge.Entities
         public override void CopyFrom(object obj)
         {
             Shop shop = obj as Shop;
-            this.IdShop = shop.Id;
+            this.IdShop = shop.IdShop;
             this.Adress = shop.Adress;
             this.Email = shop.Email;
             this.Nameshop = shop.Nameshop;
@@ -73,17 +72,19 @@ namespace UWP_FilRouge.Entities
         public long IdShop
         {
             get { return idShop; }
-            set { 
+            set
+            {
                 idShop = value;
                 OnPropertyChanged("IdShop");
-            
+
             }
         }
 
         public string Town
         {
             get { return town; }
-            set { 
+            set
+            {
                 town = value;
                 OnPropertyChanged("Town");
             }
@@ -92,17 +93,19 @@ namespace UWP_FilRouge.Entities
         public int Postalcode
         {
             get { return postalCode; }
-            set { 
+            set
+            {
                 postalCode = value;
                 OnPropertyChanged("PostalCode");
-         
+
             }
         }
 
         public string Adress
         {
             get { return adress; }
-            set { 
+            set
+            {
                 adress = value;
                 OnPropertyChanged("Adress");
             }
@@ -111,7 +114,8 @@ namespace UWP_FilRouge.Entities
         public string Nameshop
         {
             get { return nameShop; }
-            set { 
+            set
+            {
                 nameShop = value;
                 OnPropertyChanged("NameShop");
             }
@@ -120,7 +124,8 @@ namespace UWP_FilRouge.Entities
         public string Phone
         {
             get { return phone; }
-            set { 
+            set
+            {
                 phone = value;
                 OnPropertyChanged("Phone");
             }
@@ -129,7 +134,8 @@ namespace UWP_FilRouge.Entities
         public string Email
         {
             get { return email; }
-            set { 
+            set
+            {
                 email = value;
                 OnPropertyChanged("Email");
             }
@@ -138,7 +144,8 @@ namespace UWP_FilRouge.Entities
         public string Website
         {
             get { return website; }
-            set { 
+            set
+            {
                 website = value;
                 OnPropertyChanged("Website");
             }
@@ -149,14 +156,11 @@ namespace UWP_FilRouge.Entities
             get { return orders; }
             set { orders = value; }
         }
-
-
         public List<Seller> Sellers
         {
             get { return sellers; }
             set { sellers = value; }
         }
-
         public List<Customer> Customers
         {
             get { return customers; }

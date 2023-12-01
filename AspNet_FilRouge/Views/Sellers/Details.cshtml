@@ -1,4 +1,4 @@
-﻿@model AspNet_FilRouge.Models.Seller
+﻿@model Entities.Seller
 
 @{
     ViewBag.Title = "Details";
@@ -33,6 +33,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.Name)
         </dd>
 
     </dl>

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using AspNet_FilRouge.Models;
 
+
 namespace AspNet_FilRouge.Controllers
 {
     [Authorize]
@@ -48,7 +49,7 @@ namespace AspNet_FilRouge.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IdSeller,Password,LastName,FirstName")] Seller seller)
+        public async Task<ActionResult> Create([Bind(Include = "IdSeller,Password,LastName,FirstName,Role")] Seller seller)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +81,7 @@ namespace AspNet_FilRouge.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IdSeller,Password,LastName,FirstName")] Seller seller)
+        public async Task<ActionResult> Edit([Bind(Include = "IdSeller,Password,LastName,FirstName,Role")] Seller seller)
         {
             if (ModelState.IsValid)
             {

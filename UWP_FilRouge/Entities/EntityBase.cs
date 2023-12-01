@@ -10,16 +10,9 @@ namespace UWP_FilRouge.Entities
 {
     public abstract class EntityBase : INotifyPropertyChanged
     {
-        private int id;
-
-        [PrimaryKey, AutoIncrement]
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -29,9 +22,7 @@ namespace UWP_FilRouge.Entities
             }
         }
 
-
         public abstract Object Copy();
         public abstract void CopyFrom(Object obj);
-
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_FilRouge.Entities;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,9 +20,19 @@ namespace UWP_FilRouge.Views.Customers
 {
     public sealed partial class EditCustomerUC : UserControl
     {
+        private Customer customer;
+
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
+
         public EditCustomerUC()
         {
             this.InitializeComponent();
+            this.Customer = new Customer();
+            this.DataContext = Customer;
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         #region Attributs
         protected string lastName;
@@ -18,7 +20,7 @@ namespace AspNet_FilRouge.Models
         #endregion
 
         #region Constructors
-        public User()
+        public User() : base()
         {
 
         }
@@ -26,3 +28,4 @@ namespace AspNet_FilRouge.Models
 
     }
 }
+

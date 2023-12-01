@@ -20,20 +20,22 @@ namespace UWP_FilRouge.Views.Sellers
 {
     public sealed partial class EditSellerUC : UserControl/*Base*/
     { 
-    private Seller seller;
+        private Seller seller;
 
-    public Seller Seller
-    {
-        get { return seller; }
-        set { seller = value; }
-    }
+        public Seller Seller
+        {
+            get { return seller; }
+            set { seller = value; }
+        }
 
-    
         public EditSellerUC()
         {
             this.InitializeComponent();
-            this.Seller = new Seller();
+            this.Seller = new Seller();//To Create a new seller
             this.DataContext = Seller;
         }
+
+
+
     }
 }

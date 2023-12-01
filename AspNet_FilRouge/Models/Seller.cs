@@ -3,40 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
     public class Seller : User
     {
         #region Attributes
-        private long idSeller;
-        private string password;
         private List<Order> orders;
         private Shop shop;
-        private Role role;
+        
         #endregion
 
         #region properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdSeller
-        {
-            get => idSeller;
-            set => idSeller = value;
-        }
-
-        public virtual Role Role
-        {
-            get { return role; }
-            set { role = value; }
-        }
-
-        public string Password
-        {
-            get => password;
-            set => password = value;
-        }
+        
 
         public List<Order> Orders
         {
@@ -44,7 +25,7 @@ namespace AspNet_FilRouge.Models
             set { orders = value; }
         }
 
-        public virtual Shop Shop
+        public Shop Shop
         {
             get { return shop; }
             set { shop = value; }
@@ -55,6 +36,13 @@ namespace AspNet_FilRouge.Models
         public Seller()
         {
             this.Orders = new List<Order>();
+        }
+        #endregion
+
+        #region Functions
+        public String ToString()
+        {
+            return " ";
         }
         #endregion
     }

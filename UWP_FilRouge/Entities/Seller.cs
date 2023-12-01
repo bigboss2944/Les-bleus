@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UWP_FilRouge.Entities
 {
-    public class Seller : EntityBase
+    public class Seller : User
     {
 
         private long idSeller;
@@ -65,7 +65,7 @@ namespace UWP_FilRouge.Entities
         public override object Copy()
         {
             Seller seller = new Seller();
-            seller.Id = this.Id;
+            seller.idSeller = this.idSeller;
             seller.Category = this.Category;
             seller.Password = this.Password;
             /// seller.Shop = this.Shop;
@@ -77,13 +77,13 @@ namespace UWP_FilRouge.Entities
 
 
             return seller;
-           
+
         }
 
         public override void CopyFrom(object obj)
         {
             Seller seller = obj as Seller;
-            this.Id = seller.Id;
+            this.idSeller = seller.idSeller;
             this.Password = seller.Password;
             ///this.Shop = seller.Shop;
             this.Category = seller.Category;

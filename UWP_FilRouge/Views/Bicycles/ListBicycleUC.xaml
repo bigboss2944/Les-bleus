@@ -5,11 +5,63 @@
     xmlns:local="using:UWP_FilRouge.Views.Bicycles"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="1000">
 
     <Grid>
+
+        <ScrollViewer>
+
+            <ListView x:Name="listView" 
+                   ItemsSource="{Binding bicycles}"
+                   
+                
+                   SelectedItem="{Binding listView.SelectedItem, Mode=TwoWay}" Height="300" Width="990">
+
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{Binding listView.SelectionChanged}" />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock MinWidth="100" Text="Id"/>
+                            <TextBlock MinWidth="100" Text="TypeOfBike"/>
+                            <TextBlock MinWidth="100" Text="Category"/>
+                            <TextBlock MinWidth="100" Text="Reference"/>
+                            <TextBlock MinWidth="100" Text="FreeTaxPrice"/>
+                            <TextBlock MinWidth="100" Text="Exchangeable"/>
+                            <TextBlock MinWidth="100" Text="Insurance"/>
+                            <TextBlock MinWidth="100" Text="Deliverable"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="IdTB" MinWidth="100" Text="{Binding Id}"/>
+                            <TextBlock x:Name="TypeOfBikeTB" MinWidth="100" Text="{Binding TypeOfBike}"/>
+                            <TextBlock x:Name="CategoryTB" MinWidth="00" Text="{Binding Category}"/>
+                            <TextBlock x:Name="ReferenceTB" MinWidth="100" Text="{Binding Reference}"/>
+                            <TextBlock x:Name="FreeTaxPriceTB" MinWidth="100" Text="{Binding FreeTaxPrice}"/>
+                            <TextBlock x:Name="ExchangeableTB" MinWidth="100" Text="{Binding Exchangeable}"/>
+                            <TextBlock x:Name="InsuranceTB" MinWidth="00" Text="{Binding Insurance}"/>
+                            <TextBlock x:Name="DeliverableTB" MinWidth="100" Text="{Binding Deliverable}"/>
+                        </StackPanel>
+
+
+                    </DataTemplate>
+
+
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>

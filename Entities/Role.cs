@@ -36,6 +36,13 @@ namespace Entities
         {
             this.Sellers = new List<Seller>();
         }
+
+        public enum RoleRight
+        {
+            basic,
+            medium,
+            admin
+        }
         #endregion
     }
 }

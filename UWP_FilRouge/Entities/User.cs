@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UWP_FilRouge.Entities;
 
-namespace Entities
+
+namespace UWP_FilRouge.Entities
 {
     public class User : EntityBase
     {
@@ -45,4 +45,3 @@ namespace Entities
 
     }
 }
-

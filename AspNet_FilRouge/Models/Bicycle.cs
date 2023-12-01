@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
-    public class Bicycle : BicycleCharacteristics
+    public class Bicycle : BicyleCharacteristics
     {
         #region Attributs
         private long id;
@@ -74,19 +75,19 @@ namespace AspNet_FilRouge.Models
             set { deliverable = value; }
         }
 
-        public virtual Order Order
+        public Order Order
         {
             get { return order; }
             set { order = value; }
         }
 
-        public virtual Customer Customer
+        public Customer Customer
         {
             get { return customer; }
             set { customer = value; }
         }
 
-        public virtual Shop Shop
+        public Shop Shop
         {
             get { return shop; }
             set { shop = value; }
@@ -102,15 +103,15 @@ namespace AspNet_FilRouge.Models
 
         public Bicycle()
         {
-
+            
         }
         #endregion
 
         #region Functions
-        public String ToString()
-        {
+        public String ToString() 
+            {
             return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
-        }
+            }
         #endregion
     }
 }

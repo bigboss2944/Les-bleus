@@ -6,10 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="400"
+    d:DesignWidth="500">
 
-    <Grid>
+    <Grid x:Name="main" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
 
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+
+
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="firstName" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"  Text="{Binding seller.FirstName, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Text="First name:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <TextBox x:Name="password" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Text="{Binding seller.Password, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Text="Password:" TextWrapping="Wrap" VerticalAlignment="Center" />
+
+        <TextBox x:Name="confirm_password" Grid.Row="2" Grid.Column="1" Text="Please enter your Password" TextWrapping="Wrap" VerticalAlignment="Center" Background="{x:Null}" AcceptsReturn="True"/>
+        <TextBlock HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Text="Please confirm your password:" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <Button x:Name="Register_Button" Command="{Binding validateButton.Action}" Content="{Binding validateButton.Content}" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="CancelButton" Command="{Binding cancelButton.Action}" Content="{Binding cancelButton.Content}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </UserControl>

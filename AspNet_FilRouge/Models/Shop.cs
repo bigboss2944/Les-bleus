@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AspNet_FilRouge.Models
 {
@@ -109,7 +111,7 @@ namespace AspNet_FilRouge.Models
             this.Orders = new List<Order>();
             this.Sellers = new List<Seller>();
             this.Customers = new List<Customer>();
-            this.Bicycles = new List<Bicycle>();
+            this.Bicycles = new  List<Bicycle>();
         }
         #endregion
     }

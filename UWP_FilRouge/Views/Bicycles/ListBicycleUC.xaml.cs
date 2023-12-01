@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -19,9 +20,13 @@ namespace UWP_FilRouge.Views.Bicycles
 {
     public sealed partial class ListBicycleUC : UserControl
     {
+        public ObservableCollection<Bicycle> BicycleList { get; set; }
+
         public ListBicycleUC()
         {
             this.InitializeComponent();
+            this.BicycleList = new ObservableCollection<Bicycle>(); //To show the seller list
+            this.DataContext = BicycleList;
         }
     }
 }

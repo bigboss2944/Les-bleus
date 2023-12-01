@@ -175,7 +175,7 @@ namespace UWP_FilRouge.Entities
         public override object Copy()
         {
             Order order = new Order();
-            order.Id = this.Id;
+            order.idOrder = this.idOrder;
             /// order.IdOrder = this.IdOrder;
             /// order.Customer = this.Customer;
             if (this.Customer != null)
@@ -201,14 +201,14 @@ namespace UWP_FilRouge.Entities
             order.Tax = this.Tax;
             order.TotalAmount = this.TotalAmount;
             order.UseLoyaltyPoint = this.UseLoyaltyPoint;
-            
+
             return order;
         }
 
         public override void CopyFrom(object obj)
         {
             Order order = obj as Order;
-            order.Id = this.Id;
+            order.idOrder = this.idOrder;
             /// order.IdOrder = this.IdOrder;
             /// order.Customer = this.Customer;
             if (order.Customer != null)
@@ -246,5 +246,5 @@ namespace UWP_FilRouge.Entities
         }
 
     }
-    
+
 }

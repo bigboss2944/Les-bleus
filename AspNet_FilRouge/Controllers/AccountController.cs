@@ -12,7 +12,7 @@ using AspNet_FilRouge.Models;
 
 namespace AspNet_FilRouge.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

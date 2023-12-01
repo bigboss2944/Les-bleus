@@ -1,49 +1,63 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj": {}
+    "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj": {
+    "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
+        "projectUniqueName": "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
         "projectName": "UWP_FilRouge",
-        "projectPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\UWP_FilRouge.csproj",
-        "packagesPath": "C:\\Users\\IB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IB\\source\\repos\\FilRouge\\Les-bleus\\FilRouge\\UWP_FilRouge\\obj\\",
+        "projectPath": "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\UWP_FilRouge.csproj",
+        "packagesPath": "C:\\Users\\fabrice\\.nuget\\packages\\",
+        "outputPath": "D:\\source\\repos\\Projets\\FilRouge\\Contador_fabrice\\UWP_FilRouge\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\IB\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\fabrice\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "uap10.0.17763"
+          "uap10.0.17134"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "uap10.0.17763": {
+          "uap10.0.17134": {
             "projectReferences": {}
           }
         }
       },
       "frameworks": {
-        "uap10.0.17763": {
+        "uap10.0.17134": {
           "dependencies": {
             "CommonServiceLocator": {
               "target": "Package",
               "version": "[2.0.5, )"
             },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[5.0.0-preview.4.20220.10, )"
+            },
             "Microsoft.NETCore.UniversalWindowsPlatform": {
               "target": "Package",
-              "version": "[6.2.9, )"
+              "version": "[6.2.10, )"
+            },
+            "Microsoft.Xaml.Behaviors.Uwp.Managed": {
+              "target": "Package",
+              "version": "[2.0.1, )"
             },
             "MvvmLight": {
               "target": "Package",
@@ -53,9 +67,9 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
-            "sqlite": {
+            "sqlite-net-pcl": {
               "target": "Package",
-              "version": "[3.13.0, )"
+              "version": "[1.7.335, )"
             }
           },
           "imports": [
