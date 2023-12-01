@@ -223,3 +223,7 @@ D:\source\Projets\C#\FilRouge\Contador_fabrice\Database\bin\Debug\fr\System.Web.
 D:\source\Projets\C#\FilRouge\Contador_fabrice\Database\bin\Debug\fr\System.Web.Razor.resources.dll
 D:\source\Projets\C#\FilRouge\Contador_fabrice\Database\bin\Debug\fr\System.Web.WebPages.Deployment.resources.dll
 D:\source\Projets\C#\FilRouge\Contador_fabrice\Database\obj\Debug\Database.csproj.CopyComplete
+D:\source\Projets\C#\FilRouge\Les-bleus\Database\obj\Debug\Database.csproj.AssemblyReference.cache
+D:\source\Projets\C#\FilRouge\Les-bleus\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\source\Projets\C#\FilRouge\Les-bleus\Database\obj\Debug\Database.dll
+D:\source\Projets\C#\FilRouge\Les-bleus\Database\obj\Debug\Database.pdb

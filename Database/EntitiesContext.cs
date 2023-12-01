@@ -65,7 +65,7 @@ namespace Database
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<User>().HasMany(u => u.id).WithOptional(b => b.Order);
+            //modelBuilder.Entity<User>().HasMany(u => u.id).WithOptional(b => b.Order);
 
             modelBuilder.Entity<Order>().HasMany(o => o.Bicycles).WithOptional(b => b.Order);
             modelBuilder.Entity<Order>().HasOptional(o => o.Seller).WithMany(s => s.Orders);
