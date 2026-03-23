@@ -1,77 +1,63 @@
-@model IEnumerable<AspNet_FilRouge.Models.Order>
+@model AspNet_FilRouge.Models.PaginatedList<AspNet_FilRouge.Models.Order>
 
 @{
     ViewBag.Title = "Commandes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Commandes — Tous vendeurs</h2>
-
-<p>
-    @Html.ActionLink("Nouvelle commande", "Create", null, new { @class = "btn btn-primary" })
-</p>
-
-<div id="offline-banner" class="alert alert-warning" style="display:none;">
-    <strong>Mode hors-ligne :</strong> la validation de commande est désactivée. Reconnectez-vous au réseau pour valider.
-</div>
+<h2>Commandes</h2>
 
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Vendeur</th>
-            <th>Client</th>
-            <th>Boutique</th>
-            <th>Mode paiement</th>
-            <th>Produits</th>
-            <th>Total (€)</th>
-            <th>Statut</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <tr>
+        <th>Date</th>
+        <th>Mode de paiement</th>
+        <th>Remise</th>
+        <th>Taxe</th>
+        <th>Frais de livraison</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
+    </tr>
+
     @foreach (var item in Model)
     {
-        float subtotal = item.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
-        float afterDiscount = subtotal * (1 - item.Discount / 100f);
-        float total = afterDiscount * (1 + item.Tax / 100f) + item.ShippingCost;
         <tr>
-            <td>@item.Date.ToString("dd/MM/yyyy HH:mm")</td>
-            <td>@(item.Seller != null ? $"{item.Seller.FirstName} {item.Seller.LastName}" : "—")</td>
-            <td>@(item.Customer != null ? $"{item.Customer.FirstName} {item.Customer.LastName}" : "—")</td>
-            <td>@(item.Shop?.Nameshop ?? "—")</td>
-            <td>@(item.PayMode ?? "—")</td>
-            <td>@(item.Bicycles?.Count ?? 0)</td>
-            <td>@total.ToString("F2")</td>
-            <td>
-                @if (item.IsValidated)
-                {
-                    <span class="label label-success">Validée</span>
-                }
-                else
-                {
-                    <span class="label label-default">En cours</span>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Détails", "Details", new { id = item.IdOrder }) |
-                @if (!item.IsValidated)
-                {
-                    @Html.ActionLink("Modifier", "Edit", new { id = item.IdOrder })
-                    <text> | </text>
-                    <button type="button" class="btn btn-xs btn-success btn-validate"
-                            data-order-id="@item.IdOrder"
-                            onclick="validateOrder(@item.IdOrder, this)">
-                        Valider
-                    </button>
-                    <text> | </text>
-                }
-                @Html.ActionLink("Supprimer", "Delete", new { id = item.IdOrder })
-            </td>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.DisplayFor(modelItem => item.PayMode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+            <td>@Html.DisplayFor(modelItem => item.Tax)</td>
+            <td>@Html.DisplayFor(modelItem => item.ShippingCost)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @Html.ActionLink("Détails", "Details", new { id = item.IdOrder }) |
+                    @Html.ActionLink("Annuler", "Delete", new { id = item.IdOrder }, new { @class = "text-danger" })
+                </td>
+            }
         </tr>
     }
-    </tbody>
 </table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
+                <a href="@(Model.HasPreviousPage ? Url.Action("Index", new { page = Model.PageIndex - 1 }) : "#")">«</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="@(i == Model.PageIndex ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="@(!Model.HasNextPage ? "disabled" : "")">
+                <a href="@(Model.HasNextPage ? Url.Action("Index", new { page = Model.PageIndex + 1 }) : "#")">»</a>
+            </li>
+        </ul>
+    </nav>
+}
 
 <div>
     @Html.ActionLink("Retour", "../Home/Index")

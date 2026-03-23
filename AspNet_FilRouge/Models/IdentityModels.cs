@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,43 @@ namespace AspNet_FilRouge.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "Nom")]
+        public string? LastName { get; set; }
+
+        [Display(Name = "Prénom")]
+        public string? FirstName { get; set; }
+
+        [Display(Name = "Adresse")]
+        public string? Address { get; set; }
+    }
+
+    public class StockRequest
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Nom du vélo")]
+        public string? BicycleName { get; set; }
+
+        [Required]
+        [Display(Name = "Quantité")]
+        public int Quantity { get; set; }
+
+        [Display(Name = "Date de demande")]
+        public DateTime RequestDate { get; set; } = DateTime.Now;
+
+        [Display(Name = "Statut")]
+        public string Status { get; set; } = "En attente";
+
+        public string? RequestedById { get; set; }
+
+        [Display(Name = "Demandé par")]
+        public ApplicationUser? RequestedBy { get; set; }
+
+        [Display(Name = "Notes")]
+        public string? Notes { get; set; }
     }
 
     public class ApplicationRole : IdentityRole
@@ -27,6 +66,7 @@ namespace AspNet_FilRouge.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
+        public DbSet<StockRequest> StockRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
