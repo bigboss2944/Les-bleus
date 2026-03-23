@@ -123,8 +123,19 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                            ?? await _userManager.FindByNameAsync(model.Email!);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return View("ForgotPasswordConfirmation");
+                    // Do not reveal whether the user exists
+                    return RedirectToAction("ForgotPasswordConfirmation");
                 }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { code },
+                    protocol: Request.Scheme);
+
+                TempData["ResetPasswordLink"] = callbackUrl;
+                return RedirectToAction("ForgotPasswordConfirmation");
             }
             return View(model);
         }
@@ -140,7 +151,8 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string? code)
         {
-            return code == null ? View("Error") : View();
+            if (code == null) return View("Error");
+            return View(new ResetPasswordViewModel { Code = code });
         }
 
         // POST: /Account/ResetPassword
