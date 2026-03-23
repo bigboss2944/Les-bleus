@@ -1,10 +1,10 @@
-name: Créer les issues du projet
+name: Mettre à jour les issues avec les réponses du client
 
 on:
   workflow_dispatch:
     inputs:
-      create_issues:
-        description: 'Créer les issues GitHub à partir du PROJECT_PLAN.md'
+      confirm:
+        description: 'Mettre à jour les issues avec les réponses du client TACTfactory'
         required: true
         default: 'true'
         type: boolean
@@ -14,39 +14,20 @@ permissions:
   contents: read
 
 jobs:
-  create-issues:
+  update-issues:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Créer les issues du projet Fil Rouge
+      - name: Mettre à jour les issues avec les réponses du client
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issues = [
+            const updates = [
               {
-                title: '[EPIC] Projet Fil Rouge — Application de gestion de vente de vélos',
-                body: `## Description
-            Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
-            - Application **Librairie** (bibliothèque partagée)
-            - Application **UWP** (interface vendeur Windows)
-            - Application **ASP.NET** (portail web d'administration)
-
-            ## Sous-issues
-            - Application Librairie — Entités et modèles de données partagés
-            - Application UWP — Interface vendeur Windows 10
-            - Application ASP.NET — Portail web de gestion
-            - Contraintes techniques — Configuration et architecture
-            - Fonctionnalités optionnelles
-            - Conventions — Code couleur et nommage C#
-
-            ## Référence
-            Voir [PROJECT_PLAN.md](./PROJECT_PLAN.md) pour le détail complet.`,
-                labels: ['enhancement'],
-              },
-              {
+                // Issue [LIB] — Application Librairie
                 title: '[LIB] Application Librairie — Entités et modèles de données partagés',
                 body: `## Description
             La bibliothèque partagée regroupe l'ensemble des éléments communs à l'application UWP et ASP.NET.
@@ -83,9 +64,9 @@ jobs:
 
             > **Un produit physique peut-il appartenir à plusieurs types de produits ?**
             > → Oui.`,
-                labels: ['enhancement'],
               },
               {
+                // Issue [UWP] — Application UWP
                 title: '[UWP] Application UWP — Interface vendeur Windows 10',
                 body: `## Description
             Application bureau Windows 10 permettant aux vendeurs de réaliser des ventes de produits.
@@ -123,9 +104,9 @@ jobs:
 
             > **Comment gérer les conflits lors de la synchronisation ?**
             > → À définir (à voir).`,
-                labels: ['enhancement'],
               },
               {
+                // Issue [WEB] — Application ASP.NET
                 title: '[WEB] Application ASP.NET — Portail web de gestion',
                 body: `## Description
             Application web permettant la gestion globale des stocks, des vendeurs et des commandes.
@@ -159,9 +140,9 @@ jobs:
 
             > **Y a-t-il une pagination sur la liste des commandes et du stock ?**
             > → Oui.`,
-                labels: ['enhancement'],
               },
               {
+                // Issue [TECH] — Contraintes techniques
                 title: '[TECH] Contraintes techniques — Configuration et architecture',
                 body: `## Description
             Ensemble des contraintes techniques imposées par le cahier des charges.
@@ -200,9 +181,9 @@ jobs:
 
             > **Des tests unitaires sont-ils attendus ?**
             > → Oui, et ils sont **obligatoires**.`,
-                labels: ['enhancement'],
               },
               {
+                // Issue [OPT] — Fonctionnalités optionnelles
                 title: '[OPT] Fonctionnalités optionnelles',
                 body: `## Description
             Fonctionnalités non obligatoires pouvant être implémentées en bonus.
@@ -230,9 +211,9 @@ jobs:
 
             > **Le client doit-il avoir un compte ou uniquement une adresse email ?**
             > → Le client doit avoir un compte.`,
-                labels: ['enhancement'],
               },
               {
+                // Issue [CONV] — Conventions
                 title: '[CONV] Conventions — Code couleur et nommage C#',
                 body: `## Description
             Respect des conventions de l'interface et du code source.
@@ -263,51 +244,30 @@ jobs:
 
             > **Le thème sombre est-il requis en plus du thème clair ?**
             > → Oui, le thème sombre est requis.`,
-                labels: ['enhancement'],
               },
             ];
 
-            const createdIssues = [];
-            for (const issue of issues) {
-              try {
-                const created = await github.rest.issues.create({
+            // Retrieve all open issues to find the matching ones by title
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            for (const update of updates) {
+              const match = issues.find(i => i.title === update.title);
+              if (match) {
+                await github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  title: issue.title,
-                  body: issue.body,
-                  labels: issue.labels,
+                  issue_number: match.number,
+                  body: update.body,
                 });
-                createdIssues.push({ title: issue.title, number: created.data.number, url: created.data.html_url });
-                console.log(`✅ Issue créée: #${created.data.number} — ${issue.title}`);
-              } catch (error) {
-                console.error(`❌ Erreur lors de la création de l'issue "${issue.title}": ${error.message}`);
+                console.log(`✅ Issue mise à jour: #${match.number} — ${match.title}`);
+              } else {
+                console.warn(`⚠️ Issue introuvable: "${update.title}"`);
               }
             }
 
-            // Mettre à jour la première issue (EPIC) avec les liens vers les sous-issues
-            if (createdIssues.length > 1) {
-              const epicIssue = createdIssues[0];
-              const subIssueLinks = createdIssues.slice(1).map(i => `- [ ] #${i.number} — ${i.title}`).join('\n');
-              const epicBody = `## Description
-            Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
-            - Application **Librairie** (bibliothèque partagée)
-            - Application **UWP** (interface vendeur Windows)
-            - Application **ASP.NET** (portail web d'administration)
-
-            ## Sous-issues
-            ${subIssueLinks}
-
-            ## Référence
-            Voir [PROJECT_PLAN.md](./PROJECT_PLAN.md) pour le détail complet.`;
-
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: epicIssue.number,
-                body: epicBody,
-              });
-              console.log(`✅ Issue EPIC mise à jour avec les liens vers les sous-issues`);
-            }
-
-            console.log('\n📋 Résumé des issues créées:');
-            createdIssues.forEach(i => console.log(`  #${i.number}: ${i.title}\n    ${i.url}`));
+            console.log('\n📋 Mise à jour des issues terminée.');
