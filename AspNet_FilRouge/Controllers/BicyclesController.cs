@@ -1,55 +1,51 @@
-﻿using System.Data.Entity;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
-
-
-using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
-using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
-using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 
 namespace AspNet_FilRouge.Controllers
 {
     [Authorize]
     public class BicyclesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db;
+
+        public BicyclesController(ApplicationDbContext context)
+        {
+            db = context;
+        }
 
         // GET:
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             return View(await db.Bicycles.ToListAsync());
         }
 
         // GET: Bicycles/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
-            Bicycle bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
             if (bicycle == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(bicycle);
         }
 
         // GET: Bicycles/Create
-     
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: Bicycles/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
+        public async Task<IActionResult> Create([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
             {
@@ -57,31 +53,28 @@ namespace AspNet_FilRouge.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return View(bicycle);
         }
 
         // GET: Bicycles/Edit/5
-        public async Task<ActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
-            Bicycle bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
             if (bicycle == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(bicycle);
         }
 
         // POST: Bicycles/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
+        public async Task<IActionResult> Edit([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
             {
@@ -93,16 +86,16 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
-            Bicycle bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
             if (bicycle == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(bicycle);
         }
@@ -110,21 +103,15 @@ namespace AspNet_FilRouge.Controllers
         // POST: Bicycles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            Bicycle bicycle = await db.Bicycles.FindAsync(id);
-            db.Bicycles.Remove(bicycle);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
+            if (bicycle != null)
             {
-                db.Dispose();
+                db.Bicycles.Remove(bicycle);
+                await db.SaveChangesAsync();
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

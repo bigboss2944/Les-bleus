@@ -1,14 +1,5 @@
-﻿using Microsoft.Owin;
-using Owin;
-
-[assembly: OwinStartupAttribute(typeof(AspNet_FilRouge.Startup))]
+// Application startup is now handled in Program.cs
+// This file is kept for reference only
 namespace AspNet_FilRouge
 {
-    public partial class Startup
-    {
-        public void Configuration(IAppBuilder app)
-        {
-            ConfigureAuth(app);
-        }
-    }
 }
