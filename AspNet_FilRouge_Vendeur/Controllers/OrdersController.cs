@@ -19,11 +19,19 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             _userManager = userManager;
         }
 
-        // GET: Orders — paginated view (all authenticated users)
-        public async Task<IActionResult> Index(int page = 1)
+        // GET: Orders — paginated view with optional seller filter (all authenticated users)
+        public async Task<IActionResult> Index(int page = 1, string? sellerId = null)
         {
-            var orders = db.Orders.AsQueryable();
+            var orders = db.Orders.Include(o => o.Seller).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(sellerId))
+                orders = orders.Where(o => o.Seller != null && o.Seller.Id == sellerId);
+
             var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, PageSize);
+
+            ViewBag.Sellers = await db.Sellers.OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToListAsync();
+            ViewBag.CurrentSellerId = sellerId;
+
             return View(paginatedList);
         }
 
