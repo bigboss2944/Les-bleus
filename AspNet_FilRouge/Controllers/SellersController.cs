@@ -1,55 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
-
 
 namespace AspNet_FilRouge.Controllers
 {
     [Authorize]
     public class SellersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db;
 
-        // GET: Sellers
-        public async Task<ActionResult> Index()
+        public SellersController(ApplicationDbContext context)
+        {
+            db = context;
+        }
+
+        public async Task<IActionResult> Index()
         {
             return View(await db.Sellers.ToListAsync());
         }
 
-        // GET: Sellers/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public async Task<IActionResult> Details(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Seller seller = await db.Sellers.FindAsync(id);
-            if (seller == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Seller? seller = await db.Sellers.FindAsync(id);
+            if (seller == null) return NotFound();
             return View(seller);
         }
 
-        // GET: Sellers/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Sellers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IdSeller,Password,LastName,FirstName,Role")] Seller seller)
+        public async Task<IActionResult> Create([Bind("LastName,FirstName")] Seller seller)
         {
             if (ModelState.IsValid)
             {
@@ -57,31 +43,20 @@ namespace AspNet_FilRouge.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return View(seller);
         }
 
-        // GET: Sellers/Edit/5
-        public async Task<ActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Seller seller = await db.Sellers.FindAsync(id);
-            if (seller == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Seller? seller = await db.Sellers.FindAsync(id);
+            if (seller == null) return NotFound();
             return View(seller);
         }
 
-        // POST: Sellers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IdSeller,Password,LastName,FirstName,Role")] Seller seller)
+        public async Task<IActionResult> Edit([Bind("Id,LastName,FirstName")] Seller seller)
         {
             if (ModelState.IsValid)
             {
@@ -92,39 +67,25 @@ namespace AspNet_FilRouge.Controllers
             return View(seller);
         }
 
-        // GET: Sellers/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Seller seller = await db.Sellers.FindAsync(id);
-            if (seller == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Seller? seller = await db.Sellers.FindAsync(id);
+            if (seller == null) return NotFound();
             return View(seller);
         }
 
-        // POST: Sellers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            Seller seller = await db.Sellers.FindAsync(id);
-            db.Sellers.Remove(seller);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            Seller? seller = await db.Sellers.FindAsync(id);
+            if (seller != null)
             {
-                db.Dispose();
+                db.Sellers.Remove(seller);
+                await db.SaveChangesAsync();
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace AspNet_FilRouge.Models
 {
@@ -13,17 +8,17 @@ namespace AspNet_FilRouge.Models
     {
         #region Attributs
         private long? shopId;
-        private string town;
+        private string? town;
         private int postalCode;
-        private string adress;
-        private string nameShop;
-        private string phone;
-        private string email;
-        private string website;
-        private List<Order> orders;
-        private List<Seller> sellers;
-        private List<Customer> customers;
-        private List<Bicycle> bicycles;
+        private string? adress;
+        private string? nameShop;
+        private string? phone;
+        private string? email;
+        private string? website;
+        private List<Order> orders = new();
+        private List<Seller> sellers = new();
+        private List<Customer> customers = new();
+        private List<Bicycle> bicycles = new();
         #endregion
 
         #region Properties
@@ -35,7 +30,7 @@ namespace AspNet_FilRouge.Models
             set { shopId = value; }
         }
 
-        public string Town
+        public string? Town
         {
             get { return town; }
             set { town = value; }
@@ -47,31 +42,31 @@ namespace AspNet_FilRouge.Models
             set { postalCode = value; }
         }
 
-        public string Adress
+        public string? Adress
         {
             get { return adress; }
             set { adress = value; }
         }
 
-        public string Nameshop
+        public string? Nameshop
         {
             get { return nameShop; }
             set { nameShop = value; }
         }
 
-        public string Phone
+        public string? Phone
         {
             get { return phone; }
             set { phone = value; }
         }
 
-        public string Email
+        public string? Email
         {
             get { return email; }
             set { email = value; }
         }
 
-        public string Website
+        public string? Website
         {
             get { return website; }
             set { website = value; }
@@ -103,15 +98,12 @@ namespace AspNet_FilRouge.Models
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
         public Shop()
         {
             this.Orders = new List<Order>();
             this.Sellers = new List<Seller>();
             this.Customers = new List<Customer>();
-            this.Bicycles = new  List<Bicycle>();
+            this.Bicycles = new List<Bicycle>();
         }
         #endregion
     }

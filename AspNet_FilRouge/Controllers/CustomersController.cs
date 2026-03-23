@@ -1,55 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
-
 
 namespace AspNet_FilRouge.Controllers
 {
     [Authorize]
     public class CustomersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db;
+
+        public CustomersController(ApplicationDbContext context)
+        {
+            db = context;
+        }
 
         // GET: Customers
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             return View(await db.Customers.ToListAsync());
         }
 
         // GET: Customers/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public async Task<IActionResult> Details(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = await db.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Customer? customer = await db.Customers.FindAsync(id);
+            if (customer == null) return NotFound();
             return View(customer);
         }
 
-        // GET: Customers/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IdCustomer,Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -57,31 +45,20 @@ namespace AspNet_FilRouge.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return View(customer);
         }
 
-        // GET: Customers/Edit/5
-        public async Task<ActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = await db.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Customer? customer = await db.Customers.FindAsync(id);
+            if (customer == null) return NotFound();
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IdCustomer,Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
+        public async Task<IActionResult> Edit([Bind("Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -92,39 +69,25 @@ namespace AspNet_FilRouge.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = await db.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return BadRequest();
+            Customer? customer = await db.Customers.FindAsync(id);
+            if (customer == null) return NotFound();
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            Customer customer = await db.Customers.FindAsync(id);
-            db.Customers.Remove(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            Customer? customer = await db.Customers.FindAsync(id);
+            if (customer != null)
             {
-                db.Dispose();
+                db.Customers.Remove(customer);
+                await db.SaveChangesAsync();
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

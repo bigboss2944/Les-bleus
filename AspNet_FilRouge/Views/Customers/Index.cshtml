@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Customer>
+﻿@model IEnumerable<AspNet_FilRouge.Models.Customer>
 
 @{
     ViewBag.Title = "Index";
@@ -78,9 +78,9 @@
             @Html.DisplayFor(modelItem => item.Shop.Nameshop)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdCustomer }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdCustomer }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCustomer })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

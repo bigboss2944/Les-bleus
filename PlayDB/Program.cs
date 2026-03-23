@@ -1,29 +1,10 @@
-﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Database;
 
-namespace PlayDB
+using (var db = new EntitiesContext())
 {
-    class Program
+    foreach (var item in db.Orders.ToList())
     {
-        static void Main(string[] args)
-        {
-            using (var db = new EntitiesContext())
-            { 
-                //foreach (var item in db.Bicycles.ToList())
-                //{
-                //    Console.WriteLine(item.ToString());
-                //}
-
-                foreach (var item in db.Orders.ToList())
-                {
-                    Console.WriteLine(item.ToString());
-                }
-                Console.ReadLine();
-            }
-        }
+        Console.WriteLine(item.ToString());
     }
+    Console.ReadLine();
 }

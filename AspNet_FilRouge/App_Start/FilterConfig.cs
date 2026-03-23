@@ -1,13 +1,5 @@
-﻿using System.Web;
-using System.Web.Mvc;
-
+// Global filters are now configured in Program.cs
+// This file is kept for reference only
 namespace AspNet_FilRouge
 {
-    public class FilterConfig
-    {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-        }
-    }
 }

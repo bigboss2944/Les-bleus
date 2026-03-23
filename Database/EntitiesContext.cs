@@ -1,86 +1,56 @@
-﻿using AspNet_FilRouge.Models;
-
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using AspNet_FilRouge.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Database
 {
     public class EntitiesContext : DbContext
     {
         #region Attributes
-        private DbSet<Bicycle> bicycles;
-        private DbSet<Customer> customers;
-        private DbSet<Seller> sellers;
-        private DbSet<Order> orders;
-       
-        private DbSet<Shop> shops;
+        private DbSet<Bicycle> bicycles = null!;
+        private DbSet<Customer> customers = null!;
+        private DbSet<Seller> sellers = null!;
+        private DbSet<Order> orders = null!;
+        private DbSet<Shop> shops = null!;
         #endregion
 
         #region Properties
-        public DbSet<Bicycle> Bicycles
-        {
-            get { return bicycles; }
-            set { bicycles = value; }
-        }
-
-        public DbSet<Customer> Customers
-        {
-            get { return customers; }
-            set { customers = value; }
-        }
-
-        public DbSet<Seller> Sellers
-        {
-            get { return sellers; }
-            set { sellers = value; }
-        }
-
-        public DbSet<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }
-
-        public DbSet<Shop> Shops
-        {
-            get { return shops; }
-            set { shops = value; }
-        }
+        public DbSet<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
+        public DbSet<Customer> Customers { get { return customers; } set { customers = value; } }
+        public DbSet<Seller> Sellers { get { return sellers; } set { sellers = value; } }
+        public DbSet<Order> Orders { get { return orders; } set { orders = value; } }
+        public DbSet<Shop> Shops { get { return shops; } set { shops = value; } }
         #endregion
 
         #region Constructors
         public EntitiesContext() : base()
         {
-            
+        }
+
+        public EntitiesContext(DbContextOptions<EntitiesContext> options) : base(options)
+        {
         }
         #endregion
 
-        #region functions
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EntitiesDb;Integrated Security=True");
+            }
+        }
 
-            //modelBuilder.Entity<User>().HasMany(u => u.id).WithOptional(b => b.Order);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().HasMany(o => o.Bicycles).WithOne(b => b.Order).IsRequired(false);
+            modelBuilder.Entity<Order>().HasOne(o => o.Seller).WithMany(s => s.Orders).IsRequired(false);
+            modelBuilder.Entity<Order>().HasOne(o => o.Customer).WithMany(c => c.Orders).IsRequired(false);
 
-            modelBuilder.Entity<Order>().HasMany(o => o.Bicycles).WithOptional(b => b.Order);
-            modelBuilder.Entity<Order>().HasOptional(o => o.Seller).WithMany(s => s.Orders);
-            modelBuilder.Entity<Order>().HasOptional(o => o.Customer).WithMany(c => c.Orders);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Customers).WithOne(s => s.Shop).IsRequired(false);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithOne(s => s.Shop).IsRequired(false);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithOne(s => s.Shop).IsRequired(false);
+            modelBuilder.Entity<Shop>().HasMany(s => s.Bicycles).WithOne(b => b.Shop).IsRequired(false);
 
-            modelBuilder.Entity<Shop>().HasMany(s => s.Customers).WithOptional(s => s.Shop);
-            modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithOptional(s => s.Shop);
-            modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithOptional(s => s.Shop);
-            modelBuilder.Entity<Shop>().HasMany(s => s.Bicycles).WithOptional(b => b.Shop);
-
-            //modelBuilder.Entity<Role>().HasMany(r => r.Sellers).WithOptional(s => s.Role);
             base.OnModelCreating(modelBuilder);
         }
-        #endregion
-
     }
 }
-
