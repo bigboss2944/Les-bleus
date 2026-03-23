@@ -1,10 +1,81 @@
-﻿/.vs/FilRouge/v16
-/AspNet_FilRouge/App_Data
-/Test.Unit.ods
-/TestsFonctionnalites.xlsx
-App1
-bin
-Debug
-Migrations
-obj
-packages
+﻿﻿# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
+[Bb]uild[Ll]og.*
+x64/
+x86/
+
+# Explicit project-level build artifacts
+UWP_FilRouge/obj/
+UWP_FilRouge/bin/
+AspNet_FilRouge/bin/
+Entities/obj/
+Entities/bin/
+PlayDB/obj/
+PlayDB/bin/
+Database/obj/
+Database/bin/
+DataAccessLibraryUWP/obj/
+DataAccessLibraryUWP/bin/
+
+# Test and coverage outputs
+[Tt]est[Rr]esult*/
+[Bb]enchmark[Dd]ot[Nn]et.Artifacts/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+/packages/
+
+# ASP.NET / IIS Express
+AspNet_FilRouge/App_Data/
+*.log
+*.mdf
+*.ldf
+
+# UWP / WinUI packaging artifacts
+AppPackages/
+BundleArtifacts/
+Generated Files/
+*.appx
+*.appxbundle
+*.appxupload
+*.appxsym
+*.msix
+*.msixbundle
+*.msixupload
+*.msixsym
+
+# Xamarin / MAUI
+*.apk
+*.aab
+*.ap_
+*.keystore
+*.jks
+*.pfx
+
+# IDE/tooling caches
+_ReSharper*/
+*.DotSettings.user
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project-specific files
+Test.Unit.ods
+TestsFonctionnalites.xlsx
