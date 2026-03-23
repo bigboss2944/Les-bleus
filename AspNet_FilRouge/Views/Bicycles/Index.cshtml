@@ -1,140 +1,85 @@
-﻿@model IEnumerable<AspNet_FilRouge.Models.Bicycle>
+﻿@model AspNet_FilRouge.Models.PaginatedList<AspNet_FilRouge.Models.Bicycle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Stock Global";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Bicycle - Menu</h2>
+<h2>Stock Global</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Administrateur"))
+    {
+        @Html.ActionLink("Ajouter un vélo", "Create", null, new { @class = "btn btn-primary" })
+    }
+    @if (User.IsInRole("Vendeur"))
+    {
+        @Html.ActionLink("Demande d'ajout de stock", "Create", "StockRequests", null, new { @class = "btn btn-success" })
+    }
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TypeOfBike)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reference)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FreeTaxPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exchangeable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Insurance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deliverable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Weight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WheelSize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Electric)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Confort)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer)
-        </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model => model.First().TypeOfBike)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Category)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Reference)</th>
+        <th>@Html.DisplayNameFor(model => model.First().FreeTaxPrice)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Brand)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Color)</th>
+        <th>@Html.DisplayNameFor(model => model.First().State)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Exchangeable)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Insurance)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Deliverable)</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.TypeOfBike)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Category)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Reference)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FreeTaxPrice)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Exchangeable)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Insurance)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Deliverable)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Size)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Weight)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Color)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.WheelSize)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Electric)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.State)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Brand)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Confort)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Order.IdOrder)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Shop.Nameshop)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Customer.FirstName)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.TypeOfBike)</td>
+            <td>@Html.DisplayFor(modelItem => item.Category)</td>
+            <td>@Html.DisplayFor(modelItem => item.Reference)</td>
+            <td>@Html.DisplayFor(modelItem => item.FreeTaxPrice)</td>
+            <td>@Html.DisplayFor(modelItem => item.Brand)</td>
+            <td>@Html.DisplayFor(modelItem => item.Color)</td>
+            <td>@Html.DisplayFor(modelItem => item.State)</td>
+            <td>@Html.DisplayFor(modelItem => item.Exchangeable)</td>
+            <td>@Html.DisplayFor(modelItem => item.Insurance)</td>
+            <td>@Html.DisplayFor(modelItem => item.Deliverable)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Détails", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+                </td>
+            }
+        </tr>
+    }
 </table>
 
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
+                <a href="@Url.Action("Index", new { page = Model.PageIndex - 1 })">«</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="@(i == Model.PageIndex ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="@(!Model.HasNextPage ? "disabled" : "")">
+                <a href="@Url.Action("Index", new { page = Model.PageIndex + 1 })">»</a>
+            </li>
+        </ul>
+    </nav>
+}
+
 <div>
-    @Html.ActionLink("Back", "../Home/Index")
+    @Html.ActionLink("Retour", "../Home/Index")
 </div>
