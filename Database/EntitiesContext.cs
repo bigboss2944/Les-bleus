@@ -1,5 +1,6 @@
 using AspNet_FilRouge.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace Database
 {
@@ -35,7 +36,14 @@ namespace Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EntitiesDb;Integrated Security=True");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=EntitiesDb;Integrated Security=True");
+                }
+                else
+                {
+                    optionsBuilder.UseSqlite("Data Source=entities.db");
+                }
             }
         }
 
