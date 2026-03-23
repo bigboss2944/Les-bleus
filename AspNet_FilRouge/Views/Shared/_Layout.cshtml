@@ -22,6 +22,10 @@
                         <li class="nav-item">@Html.ActionLink("Catalogue", "Index", "Bicycles", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Mes commandes", "Index", "Orders", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Mon compte", "Index", "Customers", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
+                        @if (User.IsInRole("Administrateur") || User.IsInRole("Vendeur"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Demandes de stock", "Index", "StockRequests", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
+                        }
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
