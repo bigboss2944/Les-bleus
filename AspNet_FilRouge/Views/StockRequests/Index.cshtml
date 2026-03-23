@@ -16,12 +16,12 @@
 
 <table class="table table-striped">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.First().BicycleName)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Quantity)</th>
-        <th>@Html.DisplayNameFor(model => model.First().RequestDate)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Status)</th>
-        <th>@Html.DisplayNameFor(model => model.First().RequestedBy)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Notes)</th>
+        <th>Nom du vélo</th>
+        <th>Quantité</th>
+        <th>Date de demande</th>
+        <th>Statut</th>
+        <th>Demandé par</th>
+        <th>Notes</th>
         @if (User.IsInRole("Administrateur"))
         {
             <th>Actions</th>
@@ -51,7 +51,7 @@
             <td>
                 @if (item.RequestedBy != null)
                 {
-                    @(item.RequestedBy.FirstName + " " + item.RequestedBy.LastName)
+                    @($"{item.RequestedBy.FirstName} {item.RequestedBy.LastName}")
                 }
             </td>
             <td>@Html.DisplayFor(modelItem => item.Notes)</td>

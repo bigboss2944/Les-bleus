@@ -19,16 +19,16 @@
 </p>
 <table class="table table-striped">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.First().TypeOfBike)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Category)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Reference)</th>
-        <th>@Html.DisplayNameFor(model => model.First().FreeTaxPrice)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Brand)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Color)</th>
-        <th>@Html.DisplayNameFor(model => model.First().State)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Exchangeable)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Insurance)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Deliverable)</th>
+        <th>Type</th>
+        <th>Catégorie</th>
+        <th>Référence</th>
+        <th>Prix HT</th>
+        <th>Marque</th>
+        <th>Couleur</th>
+        <th>État</th>
+        <th>Échangeable</th>
+        <th>Assurance</th>
+        <th>Livrable</th>
         @if (User.IsInRole("Administrateur"))
         {
             <th>Actions</th>
@@ -65,7 +65,7 @@
     <nav>
         <ul class="pagination">
             <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
-                <a href="@Url.Action("Index", new { page = Model.PageIndex - 1 })">«</a>
+                <a href="@(Model.HasPreviousPage ? Url.Action("Index", new { page = Model.PageIndex - 1 }) : "#")">«</a>
             </li>
             @for (int i = 1; i <= Model.TotalPages; i++)
             {
@@ -74,7 +74,7 @@
                 </li>
             }
             <li class="@(!Model.HasNextPage ? "disabled" : "")">
-                <a href="@Url.Action("Index", new { page = Model.PageIndex + 1 })">»</a>
+                <a href="@(Model.HasNextPage ? Url.Action("Index", new { page = Model.PageIndex + 1 }) : "#")">»</a>
             </li>
         </ul>
     </nav>
