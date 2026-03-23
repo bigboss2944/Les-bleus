@@ -109,11 +109,9 @@
             <h5>Ajouter un vélo</h5>
             <div class="input-group" style="max-width:400px;">
                 <input type="number" id="add-bicycle-id" class="form-control" placeholder="ID du vélo" min="1" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" onclick="addBicycle(@Model.IdOrder)">
-                        Ajouter
-                    </button>
-                </span>
+                <button type="button" class="btn btn-secondary" onclick="addBicycle(@Model.IdOrder)">
+                    Ajouter
+                </button>
             </div>
         }
     </div>
@@ -129,7 +127,7 @@
 <p>
     @if (!Model.IsValidated)
     {
-        @Html.ActionLink("Modifier", "Edit", new { id = Model.IdOrder }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.IdOrder }, new { @class = "btn btn-secondary" })
         <text> </text>
         <button type="button" id="btn-validate" class="btn btn-success"
                 onclick="validateOrder(@Model.IdOrder)">

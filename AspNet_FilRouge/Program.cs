@@ -1,11 +1,11 @@
 using AspNet_FilRouge.Models;
-using AspNet_FilRouge.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
+var hasHttpsEndpoint = HasHttpsEndpoint(builder.Configuration);
 
 // Database
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -46,32 +46,27 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-// Service de base de données locale SQLite (sans Entity Framework)
-builder.Services.AddSingleton<LocalDbService>();
-
-// Antiforgery : accepter le jeton depuis l'en-tête HTTP (pour les requêtes AJAX)
-builder.Services.AddAntiforgery(options =>
-{
-    options.HeaderName = "RequestVerificationToken";
-});
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
+    await EnsureSqliteIdentitySchemaAsync(dbContext);
 }
 
 await SeedDefaultAdminAsync(app.Services);
 
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (hasHttpsEndpoint)
+{
+    app.UseHttpsRedirection();
+}
 app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -96,39 +91,80 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Seed roles and default admin
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+app.Run();
 
-    string[] roles = { "Administrateur", "Vendeur" };
-    foreach (var role in roles)
+static async Task EnsureSqliteIdentitySchemaAsync(ApplicationDbContext dbContext)
+{
+    if (!dbContext.Database.IsSqlite())
     {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new ApplicationRole(role));
+        return;
     }
 
-    // Create default administrator account
-    const string adminEmail = "admin@lesbleus.fr";
-    var admin = await userManager.FindByEmailAsync(adminEmail);
-    if (admin == null)
+    var columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    var connection = dbContext.Database.GetDbConnection();
+    var wasClosed = connection.State != System.Data.ConnectionState.Open;
+
+    if (wasClosed)
     {
-        admin = new ApplicationUser
+        await connection.OpenAsync();
+    }
+
+    try
+    {
+        await using var command = connection.CreateCommand();
+        command.CommandText = "PRAGMA table_info('AspNetUsers');";
+
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
         {
-            UserName = adminEmail,
-            Email = adminEmail,
-            FirstName = "Admin",
-            LastName = "Principal",
-            EmailConfirmed = true
-        };
-        var result = await userManager.CreateAsync(admin, "Admin@123!");
-        if (result.Succeeded)
-            await userManager.AddToRoleAsync(admin, "Administrateur");
+            columns.Add(reader.GetString(1));
+        }
+    }
+    finally
+    {
+        if (wasClosed)
+        {
+            await connection.CloseAsync();
+        }
+    }
+
+    var alterStatements = new List<string>();
+
+    if (!columns.Contains("FirstName"))
+    {
+        alterStatements.Add("ALTER TABLE AspNetUsers ADD COLUMN FirstName TEXT NULL;");
+    }
+
+    if (!columns.Contains("LastName"))
+    {
+        alterStatements.Add("ALTER TABLE AspNetUsers ADD COLUMN LastName TEXT NULL;");
+    }
+
+    if (!columns.Contains("Address"))
+    {
+        alterStatements.Add("ALTER TABLE AspNetUsers ADD COLUMN Address TEXT NULL;");
+    }
+
+    foreach (var alterStatement in alterStatements)
+    {
+        await dbContext.Database.ExecuteSqlRawAsync(alterStatement);
     }
 }
 
-app.Run();
+static bool HasHttpsEndpoint(ConfigurationManager configuration)
+{
+    var urls = configuration["ASPNETCORE_URLS"]
+        ?? Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+
+    if (string.IsNullOrWhiteSpace(urls))
+    {
+        return false;
+    }
+
+    return urls
+        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Any(url => url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
+}
 
 static async Task SeedDefaultAdminAsync(IServiceProvider services)
 {

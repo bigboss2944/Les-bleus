@@ -16,15 +16,15 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.Date, "Date", htmlAttributes: new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PayMode, "Mode de paiement", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.PayMode, "Mode de paiement", htmlAttributes: new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 <select name="PayMode" class="form-control">
                     <option value="">— Choisir —</option>
@@ -43,8 +43,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Client</label>
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">Client</label>
             <div class="col-md-10">
                 <select name="CustomerId" class="form-control">
                     <option value="">— Aucun —</option>
@@ -63,8 +63,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Boutique</label>
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">Boutique</label>
             <div class="col-md-10">
                 <select name="ShopId" class="form-control">
                     <option value="">— Aucune —</option>
@@ -83,31 +83,33 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Discount, "Remise (%)", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.Discount, "Remise (%)", htmlAttributes: new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control price-input", id = "Discount" } })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tax, "TVA (%)", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.Tax, "TVA (%)", htmlAttributes: new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control price-input", id = "Tax" } })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShippingCost, "Frais de livraison (€)", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.ShippingCost, "Frais de livraison (€)", htmlAttributes: new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ShippingCost, new { htmlAttributes = new { @class = "form-control price-input", id = "ShippingCost" } })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UseLoyaltyPoint, "Points fidélité", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 checkbox" style="padding-top:7px;">
-                @Html.CheckBoxFor(model => model.UseLoyaltyPoint)
+        <div class="row mb-3">
+            @Html.LabelFor(model => model.UseLoyaltyPoint, "Points fidélité", htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10 pt-2">
+                <div class="form-check">
+                    @Html.CheckBoxFor(model => model.UseLoyaltyPoint, new { @class = "form-check-input" })
+                </div>
             </div>
         </div>
 
@@ -130,8 +132,8 @@
         }
 
         <hr />
-        <div class="form-group">
-            <label class="control-label col-md-2">Total estimé</label>
+        <div class="row mb-3">
+            <label class="col-md-2 col-form-label">Total estimé</label>
             <div class="col-md-10">
                 <h3 id="total-price" class="text-success">
                     @{
@@ -144,8 +146,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+        <div class="row mb-3">
+            <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Enregistrer" class="btn btn-primary" />
             </div>
         </div>
