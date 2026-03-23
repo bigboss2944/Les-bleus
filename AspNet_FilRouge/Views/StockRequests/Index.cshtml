@@ -1,4 +1,4 @@
-@model IEnumerable<AspNet_FilRouge_Vendeur.Models.StockRequest>
+@model IEnumerable<AspNet_FilRouge.Models.StockRequest>
 
 @{
     ViewBag.Title = "Demandes de stock";
@@ -65,13 +65,13 @@
                         using (Html.BeginForm("Approve", "StockRequests", new { id = item.Id }, FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-xs btn-success">Approuver</button>
+                            <button type="submit" class="btn btn-sm btn-success">Approuver</button>
                         }
                         @Html.Raw(" ")
                         using (Html.BeginForm("Reject", "StockRequests", new { id = item.Id }, FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-xs btn-danger">Rejeter</button>
+                            <button type="submit" class="btn btn-sm btn-danger">Rejeter</button>
                         }
                     }
                     else
@@ -85,5 +85,5 @@
 </table>
 
 <div>
-    @Html.ActionLink("Retour", "../Home/Index")
+    @Html.ActionLink("Retour", "Index", "Home")
 </div>
