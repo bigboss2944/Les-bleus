@@ -1,0 +1,87 @@
+@model IEnumerable<AspNet_FilRouge_Vendeur.Models.StockRequest>
+
+@{
+    ViewBag.Title = "Demandes de stock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Demandes d'ajout de stock</h2>
+
+@if (User.IsInRole("Vendeur"))
+{
+    <p>
+        @Html.ActionLink("Nouvelle demande", "Create", null, new { @class = "btn btn-success" })
+    </p>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>Nom du vélo</th>
+        <th>Quantité</th>
+        <th>Date de demande</th>
+        <th>Statut</th>
+        <th>Demandé par</th>
+        <th>Notes</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.BicycleName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+            <td>@item.RequestDate.ToString("dd/MM/yyyy HH:mm")</td>
+            <td>
+                @if (item.Status == "Approuvée")
+                {
+                    <span class="label label-success">@item.Status</span>
+                }
+                else if (item.Status == "Rejetée")
+                {
+                    <span class="label label-danger">@item.Status</span>
+                }
+                else
+                {
+                    <span class="label label-warning">@item.Status</span>
+                }
+            </td>
+            <td>
+                @if (item.RequestedBy != null)
+                {
+                    @($"{item.RequestedBy.FirstName} {item.RequestedBy.LastName}")
+                }
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @if (item.Status == "En attente")
+                    {
+                        using (Html.BeginForm("Approve", "StockRequests", new { id = item.Id }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-xs btn-success">Approuver</button>
+                        }
+                        @Html.Raw(" ")
+                        using (Html.BeginForm("Reject", "StockRequests", new { id = item.Id }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-xs btn-danger">Rejeter</button>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">Traitée</span>
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Retour", "../Home/Index")
+</div>

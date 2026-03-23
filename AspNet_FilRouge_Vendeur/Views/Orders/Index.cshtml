@@ -1,0 +1,114 @@
+@model AspNet_FilRouge_Vendeur.Models.PaginatedList<AspNet_FilRouge_Vendeur.Models.Order>
+
+@{
+    ViewBag.Title = "Commandes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Commandes</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Date</th>
+        <th>Mode de paiement</th>
+        <th>Remise</th>
+        <th>Taxe</th>
+        <th>Frais de livraison</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.DisplayFor(modelItem => item.PayMode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+            <td>@Html.DisplayFor(modelItem => item.Tax)</td>
+            <td>@Html.DisplayFor(modelItem => item.ShippingCost)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @Html.ActionLink("Détails", "Details", new { id = item.IdOrder }) |
+                    @Html.ActionLink("Annuler", "Delete", new { id = item.IdOrder }, new { @class = "text-danger" })
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
+                <a href="@(Model.HasPreviousPage ? Url.Action("Index", new { page = Model.PageIndex - 1 }) : "#")">«</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="@(i == Model.PageIndex ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="@(!Model.HasNextPage ? "disabled" : "")">
+                <a href="@(Model.HasNextPage ? Url.Action("Index", new { page = Model.PageIndex + 1 }) : "#")">»</a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<div>
+    @Html.ActionLink("Retour", "../Home/Index")
+</div>
+
+@section scripts {
+<script>
+    // Indicateur mode hors-ligne
+    function updateOnlineStatus() {
+        document.getElementById('offline-banner').style.display = navigator.onLine ? 'none' : 'block';
+        document.querySelectorAll('.btn-validate').forEach(function(btn) {
+            btn.disabled = !navigator.onLine;
+            btn.title = navigator.onLine ? '' : 'Validation impossible en mode hors-ligne';
+        });
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    function validateOrder(orderId, btn) {
+        if (!navigator.onLine) {
+            alert('Validation impossible en mode hors-ligne.');
+            return;
+        }
+        if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
+
+        btn.disabled = true;
+        btn.textContent = 'En cours…';
+
+        fetch('@Url.Action("Validate", "Orders")/' + orderId, {
+            method: 'POST',
+            headers: {
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? ''
+            }
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.error) {
+                alert(data.error);
+                btn.disabled = false;
+                btn.textContent = 'Valider';
+            } else {
+                location.reload();
+            }
+        })
+        .catch(function() {
+            alert('Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
+            btn.textContent = 'Valider';
+        });
+    }
+</script>
+@Html.AntiForgeryToken()
+}

@@ -1,0 +1,85 @@
+﻿@model AspNet_FilRouge_Vendeur.Models.PaginatedList<AspNet_FilRouge_Vendeur.Models.Bicycle>
+
+@{
+    ViewBag.Title = "Stock Global";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stock Global</h2>
+
+<p>
+    @if (User.IsInRole("Administrateur"))
+    {
+        @Html.ActionLink("Ajouter un vélo", "Create", null, new { @class = "btn btn-primary" })
+    }
+    @if (User.IsInRole("Vendeur"))
+    {
+        @Html.ActionLink("Demande d'ajout de stock", "Create", "StockRequests", null, new { @class = "btn btn-success" })
+    }
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>Type</th>
+        <th>Catégorie</th>
+        <th>Référence</th>
+        <th>Prix HT</th>
+        <th>Marque</th>
+        <th>Couleur</th>
+        <th>État</th>
+        <th>Échangeable</th>
+        <th>Assurance</th>
+        <th>Livrable</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.TypeOfBike)</td>
+            <td>@Html.DisplayFor(modelItem => item.Category)</td>
+            <td>@Html.DisplayFor(modelItem => item.Reference)</td>
+            <td>@Html.DisplayFor(modelItem => item.FreeTaxPrice)</td>
+            <td>@Html.DisplayFor(modelItem => item.Brand)</td>
+            <td>@Html.DisplayFor(modelItem => item.Color)</td>
+            <td>@Html.DisplayFor(modelItem => item.State)</td>
+            <td>@Html.DisplayFor(modelItem => item.Exchangeable)</td>
+            <td>@Html.DisplayFor(modelItem => item.Insurance)</td>
+            <td>@Html.DisplayFor(modelItem => item.Deliverable)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Détails", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
+                <a href="@(Model.HasPreviousPage ? Url.Action("Index", new { page = Model.PageIndex - 1 }) : "#")">«</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="@(i == Model.PageIndex ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="@(!Model.HasNextPage ? "disabled" : "")">
+                <a href="@(Model.HasNextPage ? Url.Action("Index", new { page = Model.PageIndex + 1 }) : "#")">»</a>
+            </li>
+        </ul>
+    </nav>
+}
+
+<div>
+    @Html.ActionLink("Retour", "../Home/Index")
+</div>
