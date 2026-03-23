@@ -46,7 +46,7 @@ La bibliothèque partagée regroupe l'ensemble des éléments communs à l'appli
   - `DeliverableProduct` — Produit livrable
   - `InsuredProduct` — Produit avec assurance
   - `ExchangeableProduct` — Produit avec échange
-- [ ] Créer l'entité `PhysicalProduct` : produit physique unique identifié par un ID, lié à un `ProductType`
+- [ ] Créer l'entité `PhysicalProduct` : produit physique unique identifié par un ID, lié à un `ProductType` (peut appartenir à plusieurs types)
 
 ### 2.2 Gestion du stock
 - [ ] Créer l'entité `Stock` représentant la quantité disponible par type de produit
@@ -54,7 +54,7 @@ La bibliothèque partagée regroupe l'ensemble des éléments communs à l'appli
 
 ### 2.3 Commandes
 - [ ] Créer l'entité `Order` (commande) : liste de types de produit quantifiés, associée à un client et un vendeur
-- [ ] Supporter la remise (`Discount`) sur une commande
+- [ ] Supporter la remise (`Discount`) en **pourcentage** sur une commande
 - [ ] Lier un vendeur à l'historique de ses commandes
 
 ### 2.4 Acteurs
@@ -63,11 +63,13 @@ La bibliothèque partagée regroupe l'ensemble des éléments communs à l'appli
 
 **Labels :** `library`, `enhancement`
 
-**Questions pour complément d'information :**
-> - Quels sont précisément les champs de caractéristiques attendus sur un `ProductType` (taille/poids/couleur sont mentionnés — y en a-t-il d'autres) ?
-> - Le prix est-il HT uniquement ou TTC (avec TVA calculée automatiquement) ?
-> - La remise est-elle en pourcentage, en valeur fixe, ou les deux ?
-> - Un produit physique peut-il appartenir à plusieurs types de produits ?
+**Réponses aux questions :**
+> - **Quels sont précisément les champs de caractéristiques attendus sur un `ProductType` ?**
+>   → Ceux déjà présents (taille, poids, couleur, référence, prix HT, TVA) — pas besoin d'en rajouter pour l'instant.
+> - **La remise est-elle en pourcentage, en valeur fixe, ou les deux ?**
+>   → En pourcentage uniquement.
+> - **Un produit physique peut-il appartenir à plusieurs types de produits ?**
+>   → Oui.
 
 ---
 
@@ -90,6 +92,7 @@ Application bureau Windows 10 permettant aux vendeurs de réaliser des ventes de
 - [ ] Ajouter/retirer des produits dans une commande
 - [ ] Afficher en temps réel le prix total de la commande à chaque modification
 - [ ] Valider une commande (uniquement en mode connecté)
+- [ ] Afficher les commandes de tous les vendeurs (pas uniquement les siennes)
 
 ### 3.3 Base de données locale (SQLite)
 - [ ] Mettre en place la base SQLite locale (sans Entity Framework)
@@ -102,11 +105,15 @@ Application bureau Windows 10 permettant aux vendeurs de réaliser des ventes de
 
 **Labels :** `uwp`, `enhancement`
 
-**Questions pour complément d'information :**
-> - Quel est le mécanisme de synchronisation entre la base locale SQLite et la base centrale ? (temps réel, à la connexion, manuel ?)
-> - Les vendeurs voient-ils les commandes des autres vendeurs sur l'UWP ?
-> - Comment gérer les conflits lors de la synchronisation (produit vendu simultanément par deux vendeurs) ?
-> - L'UWP supporte-t-elle plusieurs vendeurs sur un même poste ?
+**Réponses aux questions :**
+> - **Quel est le mécanisme de synchronisation entre la base locale SQLite et la base centrale ?**
+>   → À définir (à voir).
+> - **Les vendeurs voient-ils les commandes des autres vendeurs sur l'UWP ?**
+>   → Oui.
+> - **Comment gérer les conflits lors de la synchronisation ?**
+>   → À définir (à voir).
+> - **L'UWP supporte-t-elle plusieurs vendeurs sur un même poste ?**
+>   → Non précisé.
 
 ---
 
@@ -125,23 +132,28 @@ Application web permettant la gestion globale des stocks, des vendeurs et des co
 - [ ] Gérer les rôles : `Vendeur` et `Administrateur`
 
 ### 4.2 Gestion du stock (Vendeur)
-- [ ] Afficher la vue du stock global
+- [ ] Afficher la vue du stock global avec pagination
 - [ ] Permettre à un vendeur de faire une demande d'ajout de stock pour un type de produit
 
 ### 4.3 Consultation des commandes (Vendeur)
-- [ ] Afficher toutes les commandes effectuées par tous les vendeurs
+- [ ] Afficher toutes les commandes effectuées par tous les vendeurs avec pagination
 
 ### 4.4 Administration (Administrateur)
-- [ ] Créer de nouveaux comptes vendeur
+- [ ] Créer de nouveaux comptes vendeur (champs : nom, prénom, adresse, email, téléphone)
 - [ ] Valider ou rejeter les demandes d'ajout de stock
+- [ ] Annuler des commandes
 
 **Labels :** `aspnet`, `enhancement`
 
-**Questions pour complément d'information :**
-> - L'administrateur peut-il également consulter et annuler des commandes ?
-> - Quels sont les champs requis pour créer un nouveau vendeur (nom, email, mot de passe, etc.) ?
-> - Y a-t-il une pagination sur la liste des commandes et du stock ?
-> - L'administrateur voit-il également le stock par vendeur, ou uniquement le stock global ?
+**Réponses aux questions :**
+> - **L'administrateur peut-il également consulter et annuler des commandes ?**
+>   → Oui, l'administrateur peut annuler des commandes.
+> - **Quels sont les champs requis pour créer un nouveau vendeur ?**
+>   → nom, prénom, adresse, email, téléphone.
+> - **Y a-t-il une pagination sur la liste des commandes et du stock ?**
+>   → Oui.
+> - **L'administrateur voit-il également le stock par vendeur, ou uniquement le stock global ?**
+>   → Non précisé.
 
 ---
 
@@ -167,19 +179,27 @@ Ensemble des contraintes techniques imposées par le cahier des charges.
 ### 5.3 Application ASP.NET
 - [ ] Compatible IIS Express (Visual Studio)
 - [ ] Utiliser SQL Server LocalDb comme base de données
-- [ ] Utiliser Entity Framework
+- [ ] Utiliser **Entity Framework Core (dernière version LTS)**
 - [ ] Authentification obligatoire pour tous les accès
+- [ ] Exposer une **API REST** pour la communication avec l'UWP
 
-### 5.4 Versionning
+### 5.4 Tests unitaires
+- [ ] Mettre en place des tests unitaires (obligatoires)
+- [ ] Utiliser un framework de test compatible .NET (xUnit, NUnit ou MSTest)
+
+### 5.5 Versionning
 - [ ] Versionner l'ensemble du code avec Git et publier sur GitHub
 - [ ] Ajouter `antoinecronier` comme collaborateur du projet
 
 **Labels :** `technical`, `infrastructure`
 
-**Questions pour complément d'information :**
-> - Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?
-> - La synchronisation UWP ↔ ASP.NET doit-elle utiliser une API REST, SignalR, ou autre ?
-> - Des tests unitaires sont-ils attendus ? Si oui, quel framework de test ?
+**Réponses aux questions :**
+> - **Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?**
+>   → Entity Framework Core, dernière version LTS.
+> - **La synchronisation UWP ↔ ASP.NET doit-elle utiliser une API REST, SignalR, ou autre ?**
+>   → API REST.
+> - **Des tests unitaires sont-ils attendus ? Si oui, quel framework de test ?**
+>   → Oui, et ils sont obligatoires.
 
 ---
 
@@ -194,6 +214,7 @@ Fonctionnalités non obligatoires pouvant être implémentées en bonus.
 
 ### 6.1 Validation de commande par email
 - [ ] Une commande doit attendre la validation d'un client
+- [ ] Le client doit avoir un compte dans l'application
 - [ ] Envoyer un email au client avec un lien de validation
 - [ ] Valider la commande lors du clic sur le lien
 
@@ -204,10 +225,13 @@ Fonctionnalités non obligatoires pouvant être implémentées en bonus.
 
 **Labels :** `optional`, `enhancement`
 
-**Questions pour complément d'information :**
-> - Quel service d'envoi d'email est préconisé (SMTP, SendGrid, etc.) ?
-> - Quel est l'intervalle de délai aléatoire attendu pour le réapprovisionnement (ex: 1h–5j) ?
-> - Le client doit-il avoir un compte dans l'application ou uniquement une adresse email ?
+**Réponses aux questions :**
+> - **Quel service d'envoi d'email est préconisé (SMTP, SendGrid, etc.) ?**
+>   → À définir (un service d'envoi d'email sera utilisé).
+> - **Quel est l'intervalle de délai aléatoire attendu pour le réapprovisionnement ?**
+>   → À définir (à voir).
+> - **Le client doit-il avoir un compte dans l'application ou uniquement une adresse email ?**
+>   → Le client doit avoir un compte.
 
 ---
 
@@ -226,7 +250,12 @@ Respect des conventions de l'interface et du code source.
 - [ ] Appliquer le schéma couleur dans l'application UWP (styles XAML)
 - [ ] Appliquer le schéma couleur dans l'application ASP.NET (CSS/Bootstrap)
 
-### 7.2 Conventions de nommage C# (Microsoft)
+### 7.2 Charte graphique
+- [ ] Respecter la charte graphique détaillée (typographie, icônes, espacements)
+- [ ] Implémenter le thème clair
+- [ ] Implémenter le thème sombre
+
+### 7.3 Conventions de nommage C# (Microsoft)
 - [ ] `PascalCase` pour les classes, méthodes, propriétés publiques
 - [ ] `camelCase` pour les variables locales et paramètres
 - [ ] Préfixe `_` pour les champs privés (ou `camelCase` selon le guide Microsoft)
@@ -235,38 +264,59 @@ Respect des conventions de l'interface et du code source.
 
 **Labels :** `design`, `conventions`
 
-**Questions pour complément d'information :**
-> - Y a-t-il une charte graphique plus détaillée (typographie, icônes, espacements) ?
-> - Le guide de style Microsoft complet doit-il être suivi (https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) ?
+**Réponses aux questions :**
+> - **Y a-t-il une charte graphique plus détaillée (typographie, icônes, espacements) ?**
+>   → Oui.
+> - **Le guide de style Microsoft complet doit-il être suivi ?**
+>   → Oui, le thème sombre est également requis.
 
 ---
 
-## Résumé des questions à poser au client (TACTfactory)
+## Réponses du client (TACTfactory)
 
-Les questions suivantes doivent être soumises à Antoine CRÔNIER (TACTfactory) pour préciser les exigences :
+Les réponses suivantes ont été fournies par Antoine CRÔNIER (TACTfactory) :
 
 ### Sur les données / modèle
-1. Quels sont tous les attributs attendus pour les caractéristiques d'un produit (taille, poids, couleur — y en a-t-il d'autres) ?
-2. La remise sur commande est-elle en pourcentage, en valeur fixe, ou les deux ?
-3. Un produit physique peut-il appartenir à plusieurs types de produits simultanément ?
+1. **Quels sont tous les attributs attendus pour les caractéristiques d'un produit ?**
+   → Ceux déjà présents (taille, poids, couleur, référence, prix HT, TVA) — pas besoin d'en rajouter pour l'instant.
+2. **La remise sur commande est-elle en pourcentage, en valeur fixe, ou les deux ?**
+   → En pourcentage uniquement.
+3. **Un produit physique peut-il appartenir à plusieurs types de produits simultanément ?**
+   → Oui.
 
 ### Sur l'architecture technique
-4. Quel mécanisme de synchronisation entre l'UWP et l'ASP.NET est attendu (API REST, SignalR, autre) ?
-5. Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?
-6. Des tests unitaires sont-ils requis ? Si oui, quel framework (xUnit, NUnit, MSTest) ?
+4. **Quel mécanisme de synchronisation entre l'UWP et l'ASP.NET est attendu ?**
+   → API REST.
+5. **Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?**
+   → Entity Framework Core, dernière version LTS.
+6. **Des tests unitaires sont-ils requis ?**
+   → Oui, et ils sont **obligatoires**.
 
 ### Sur les fonctionnalités
-7. L'administrateur peut-il annuler des commandes ?
-8. Les vendeurs peuvent-ils voir les commandes des autres vendeurs sur l'UWP ?
-9. Comment gérer les conflits de stock (deux vendeurs vendant le même produit simultanément) ?
+7. **L'administrateur peut-il annuler des commandes ?**
+   → Oui.
+8. **Les vendeurs peuvent-ils voir les commandes des autres vendeurs sur l'UWP ?**
+   → Oui, les vendeurs voient les commandes de tous les vendeurs.
+9. **Comment gérer les conflits de stock (deux vendeurs vendant le même produit simultanément) ?**
+   → À définir (à voir).
+10. **Quels sont les champs requis pour créer un nouveau vendeur ?**
+    → nom, prénom, adresse, email, téléphone.
+11. **Y a-t-il une pagination sur la liste des commandes et du stock ?**
+    → Oui.
 
 ### Sur les fonctionnalités optionnelles
-10. Le service d'email pour la validation de commande (SMTP local ou service externe) ?
-11. L'intervalle de délai aléatoire pour le réapprovisionnement (ordre de grandeur) ?
+12. **Le service d'email pour la validation de commande (SMTP local ou service externe) ?**
+    → À définir (un service d'envoi d'email sera utilisé).
+13. **L'intervalle de délai aléatoire pour le réapprovisionnement (ordre de grandeur) ?**
+    → À définir (à voir).
+14. **Le client doit-il avoir un compte ou uniquement une adresse email ?**
+    → Le client doit avoir un compte.
 
 ### Sur l'UX/UI
-12. Y a-t-il une maquette ou charte graphique plus détaillée ?
-13. Quelles langues doit supporter l'application (français uniquement ?) ?
+15. **Y a-t-il une maquette ou charte graphique plus détaillée (typographie, icônes, espacements) ?**
+    → Oui.
+16. **Le thème sombre est-il requis en plus du thème clair ?**
+    → Oui, le thème sombre est requis.
 
 ---
 
