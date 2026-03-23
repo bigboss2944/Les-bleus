@@ -1,90 +1,79 @@
-﻿using AspNet_FilRouge.Models;
-using Microsoft.AspNet.Identity.Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using static AspNet_FilRouge.ApplicationSignInManager;
+using AspNet_FilRouge.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet_FilRouge.Controllers
 {
     public class RoleController : Controller
     {
-        private ApplicationRoleManager _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public RoleController()
+        public RoleController(RoleManager<ApplicationRole> roleManager)
         {
+            _roleManager = roleManager;
         }
 
-        public RoleController(ApplicationRoleManager roleManager)
-        {
-            RoleManager = roleManager;
-            
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
         // GET: Role
-        public ActionResult Index()
+        public IActionResult Index()
         {
             List<RoleViewModel> list = new List<RoleViewModel>();
-            foreach (var role in RoleManager.Roles)
+            foreach (var role in _roleManager.Roles)
                 list.Add(new RoleViewModel(role));
             return View(list);
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        public async Task<ActionResult> Create (RoleViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(RoleViewModel model)
         {
             var role = new ApplicationRole() { Name = model.Name };
-            await RoleManager.CreateAsync(role);
+            await _roleManager.CreateAsync(role);
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(string id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null) return NotFound();
             return View(new RoleViewModel(role));
         }
 
-        public async Task<ActionResult> Edit(RoleViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(RoleViewModel model)
         {
-            var role = new ApplicationRole() { Id = model.Id, Name = model.Name };
-            await RoleManager.UpdateAsync(role);
+            var role = new ApplicationRole() { Id = model.Id!, Name = model.Name };
+            await _roleManager.UpdateAsync(role);
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null) return NotFound();
             return View(new RoleViewModel(role));
         }
 
-        public async Task<ActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role == null) return NotFound();
             return View(new RoleViewModel(role));
         }
 
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
-            await RoleManager.DeleteAsync(role);
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+                await _roleManager.DeleteAsync(role);
             return RedirectToAction("Index");
         }
     }

@@ -1,49 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace AspNet_FilRouge.Models
 {
     public class Seller : User
     {
         #region Attributes
-        private List<Order> orders;
-        private Shop shop;
-        
+        private List<Order> orders = new();
+        private Shop? shop;
         #endregion
 
-        #region properties
-        
-
-        public List<Order> Orders
-        {
-            get { return orders; }
-            set { orders = value; }
-        }
-
-        public Shop Shop
-        {
-            get { return shop; }
-            set { shop = value; }
-        }
+        #region Properties
+        public List<Order> Orders { get { return orders; } set { orders = value; } }
+        public Shop? Shop { get { return shop; } set { shop = value; } }
         #endregion
 
-        #region constructors
+        #region Constructors
         public Seller()
         {
             this.Orders = new List<Order>();
         }
         #endregion
 
-        #region Functions
-        public String ToString()
+        public override string ToString()
         {
             return " ";
         }
-        #endregion
     }
 }

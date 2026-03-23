@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
@@ -12,8 +7,8 @@ namespace AspNet_FilRouge.Models
     {
         #region Attributs
         private long idLogin;
-        private string password;
-        private Seller user;
+        private string? password;
+        private Seller? user;
         #endregion
 
         #region Properties
@@ -25,13 +20,13 @@ namespace AspNet_FilRouge.Models
             set { idLogin = value; }
         }
 
-        public string Password
+        public string? Password
         {
             get { return password; }
             set { password = value; }
         }
 
-        public Seller User
+        public Seller? User
         {
             get { return user; }
             set { user = value; }
@@ -39,12 +34,8 @@ namespace AspNet_FilRouge.Models
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
         public Login()
         {
-
         }
         #endregion
     }
