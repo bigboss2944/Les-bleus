@@ -38,7 +38,15 @@ namespace AspNet_FilRouge.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.Email!, model.Password!, model.RememberMe, lockoutOnFailure: false);
+            var user = await _userManager.FindByEmailAsync(model.Email!)
+                       ?? await _userManager.FindByNameAsync(model.Email!);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password!, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -111,7 +119,8 @@ namespace AspNet_FilRouge.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email!);
+                var user = await _userManager.FindByEmailAsync(model.Email!)
+                           ?? await _userManager.FindByNameAsync(model.Email!);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     return View("ForgotPasswordConfirmation");
@@ -144,7 +153,8 @@ namespace AspNet_FilRouge.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByNameAsync(model.Email!);
+            var user = await _userManager.FindByEmailAsync(model.Email!)
+                       ?? await _userManager.FindByNameAsync(model.Email!);
             if (user == null)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
