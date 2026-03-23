@@ -1,0 +1,114 @@
+name: Créer l'issue MAUI
+
+on:
+  push:
+    branches:
+      - 'copilot/create-maui-app-features'
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-maui-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Créer l'issue MAUI (Android/iOS)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueTitle = '[MAUI] Application MAUI (Android/iOS) — Portage de l\'application UWP';
+
+            // Vérifier si l'issue existe déjà
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+
+            const alreadyExists = existingIssues.data.some(i => i.title === issueTitle);
+            if (alreadyExists) {
+              console.log('✅ L\'issue MAUI existe déjà, aucune action nécessaire.');
+              return;
+            }
+
+            const issueBody = `## Description
+
+Créer une application **MAUI (Multi-platform App UI)** ciblant **Android** et **iOS**, reproduisant l'ensemble des fonctionnalités de l'application UWP existante (\`UWP_FilRouge\`).
+
+---
+
+## Sous-tâches
+
+### 1. Authentification
+- [ ] Implémenter l'écran de connexion (login / mot de passe)
+- [ ] Gérer la session utilisateur
+- [ ] Sécuriser la connexion avec l'API ASP.NET
+
+### 2. Gestion des vélos (stock)
+- [ ] Afficher la liste des vélos disponibles
+- [ ] Voir le détail d'un vélo
+- [ ] Ajouter / modifier / supprimer un vélo
+
+### 3. Gestion des commandes
+- [ ] Créer une nouvelle commande
+- [ ] Ajouter / retirer des produits dans une commande
+- [ ] Afficher le prix total en temps réel
+- [ ] Valider une commande (mode connecté uniquement)
+- [ ] Afficher les commandes de tous les vendeurs
+
+### 4. Gestion des clients
+- [ ] Lister les clients
+- [ ] Voir / modifier / créer un client
+
+### 5. Gestion des vendeurs
+- [ ] Lister les vendeurs
+- [ ] Voir / modifier un profil vendeur
+
+### 6. Administration
+- [ ] Accès aux fonctions d'administration (si rôle Administrateur)
+
+### 7. Base de données locale (SQLite)
+- [ ] Mettre en place SQLite local sur mobile (sans Entity Framework)
+- [ ] Synchronisation avec la base centrale via API REST
+- [ ] Gérer le mode hors-ligne (blocage de la validation de commande)
+
+### 8. Expérience utilisateur
+- [ ] Toutes les opérations réseau en asynchrone (aucun freeze)
+- [ ] Indicateurs d'état (chargement, synchronisation, mode hors-ligne)
+- [ ] Respecter la charte graphique : couleur primaire \`#558C2F\`, secondaire \`#283593\`
+- [ ] Thème clair et thème sombre
+
+---
+
+## Contraintes techniques
+
+- Utiliser **.NET MAUI** (ciblant Android et iOS)
+- Architecture **MVVM** (cohérente avec l'application UWP existante)
+- Base de données locale : **SQLite** (sans Entity Framework)
+- Communication avec l'API REST ASP.NET
+- Code 100% asynchrone pour les opérations réseau
+- Réutiliser les entités partagées du projet \`Entities\`
+
+---
+
+## Références
+
+- Application UWP existante : \`UWP_FilRouge/\`
+- Bibliothèque de données UWP : \`DataAccessLibraryUWP/\`
+- Entités partagées : \`Entities/\``;
+
+            const created = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: ['enhancement'],
+            });
+
+            console.log(`✅ Issue créée : #${created.data.number} — ${created.data.title}`);
+            console.log(`🔗 URL : ${created.data.html_url}`);
