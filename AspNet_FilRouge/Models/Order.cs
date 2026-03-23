@@ -18,6 +18,7 @@ namespace AspNet_FilRouge.Models
         private bool useLoyaltyPoint;
         private float tax;
         private float shippingCost;
+        private bool isValidated;
         #endregion
 
         #region Properties
@@ -34,6 +35,7 @@ namespace AspNet_FilRouge.Models
         public bool UseLoyaltyPoint { get { return useLoyaltyPoint; } set { useLoyaltyPoint = value; } }
         public float Tax { get { return tax; } set { tax = value; } }
         public float ShippingCost { get { return shippingCost; } set { shippingCost = value; } }
+        public bool IsValidated { get { return isValidated; } set { isValidated = value; } }
         #endregion
 
         #region Constructors
