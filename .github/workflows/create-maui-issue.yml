@@ -1,9 +1,10 @@
 name: Créer l'issue MAUI
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - 'copilot/create-maui-app-features'
+      - 'copilot/fix-create-maui-app-action'
 
 permissions:
   issues: write
