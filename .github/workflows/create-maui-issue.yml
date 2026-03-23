@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'copilot/fix-create-maui-app-action'
+      - master
 
 permissions:
   issues: write
