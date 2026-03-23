@@ -9,16 +9,19 @@ namespace AspNet_FilRouge.Controllers
     public class BicyclesController : Controller
     {
         private readonly ApplicationDbContext db;
+        private const int PageSize = 10;
 
         public BicyclesController(ApplicationDbContext context)
         {
             db = context;
         }
 
-        // GET:
-        public async Task<IActionResult> Index()
+        // GET: Bicycles — paginated stock view
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await db.Bicycles.ToListAsync());
+            var bicycles = db.Bicycles.AsQueryable();
+            var paginatedList = await PaginatedList<Bicycle>.CreateAsync(bicycles, page, PageSize);
+            return View(paginatedList);
         }
 
         // GET: Bicycles/Details/5
@@ -36,15 +39,17 @@ namespace AspNet_FilRouge.Controllers
             return View(bicycle);
         }
 
-        // GET: Bicycles/Create
+        // GET: Bicycles/Create — admin only
+        [Authorize(Roles = "Administrateur")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Bicycles/Create
+        // POST: Bicycles/Create — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Create([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
@@ -56,7 +61,8 @@ namespace AspNet_FilRouge.Controllers
             return View(bicycle);
         }
 
-        // GET: Bicycles/Edit/5
+        // GET: Bicycles/Edit/5 — admin only
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -71,9 +77,10 @@ namespace AspNet_FilRouge.Controllers
             return View(bicycle);
         }
 
-        // POST: Bicycles/Edit/5
+        // POST: Bicycles/Edit/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Edit([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
@@ -85,7 +92,8 @@ namespace AspNet_FilRouge.Controllers
             return View(bicycle);
         }
 
-        // GET: Bicycles/Delete/5
+        // GET: Bicycles/Delete/5 — admin only
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -100,9 +108,10 @@ namespace AspNet_FilRouge.Controllers
             return View(bicycle);
         }
 
-        // POST: Bicycles/Delete/5
+        // POST: Bicycles/Delete/5 — admin only
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             Bicycle? bicycle = await db.Bicycles.FindAsync(id);

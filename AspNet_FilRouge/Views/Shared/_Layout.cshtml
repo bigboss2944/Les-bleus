@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Les Bleus</title>
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <link rel="stylesheet" href="~/Content/site.css" />
 </head>
@@ -21,9 +21,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home page", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Stock", "Index", "Bicycles")</li>
+                        <li>@Html.ActionLink("Commandes", "Index", "Orders")</li>
+                        <li>@Html.ActionLink("Demandes de stock", "Index", "StockRequests")</li>
+                        @if (User.IsInRole("Administrateur"))
+                        {
+                            <li>@Html.ActionLink("Vendeurs", "Index", "Sellers")</li>
+                            <li>@Html.ActionLink("Rôles", "Index", "Role")</li>
+                        }
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

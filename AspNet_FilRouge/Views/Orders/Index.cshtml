@@ -1,86 +1,64 @@
-﻿@model IEnumerable<AspNet_FilRouge.Models.Order>
+@model AspNet_FilRouge.Models.PaginatedList<AspNet_FilRouge.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Commandes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Order - Menu</h2>
+<h2>Commandes</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table table-striped">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PayMode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UseLoyaltyPoint)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tax)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShippingCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Seller)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shop)
-        </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model => model.First().Date)</th>
+        <th>@Html.DisplayNameFor(model => model.First().PayMode)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Discount)</th>
+        <th>@Html.DisplayNameFor(model => model.First().Tax)</th>
+        <th>@Html.DisplayNameFor(model => model.First().ShippingCost)</th>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <th>Actions</th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Date)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PayMode)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Discount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UseLoyaltyPoint)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Tax)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ShippingCost)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Customer.Id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Seller.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Shop.Nameshop)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.IdOrder }) |
-        @Html.ActionLink("Details", "Details", new { id = item.IdOrder }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.IdOrder })
-    </td>
-</tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.DisplayFor(modelItem => item.PayMode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+            <td>@Html.DisplayFor(modelItem => item.Tax)</td>
+            <td>@Html.DisplayFor(modelItem => item.ShippingCost)</td>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <td>
+                    @Html.ActionLink("Détails", "Details", new { id = item.IdOrder }) |
+                    @Html.ActionLink("Annuler", "Delete", new { id = item.IdOrder }, new { @class = "text-danger" })
+                </td>
+            }
+        </tr>
+    }
 </table>
 
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
+                <a href="@Url.Action("Index", new { page = Model.PageIndex - 1 })">«</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="@(i == Model.PageIndex ? "active" : "")">
+                    <a href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="@(!Model.HasNextPage ? "disabled" : "")">
+                <a href="@Url.Action("Index", new { page = Model.PageIndex + 1 })">»</a>
+            </li>
+        </ul>
+    </nav>
+}
+
 <div>
-    @Html.ActionLink("Back", "../Home/Index")
+    @Html.ActionLink("Retour", "../Home/Index")
 </div>
