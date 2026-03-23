@@ -1,9 +1,11 @@
 using AspNet_FilRouge_Vendeur.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
 {
+    [Authorize(Roles = "Administrateur")]
     public class RoleController : Controller
     {
         private readonly RoleManager<ApplicationRole> _roleManager;
