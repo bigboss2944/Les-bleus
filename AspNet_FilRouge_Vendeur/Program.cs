@@ -126,6 +126,23 @@ using (var scope = app.Services.CreateScope())
         if (result.Succeeded)
             await userManager.AddToRoleAsync(admin, "Administrateur");
     }
+
+    const string vendeurEmail = "vendeur@lesbleus.fr";
+    var vendeur = await userManager.FindByEmailAsync(vendeurEmail);
+    if (vendeur == null)
+    {
+        vendeur = new ApplicationUser
+        {
+            UserName = vendeurEmail,
+            Email = vendeurEmail,
+            FirstName = "Vendeur",
+            LastName = "Défaut",
+            EmailConfirmed = true
+        };
+        var result = await userManager.CreateAsync(vendeur, "Vendeur@123!");
+        if (result.Succeeded)
+            await userManager.AddToRoleAsync(vendeur, "Vendeur");
+    }
 }
 
 app.Run();

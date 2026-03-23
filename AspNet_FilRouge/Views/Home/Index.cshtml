@@ -5,7 +5,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="row">
-            <div class="col-xs-10 col-md-3 col-lg-2">
+            <div class="col-10 col-md-3 col-lg-2">
                 @if (User.Identity!.IsAuthenticated)
                 {
                     <h3>Espace Client</h3>
@@ -32,9 +32,9 @@
                     </div>
                 }
             </div>
-            <div class="col-xs-2 col-md-9 col-lg-10">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <video controls>
+            <div class="col-2 col-md-9 col-lg-10">
+                <div class="ratio ratio-16x9">
+                    <video class="w-100 h-100" controls>
                         <source src="../Pictures/bike.mp4" type="video/mp4">
                     </video>
                 </div>
