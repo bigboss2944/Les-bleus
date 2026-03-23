@@ -18,8 +18,10 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 }
 else
 {
+    var sqliteConnectionString = builder.Configuration.GetConnectionString("SqliteConnection")
+        ?? "Data Source=aspnet-filrouge.db";
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite("Data Source=../AspNet_FilRouge/aspnet-filrouge.db"));
+        options.UseSqlite(sqliteConnectionString));
 }
 
 // Identity
