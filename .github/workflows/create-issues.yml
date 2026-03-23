@@ -1,0 +1,266 @@
+name: Créer les issues du projet
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_issues:
+        description: 'Créer les issues GitHub à partir du PROJECT_PLAN.md'
+        required: true
+        default: 'true'
+        type: boolean
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Créer les issues du projet Fil Rouge
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = [
+              {
+                title: '[EPIC] Projet Fil Rouge — Application de gestion de vente de vélos',
+                body: `## Description
+            Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
+            - Application **Librairie** (bibliothèque partagée)
+            - Application **UWP** (interface vendeur Windows)
+            - Application **ASP.NET** (portail web d'administration)
+
+            ## Sous-issues
+            - Application Librairie — Entités et modèles de données partagés
+            - Application UWP — Interface vendeur Windows 10
+            - Application ASP.NET — Portail web de gestion
+            - Contraintes techniques — Configuration et architecture
+            - Fonctionnalités optionnelles
+            - Conventions — Code couleur et nommage C#
+
+            ## Référence
+            Voir [PROJECT_PLAN.md](./PROJECT_PLAN.md) pour le détail complet.`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[LIB] Application Librairie — Entités et modèles de données partagés',
+                body: `## Description
+            La bibliothèque partagée regroupe l'ensemble des éléments communs à l'application UWP et ASP.NET.
+
+            ## Sous-tâches
+
+            ### Types de produits
+            - [ ] Créer l'entité \`ProductType\` avec ses caractéristiques (taille, poids, couleur, référence, prix HT, TVA)
+            - [ ] Implémenter \`DeliverableProduct\` — Produit livrable
+            - [ ] Implémenter \`InsuredProduct\` — Produit avec assurance
+            - [ ] Implémenter \`ExchangeableProduct\` — Produit avec échange
+            - [ ] Créer l'entité \`PhysicalProduct\` : produit physique unique identifié par un ID
+
+            ### Gestion du stock
+            - [ ] Créer l'entité \`Stock\` représentant la quantité disponible par type de produit
+            - [ ] Implémenter les opérations CRUD sur le stock
+
+            ### Commandes
+            - [ ] Créer l'entité \`Order\` : liste de types de produit quantifiés, associée à un client et un vendeur
+            - [ ] Supporter la remise (\`Discount\`) sur une commande
+            - [ ] Lier un vendeur à l'historique de ses commandes
+
+            ### Acteurs
+            - [ ] Créer l'entité \`Seller\` avec historique de commandes
+            - [ ] Créer l'entité \`Customer\`
+
+            ## Questions pour complément d'information
+            > - Quels sont précisément les champs de caractéristiques attendus sur un \`ProductType\` ?
+            > - La remise est-elle en pourcentage, en valeur fixe, ou les deux ?
+            > - Un produit physique peut-il appartenir à plusieurs types de produits ?`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[UWP] Application UWP — Interface vendeur Windows 10',
+                body: `## Description
+            Application bureau Windows 10 permettant aux vendeurs de réaliser des ventes de produits.
+
+            ## Sous-tâches
+
+            ### Authentification
+            - [ ] Implémenter l'écran de connexion (login / mot de passe)
+            - [ ] Sécuriser la connexion avec l'application ASP.NET
+            - [ ] Gérer la session utilisateur côté UWP
+
+            ### Gestion des commandes
+            - [ ] Permettre la création d'une nouvelle commande
+            - [ ] Ajouter/retirer des produits dans une commande
+            - [ ] Afficher en temps réel le prix total à chaque modification
+            - [ ] Valider une commande (uniquement en mode connecté)
+
+            ### Base de données locale (SQLite)
+            - [ ] Mettre en place la base SQLite locale (sans Entity Framework)
+            - [ ] Synchroniser la base locale avec la base de données centrale
+            - [ ] Gérer le mode déconnecté : interdire la validation de commande
+
+            ### Expérience utilisateur
+            - [ ] Toutes les opérations réseau doivent être asynchrones (aucun freeze)
+            - [ ] Indicateurs d'état (chargement, synchronisation, mode hors-ligne)
+
+            ## Questions pour complément d'information
+            > - Quel est le mécanisme de synchronisation entre la base locale SQLite et la base centrale ?
+            > - Les vendeurs voient-ils les commandes des autres vendeurs sur l'UWP ?
+            > - Comment gérer les conflits lors de la synchronisation ?`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[WEB] Application ASP.NET — Portail web de gestion',
+                body: `## Description
+            Application web permettant la gestion globale des stocks, des vendeurs et des commandes.
+
+            ## Sous-tâches
+
+            ### Authentification
+            - [ ] Implémenter le système de connexion pour les vendeurs et administrateurs
+            - [ ] Restreindre l'accès aux utilisateurs authentifiés uniquement
+            - [ ] Gérer les rôles : \`Vendeur\` et \`Administrateur\`
+
+            ### Gestion du stock (Vendeur)
+            - [ ] Afficher la vue du stock global
+            - [ ] Permettre à un vendeur de faire une demande d'ajout de stock
+
+            ### Consultation des commandes (Vendeur)
+            - [ ] Afficher toutes les commandes effectuées par tous les vendeurs
+
+            ### Administration (Administrateur)
+            - [ ] Créer de nouveaux comptes vendeur
+            - [ ] Valider ou rejeter les demandes d'ajout de stock
+
+            ## Questions pour complément d'information
+            > - L'administrateur peut-il annuler des commandes ?
+            > - Quels sont les champs requis pour créer un nouveau vendeur ?
+            > - Y a-t-il une pagination sur la liste des commandes et du stock ?`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[TECH] Contraintes techniques — Configuration et architecture',
+                body: `## Description
+            Ensemble des contraintes techniques imposées par le cahier des charges.
+
+            ## Sous-tâches
+
+            ### Application UWP
+            - [ ] Cibler Windows 10 mise à jour de mai 2019 (Build 18362)
+            - [ ] Utiliser SQLite comme base de données locale
+            - [ ] Ne pas utiliser Entity Framework
+            - [ ] Connexion sécurisée à l'ASP.NET (login/password)
+            - [ ] Opérations 100% asynchrones
+
+            ### Application ASP.NET
+            - [ ] Compatible IIS Express (Visual Studio)
+            - [ ] Utiliser SQL Server LocalDb
+            - [ ] Utiliser Entity Framework
+            - [ ] Authentification obligatoire pour tous les accès
+
+            ### Versionning
+            - [ ] Versionner l'ensemble du code avec Git sur GitHub
+            - [ ] Ajouter \`antoinecronier\` comme collaborateur
+
+            ## Questions pour complément d'information
+            > - Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?
+            > - La synchronisation UWP ↔ ASP.NET doit-elle utiliser une API REST, SignalR, ou autre ?
+            > - Des tests unitaires sont-ils attendus ?`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[OPT] Fonctionnalités optionnelles',
+                body: `## Description
+            Fonctionnalités non obligatoires pouvant être implémentées en bonus.
+
+            ## Sous-tâches
+
+            ### Validation de commande par email
+            - [ ] Une commande doit attendre la validation d'un client
+            - [ ] Envoyer un email au client avec un lien de validation
+            - [ ] Valider la commande lors du clic sur le lien
+
+            ### Réapprovisionnement de stock avec délais aléatoires
+            - [ ] Le réapprovisionnement n'est plus instantané
+            - [ ] Une application génère aléatoirement des délais de réapprovisionnement
+            - [ ] Le délai est calculé en fonction des demandes validées par l'administrateur
+
+            ## Questions pour complément d'information
+            > - Quel service d'envoi d'email est préconisé (SMTP, SendGrid, etc.) ?
+            > - Quel est l'intervalle de délai aléatoire pour le réapprovisionnement ?
+            > - Le client doit-il avoir un compte ou uniquement une adresse email ?`,
+                labels: ['enhancement'],
+              },
+              {
+                title: '[CONV] Conventions — Code couleur et nommage C#',
+                body: `## Description
+            Respect des conventions de l'interface et du code source.
+
+            ## Sous-tâches
+
+            ### Code couleur (Material Design)
+            - [ ] Couleur primaire : \`#558C2F\` (vert)
+            - [ ] Couleur secondaire : \`#283593\` (bleu indigo)
+            - [ ] Appliquer le schéma couleur dans l'application UWP (styles XAML)
+            - [ ] Appliquer le schéma couleur dans l'application ASP.NET (CSS/Bootstrap)
+
+            ### Conventions de nommage C# (Microsoft)
+            - [ ] \`PascalCase\` pour les classes, méthodes, propriétés publiques
+            - [ ] \`camelCase\` pour les variables locales et paramètres
+            - [ ] Commentaires XML (\`///\`) pour la documentation publique
+            - [ ] Respecter les conventions Microsoft C# (https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/inside-a-program/coding-conventions)
+
+            ## Questions pour complément d'information
+            > - Y a-t-il une charte graphique plus détaillée (typographie, icônes, espacements) ?
+            > - Le thème sombre est-il requis en plus du thème clair ?`,
+                labels: ['enhancement'],
+              },
+            ];
+
+            const createdIssues = [];
+            for (const issue of issues) {
+              try {
+                const created = await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: issue.title,
+                  body: issue.body,
+                  labels: issue.labels,
+                });
+                createdIssues.push({ title: issue.title, number: created.data.number, url: created.data.html_url });
+                console.log(`✅ Issue créée: #${created.data.number} — ${issue.title}`);
+              } catch (error) {
+                console.error(`❌ Erreur lors de la création de l'issue "${issue.title}": ${error.message}`);
+              }
+            }
+
+            // Mettre à jour la première issue (EPIC) avec les liens vers les sous-issues
+            if (createdIssues.length > 1) {
+              const epicIssue = createdIssues[0];
+              const subIssueLinks = createdIssues.slice(1).map(i => `- [x] #${i.number} — ${i.title}`).join('\n');
+              const epicBody = `## Description
+            Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
+            - Application **Librairie** (bibliothèque partagée)
+            - Application **UWP** (interface vendeur Windows)
+            - Application **ASP.NET** (portail web d'administration)
+
+            ## Sous-issues
+            ${subIssueLinks}
+
+            ## Référence
+            Voir [PROJECT_PLAN.md](./PROJECT_PLAN.md) pour le détail complet.`;
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: epicIssue.number,
+                body: epicBody,
+              });
+              console.log(`✅ Issue EPIC mise à jour avec les liens vers les sous-issues`);
+            }
+
+            console.log('\n📋 Résumé des issues créées:');
+            createdIssues.forEach(i => console.log(`  #${i.number}: ${i.title}\n    ${i.url}`));
