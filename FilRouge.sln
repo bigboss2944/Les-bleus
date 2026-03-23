@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayDB", "PlayDB\PlayDB.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge", "AspNet_FilRouge\AspNet_FilRouge.csproj", "{703D3597-0412-43D7-BF47-61B32387B3A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{48DFA957-E89F-4077-8B0E-01BCB9C36044}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,26 @@ Global
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x64.Build.0 = Release|Any CPU
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{703D3597-0412-43D7-BF47-61B32387B3A1}.Release|x86.Build.0 = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|ARM.Build.0 = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|x64.Build.0 = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Debug|x86.Build.0 = Debug|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|ARM.ActiveCfg = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|ARM.Build.0 = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|ARM64.Build.0 = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|x64.ActiveCfg = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|x64.Build.0 = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|x86.ActiveCfg = Release|Any CPU
+		{48DFA957-E89F-4077-8B0E-01BCB9C36044}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AspNet_FilRouge.Models
 {
@@ -12,16 +7,16 @@ namespace AspNet_FilRouge.Models
     {
         #region Attributs
         private long id;
-        private string typeOfBike;//city fitness road xc 
-        private string category;//kids woman man
-        private string reference;
+        private string? typeOfBike;
+        private string? category;
+        private string? reference;
         private float freeTaxPrice;
         private bool exchangeable;
         private bool insurance;
         private bool deliverable;
-        private Order order;
-        private Customer customer;
-        private Shop shop;
+        private Order? order;
+        private Customer? customer;
+        private Shop? shop;
         #endregion
 
         #region Properties
@@ -33,19 +28,19 @@ namespace AspNet_FilRouge.Models
             set { id = value; }
         }
 
-        public string TypeOfBike
+        public string? TypeOfBike
         {
             get { return typeOfBike; }
             set { typeOfBike = value; }
         }
 
-        public string Category
+        public string? Category
         {
             get { return category; }
             set { category = value; }
         }
 
-        public string Reference
+        public string? Reference
         {
             get { return reference; }
             set { reference = value; }
@@ -75,19 +70,19 @@ namespace AspNet_FilRouge.Models
             set { deliverable = value; }
         }
 
-        public Order Order
+        public Order? Order
         {
             get { return order; }
             set { order = value; }
         }
 
-        public Customer Customer
+        public Customer? Customer
         {
             get { return customer; }
             set { customer = value; }
         }
 
-        public Shop Shop
+        public Shop? Shop
         {
             get { return shop; }
             set { shop = value; }
@@ -95,23 +90,14 @@ namespace AspNet_FilRouge.Models
         #endregion
 
         #region Constructors
-        /// <summary>
-
-        /// Default constructor.
-
-        /// </summary>
-
         public Bicycle()
         {
-            
         }
         #endregion
 
-        #region Functions
-        public String ToString() 
-            {
+        public override string ToString()
+        {
             return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
-            }
-        #endregion
+        }
     }
 }

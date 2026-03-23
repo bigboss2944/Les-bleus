@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Order>
+﻿@model IEnumerable<AspNet_FilRouge.Models.Order>
 
 @{
     ViewBag.Title = "Index";
@@ -63,7 +63,7 @@
         @Html.DisplayFor(modelItem => item.ShippingCost)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Customer.IdCustomer)
+        @Html.DisplayFor(modelItem => item.Customer.Id)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Seller.FirstName)
