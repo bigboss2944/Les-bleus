@@ -9,8 +9,8 @@ namespace AspNet_FilRouge.Controllers
     [Authorize]
     public class OrdersController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext db;
+        private const int PageSize = 10;
 
         public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -18,17 +18,12 @@ namespace AspNet_FilRouge.Controllers
             _userManager = userManager;
         }
 
-        // GET: Orders — affiche les commandes de tous les vendeurs
-        public async Task<IActionResult> Index()
+        // GET: Orders — paginated view (all authenticated users)
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var orders = await _db.Orders
-                .Include(o => o.Seller)
-                .Include(o => o.Customer)
-                .Include(o => o.Shop)
-                .Include(o => o.Bicycles)
-                .OrderByDescending(o => o.Date)
-                .ToListAsync();
-            return View(orders);
+            var orders = db.Orders.AsQueryable();
+            var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, PageSize);
+            return View(paginatedList);
         }
 
         // GET: Orders/Details/5
@@ -45,7 +40,8 @@ namespace AspNet_FilRouge.Controllers
             return View(order);
         }
 
-        // GET: Orders/Create
+        // Create / Edit — admin only
+        [Authorize(Roles = "Administrateur")]
         public IActionResult Create()
         {
             ViewBag.Bicycles = _db.Bicycles.Where(b => b.Order == null).ToList();
@@ -64,9 +60,8 @@ namespace AspNet_FilRouge.Controllers
         // POST: Orders/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-            [Bind("Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order,
-            long? CustomerId, long? ShopId, List<long>? BicycleIds)
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Create([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order, long? BicycleId)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +101,7 @@ namespace AspNet_FilRouge.Controllers
             return View(order);
         }
 
-        // GET: Orders/Edit/5
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null) return BadRequest();
@@ -126,9 +121,8 @@ namespace AspNet_FilRouge.Controllers
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(
-            [Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost,IsValidated")] Order order,
-            long? CustomerId, long? ShopId)
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Edit([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -161,7 +155,8 @@ namespace AspNet_FilRouge.Controllers
             return View(order);
         }
 
-        // GET: Orders/Delete/5
+        // Cancel — admin only (shown as Delete in existing flow)
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null) return BadRequest();
@@ -177,6 +172,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var order = await _db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
