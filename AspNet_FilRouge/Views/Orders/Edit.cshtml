@@ -1,85 +1,182 @@
-﻿@model AspNet_FilRouge.Models.Order
+@model AspNet_FilRouge.Models.Order
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modifier la commande";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Modifier la commande #@Model.IdOrder</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Orders", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.IdOrder)
+
     <div class="form-horizontal">
-        <h4>Order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdOrder)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Date, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PayMode, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PayMode, "Mode de paiement", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PayMode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PayMode, "", new { @class = "text-danger" })
+                <select name="PayMode" class="form-control">
+                    <option value="">— Choisir —</option>
+                    @foreach (var pm in new[] { "Carte bancaire", "Espèces", "Virement", "Chèque" })
+                    {
+                        if (Model.PayMode == pm)
+                        {
+                            <option selected>@pm</option>
+                        }
+                        else
+                        {
+                            <option>@pm</option>
+                        }
+                    }
+                </select>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Client</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                <select name="CustomerId" class="form-control">
+                    <option value="">— Aucun —</option>
+                    @foreach (var c in (List<AspNet_FilRouge.Models.Customer>)ViewBag.Customers)
+                    {
+                        if (Model.Customer?.Id == c.Id)
+                        {
+                            <option value="@c.Id" selected>@c.FirstName @c.LastName</option>
+                        }
+                        else
+                        {
+                            <option value="@c.Id">@c.FirstName @c.LastName</option>
+                        }
+                    }
+                </select>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UseLoyaltyPoint, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Boutique</label>
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.UseLoyaltyPoint)
-                    @Html.ValidationMessageFor(model => model.UseLoyaltyPoint, "", new { @class = "text-danger" })
-                </div>
+                <select name="ShopId" class="form-control">
+                    <option value="">— Aucune —</option>
+                    @foreach (var s in (List<AspNet_FilRouge.Models.Shop>)ViewBag.Shops)
+                    {
+                        if (Model.Shop?.ShopId == s.ShopId)
+                        {
+                            <option value="@s.ShopId" selected>@s.Nameshop</option>
+                        }
+                        else
+                        {
+                            <option value="@s.ShopId">@s.Nameshop</option>
+                        }
+                    }
+                </select>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Tax, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Discount, "Remise (%)", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control price-input", id = "Discount" } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ShippingCost, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Tax, "TVA (%)", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippingCost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShippingCost, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control price-input", id = "Tax" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingCost, "Frais de livraison (€)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShippingCost, new { htmlAttributes = new { @class = "form-control price-input", id = "ShippingCost" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UseLoyaltyPoint, "Points fidélité", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 checkbox" style="padding-top:7px;">
+                @Html.CheckBoxFor(model => model.UseLoyaltyPoint)
+            </div>
+        </div>
+
+        <hr />
+        <h4>Produits actuels</h4>
+        @if (Model.Bicycles != null && Model.Bicycles.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr><th>Référence</th><th>Catégorie</th><th>Prix HT (€)</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in Model.Bicycles)
+                    {
+                        <tr><td>@b.Reference</td><td>@b.Category</td><td>@b.FreeTaxPrice.ToString("F2")</td></tr>
+                    }
+                </tbody>
+            </table>
+            <p class="text-muted small">Pour ajouter/retirer des produits, utilisez la page de détails.</p>
+        }
+
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2">Total estimé</label>
+            <div class="col-md-10">
+                <h3 id="total-price" class="text-success">
+                    @{
+                        float subtotal = Model.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
+                        float afterDiscount = subtotal * (1 - Model.Discount / 100f);
+                        float total = afterDiscount * (1 + Model.Tax / 100f) + Model.ShippingCost;
+                    }
+                    @total.ToString("F2") €
+                </h3>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Enregistrer" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retour à la liste", "Index") |
+    @Html.ActionLink("Voir les détails", "Details", new { id = Model.IdOrder })
 </div>
 
-@section Scripts {
-    // Scripts.Render removed
+@section scripts {
+<script>
+    var bicyclePrices = [@string.Join(",", (Model.Bicycles ?? new List<AspNet_FilRouge.Models.Bicycle>()).Select(b => b.FreeTaxPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)))];
+
+    function recalcTotal() {
+        var subtotal = bicyclePrices.reduce(function(a, b) { return a + b; }, 0);
+        var discount = parseFloat(document.getElementById('Discount')?.value) || 0;
+        var tax      = parseFloat(document.getElementById('Tax')?.value)      || 0;
+        var shipping = parseFloat(document.getElementById('ShippingCost')?.value) || 0;
+
+        var afterDiscount = subtotal * (1 - discount / 100);
+        var withTax       = afterDiscount * (1 + tax / 100);
+        var total         = withTax + shipping;
+
+        document.getElementById('total-price').textContent = total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+    }
+
+    document.querySelectorAll('.price-input').forEach(function(el) {
+        el.addEventListener('change', recalcTotal);
+        el.addEventListener('input',  recalcTotal);
+    });
+</script>
 }

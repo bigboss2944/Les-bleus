@@ -1,67 +1,220 @@
-﻿@model AspNet_FilRouge.Models.Order
+@model AspNet_FilRouge.Models.Order
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Détails commande";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    float subtotal = Model.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
+    float afterDiscount = subtotal * (1 - Model.Discount / 100f);
+    float total = afterDiscount * (1 + Model.Tax / 100f) + Model.ShippingCost;
 }
 
-<h2>Details</h2>
+<h2>Détails commande #@Model.IdOrder</h2>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PayMode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PayMode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UseLoyaltyPoint)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UseLoyaltyPoint)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tax)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tax)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShippingCost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShippingCost)
-        </dd>
-
-    </dl>
+<div id="offline-banner" class="alert alert-warning" style="display:none;">
+    <strong>Mode hors-ligne :</strong> la validation de commande est désactivée.
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Informations</h4>
+        <dl class="dl-horizontal">
+            <dt>Date</dt>
+            <dd>@Model.Date.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt>Vendeur</dt>
+            <dd>@(Model.Seller != null ? $"{Model.Seller.FirstName} {Model.Seller.LastName}" : "—")</dd>
+
+            <dt>Client</dt>
+            <dd>@(Model.Customer != null ? $"{Model.Customer.FirstName} {Model.Customer.LastName}" : "—")</dd>
+
+            <dt>Boutique</dt>
+            <dd>@(Model.Shop?.Nameshop ?? "—")</dd>
+
+            <dt>Mode paiement</dt>
+            <dd>@(Model.PayMode ?? "—")</dd>
+
+            <dt>Remise</dt>
+            <dd>@Model.Discount %</dd>
+
+            <dt>TVA</dt>
+            <dd>@Model.Tax %</dd>
+
+            <dt>Frais de livraison</dt>
+            <dd>@Model.ShippingCost.ToString("F2") €</dd>
+
+            <dt>Points fidélité</dt>
+            <dd>@(Model.UseLoyaltyPoint ? "Oui" : "Non")</dd>
+
+            <dt>Statut</dt>
+            <dd>
+                @if (Model.IsValidated)
+                {
+                    <span class="label label-success">Validée</span>
+                }
+                else
+                {
+                    <span class="label label-default">En cours</span>
+                }
+            </dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Produits</h4>
+        @if (Model.Bicycles != null && Model.Bicycles.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Référence</th>
+                        <th>Catégorie</th>
+                        <th>Marque</th>
+                        <th>Prix HT (€)</th>
+                        @if (!Model.IsValidated)
+                        {
+                            <th>Retirer</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody id="bicycle-list">
+                    @foreach (var b in Model.Bicycles)
+                    {
+                        <tr id="row-@b.Id">
+                            <td>@b.Reference</td>
+                            <td>@b.Category</td>
+                            <td>@b.Brand</td>
+                            <td>@b.FreeTaxPrice.ToString("F2")</td>
+                            @if (!Model.IsValidated)
+                            {
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-danger"
+                                            onclick="removeBicycle(@Model.IdOrder, @b.Id, this)">
+                                        Retirer
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Aucun produit dans cette commande.</p>
+        }
+
+        @if (!Model.IsValidated)
+        {
+            <h5>Ajouter un vélo</h5>
+            <div class="input-group" style="max-width:400px;">
+                <input type="number" id="add-bicycle-id" class="form-control" placeholder="ID du vélo" min="1" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" onclick="addBicycle(@Model.IdOrder)">
+                        Ajouter
+                    </button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h4>Total : <span id="total-price" class="text-success">@total.ToString("F2") €</span></h4>
+    </div>
+</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdOrder }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (!Model.IsValidated)
+    {
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.IdOrder }, new { @class = "btn btn-default" })
+        <text> </text>
+        <button type="button" id="btn-validate" class="btn btn-success"
+                onclick="validateOrder(@Model.IdOrder)">
+            Valider la commande
+        </button>
+        <text> </text>
+    }
+    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-link" })
 </p>
+
+@Html.AntiForgeryToken()
+
+@section scripts {
+<script>
+    var orderId = @Model.IdOrder;
+    var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+
+    // Indicateur mode hors-ligne
+    function updateOnlineStatus() {
+        var offline = !navigator.onLine;
+        document.getElementById('offline-banner').style.display = offline ? 'block' : 'none';
+        var btnValidate = document.getElementById('btn-validate');
+        if (btnValidate) {
+            btnValidate.disabled = offline;
+            btnValidate.title = offline ? 'Validation impossible en mode hors-ligne' : '';
+        }
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    function refreshTotal() {
+        fetch('@Url.Action("GetPrice", "Orders")/' + orderId)
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('total-price').textContent = data.total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+            });
+    }
+
+    function addBicycle(oId) {
+        var bicycleId = document.getElementById('add-bicycle-id').value;
+        if (!bicycleId) { alert('Veuillez saisir un ID de vélo.'); return; }
+        fetch('@Url.Action("AddBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bicycleId, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { alert(data.error); }
+            else { location.reload(); }
+        });
+    }
+
+    function removeBicycle(oId, bId, btn) {
+        if (!confirm('Retirer ce vélo de la commande ?')) return;
+        btn.disabled = true;
+        fetch('@Url.Action("RemoveBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bId, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { alert(data.error); btn.disabled = false; }
+            else {
+                document.getElementById('row-' + bId)?.remove();
+                document.getElementById('total-price').textContent = data.total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+            }
+        });
+    }
+
+    function validateOrder(oId) {
+        if (!navigator.onLine) { alert('Validation impossible en mode hors-ligne.'); return; }
+        if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
+        var btn = document.getElementById('btn-validate');
+        btn.disabled = true;
+        btn.textContent = 'En cours…';
+        fetch('@Url.Action("Validate", "Orders")/' + oId, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { alert(data.error); btn.disabled = false; btn.textContent = 'Valider la commande'; }
+            else { location.reload(); }
+        });
+    }
+</script>
+}

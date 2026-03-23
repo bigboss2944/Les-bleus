@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/Content/site.css" />
 </head>
 <body>
+    <div id="sync-status" class="text-right" style="background:#f5f5f5;padding:2px 15px;font-size:12px;border-bottom:1px solid #ddd;">
+        <span id="online-indicator">🟢 En ligne</span>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #558c2f;">
         <div class="container">
             <div class="navbar-header">
@@ -46,6 +49,23 @@
 
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        // Indicateur de connectivité global
+        function updateGlobalOnlineStatus() {
+            var indicator = document.getElementById('online-indicator');
+            if (!indicator) return;
+            if (navigator.onLine) {
+                indicator.textContent = '🟢 En ligne';
+                indicator.style.color = 'green';
+            } else {
+                indicator.textContent = '🔴 Hors-ligne — validation de commande désactivée';
+                indicator.style.color = 'red';
+            }
+        }
+        window.addEventListener('online',  updateGlobalOnlineStatus);
+        window.addEventListener('offline', updateGlobalOnlineStatus);
+        updateGlobalOnlineStatus();
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
