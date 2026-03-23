@@ -72,10 +72,6 @@
       <Project>{17CC17D6-224B-4576-91BC-0CB58DA6ED48}</Project>
       <Name>Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{2DAA9DAA-722D-4469-A6ED-A37661F8A737}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

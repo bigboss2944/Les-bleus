@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using AspNet_FilRouge.Models;
-using Entities;
+
 
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;

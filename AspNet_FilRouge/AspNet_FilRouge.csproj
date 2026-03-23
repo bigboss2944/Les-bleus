@@ -194,10 +194,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005040903341_InitialCreate.cs" />
+    <Compile Include="Migrations\202005040903341_InitialCreate.designer.cs">
+      <DependentUpon>202005040903341_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Bicycle.cs" />
+    <Compile Include="Models\BicyleCharacteristics.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\Seller.cs" />
+    <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -302,10 +315,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{2daa9daa-722d-4469-a6ed-a37661f8a737}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\202005040903341_InitialCreate.resx">
+      <DependentUpon>202005040903341_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
