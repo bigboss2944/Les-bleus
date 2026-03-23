@@ -1,0 +1,44 @@
+@{
+    ViewBag.Title = "Tableau de bord Vendeur";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-md-3 col-lg-2">
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <h3>Espace Vendeur</h3>
+                    <br />
+                    <p><a href="/Bicycles/Index" class="btn btn-primary btn-lg btn-block">Stock &raquo;</a></p>
+                    <br />
+                    <p><a href="/Orders/Index" class="btn btn-primary btn-lg btn-block">Commandes &raquo;</a></p>
+                    <br />
+                    <p><a href="/StockRequests/Index" class="btn btn-success btn-lg btn-block">Demandes de stock &raquo;</a></p>
+                    @if (User.IsInRole("Administrateur"))
+                    {
+                        <br />
+                        <p><a href="/Sellers/Index" class="btn btn-warning btn-lg btn-block">Vendeurs &raquo;</a></p>
+                        <br />
+                        <p><a href="/Role/Index" class="btn btn-danger btn-lg btn-block">Rôles &raquo;</a></p>
+                    }
+                }
+                else
+                {
+                    <div style="text-align:center">
+                        <br />
+                        <h2>Espace</h2>
+                        <h2>Vendeur</h2>
+                    </div>
+                }
+            </div>
+            <div class="col-xs-2 col-md-9 col-lg-10">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video controls>
+                        <source src="../Pictures/bike.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
