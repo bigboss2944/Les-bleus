@@ -53,4 +53,36 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Seed roles and default admin
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    string[] roles = { "Administrateur", "Vendeur" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new ApplicationRole(role));
+    }
+
+    // Create default administrator account
+    const string adminEmail = "admin@lesbleus.fr";
+    var admin = await userManager.FindByEmailAsync(adminEmail);
+    if (admin == null)
+    {
+        admin = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            FirstName = "Admin",
+            LastName = "Principal",
+            EmailConfirmed = true
+        };
+        var result = await userManager.CreateAsync(admin, "Admin@123!");
+        if (result.Succeeded)
+            await userManager.AddToRoleAsync(admin, "Administrateur");
+    }
+}
+
 app.Run();
