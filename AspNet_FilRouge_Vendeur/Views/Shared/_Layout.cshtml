@@ -4,12 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Les Bleus</title>
+    <title>@ViewBag.Title - Les Bleus - Vendeur</title>
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
     <link rel="stylesheet" href="~/Content/Site.css" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #1a5276;">
+    <div id="sync-status" class="text-right" style="background:#f5f5f5;padding:2px 15px;font-size:12px;border-bottom:1px solid #ddd;">
+        <span id="online-indicator">🟢 En ligne</span>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #2f558c;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,9 +27,14 @@
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Catalogue", "Index", "Bicycles")</li>
-                        <li>@Html.ActionLink("Mes commandes", "Index", "Orders")</li>
-                        <li>@Html.ActionLink("Mon compte", "Index", "Customers")</li>
+                        <li>@Html.ActionLink("Stock", "Index", "Bicycles")</li>
+                        <li>@Html.ActionLink("Commandes", "Index", "Orders")</li>
+                        <li>@Html.ActionLink("Demandes de stock", "Index", "StockRequests")</li>
+                        @if (User.IsInRole("Administrateur"))
+                        {
+                            <li>@Html.ActionLink("Vendeurs", "Index", "Sellers")</li>
+                            <li>@Html.ActionLink("Rôles", "Index", "Role")</li>
+                        }
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -50,6 +58,23 @@
 
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        // Indicateur de connectivité global
+        function updateGlobalOnlineStatus() {
+            var indicator = document.getElementById('online-indicator');
+            if (!indicator) return;
+            if (navigator.onLine) {
+                indicator.textContent = '🟢 En ligne';
+                indicator.style.color = 'green';
+            } else {
+                indicator.textContent = '🔴 Hors-ligne — validation de commande désactivée';
+                indicator.style.color = 'red';
+            }
+        }
+        window.addEventListener('online',  updateGlobalOnlineStatus);
+        window.addEventListener('offline', updateGlobalOnlineStatus);
+        updateGlobalOnlineStatus();
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
