@@ -240,7 +240,7 @@ jobs:
             // Mettre à jour la première issue (EPIC) avec les liens vers les sous-issues
             if (createdIssues.length > 1) {
               const epicIssue = createdIssues[0];
-              const subIssueLinks = createdIssues.slice(1).map(i => `- [x] #${i.number} — ${i.title}`).join('\n');
+              const subIssueLinks = createdIssues.slice(1).map(i => `- [ ] #${i.number} — ${i.title}`).join('\n');
               const epicBody = `## Description
             Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
             - Application **Librairie** (bibliothèque partagée)
