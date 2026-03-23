@@ -1,50 +1,41 @@
-# =============================================================================
-# Dockerfile multi-stage pour l'API ASP.NET (AspNet_FilRouge)
-# Basé sur .NET Framework 4.7.2 - Nécessite des conteneurs Windows
-# =============================================================================
-# IMPORTANT : Cette image nécessite des conteneurs Windows (Windows Containers).
-# Le framework .NET 4.7.2 classique ne supporte pas Linux/ARM.
-# Pour un déploiement sur Raspberry Pi (ARM), une migration vers
-# ASP.NET Core (.NET 8+) est requise.
-# =============================================================================
+# ============================================================================
+# Dockerfile multi-stage pour une API ASP.NET Core (.NET 10) - Linux Containers
+# ============================================================================
 
-# -----------------------------------------------------------------------------
-# Stage 1 : Build
-# -----------------------------------------------------------------------------
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
-
+# ----------------------------------------------------------------------------
+# Stage 1 : Build / Publish
+# ----------------------------------------------------------------------------
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copier les fichiers de configuration NuGet pour optimiser le cache des layers
-COPY FilRouge.sln .
-COPY AspNet_FilRouge/packages.config AspNet_FilRouge/
+# Chemin du projet ASP.NET Core (.NET 10)
+ARG API_PROJECT="AspNet_FilRouge/AspNet_FilRouge.csproj"
 
-# Restaurer les packages NuGet
-RUN nuget restore FilRouge.sln
+# Copier uniquement les fichiers solution/projet d'abord (optimise le cache)
+COPY *.sln ./
+COPY AspNet_FilRouge/*.csproj AspNet_FilRouge/
 
-# Copier les sources et compiler en mode Release
+# Restaurer les dépendances
+RUN dotnet restore "$API_PROJECT"
+
+# Copier le reste du code
 COPY . .
-RUN msbuild AspNet_FilRouge\AspNet_FilRouge.csproj /p:Configuration=Release /p:OutputPath=bin
 
-# -----------------------------------------------------------------------------
-# Stage 2 : Runtime (IIS + ASP.NET 4.7.2)
-# -----------------------------------------------------------------------------
-FROM mcr.microsoft.com/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2022 AS runtime
+# Publier en Release
+RUN dotnet publish "$API_PROJECT" -c Release -o /app/publish /p:UseAppHost=false
 
-WORKDIR /inetpub/wwwroot
+# ----------------------------------------------------------------------------
+# Stage 2 : Runtime
+# ----------------------------------------------------------------------------
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
 
-# Copier les DLLs compilées et les dépendances
-COPY --from=build /src/AspNet_FilRouge/bin ./bin
+# Copier l'output publié
+COPY --from=build /app/publish .
 
-# Copier les fichiers web (vues, contenu statique, configuration)
-COPY --from=build /src/AspNet_FilRouge/Views ./Views
-COPY --from=build /src/AspNet_FilRouge/Content ./Content
-COPY --from=build /src/AspNet_FilRouge/Scripts ./Scripts
-COPY --from=build /src/AspNet_FilRouge/Pictures ./Pictures
-COPY --from=build /src/AspNet_FilRouge/Web.config .
-COPY --from=build /src/AspNet_FilRouge/Web.Release.config .
-COPY --from=build /src/AspNet_FilRouge/Global.asax .
-COPY --from=build /src/AspNet_FilRouge/favicon.ico .
+# Exposer le port HTTP (Kestrel)
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
-# Exposer le port HTTP
-EXPOSE 80
+# Démarrer l'application
+ENTRYPOINT ["dotnet", "AspNet_FilRouge.dll"]
