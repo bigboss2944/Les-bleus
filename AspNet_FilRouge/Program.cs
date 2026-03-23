@@ -1,4 +1,5 @@
 using AspNet_FilRouge.Models;
+using AspNet_FilRouge.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -44,6 +45,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
+
+// Service de base de données locale SQLite (sans Entity Framework)
+builder.Services.AddSingleton<LocalDbService>();
+
+// Antiforgery : accepter le jeton depuis l'en-tête HTTP (pour les requêtes AJAX)
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "RequestVerificationToken";
+});
 
 var app = builder.Build();
 
