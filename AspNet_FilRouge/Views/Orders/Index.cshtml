@@ -9,11 +9,11 @@
 
 <table class="table table-striped">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.First().Date)</th>
-        <th>@Html.DisplayNameFor(model => model.First().PayMode)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Discount)</th>
-        <th>@Html.DisplayNameFor(model => model.First().Tax)</th>
-        <th>@Html.DisplayNameFor(model => model.First().ShippingCost)</th>
+        <th>Date</th>
+        <th>Mode de paiement</th>
+        <th>Remise</th>
+        <th>Taxe</th>
+        <th>Frais de livraison</th>
         @if (User.IsInRole("Administrateur"))
         {
             <th>Actions</th>
@@ -44,7 +44,7 @@
     <nav>
         <ul class="pagination">
             <li class="@(!Model.HasPreviousPage ? "disabled" : "")">
-                <a href="@Url.Action("Index", new { page = Model.PageIndex - 1 })">«</a>
+                <a href="@(Model.HasPreviousPage ? Url.Action("Index", new { page = Model.PageIndex - 1 }) : "#")">«</a>
             </li>
             @for (int i = 1; i <= Model.TotalPages; i++)
             {
@@ -53,7 +53,7 @@
                 </li>
             }
             <li class="@(!Model.HasNextPage ? "disabled" : "")">
-                <a href="@Url.Action("Index", new { page = Model.PageIndex + 1 })">»</a>
+                <a href="@(Model.HasNextPage ? Url.Action("Index", new { page = Model.PageIndex + 1 }) : "#")">»</a>
             </li>
         </ul>
     </nav>
