@@ -1,0 +1,188 @@
+@model AspNet_FilRouge_Vendeur.Models.Order
+
+@{
+    ViewBag.Title = "Nouvelle commande";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nouvelle commande</h2>
+
+<div id="offline-banner" class="alert alert-warning" style="display:none;">
+    <strong>Mode hors-ligne :</strong> la validation de commande sera désactivée. Reconnectez-vous pour valider.
+</div>
+
+@using (Html.BeginForm("Create", "Orders", FormMethod.Post, new { id = "order-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Informations commande</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PayMode, "Mode de paiement", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="PayMode" class="form-control">
+                    <option value="">— Choisir —</option>
+                    <option>Carte bancaire</option>
+                    <option>Espèces</option>
+                    <option>Virement</option>
+                    <option>Chèque</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Client</label>
+            <div class="col-md-10">
+                <select name="CustomerId" class="form-control">
+                    <option value="">— Aucun —</option>
+                    @foreach (var c in (List<AspNet_FilRouge_Vendeur.Models.Customer>)ViewBag.Customers)
+                    {
+                        <option value="@c.Id">@c.FirstName @c.LastName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Boutique</label>
+            <div class="col-md-10">
+                <select name="ShopId" class="form-control">
+                    <option value="">— Aucune —</option>
+                    @foreach (var s in (List<AspNet_FilRouge_Vendeur.Models.Shop>)ViewBag.Shops)
+                    {
+                        <option value="@s.ShopId">@s.Nameshop</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Discount, "Remise (%)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control price-input", id = "Discount" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tax, "TVA (%)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control price-input", id = "Tax" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingCost, "Frais de livraison (€)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShippingCost, new { htmlAttributes = new { @class = "form-control price-input", id = "ShippingCost" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UseLoyaltyPoint, "Points fidélité", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 checkbox" style="padding-top:7px;">
+                @Html.CheckBoxFor(model => model.UseLoyaltyPoint)
+            </div>
+        </div>
+
+        <hr />
+        <h4>Produits (vélos)</h4>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <table class="table table-bordered" id="bicycle-table">
+                    <thead>
+                        <tr>
+                            <th>Référence</th>
+                            <th>Catégorie</th>
+                            <th>Marque</th>
+                            <th>Prix HT (€)</th>
+                            <th>Ajouter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var b in (List<AspNet_FilRouge_Vendeur.Models.Bicycle>)ViewBag.Bicycles)
+                        {
+                            <tr>
+                                <td>@b.Reference</td>
+                                <td>@b.Category</td>
+                                <td>@b.Brand</td>
+                                <td>@b.FreeTaxPrice.ToString("F2")</td>
+                                <td>
+                                    <input type="checkbox" name="BicycleIds" value="@b.Id"
+                                           class="bicycle-check"
+                                           data-price="@b.FreeTaxPrice" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2">Total estimé</label>
+            <div class="col-md-10">
+                <h3 id="total-price" class="text-success">0,00 €</h3>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Créer la commande" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+@section scripts {
+<script>
+    // Indicateur mode hors-ligne
+    function updateOnlineStatus() {
+        document.getElementById('offline-banner').style.display = navigator.onLine ? 'none' : 'block';
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    // Calcul en temps réel du prix total
+    function recalcTotal() {
+        var subtotal = 0;
+        document.querySelectorAll('.bicycle-check:checked').forEach(function(cb) {
+            subtotal += parseFloat(cb.dataset.price) || 0;
+        });
+
+        var discount  = parseFloat(document.getElementById('Discount')?.value)     || 0;
+        var tax       = parseFloat(document.getElementById('Tax')?.value)           || 0;
+        var shipping  = parseFloat(document.getElementById('ShippingCost')?.value)  || 0;
+
+        var afterDiscount = subtotal * (1 - discount / 100);
+        var withTax       = afterDiscount * (1 + tax / 100);
+        var total         = withTax + shipping;
+
+        document.getElementById('total-price').textContent = total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+    }
+
+    document.querySelectorAll('.bicycle-check, .price-input').forEach(function(el) {
+        el.addEventListener('change', recalcTotal);
+        el.addEventListener('input',  recalcTotal);
+    });
+
+    recalcTotal();
+</script>
+}
