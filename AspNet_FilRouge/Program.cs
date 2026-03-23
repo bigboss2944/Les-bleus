@@ -172,17 +172,21 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services)
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-    const string adminRole = "Admin";
+    const string adminRole = "Administrateur";
+    const string vendeurRole = "Vendeur";
     const string adminUserName = "admin";
     const string adminEmail = "admin@filrouge.local";
     const string adminPassword = "Admin!234";
 
-    if (!await roleManager.RoleExistsAsync(adminRole))
+    foreach (var roleName in new[] { adminRole, vendeurRole })
     {
-        var roleResult = await roleManager.CreateAsync(new ApplicationRole(adminRole));
-        if (!roleResult.Succeeded)
+        if (!await roleManager.RoleExistsAsync(roleName))
         {
-            throw new InvalidOperationException("Unable to create Admin role.");
+            var roleResult = await roleManager.CreateAsync(new ApplicationRole(roleName));
+            if (!roleResult.Succeeded)
+            {
+                throw new InvalidOperationException($"Unable to create {roleName} role.");
+            }
         }
     }
 
@@ -210,7 +214,7 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services)
         var addToRoleResult = await userManager.AddToRoleAsync(adminUser, adminRole);
         if (!addToRoleResult.Succeeded)
         {
-            throw new InvalidOperationException("Unable to assign Admin role to default user.");
+            throw new InvalidOperationException("Unable to assign Administrateur role to default user.");
         }
     }
 }

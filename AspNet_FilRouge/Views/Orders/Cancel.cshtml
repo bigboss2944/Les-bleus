@@ -1,0 +1,50 @@
+@model AspNet_FilRouge.Models.Order
+
+@{
+    ViewBag.Title = "Annuler la commande";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Annuler la commande</h2>
+
+<h3>Êtes-vous sûr de vouloir annuler cette commande ?</h3>
+<div>
+    <h4>Commande</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Date)</dd>
+
+        <dt class="col-sm-3">Mode de paiement</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.PayMode)</dd>
+
+        <dt class="col-sm-3">Remise (%)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Discount)</dd>
+
+        <dt class="col-sm-3">Taxe (%)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Tax)</dd>
+
+        <dt class="col-sm-3">Frais de livraison</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.ShippingCost)</dd>
+
+        @if (Model.Seller != null)
+        {
+            <dt class="col-sm-3">Vendeur</dt>
+            <dd class="col-sm-9">@Model.Seller.LastName @Model.Seller.FirstName</dd>
+        }
+        @if (Model.Customer != null)
+        {
+            <dt class="col-sm-3">Client</dt>
+            <dd class="col-sm-9">@Model.Customer.LastName @Model.Customer.FirstName</dd>
+        }
+    </dl>
+
+    @using (Html.BeginForm("Cancel", "Orders", new { id = Model.IdOrder }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <input type="submit" value="Confirmer l'annulation" class="btn btn-danger" />
+            @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-secondary ms-2" })
+        </div>
+    }
+</div>
