@@ -46,6 +46,9 @@ AspNet_FilRouge/App_Data/
 *.log
 *.mdf
 *.ldf
+*.db
+*.db-shm
+*.db-wal
 
 # UWP / WinUI packaging artifacts
 AppPackages/
