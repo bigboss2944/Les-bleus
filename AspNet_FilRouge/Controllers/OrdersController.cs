@@ -41,6 +41,35 @@ namespace AspNet_FilRouge.Controllers
             return View(order);
         }
 
+        // GET: Orders/Cancel/5 — confirmation d'annulation (admin uniquement)
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Cancel(long? id)
+        {
+            if (id == null) return BadRequest();
+            var order = await db.Orders
+                .Include(o => o.Seller)
+                .Include(o => o.Customer)
+                .Include(o => o.Bicycles)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            if (order == null) return NotFound();
+            return View(order);
+        }
+
+        // POST: Orders/Cancel/5 — annule (supprime) la commande (admin uniquement)
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> CancelConfirmed(long id)
+        {
+            var order = await db.Orders.FindAsync(id);
+            if (order != null)
+            {
+                db.Orders.Remove(order);
+                await db.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
         // GET: Orders/GetPrice/5 — calcule le prix total d'une commande
         [HttpGet]
         public async Task<IActionResult> GetPrice(long id)
