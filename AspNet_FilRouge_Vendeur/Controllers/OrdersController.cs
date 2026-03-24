@@ -50,7 +50,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             return View(order);
         }
 
-        // Create / Edit — accessible to admins and vendors
+        // Create — vendeurs et administrateurs
         [Authorize(Roles = "Administrateur,Vendeur")]
         public IActionResult Create()
         {
