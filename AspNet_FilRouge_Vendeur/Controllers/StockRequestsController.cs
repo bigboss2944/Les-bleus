@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge_Vendeur.Models;
 using AspNet_FilRouge_Vendeur.Services;
@@ -21,6 +22,17 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             _localDb = localDb;
         }
 
+        private async Task PopulateBicycleNamesViewBagAsync()
+        {
+            var bicycleTypes = await db.Bicycles
+                .Select(b => b.TypeOfBike)
+                .Where(t => t != null)
+                .Distinct()
+                .OrderBy(t => t)
+                .ToListAsync();
+            ViewBag.BicycleNames = new SelectList(bicycleTypes);
+        }
+
         // GET: StockRequests — all authenticated users
         public async Task<IActionResult> Index()
         {
@@ -33,8 +45,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
         // GET: StockRequests/Create — sellers only
         [Authorize(Roles = "Vendeur")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await PopulateBicycleNamesViewBagAsync();
             return View();
         }
 
@@ -57,6 +70,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
                 return RedirectToAction("Index");
             }
+            await PopulateBicycleNamesViewBagAsync();
             return View(stockRequest);
         }
 
@@ -98,3 +112,4 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         }
     }
 }
+
