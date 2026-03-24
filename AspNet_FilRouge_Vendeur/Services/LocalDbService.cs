@@ -95,6 +95,18 @@ namespace AspNet_FilRouge_Vendeur.Services
                     FirstName TEXT NULL,
                     SyncedAt TEXT NULL
                 )");
+
+            ExecuteNonQuery(db, @"
+                CREATE TABLE IF NOT EXISTS StockRequests (
+                    Id INTEGER PRIMARY KEY,
+                    BicycleName TEXT NOT NULL,
+                    Quantity INTEGER NOT NULL,
+                    RequestDate TEXT NOT NULL,
+                    Status TEXT NOT NULL,
+                    RequestedById TEXT NULL,
+                    Notes TEXT NULL,
+                    SyncedAt TEXT NULL
+                )");
         }
 
         private SqliteConnection OpenConnection()
@@ -292,6 +304,52 @@ namespace AspNet_FilRouge_Vendeur.Services
             cmd.Parameters.AddWithValue("@Gender", (object?)customer.Gender ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@LastName", (object?)customer.LastName ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@FirstName", (object?)customer.FirstName ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@SyncedAt", DateTime.UtcNow.ToString("o"));
+            cmd.ExecuteNonQuery();
+        }
+
+        // ── StockRequests ─────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Écrit toutes les demandes de stock dans la base locale.
+        /// </summary>
+        public async Task BulkUpsertStockRequestsAsync(IEnumerable<Models.StockRequest> requests)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var tx = db.BeginTransaction();
+
+                foreach (var request in requests)
+                    ExecuteUpsertStockRequest(request, db, tx);
+
+                tx.Commit();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
+        private static void ExecuteUpsertStockRequest(Models.StockRequest request, SqliteConnection db, SqliteTransaction tx)
+        {
+            using var cmd = new SqliteCommand(@"
+                INSERT INTO StockRequests (Id, BicycleName, Quantity, RequestDate, Status, RequestedById, Notes, SyncedAt)
+                VALUES (@Id, @BicycleName, @Quantity, @RequestDate, @Status, @RequestedById, @Notes, @SyncedAt)
+                ON CONFLICT(Id) DO UPDATE SET
+                    BicycleName=excluded.BicycleName, Quantity=excluded.Quantity,
+                    RequestDate=excluded.RequestDate, Status=excluded.Status,
+                    RequestedById=excluded.RequestedById, Notes=excluded.Notes,
+                    SyncedAt=excluded.SyncedAt", db, tx);
+
+            cmd.Parameters.AddWithValue("@Id", request.Id);
+            cmd.Parameters.AddWithValue("@BicycleName", request.BicycleName ?? throw new InvalidOperationException($"BicycleName ne peut pas être null pour la demande Id={request.Id}."));
+            cmd.Parameters.AddWithValue("@Quantity", request.Quantity);
+            cmd.Parameters.AddWithValue("@RequestDate", request.RequestDate.ToString("o"));
+            cmd.Parameters.AddWithValue("@Status", request.Status);
+            cmd.Parameters.AddWithValue("@RequestedById", (object?)request.RequestedById ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@Notes", (object?)request.Notes ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@SyncedAt", DateTime.UtcNow.ToString("o"));
             cmd.ExecuteNonQuery();
         }
