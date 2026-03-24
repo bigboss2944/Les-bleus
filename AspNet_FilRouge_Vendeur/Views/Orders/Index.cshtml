@@ -7,6 +7,17 @@
 
 <h2>Commandes</h2>
 
+<div id="offline-banner" class="alert alert-warning" style="display:none;">
+    <strong>Mode hors-ligne :</strong> la validation de commande est désactivée. Reconnectez-vous pour valider.
+</div>
+
+<div class="mb-3">
+    @if (User.IsInRole("Administrateur") || User.IsInRole("Vendeur"))
+    {
+        @Html.ActionLink("+ Nouvelle commande", "Create", null, new { @class = "btn btn-success" })
+    }
+</div>
+
 <form method="get" action="@Url.Action("Index", "Orders")" class="mb-3">
     <div class="row g-2 align-items-end">
         <div class="col-auto">
@@ -44,6 +55,7 @@
         <th>Remise</th>
         <th>Taxe</th>
         <th>Frais de livraison</th>
+        <th>Statut</th>
         <th>Actions</th>
     </tr>
 
@@ -57,7 +69,25 @@
             <td>@Html.DisplayFor(modelItem => item.Tax)</td>
             <td>@Html.DisplayFor(modelItem => item.ShippingCost)</td>
             <td>
+                @if (item.IsValidated)
+                {
+                    <span class="badge bg-success">Validée</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">En cours</span>
+                }
+            </td>
+            <td>
                 @Html.ActionLink("Détails", "Details", new { id = item.IdOrder })
+                @if (!item.IsValidated)
+                {
+                    @:|
+                    <button type="button" class="btn btn-sm btn-success btn-validate"
+                            onclick="validateOrder(@item.IdOrder, this)">
+                        Valider
+                    </button>
+                }
                 @if (User.IsInRole("Administrateur"))
                 {
                     @:|
