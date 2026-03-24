@@ -122,10 +122,10 @@ namespace AspNet_FilRouge.Services
         /// de fond et les requêtes HTTP simultanées.
         /// </summary>
         public async Task BulkUpsertAllAsync(
-            IEnumerable<Models.Order> orders,
-            IEnumerable<Models.Bicycle> bicycles,
-            IEnumerable<Models.Seller> sellers,
-            IEnumerable<Models.Customer> customers)
+            IEnumerable<Order> orders,
+            IEnumerable<Bicycle> bicycles,
+            IEnumerable<Seller> sellers,
+            IEnumerable<Customer> customers)
         {
             await _writeLock.WaitAsync();
             try
@@ -155,7 +155,7 @@ namespace AspNet_FilRouge.Services
 
         // ── Orders ────────────────────────────────────────────────────────────
 
-        private static void ExecuteUpsertOrder(Models.Order order, SqliteConnection db, SqliteTransaction tx)
+        private static void ExecuteUpsertOrder(Order order, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Orders (IdOrder, Date, PayMode, Discount, UseLoyaltyPoint, Tax, ShippingCost, IsValidated,
@@ -209,7 +209,7 @@ namespace AspNet_FilRouge.Services
 
         // ── Bicycles ──────────────────────────────────────────────────────────
 
-        private static void ExecuteUpsertBicycle(Models.Bicycle bicycle, SqliteConnection db, SqliteTransaction tx)
+        private static void ExecuteUpsertBicycle(Bicycle bicycle, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Bicycles (Id, TypeOfBike, Category, Reference, FreeTaxPrice, Exchangeable, Insurance,
@@ -252,7 +252,7 @@ namespace AspNet_FilRouge.Services
 
         // ── Sellers ───────────────────────────────────────────────────────────
 
-        private static void ExecuteUpsertSeller(Models.Seller seller, SqliteConnection db, SqliteTransaction tx)
+        private static void ExecuteUpsertSeller(Seller seller, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Sellers (Id, LastName, FirstName, Email, SyncedAt)
@@ -271,7 +271,7 @@ namespace AspNet_FilRouge.Services
 
         // ── Customers ─────────────────────────────────────────────────────────
 
-        private static void ExecuteUpsertCustomer(Models.Customer customer, SqliteConnection db, SqliteTransaction tx)
+        private static void ExecuteUpsertCustomer(Customer customer, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Customers (Id, Town, PostalCode, Address, LoyaltyPoints, Phone, Email, Gender, LastName, FirstName, SyncedAt)

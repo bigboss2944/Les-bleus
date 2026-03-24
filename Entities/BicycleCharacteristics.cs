@@ -1,4 +1,4 @@
-namespace AspNet_FilRouge_Vendeur.Models
+namespace Entities
 {
     public class BicycleCharacteristics
     {

@@ -1,10 +1,10 @@
-using VendeurModels = AspNet_FilRouge_Vendeur.Models;
+using Entities;
 
 namespace LesBleus.Tests.Unit.BusinessLogic;
 
 public class OrderPriceCalculationTests
 {
-    private static float CalculateTotal(VendeurModels.Order order)
+    private static float CalculateTotal(Order order)
     {
         float subtotal = order.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
         float afterDiscount = subtotal * (1 - order.Discount / 100f);
@@ -15,7 +15,7 @@ public class OrderPriceCalculationTests
     [Fact]
     public void EmptyOrder_TotalEqualsShippingCostOnly()
     {
-        var order = new VendeurModels.Order { ShippingCost = 15f };
+        var order = new Order { ShippingCost = 15f };
 
         var total = CalculateTotal(order);
 
@@ -25,9 +25,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void SingleBicycle_NoDiscountNoTax_TotalIsPricePlusShipping()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 500f } },
+            Bicycles = new List<Bicycle> { new() { FreeTaxPrice = 500f } },
             Discount = 0f,
             Tax = 0f,
             ShippingCost = 20f
@@ -41,9 +41,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void Bicycle_WithTenPercentDiscount_SubtotalReduced()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 200f } },
+            Bicycles = new List<Bicycle> { new() { FreeTaxPrice = 200f } },
             Discount = 10f,
             Tax = 0f,
             ShippingCost = 0f
@@ -58,9 +58,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void Bicycle_WithTwentyPercentTax_WithTaxIncreased()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 100f } },
+            Bicycles = new List<Bicycle> { new() { FreeTaxPrice = 100f } },
             Discount = 0f,
             Tax = 20f,
             ShippingCost = 0f
@@ -75,9 +75,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void Bicycle_WithDiscountAndTax_CorrectTotal()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 200f } },
+            Bicycles = new List<Bicycle> { new() { FreeTaxPrice = 200f } },
             Discount = 10f,
             Tax = 20f,
             ShippingCost = 10f
@@ -92,9 +92,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void MultipleBicycles_TotalSumsAllPrices()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle>
+            Bicycles = new List<Bicycle>
             {
                 new() { FreeTaxPrice = 100f },
                 new() { FreeTaxPrice = 200f },
@@ -113,9 +113,9 @@ public class OrderPriceCalculationTests
     [Fact]
     public void Order_WithLoyaltyPointFlag_DoesNotAffectTotal()
     {
-        var order = new VendeurModels.Order
+        var order = new Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 300f } },
+            Bicycles = new List<Bicycle> { new() { FreeTaxPrice = 300f } },
             Discount = 0f,
             Tax = 0f,
             ShippingCost = 0f,

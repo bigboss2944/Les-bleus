@@ -1,4 +1,4 @@
-@model AspNet_FilRouge_Vendeur.Models.Order
+@model Entities.Order
 
 @{
     ViewBag.Title = "Nouvelle commande";
@@ -46,7 +46,7 @@
             <div class="col-md-10">
                 <select name="CustomerId" class="form-control">
                     <option value="">— Aucun —</option>
-                    @foreach (var c in (List<AspNet_FilRouge_Vendeur.Models.Customer>)ViewBag.Customers)
+                    @foreach (var c in (List<Entities.Customer>)ViewBag.Customers)
                     {
                         <option value="@c.Id">@c.FirstName @c.LastName</option>
                     }
@@ -59,7 +59,7 @@
             <div class="col-md-10">
                 <select name="ShopId" class="form-control">
                     <option value="">— Aucune —</option>
-                    @foreach (var s in (List<AspNet_FilRouge_Vendeur.Models.Shop>)ViewBag.Shops)
+                    @foreach (var s in (List<Entities.Shop>)ViewBag.Shops)
                     {
                         <option value="@s.ShopId">@s.Nameshop</option>
                     }
@@ -113,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var b in (List<AspNet_FilRouge_Vendeur.Models.Bicycle>)ViewBag.Bicycles)
+                        @foreach (var b in (List<Entities.Bicycle>)ViewBag.Bicycles)
                         {
                             <tr>
                                 <td>@b.Reference</td>
