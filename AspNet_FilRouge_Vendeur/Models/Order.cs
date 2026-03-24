@@ -9,6 +9,7 @@ namespace AspNet_FilRouge_Vendeur.Models
         #region Attributs
         private long idOrder;
         private List<Bicycle> bicycles = new();
+        private List<OrderLine> orderLines = new();
         private Seller? seller;
         private Customer? customer;
         private DateTime date;
@@ -26,6 +27,7 @@ namespace AspNet_FilRouge_Vendeur.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IdOrder { get { return idOrder; } set { idOrder = value; } }
         public List<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
+        public List<OrderLine> OrderLines { get { return orderLines; } set { orderLines = value; } }
         public Seller? Seller { get { return seller; } set { seller = value; } }
         public Customer? Customer { get { return customer; } set { customer = value; } }
         public DateTime Date { get { return date; } set { date = value; } }
@@ -42,6 +44,7 @@ namespace AspNet_FilRouge_Vendeur.Models
         public Order()
         {
             this.Bicycles = new List<Bicycle>();
+            this.OrderLines = new List<OrderLine>();
         }
         #endregion
 

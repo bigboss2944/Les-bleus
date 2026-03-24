@@ -67,6 +67,10 @@ namespace AspNet_FilRouge.Models
         public DbSet<Shop> Shops { get; set; }
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
         public DbSet<StockRequest> StockRequests { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<PhysicalProduct> PhysicalProducts { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -80,6 +84,33 @@ namespace AspNet_FilRouge.Models
             modelBuilder.Entity<Shop>().HasMany(s => s.Sellers).WithOne(s => s.Shop).IsRequired(false);
             modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithOne(s => s.Shop).IsRequired(false);
             modelBuilder.Entity<Shop>().HasMany(s => s.Bicycles).WithOne(b => b.Shop).IsRequired(false);
+
+            modelBuilder.Entity<ProductType>()
+                .HasDiscriminator<string>("ProductTypeDiscriminator")
+                .HasValue<ProductType>("ProductType")
+                .HasValue<DeliverableProduct>("DeliverableProduct")
+                .HasValue<InsuredProduct>("InsuredProduct")
+                .HasValue<ExchangeableProduct>("ExchangeableProduct");
+
+            modelBuilder.Entity<PhysicalProduct>().HasMany(p => p.ProductTypes).WithMany();
+
+            modelBuilder.Entity<Stock>()
+                .HasOne(s => s.ProductType)
+                .WithOne()
+                .HasForeignKey<Stock>(s => s.ProductTypeId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.Order)
+                .WithMany(o => o.OrderLines)
+                .HasForeignKey(ol => ol.OrderId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.ProductType)
+                .WithMany()
+                .HasForeignKey(ol => ol.ProductTypeId)
+                .IsRequired(false);
         }
     }
 }
