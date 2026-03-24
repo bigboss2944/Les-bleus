@@ -9,6 +9,10 @@ namespace Entities
         public DbSet<Seller> Sellers { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Shop> Shops { get; set; } = null!;
+        public DbSet<ProductType> ProductTypes { get; set; } = null!;
+        public DbSet<PhysicalProduct> PhysicalProducts { get; set; } = null!;
+        public DbSet<Stock> Stocks { get; set; } = null!;
+        public DbSet<OrderLine> OrderLines { get; set; } = null!;
 
         public EntitiesContext() : base()
         {
@@ -34,6 +38,33 @@ namespace Entities
             modelBuilder.Entity<Customer>().HasMany(c => c.Orders).WithOne(o => o.Customer).IsRequired(false);
             modelBuilder.Entity<Customer>().HasOne(c => c.Shop).WithMany(s => s.Customers).IsRequired(false);
             modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithOne(s => s.Shop).IsRequired(false);
+
+            modelBuilder.Entity<ProductType>()
+                .HasDiscriminator<string>("ProductTypeDiscriminator")
+                .HasValue<ProductType>("ProductType")
+                .HasValue<DeliverableProduct>("DeliverableProduct")
+                .HasValue<InsuredProduct>("InsuredProduct")
+                .HasValue<ExchangeableProduct>("ExchangeableProduct");
+
+            modelBuilder.Entity<PhysicalProduct>().HasMany(p => p.ProductTypes).WithMany();
+
+            modelBuilder.Entity<Stock>()
+                .HasOne(s => s.ProductType)
+                .WithOne()
+                .HasForeignKey<Stock>(s => s.ProductTypeId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.Order)
+                .WithMany(o => o.OrderLines)
+                .HasForeignKey(ol => ol.OrderId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.ProductType)
+                .WithMany()
+                .HasForeignKey(ol => ol.ProductTypeId)
+                .IsRequired(false);
 
             base.OnModelCreating(modelBuilder);
         }
