@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VendeurControllers = AspNet_FilRouge_Vendeur.Controllers;
-using VendeurModels = AspNet_FilRouge_Vendeur.Models;
+using Entities;
 
 namespace LesBleus.Tests.Integration.Controllers;
 
 public class VendeurBicyclesControllerTests
 {
-    private static VendeurModels.ApplicationDbContext CreateContext() =>
-        new(new DbContextOptionsBuilder<VendeurModels.ApplicationDbContext>()
+    private static Entities.ApplicationDbContext CreateContext() =>
+        new(new DbContextOptionsBuilder<Entities.ApplicationDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options);
 
-    private static VendeurControllers.BicyclesController CreateController(VendeurModels.ApplicationDbContext context)
+    private static VendeurControllers.BicyclesController CreateController(Entities.ApplicationDbContext context)
     {
         var controller = new VendeurControllers.BicyclesController(context);
         controller.ControllerContext = new ControllerContext
@@ -65,7 +65,7 @@ public class VendeurBicyclesControllerTests
     public async Task Details_ExistingId_ReturnsViewWithBicycle()
     {
         using var context = CreateContext();
-        var bike = new VendeurModels.Bicycle { TypeOfBike = "City", FreeTaxPrice = 350f };
+        var bike = new Entities.Bicycle { TypeOfBike = "City", FreeTaxPrice = 350f };
         context.Bicycles.Add(bike);
         await context.SaveChangesAsync();
 
@@ -73,7 +73,7 @@ public class VendeurBicyclesControllerTests
         var result = await controller.Details(bike.Id);
 
         var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsType<VendeurModels.Bicycle>(viewResult.Model);
+        var model = Assert.IsType<Entities.Bicycle>(viewResult.Model);
         Assert.Equal("City", model.TypeOfBike);
     }
 
@@ -82,7 +82,7 @@ public class VendeurBicyclesControllerTests
     {
         using var context = CreateContext();
         var controller = CreateController(context);
-        var bike = new VendeurModels.Bicycle
+        var bike = new Entities.Bicycle
         {
             TypeOfBike = "Road",
             Category = "Sport",

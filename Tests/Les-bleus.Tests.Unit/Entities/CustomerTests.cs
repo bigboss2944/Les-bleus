@@ -1,4 +1,4 @@
-using AspNet_FilRouge.Models;
+using Entities;
 
 namespace LesBleus.Tests.Unit.Entities;
 

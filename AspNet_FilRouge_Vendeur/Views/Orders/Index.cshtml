@@ -1,4 +1,4 @@
-@model AspNet_FilRouge_Vendeur.Models.PaginatedList<AspNet_FilRouge_Vendeur.Models.Order>
+@model Entities.PaginatedList<Entities.Order>
 
 @{
     ViewBag.Title = "Commandes";
@@ -24,7 +24,7 @@
             <label for="sellerId" class="form-label">Filtrer par vendeur</label>
             <select id="sellerId" name="sellerId" class="form-select">
                 <option value="">-- Tous les vendeurs --</option>
-                @foreach (var seller in (IEnumerable<AspNet_FilRouge_Vendeur.Models.Seller>)ViewBag.Sellers)
+                @foreach (var seller in (IEnumerable<Entities.Seller>)ViewBag.Sellers)
                 {
                     if (seller.Id == (ViewBag.CurrentSellerId as string))
                     {
