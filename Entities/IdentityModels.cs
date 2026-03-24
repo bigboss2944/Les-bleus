@@ -85,6 +85,10 @@ namespace Entities
             modelBuilder.Entity<Shop>().HasMany(s => s.Orders).WithOne(s => s.Shop).IsRequired(false);
             modelBuilder.Entity<Shop>().HasMany(s => s.Bicycles).WithOne(b => b.Shop).IsRequired(false);
 
+            // The custom Role entity is not used in this context (ASP.NET Identity handles roles).
+            // Ignoring it prevents EF Core from generating a RoleId FK column that doesn't exist in the DB.
+            modelBuilder.Entity<Seller>().Ignore(s => s.Role);
+
             modelBuilder.Entity<ProductType>()
                 .HasDiscriminator<string>("ProductTypeDiscriminator")
                 .HasValue<ProductType>("ProductType")
