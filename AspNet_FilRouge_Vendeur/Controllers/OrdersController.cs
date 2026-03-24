@@ -22,16 +22,35 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // GET: Orders — paginated view with optional seller filter (all authenticated users)
         public async Task<IActionResult> Index(int page = 1, string? sellerId = null)
         {
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
             var orders = db.Orders.Include(o => o.Seller).AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(sellerId))
-                orders = orders.Where(o => o.Seller != null && o.Seller.Id == sellerId);
+            if (isAdmin)
+            {
+                if (!string.IsNullOrWhiteSpace(sellerId))
+                    orders = orders.Where(o => o.Seller != null && o.Seller.Id == sellerId);
+            }
+            else
+            {
+                orders = orders.Where(o => o.Seller != null && o.Seller.Id == currentUserId);
+                sellerId = currentUserId;
+            }
+
+            orders = orders
+                .OrderByDescending(o => o.Date)
+                .ThenByDescending(o => o.IdOrder);
 
             var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, PageSize);
 
-            ViewBag.Sellers = await db.Sellers.OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToListAsync();
+            ViewBag.Sellers = await db.Sellers
+                .Where(s => isAdmin || s.Id == currentUserId)
+                .OrderBy(s => s.LastName)
+                .ThenBy(s => s.FirstName)
+                .ToListAsync();
             ViewBag.CurrentSellerId = sellerId;
-            ViewBag.CurrentUserId = _userManager.GetUserId(User);
+            ViewBag.CurrentUserId = currentUserId;
 
             return View(paginatedList);
         }
@@ -40,6 +59,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null) return BadRequest();
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
             var order = await db.Orders
                 .Include(o => o.Seller)
                 .Include(o => o.Customer)
@@ -47,6 +69,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .Include(o => o.Bicycles)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return View(order);
         }
 
@@ -54,7 +77,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [Authorize(Roles = "Administrateur,Vendeur")]
         public IActionResult Create()
         {
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null).ToList();
+            ViewBag.Bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
             ViewBag.Customers = db.Customers.ToList();
             ViewBag.Shops = db.Shops.ToList();
             return View(new Order { Date = DateTime.Now });
@@ -63,7 +86,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // Partial view helper — retourne la liste déroulante des vélos disponibles
         public IActionResult SelectIdCategory()
         {
-            var bicycles = db.Bicycles.Where(b => b.Order == null).ToList();
+            var bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
             return PartialView("~/Views/Shared/_listBicycleDropDownList.cshtml", new BicycleOrdersViewModel { Bicycles = bicycles });
         }
 
@@ -71,7 +94,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrateur,Vendeur")]
-        public async Task<IActionResult> Create([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order, long? BicycleId, long? CustomerId, long? ShopId, List<long>? BicycleIds)
+        public async Task<IActionResult> Create([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order, long? BicycleId, string? CustomerId, long? ShopId, List<long>? BicycleIds)
         {
             if (ModelState.IsValid)
             {
@@ -79,11 +102,26 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 var currentUser = await _userManager.GetUserAsync(User);
                 if (currentUser != null)
                 {
-                    order.Seller = await db.Sellers.FirstOrDefaultAsync(s => s.Id == currentUser.Id);
+                    var seller = await db.Sellers.FirstOrDefaultAsync(s => s.Id == currentUser.Id);
+                    if (seller == null)
+                    {
+                        seller = new Seller
+                        {
+                            Id = currentUser.Id,
+                            UserName = currentUser.UserName,
+                            Email = currentUser.Email,
+                            FirstName = currentUser.FirstName,
+                            LastName = currentUser.LastName,
+                            PhoneNumber = currentUser.PhoneNumber
+                        };
+                        db.Sellers.Add(seller);
+                    }
+
+                    order.Seller = seller;
                 }
 
-                if (CustomerId.HasValue)
-                    order.Customer = await db.Customers.FindAsync(CustomerId.Value);
+                if (!string.IsNullOrWhiteSpace(CustomerId))
+                    order.Customer = await db.Customers.FindAsync(CustomerId);
 
                 if (ShopId.HasValue)
                     order.Shop = await db.Shops.FindAsync(ShopId.Value);
@@ -105,7 +143,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null).ToList();
+            ViewBag.Bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
             ViewBag.Customers = db.Customers.ToList();
             ViewBag.Shops = db.Shops.ToList();
             return View(order);
@@ -129,6 +167,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 var currentUserId = _userManager.GetUserId(User);
                 if (order.Seller?.Id != currentUserId)
                     return Forbid();
+
+                if (order.IsValidated)
+                    return Forbid();
             }
 
             ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null || b.Order.IdOrder == id).ToList();
@@ -141,7 +182,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrateur,Vendeur")]
-        public async Task<IActionResult> Edit([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost,IsValidated")] Order order, long? CustomerId, long? ShopId)
+        public async Task<IActionResult> Edit([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost,IsValidated")] Order order, string? CustomerId, long? ShopId)
         {
             if (ModelState.IsValid)
             {
@@ -157,6 +198,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                     var currentUserId = _userManager.GetUserId(User);
                     if (existing.Seller?.Id != currentUserId)
                         return Forbid();
+
+                    if (existing.IsValidated)
+                        return Forbid();
                 }
 
                 existing.Date = order.Date;
@@ -165,10 +209,11 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 existing.UseLoyaltyPoint = order.UseLoyaltyPoint;
                 existing.Tax = order.Tax;
                 existing.ShippingCost = order.ShippingCost;
-                existing.IsValidated = order.IsValidated;
+                if (User.IsInRole("Administrateur"))
+                    existing.IsValidated = order.IsValidated;
 
-                if (CustomerId.HasValue)
-                    existing.Customer = await db.Customers.FindAsync(CustomerId.Value);
+                if (!string.IsNullOrWhiteSpace(CustomerId))
+                    existing.Customer = await db.Customers.FindAsync(CustomerId);
 
                 if (ShopId.HasValue)
                     existing.Shop = await db.Shops.FindAsync(ShopId.Value);
@@ -184,7 +229,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         }
 
         // Cancel — admin only (shown as Delete in existing flow)
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null) return BadRequest();
@@ -194,18 +239,42 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .Include(o => o.Shop)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+
+            if (!User.IsInRole("Administrateur"))
+            {
+                var currentUserId = _userManager.GetUserId(User);
+                if (order.Seller?.Id != currentUserId)
+                    return Forbid();
+
+                if (order.IsValidated)
+                    return Forbid();
+            }
+
             return View(order);
         }
 
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order != null)
             {
+                if (!User.IsInRole("Administrateur"))
+                {
+                    var currentUserId = _userManager.GetUserId(User);
+                    if (order.Seller?.Id != currentUserId)
+                        return Forbid();
+
+                    if (order.IsValidated)
+                        return Forbid();
+                }
+
                 // Détacher les vélos avant de supprimer la commande
                 foreach (var b in order.Bicycles)
                     b.Order = null;
@@ -222,12 +291,21 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddBicycle(long orderId, long bicycleId)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == orderId);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (!isAdmin && order.Seller?.Id != currentUserId)
+                return StatusCode(StatusCodes.Status403Forbidden, new { error = "Vous ne pouvez modifier que vos propres commandes." });
             if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
 
             var bicycle = await db.Bicycles.FindAsync(bicycleId);
             if (bicycle == null) return NotFound(new { error = "Vélo introuvable." });
+            if (bicycle.Quantity <= 0) return BadRequest(new { error = "Stock insuffisant pour ce vélo." });
             if (bicycle.Order != null && bicycle.Order.IdOrder != orderId)
                 return BadRequest(new { error = "Ce vélo est déjà associé à une autre commande." });
 
@@ -242,8 +320,16 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveBicycle(long orderId, long bicycleId)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == orderId);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (!isAdmin && order.Seller?.Id != currentUserId)
+                return StatusCode(StatusCodes.Status403Forbidden, new { error = "Vous ne pouvez modifier que vos propres commandes." });
             if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
 
             var bicycle = await db.Bicycles.FirstOrDefaultAsync(b => b.Id == bicycleId && b.Order != null && b.Order.IdOrder == orderId);
@@ -259,8 +345,15 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPrice(long id)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return Ok(new { total = CalculateTotal(order) });
         }
 
@@ -269,10 +362,29 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Validate(long id)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            if (User.IsInRole("Vendeur") && !User.IsInRole("Administrateur"))
+                return Forbid();
+
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             if (order.IsValidated) return BadRequest(new { error = "La commande est déjà validée." });
             if (!order.Bicycles.Any()) return BadRequest(new { error = "Impossible de valider une commande sans produits." });
+
+            var outOfStock = order.Bicycles.FirstOrDefault(b => b.Quantity <= 0);
+            if (outOfStock != null)
+                return BadRequest(new { error = $"Stock insuffisant pour le vélo #{outOfStock.Id}." });
+
+            foreach (var bicycle in order.Bicycles)
+            {
+                bicycle.Quantity -= 1;
+            }
 
             order.IsValidated = true;
             await db.SaveChangesAsync();

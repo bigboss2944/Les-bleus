@@ -79,6 +79,7 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     EnsureCreatedWithSqliteRaceTolerance(dbContext);
     await EnsureSqliteIdentitySchemaAsync(dbContext);
+    await EnsureSqliteBicyclesSchemaAsync(dbContext);
     await EnsureSqliteStockRequestsTableAsync(dbContext);
 }
 
@@ -237,6 +238,47 @@ static async Task EnsureSqliteStockRequestsTableAsync(ApplicationDbContext dbCon
         {
             await connection.CloseAsync();
         }
+    }
+}
+
+static async Task EnsureSqliteBicyclesSchemaAsync(ApplicationDbContext dbContext)
+{
+    if (!dbContext.Database.IsSqlite())
+    {
+        return;
+    }
+
+    var columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    var connection = dbContext.Database.GetDbConnection();
+    var wasClosed = connection.State != System.Data.ConnectionState.Open;
+
+    if (wasClosed)
+    {
+        await connection.OpenAsync();
+    }
+
+    try
+    {
+        await using var command = connection.CreateCommand();
+        command.CommandText = "PRAGMA table_info('Bicycles');";
+
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            columns.Add(reader.GetString(1));
+        }
+    }
+    finally
+    {
+        if (wasClosed)
+        {
+            await connection.CloseAsync();
+        }
+    }
+
+    if (!columns.Contains("Quantity"))
+    {
+        await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Bicycles ADD COLUMN Quantity INTEGER NOT NULL DEFAULT 1;");
     }
 }
 

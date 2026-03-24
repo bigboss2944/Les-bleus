@@ -7,10 +7,6 @@
 
 <h2>Commandes</h2>
 
-<div id="offline-banner" class="alert alert-warning" style="display:none;">
-    <strong>Mode hors-ligne :</strong> la validation de commande est désactivée. Reconnectez-vous pour valider.
-</div>
-
 <div class="mb-3">
     @if (User.IsInRole("Administrateur") || User.IsInRole("Vendeur"))
     {
@@ -90,12 +86,19 @@
                 @if (!item.IsValidated)
                 {
                     @:|
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.IdOrder })
+                }
+
+                @if (User.IsInRole("Administrateur") && !item.IsValidated)
+                {
+                    @:|
                     <button type="button" class="btn btn-sm btn-success btn-validate"
                             onclick="validateOrder(@item.IdOrder, this)">
                         Valider
                     </button>
                 }
-                @if (User.IsInRole("Administrateur"))
+
+                @if (User.IsInRole("Administrateur") || (!item.IsValidated && item.Seller != null && item.Seller.Id == (ViewBag.CurrentUserId as string)))
                 {
                     @:|
                     @Html.ActionLink("Annuler", "Delete", new { id = item.IdOrder }, new { @class = "text-danger" })
@@ -131,23 +134,7 @@
 
 @section scripts {
 <script>
-    // Indicateur mode hors-ligne
-    function updateOnlineStatus() {
-        document.getElementById('offline-banner').style.display = navigator.onLine ? 'none' : 'block';
-        document.querySelectorAll('.btn-validate').forEach(function(btn) {
-            btn.disabled = !navigator.onLine;
-            btn.title = navigator.onLine ? '' : 'Validation impossible en mode hors-ligne';
-        });
-    }
-    window.addEventListener('online',  updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    updateOnlineStatus();
-
     function validateOrder(orderId, btn) {
-        if (!navigator.onLine) {
-            alert('Validation impossible en mode hors-ligne.');
-            return;
-        }
         if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
 
         btn.disabled = true;

@@ -73,10 +73,18 @@
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-sm btn-danger">Rejeter</button>
                         }
+                        @Html.Raw(" ")
+                        @Html.ActionLink("Modifier", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                        @Html.Raw(" ")
+                        @Html.ActionLink("Supprimer", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-outline-danger" })
                     }
                     else
                     {
                         <span class="text-muted">Traitée</span>
+                        @Html.Raw(" ")
+                        @Html.ActionLink("Modifier", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                        @Html.Raw(" ")
+                        @Html.ActionLink("Supprimer", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-outline-danger" })
                     }
                 </td>
             }

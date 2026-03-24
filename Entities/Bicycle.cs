@@ -11,6 +11,7 @@ namespace Entities
         private string? category;
         private string? reference;
         private float freeTaxPrice;
+        private int quantity = 1;
         private bool exchangeable;
         private bool insurance;
         private bool deliverable;
@@ -27,6 +28,7 @@ namespace Entities
         public string? Category { get { return category; } set { category = value; } }
         public string? Reference { get { return reference; } set { reference = value; } }
         public float FreeTaxPrice { get { return freeTaxPrice; } set { freeTaxPrice = value; } }
+        public int Quantity { get { return quantity; } set { quantity = value; } }
         public bool Exchangeable { get { return exchangeable; } set { exchangeable = value; } }
         public bool Insurance { get { return insurance; } set { insurance = value; } }
         public bool Deliverable { get { return deliverable; } set { deliverable = value; } }
@@ -39,7 +41,7 @@ namespace Entities
 
         public override string ToString()
         {
-            return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
+            return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.quantity + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
         }
     }
 }

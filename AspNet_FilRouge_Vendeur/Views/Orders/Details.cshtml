@@ -11,10 +11,6 @@
 
 <h2>Détails commande #@Model.IdOrder</h2>
 
-<div id="offline-banner" class="alert alert-warning" style="display:none;">
-    <strong>Mode hors-ligne :</strong> la validation de commande est désactivée.
-</div>
-
 <div class="row">
     <div class="col-md-6">
         <h4>Informations</h4>
@@ -71,29 +67,16 @@
                         <th>Catégorie</th>
                         <th>Marque</th>
                         <th>Prix HT (€)</th>
-                        @if (!Model.IsValidated)
-                        {
-                            <th>Retirer</th>
-                        }
                     </tr>
                 </thead>
-                <tbody id="bicycle-list">
+                <tbody>
                     @foreach (var b in Model.Bicycles)
                     {
-                        <tr id="row-@b.Id">
+                        <tr>
                             <td>@b.Reference</td>
                             <td>@b.Category</td>
                             <td>@b.Brand</td>
                             <td>@b.FreeTaxPrice.ToString("F2")</td>
-                            @if (!Model.IsValidated)
-                            {
-                                <td>
-                                    <button type="button" class="btn btn-xs btn-danger"
-                                            onclick="removeBicycle(@Model.IdOrder, @b.Id, this)">
-                                        Retirer
-                                    </button>
-                                </td>
-                            }
                         </tr>
                     }
                 </tbody>
@@ -106,13 +89,7 @@
 
         @if (!Model.IsValidated)
         {
-            <h5>Ajouter un vélo</h5>
-            <div class="input-group" style="max-width:400px;">
-                <input type="number" id="add-bicycle-id" class="form-control" placeholder="ID du vélo" min="1" />
-                <button type="button" class="btn btn-secondary" onclick="addBicycle(@Model.IdOrder, this)">
-                    Ajouter
-                </button>
-            </div>
+            <p class="text-muted small">Ajout/retrait des produits disponible dans la page de modification.</p>
         }
     </div>
 </div>
@@ -129,11 +106,17 @@
     {
         @Html.ActionLink("Modifier", "Edit", new { id = Model.IdOrder }, new { @class = "btn btn-secondary" })
         <text> </text>
-        <button type="button" id="btn-validate" class="btn btn-success"
-                onclick="validateOrder(@Model.IdOrder)">
-            Valider la commande
-        </button>
+        @Html.ActionLink("Supprimer", "Delete", new { id = Model.IdOrder }, new { @class = "btn btn-danger" })
         <text> </text>
+
+        @if (User.IsInRole("Administrateur"))
+        {
+            <button type="button" id="btn-validate" class="btn btn-success"
+                    onclick="validateOrder(@Model.IdOrder)">
+                Valider la commande
+            </button>
+            <text> </text>
+        }
     }
     @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-link" })
 </p>
@@ -142,37 +125,16 @@
 
 @section scripts {
 <script>
-    var orderId = @Model.IdOrder;
     var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+    function validateOrder(oId) {
+        if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
+        var btn = document.getElementById('btn-validate');
+        if (!btn) return;
 
-    // Indicateur mode hors-ligne
-    function updateOnlineStatus() {
-        var offline = !navigator.onLine;
-        document.getElementById('offline-banner').style.display = offline ? 'block' : 'none';
-        var btnValidate = document.getElementById('btn-validate');
-        if (btnValidate) {
-            btnValidate.disabled = offline;
-            btnValidate.title = offline ? 'Validation impossible en mode hors-ligne' : '';
-        }
-    }
-    window.addEventListener('online',  updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    updateOnlineStatus();
-
-    function refreshTotal() {
-        fetch('@Url.Action("GetPrice", "Orders")/' + orderId)
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('total-price').textContent = data.total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
-            });
-    }
-
-    function addBicycle(oId, btn) {
-        var bicycleId = document.getElementById('add-bicycle-id').value;
-        if (!bicycleId) { alert('Veuillez saisir un ID de vélo.'); return; }
         btn.disabled = true;
         btn.textContent = 'En cours…';
-        fetch('@Url.Action("AddBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bicycleId, {
+
+        fetch('@Url.Action("Validate", "Orders")/' + oId, {
             method: 'POST',
             headers: { 'RequestVerificationToken': token }
         })
@@ -181,51 +143,10 @@
             if (data.error) {
                 alert(data.error);
                 btn.disabled = false;
-                btn.textContent = 'Ajouter';
-            } else { location.reload(); }
-        })
-        .catch(function() {
-            alert('Erreur réseau. Veuillez réessayer.');
-            btn.disabled = false;
-            btn.textContent = 'Ajouter';
-        });
-    }
-
-    function removeBicycle(oId, bId, btn) {
-        if (!confirm('Retirer ce vélo de la commande ?')) return;
-        btn.disabled = true;
-        fetch('@Url.Action("RemoveBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bId, {
-            method: 'POST',
-            headers: { 'RequestVerificationToken': token }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.error) { alert(data.error); btn.disabled = false; }
-            else {
-                document.getElementById('row-' + bId)?.remove();
-                document.getElementById('total-price').textContent = data.total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+                btn.textContent = 'Valider la commande';
+            } else {
+                location.reload();
             }
-        })
-        .catch(function() {
-            alert('Erreur réseau. Veuillez réessayer.');
-            btn.disabled = false;
-        });
-    }
-
-    function validateOrder(oId) {
-        if (!navigator.onLine) { alert('Validation impossible en mode hors-ligne.'); return; }
-        if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
-        var btn = document.getElementById('btn-validate');
-        btn.disabled = true;
-        btn.textContent = 'En cours…';
-        fetch('@Url.Action("Validate", "Orders")/' + oId, {
-            method: 'POST',
-            headers: { 'RequestVerificationToken': token }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.error) { alert(data.error); btn.disabled = false; btn.textContent = 'Valider la commande'; }
-            else { location.reload(); }
         })
         .catch(function() {
             alert('Erreur réseau. Veuillez réessayer.');
@@ -233,5 +154,6 @@
             btn.textContent = 'Valider la commande';
         });
     }
+
 </script>
 }

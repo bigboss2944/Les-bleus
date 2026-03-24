@@ -22,7 +22,22 @@ namespace AspNet_FilRouge.Controllers
         // GET: Orders — paginated view (all authenticated users)
         public async Task<IActionResult> Index(int page = 1)
         {
-            var orders = db.Orders.AsQueryable();
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var orders = db.Orders
+                .Include(o => o.Seller)
+                .AsQueryable();
+
+            if (!isAdmin)
+            {
+                orders = orders.Where(o => o.Seller != null && o.Seller.Id == currentUserId);
+            }
+
+            orders = orders
+                .OrderByDescending(o => o.Date)
+                .ThenByDescending(o => o.IdOrder)
+                .AsQueryable();
             var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, PageSize);
             return View(paginatedList);
         }
@@ -31,6 +46,9 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null) return BadRequest();
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
             var order = await db.Orders
                 .Include(o => o.Seller)
                 .Include(o => o.Customer)
@@ -38,6 +56,7 @@ namespace AspNet_FilRouge.Controllers
                 .Include(o => o.Bicycles)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return View(order);
         }
 
@@ -74,9 +93,85 @@ namespace AspNet_FilRouge.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPrice(long id)
         {
-            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var order = await db.Orders
+                .Include(o => o.Bicycles)
+                .Include(o => o.Seller)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return Ok(new { total = CalculateTotal(order) });
+        }
+
+        // POST: Orders/AddBicycle — ajoute un vélo à une commande existante (admin uniquement)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> AddBicycle(long orderId, long bicycleId)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
+
+            var bicycle = await db.Bicycles.Include(b => b.Order).FirstOrDefaultAsync(b => b.Id == bicycleId);
+            if (bicycle == null) return NotFound(new { error = "Vélo introuvable." });
+            if (bicycle.Quantity <= 0) return BadRequest(new { error = "Stock insuffisant pour ce vélo." });
+            if (bicycle.Order != null && bicycle.Order.IdOrder != orderId)
+                return BadRequest(new { error = "Ce vélo est déjà associé à une autre commande." });
+
+            bicycle.Order = order;
+            await db.SaveChangesAsync();
+
+            return Ok(new { total = CalculateTotal(order) });
+        }
+
+        // POST: Orders/RemoveBicycle — retire un vélo d'une commande existante (admin uniquement)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> RemoveBicycle(long orderId, long bicycleId)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
+
+            var bicycle = await db.Bicycles
+                .Include(b => b.Order)
+                .FirstOrDefaultAsync(b => b.Id == bicycleId && b.Order != null && b.Order.IdOrder == orderId);
+            if (bicycle == null) return NotFound(new { error = "Vélo introuvable dans cette commande." });
+
+            bicycle.Order = null;
+            await db.SaveChangesAsync();
+
+            return Ok(new { total = CalculateTotal(order) });
+        }
+
+        // POST: Orders/Validate/5 — valide une commande (admin uniquement)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Validate(long id)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "La commande est déjà validée." });
+            if (!order.Bicycles.Any()) return BadRequest(new { error = "Impossible de valider une commande sans produits." });
+
+            var outOfStock = order.Bicycles.FirstOrDefault(b => b.Quantity <= 0);
+            if (outOfStock != null)
+                return BadRequest(new { error = $"Stock insuffisant pour le vélo #{outOfStock.Id}." });
+
+            foreach (var bicycle in order.Bicycles)
+            {
+                bicycle.Quantity -= 1;
+            }
+
+            order.IsValidated = true;
+            await db.SaveChangesAsync();
+
+            return Ok(new { message = "Commande validée avec succès.", total = CalculateTotal(order) });
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────

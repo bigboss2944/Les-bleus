@@ -1,0 +1,39 @@
+@model Entities.Bicycle
+
+@{
+    ViewBag.Title = "Supprimer un vélo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Supprimer un vélo</h2>
+
+<h3>Confirmer la suppression de ce vélo ?</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.TypeOfBike)</dt>
+        <dd>@Html.DisplayFor(model => model.TypeOfBike)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Category)</dt>
+        <dd>@Html.DisplayFor(model => model.Category)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Reference)</dt>
+        <dd>@Html.DisplayFor(model => model.Reference)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.FreeTaxPrice)</dt>
+        <dd>@Html.DisplayFor(model => model.FreeTaxPrice)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Quantity)</dt>
+        <dd>@Html.DisplayFor(model => model.Quantity)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+        @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+    }
+</div>

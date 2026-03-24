@@ -8,30 +8,7 @@
 <h2>Stock Global</h2>
 
 @{
-    var stocks = ViewBag.Stocks as List<Entities.Stock>;
-}
-@if (stocks != null && stocks.Any())
-{
-    <h4>Quantité de stock par type de produit</h4>
-    <table class="table table-bordered table-sm mb-4">
-        <thead class="table-light">
-            <tr>
-                <th>Référence du type</th>
-                <th>Couleur</th>
-                <th>Quantité en stock</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var stock in stocks)
-            {
-                <tr>
-                    <td>@(stock.ProductType?.Reference ?? "—")</td>
-                    <td>@(stock.ProductType?.Color ?? "—")</td>
-                    <td>@stock.Quantity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    var stockSummaries = ViewBag.StockSummaries as List<Entities.StockSummaryViewModel>;
 }
 
 <p>
@@ -50,6 +27,7 @@
         <th>Catégorie</th>
         <th>Référence</th>
         <th>Prix HT</th>
+        <th>Quantité</th>
         <th>Marque</th>
         <th>Couleur</th>
         <th>État</th>
@@ -69,6 +47,7 @@
             <td>@Html.DisplayFor(modelItem => item.Category)</td>
             <td>@Html.DisplayFor(modelItem => item.Reference)</td>
             <td>@Html.DisplayFor(modelItem => item.FreeTaxPrice)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
             <td>@Html.DisplayFor(modelItem => item.Brand)</td>
             <td>@Html.DisplayFor(modelItem => item.Color)</td>
             <td>@Html.DisplayFor(modelItem => item.State)</td>

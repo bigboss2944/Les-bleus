@@ -8,10 +8,12 @@ namespace AspNet_FilRouge.Controllers
     [Authorize(Roles = "Administrateur")]
     public class AdminController : Controller
     {
+        private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(UserManager<ApplicationUser> userManager)
+        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
+            _db = db;
             _userManager = userManager;
         }
 
@@ -61,6 +63,17 @@ namespace AspNet_FilRouge.Controllers
                 }
                 return View(model);
             }
+
+            _db.Sellers.Add(new Seller
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber
+            });
+            await _db.SaveChangesAsync();
 
             TempData["SuccessMessage"] = $"Le compte vendeur de {model.FirstName} {model.LastName} a été créé avec succès.";
             return RedirectToAction("CreateSeller");
