@@ -21,6 +21,7 @@ namespace AspNet_FilRouge.Controllers
         {
             var bicycles = db.Bicycles.AsQueryable();
             var paginatedList = await PaginatedList<Bicycle>.CreateAsync(bicycles, page, PageSize);
+            ViewBag.Stocks = await db.Stocks.Include(s => s.ProductType).ToListAsync();
             return View(paginatedList);
         }
 
