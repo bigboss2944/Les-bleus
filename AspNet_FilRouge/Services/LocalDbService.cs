@@ -10,6 +10,12 @@ namespace AspNet_FilRouge.Services
     {
         private readonly string _dbPath;
 
+        /// <summary>
+        /// Sérialise toutes les opérations d'écriture pour éviter les conflits
+        /// de verrou SQLite entre le service de fond et les requêtes HTTP.
+        /// </summary>
+        private readonly SemaphoreSlim _writeLock = new SemaphoreSlim(1, 1);
+
         public LocalDbService(IWebHostEnvironment env)
         {
             _dbPath = Path.Combine(env.ContentRootPath, "local_cache.db");
@@ -19,6 +25,13 @@ namespace AspNet_FilRouge.Services
         private void InitializeDatabase()
         {
             using var db = OpenConnection();
+
+            // WAL (Write-Ahead Logging) : permet des lectures concurrentes pendant les écritures
+            // et réduit considérablement les conflits de verrou.
+            ExecuteNonQuery(db, "PRAGMA journal_mode=WAL");
+
+            // Réduire le nombre de fsync tout en restant sûr en mode WAL.
+            ExecuteNonQuery(db, "PRAGMA synchronous=NORMAL");
 
             ExecuteNonQuery(db, @"
                 CREATE TABLE IF NOT EXISTS Orders (
@@ -88,6 +101,10 @@ namespace AspNet_FilRouge.Services
         {
             var db = new SqliteConnection($"Filename={_dbPath}");
             db.Open();
+            // Délai d'attente avant d'abandonner sur un verrou : évite les exceptions
+            // immédiates "database is locked" lors de l'accès concurrent.
+            using var cmd = new SqliteCommand("PRAGMA busy_timeout=5000", db);
+            cmd.ExecuteNonQuery();
             return db;
         }
 
@@ -97,11 +114,49 @@ namespace AspNet_FilRouge.Services
             cmd.ExecuteNonQuery();
         }
 
+        // ── Bulk write (synchronisation complète, atomique) ────────────────────
+
+        /// <summary>
+        /// Écrit toutes les données en une seule transaction atomique.
+        /// Protégé par un verrou pour éviter les conflits entre le service
+        /// de fond et les requêtes HTTP simultanées.
+        /// </summary>
+        public async Task BulkUpsertAllAsync(
+            IEnumerable<Models.Order> orders,
+            IEnumerable<Models.Bicycle> bicycles,
+            IEnumerable<Models.Seller> sellers,
+            IEnumerable<Models.Customer> customers)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var tx = db.BeginTransaction();
+
+                foreach (var order in orders)
+                    ExecuteUpsertOrder(order, db, tx);
+
+                foreach (var bicycle in bicycles)
+                    ExecuteUpsertBicycle(bicycle, db, tx);
+
+                foreach (var seller in sellers)
+                    ExecuteUpsertSeller(seller, db, tx);
+
+                foreach (var customer in customers)
+                    ExecuteUpsertCustomer(customer, db, tx);
+
+                tx.Commit();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
         // ── Orders ────────────────────────────────────────────────────────────
 
-        public void UpsertOrder(Models.Order order)
+        private static void ExecuteUpsertOrder(Models.Order order, SqliteConnection db, SqliteTransaction tx)
         {
-            using var db = OpenConnection();
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Orders (IdOrder, Date, PayMode, Discount, UseLoyaltyPoint, Tax, ShippingCost, IsValidated,
                                     SellerId, CustomerId, ShopId, SyncedAt)
@@ -111,7 +166,7 @@ namespace AspNet_FilRouge.Services
                     Date=excluded.Date, PayMode=excluded.PayMode, Discount=excluded.Discount,
                     UseLoyaltyPoint=excluded.UseLoyaltyPoint, Tax=excluded.Tax, ShippingCost=excluded.ShippingCost,
                     IsValidated=excluded.IsValidated, SellerId=excluded.SellerId, CustomerId=excluded.CustomerId,
-                    ShopId=excluded.ShopId, SyncedAt=excluded.SyncedAt", db);
+                    ShopId=excluded.ShopId, SyncedAt=excluded.SyncedAt", db, tx);
 
             cmd.Parameters.AddWithValue("@IdOrder", order.IdOrder);
             cmd.Parameters.AddWithValue("@Date", order.Date.ToString("o"));
@@ -128,28 +183,34 @@ namespace AspNet_FilRouge.Services
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Retourne toutes les commandes de la base locale.
+        /// Les résultats sont matérialisés avant la fermeture de la connexion
+        /// pour éviter de maintenir un verrou de lecture pendant l'itération.
+        /// </summary>
         public IEnumerable<(long IdOrder, DateTime Date, string? PayMode, float Discount, bool IsValidated)> GetOrders()
         {
             using var db = OpenConnection();
             using var cmd = new SqliteCommand("SELECT IdOrder, Date, PayMode, Discount, IsValidated FROM Orders ORDER BY Date DESC", db);
             using var reader = cmd.ExecuteReader();
+            var results = new List<(long IdOrder, DateTime Date, string? PayMode, float Discount, bool IsValidated)>();
             while (reader.Read())
             {
-                yield return (
+                results.Add((
                     reader.GetInt64(0),
                     DateTime.Parse(reader.GetString(1)),
                     reader.IsDBNull(2) ? null : reader.GetString(2),
                     (float)reader.GetDouble(3),
                     reader.GetInt32(4) != 0
-                );
+                ));
             }
+            return results;
         }
 
         // ── Bicycles ──────────────────────────────────────────────────────────
 
-        public void UpsertBicycle(Models.Bicycle bicycle)
+        private static void ExecuteUpsertBicycle(Models.Bicycle bicycle, SqliteConnection db, SqliteTransaction tx)
         {
-            using var db = OpenConnection();
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Bicycles (Id, TypeOfBike, Category, Reference, FreeTaxPrice, Exchangeable, Insurance,
                                       Deliverable, Size, Weight, Color, WheelSize, Electric, State, Brand, Confort,
@@ -165,7 +226,7 @@ namespace AspNet_FilRouge.Services
                     WheelSize=excluded.WheelSize, Electric=excluded.Electric, State=excluded.State,
                     Brand=excluded.Brand, Confort=excluded.Confort,
                     Order_IdOrder=excluded.Order_IdOrder, Shop_ShopId=excluded.Shop_ShopId,
-                    SyncedAt=excluded.SyncedAt", db);
+                    SyncedAt=excluded.SyncedAt", db, tx);
 
             cmd.Parameters.AddWithValue("@Id", bicycle.Id);
             cmd.Parameters.AddWithValue("@TypeOfBike", (object?)bicycle.TypeOfBike ?? DBNull.Value);
@@ -191,15 +252,14 @@ namespace AspNet_FilRouge.Services
 
         // ── Sellers ───────────────────────────────────────────────────────────
 
-        public void UpsertSeller(Models.Seller seller)
+        private static void ExecuteUpsertSeller(Models.Seller seller, SqliteConnection db, SqliteTransaction tx)
         {
-            using var db = OpenConnection();
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Sellers (Id, LastName, FirstName, Email, SyncedAt)
                 VALUES (@Id, @LastName, @FirstName, @Email, @SyncedAt)
                 ON CONFLICT(Id) DO UPDATE SET
                     LastName=excluded.LastName, FirstName=excluded.FirstName,
-                    Email=excluded.Email, SyncedAt=excluded.SyncedAt", db);
+                    Email=excluded.Email, SyncedAt=excluded.SyncedAt", db, tx);
 
             cmd.Parameters.AddWithValue("@Id", seller.Id);
             cmd.Parameters.AddWithValue("@LastName", (object?)seller.LastName ?? DBNull.Value);
@@ -211,9 +271,8 @@ namespace AspNet_FilRouge.Services
 
         // ── Customers ─────────────────────────────────────────────────────────
 
-        public void UpsertCustomer(Models.Customer customer)
+        private static void ExecuteUpsertCustomer(Models.Customer customer, SqliteConnection db, SqliteTransaction tx)
         {
-            using var db = OpenConnection();
             using var cmd = new SqliteCommand(@"
                 INSERT INTO Customers (Id, Town, PostalCode, Address, LoyaltyPoints, Phone, Email, Gender, LastName, FirstName, SyncedAt)
                 VALUES (@Id, @Town, @PostalCode, @Address, @LoyaltyPoints, @Phone, @Email, @Gender, @LastName, @FirstName, @SyncedAt)
@@ -221,7 +280,7 @@ namespace AspNet_FilRouge.Services
                     Town=excluded.Town, PostalCode=excluded.PostalCode, Address=excluded.Address,
                     LoyaltyPoints=excluded.LoyaltyPoints, Phone=excluded.Phone, Email=excluded.Email,
                     Gender=excluded.Gender, LastName=excluded.LastName, FirstName=excluded.FirstName,
-                    SyncedAt=excluded.SyncedAt", db);
+                    SyncedAt=excluded.SyncedAt", db, tx);
 
             cmd.Parameters.AddWithValue("@Id", customer.Id);
             cmd.Parameters.AddWithValue("@Town", (object?)customer.Town ?? DBNull.Value);
@@ -235,6 +294,48 @@ namespace AspNet_FilRouge.Services
             cmd.Parameters.AddWithValue("@FirstName", (object?)customer.FirstName ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@SyncedAt", DateTime.UtcNow.ToString("o"));
             cmd.ExecuteNonQuery();
+        }
+
+        // ── Statistics ────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Retourne les statistiques de la base locale : nombre d'enregistrements
+        /// par table et date de la dernière synchronisation.
+        /// </summary>
+        public (int Orders, int Bicycles, int Sellers, int Customers, DateTime? LastSyncedAt) GetStats()
+        {
+            using var db = OpenConnection();
+
+            using var cmd = new SqliteCommand(@"
+                SELECT
+                    (SELECT COUNT(*) FROM Orders)   AS OrderCount,
+                    (SELECT COUNT(*) FROM Bicycles) AS BicycleCount,
+                    (SELECT COUNT(*) FROM Sellers)  AS SellerCount,
+                    (SELECT COUNT(*) FROM Customers) AS CustomerCount,
+                    (SELECT MAX(SyncedAt) FROM (
+                        SELECT MAX(SyncedAt) AS SyncedAt FROM Orders
+                        UNION ALL SELECT MAX(SyncedAt) FROM Bicycles
+                        UNION ALL SELECT MAX(SyncedAt) FROM Sellers
+                        UNION ALL SELECT MAX(SyncedAt) FROM Customers
+                    )) AS LastSyncedAt", db);
+
+            using var reader = cmd.ExecuteReader();
+            reader.Read();
+
+            int orders    = reader.GetInt32(0);
+            int bicycles  = reader.GetInt32(1);
+            int sellers   = reader.GetInt32(2);
+            int customers = reader.GetInt32(3);
+
+            var lastSyncStr = reader.IsDBNull(4) ? null : reader.GetString(4);
+            DateTime? lastSync = null;
+            if (lastSyncStr != null &&
+                DateTime.TryParse(lastSyncStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+            {
+                lastSync = parsed;
+            }
+
+            return (orders, bicycles, sellers, customers, lastSync);
         }
     }
 }
