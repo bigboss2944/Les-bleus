@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
+using AspNet_FilRouge.Services;
 
 namespace AspNet_FilRouge.Controllers
 {
@@ -12,11 +13,13 @@ namespace AspNet_FilRouge.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IVendorSyncService _vendorSync;
 
-        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IVendorSyncService vendorSync)
         {
             db = context;
             _userManager = userManager;
+            _vendorSync = vendorSync;
         }
 
         private async Task PopulateBicycleNamesViewBagAsync()
@@ -77,6 +80,7 @@ namespace AspNet_FilRouge.Controllers
             if (request == null) return NotFound();
             request.Status = "Approuvée";
             await db.SaveChangesAsync();
+            await _vendorSync.WriteStatusToVendorCacheAsync(id, "Approuvée");
             return RedirectToAction("Index");
         }
 
@@ -90,6 +94,7 @@ namespace AspNet_FilRouge.Controllers
             if (request == null) return NotFound();
             request.Status = "Rejetée";
             await db.SaveChangesAsync();
+            await _vendorSync.WriteStatusToVendorCacheAsync(id, "Rejetée");
             return RedirectToAction("Index");
         }
 
