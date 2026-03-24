@@ -18,10 +18,8 @@
         <th>Remise</th>
         <th>Taxe</th>
         <th>Frais de livraison</th>
-        @if (User.IsInRole("Administrateur"))
-        {
-            <th>Actions</th>
-        }
+        <th>Statut</th>
+        <th>Actions</th>
     </tr>
 
     @foreach (var item in Model)
@@ -32,13 +30,32 @@
             <td>@Html.DisplayFor(modelItem => item.Discount)</td>
             <td>@Html.DisplayFor(modelItem => item.Tax)</td>
             <td>@Html.DisplayFor(modelItem => item.ShippingCost)</td>
-            @if (User.IsInRole("Administrateur"))
-            {
-                <td>
-                    @Html.ActionLink("Détails", "Details", new { id = item.IdOrder }) |
+            <td>
+                @if (item.IsValidated)
+                {
+                    <span class="badge bg-success">Validée</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">En cours</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Détails", "Details", new { id = item.IdOrder })
+                @if (!item.IsValidated)
+                {
+                    @:|
+                    <button type="button" class="btn btn-sm btn-success btn-validate"
+                            onclick="validateOrder(@item.IdOrder, this)">
+                        Valider
+                    </button>
+                }
+                @if (User.IsInRole("Administrateur"))
+                {
+                    @:|
                     @Html.ActionLink("Annuler", "Cancel", new { id = item.IdOrder }, new { @class = "text-danger" })
-                </td>
-            }
+                }
+            </td>
         </tr>
     }
 </table>

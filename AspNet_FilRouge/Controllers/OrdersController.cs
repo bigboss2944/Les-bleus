@@ -79,6 +79,60 @@ namespace AspNet_FilRouge.Controllers
             return Ok(new { total = CalculateTotal(order) });
         }
 
+        // POST: Orders/AddBicycle — ajoute un vélo à une commande existante
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddBicycle(long orderId, long bicycleId)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
+
+            var bicycle = await db.Bicycles.Include(b => b.Order).FirstOrDefaultAsync(b => b.Id == bicycleId);
+            if (bicycle == null) return NotFound(new { error = "Vélo introuvable." });
+            if (bicycle.Order != null && bicycle.Order.IdOrder != orderId)
+                return BadRequest(new { error = "Ce vélo est déjà associé à une autre commande." });
+
+            bicycle.Order = order;
+            await db.SaveChangesAsync();
+
+            return Ok(new { total = CalculateTotal(order) });
+        }
+
+        // POST: Orders/RemoveBicycle — retire un vélo d'une commande existante
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveBicycle(long orderId, long bicycleId)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
+
+            var bicycle = await db.Bicycles.FirstOrDefaultAsync(b => b.Id == bicycleId && b.Order != null && b.Order.IdOrder == orderId);
+            if (bicycle == null) return NotFound(new { error = "Vélo introuvable dans cette commande." });
+
+            bicycle.Order = null;
+            await db.SaveChangesAsync();
+
+            return Ok(new { total = CalculateTotal(order) });
+        }
+
+        // POST: Orders/Validate/5 — valide une commande (requiert connexion)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Validate(long id)
+        {
+            var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
+            if (order == null) return NotFound(new { error = "Commande introuvable." });
+            if (order.IsValidated) return BadRequest(new { error = "La commande est déjà validée." });
+            if (!order.Bicycles.Any()) return BadRequest(new { error = "Impossible de valider une commande sans produits." });
+
+            order.IsValidated = true;
+            await db.SaveChangesAsync();
+
+            return Ok(new { message = "Commande validée avec succès.", total = CalculateTotal(order) });
+        }
+
         // ── Helpers ───────────────────────────────────────────────────────────
 
         private static float CalculateTotal(Order order)
