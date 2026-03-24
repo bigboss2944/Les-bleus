@@ -61,8 +61,9 @@ builder.Services.AddHostedService<SyncBackgroundService>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
 }
@@ -77,21 +78,19 @@ app.UseHttpsRedirection();
 
 // Static files - use the client app's assets
 var clientContentRoot = Path.Combine(app.Environment.ContentRootPath, "..", "AspNet_FilRouge");
-app.UseStaticFiles(new StaticFileOptions
+var staticDirs = new[] { ("Scripts", "/Scripts"), ("Content", "/Content"), ("Pictures", "/Pictures") };
+foreach (var (dir, requestPath) in staticDirs)
 {
-    FileProvider = new PhysicalFileProvider(Path.GetFullPath(Path.Combine(clientContentRoot, "Scripts"))),
-    RequestPath = "/Scripts"
-});
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.GetFullPath(Path.Combine(clientContentRoot, "Content"))),
-    RequestPath = "/Content"
-});
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.GetFullPath(Path.Combine(clientContentRoot, "Pictures"))),
-    RequestPath = "/Pictures"
-});
+    var fullPath = Path.GetFullPath(Path.Combine(clientContentRoot, dir));
+    if (Directory.Exists(fullPath))
+    {
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(fullPath),
+            RequestPath = requestPath
+        });
+    }
+}
 
 app.UseRouting();
 app.UseAuthentication();
@@ -101,9 +100,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Seed roles and default admin
-using (var scope = app.Services.CreateScope())
+// Seed roles and default admin (skipped in test environment)
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
