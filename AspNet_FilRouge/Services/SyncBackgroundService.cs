@@ -107,11 +107,22 @@ namespace AspNet_FilRouge.Services
 
             // Récupérer les IDs déjà présents pour éviter les requêtes inutiles.
             var existingIds = await db.StockRequests.Select(r => r.Id).ToHashSetAsync();
+            var existingUserIds = await db.Users.Select(u => u.Id).ToHashSetAsync();
 
             int count = 0;
             foreach (var vr in vendorRequests)
             {
                 if (existingIds.Contains(vr.Id)) continue;
+
+                var requestedById = vr.RequestedById;
+                if (!string.IsNullOrWhiteSpace(requestedById) && !existingUserIds.Contains(requestedById))
+                {
+                    _logger.LogWarning(
+                        "Demande de stock Id={RequestId}: RequestedById '{RequestedById}' introuvable dans AspNetUsers. Valeur ignorée.",
+                        vr.Id,
+                        requestedById);
+                    requestedById = null;
+                }
 
                 db.StockRequests.Add(new StockRequest
                 {
@@ -120,7 +131,7 @@ namespace AspNet_FilRouge.Services
                     Quantity = vr.Quantity,
                     RequestDate = vr.RequestDate,
                     Status = vr.Status,
-                    RequestedById = vr.RequestedById,
+                    RequestedById = requestedById,
                     Notes = vr.Notes
                 });
                 count++;
