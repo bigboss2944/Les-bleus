@@ -12,20 +12,22 @@ Il servira de référence pour la création des issues et de leurs sous-issues d
 **Titre :** `[EPIC] Projet Fil Rouge — Application de gestion de vente de vélos`
 
 **Description :**
-Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en trois modules :
+Développement d'une solution complète de gestion de vente de vélos pour TACTfactory, décomposée en quatre modules :
 - Application **Librairie** (bibliothèque partagée)
-- Application **UWP** (interface vendeur Windows)
+- Application **Vendeur ASP.NET** (interface vendeur web)
 - Application **ASP.NET** (portail web d'administration)
+- Application **MAUI** (application multiplateforme vendeur)
 
 **Labels :** `epic`, `enhancement`
 
 **Sous-issues :**
 - #2 Application Librairie
-- #3 Application UWP
+- #3 Application Vendeur ASP.NET
 - #4 Application ASP.NET
 - #5 Contraintes techniques
 - #6 Fonctionnalités optionnelles
 - #7 Conventions (couleurs & nommage)
+- #8 Application MAUI
 
 ---
 
@@ -34,7 +36,7 @@ Développement d'une solution complète de gestion de vente de vélos pour TACTf
 **Titre :** `[LIB] Application Librairie — Entités et modèles de données partagés`
 
 **Description :**
-La bibliothèque partagée regroupe l'ensemble des éléments communs à l'application UWP et ASP.NET.
+La bibliothèque partagée regroupe l'ensemble des éléments communs à l'application MAUI, Vendeur ASP.NET et ASP.NET.
 
 **Sous-tâches :**
 
@@ -73,47 +75,43 @@ La bibliothèque partagée regroupe l'ensemble des éléments communs à l'appli
 
 ---
 
-## Issue #3 — Application UWP
+## Issue #3 — Application Vendeur ASP.NET
 
-**Titre :** `[UWP] Application UWP — Interface vendeur Windows 10`
+**Titre :** `[VENDEUR] Application Vendeur ASP.NET — Interface vendeur web`
 
 **Description :**
-Application bureau Windows 10 permettant aux vendeurs de réaliser des ventes de produits.
+Application web dédiée aux vendeurs, permettant la gestion des commandes et la consultation du stock depuis un navigateur.
 
 **Sous-tâches :**
 
 ### 3.1 Authentification
 - [ ] Implémenter l'écran de connexion (login / mot de passe)
-- [ ] Sécuriser la connexion avec l'application ASP.NET (authentification simple)
-- [ ] Gérer la session utilisateur côté UWP
+- [ ] Restreindre l'accès aux utilisateurs authentifiés uniquement
+- [ ] Gérer la session utilisateur côté vendeur
 
 ### 3.2 Gestion des commandes
 - [ ] Permettre la création d'une nouvelle commande
 - [ ] Ajouter/retirer des produits dans une commande
 - [ ] Afficher en temps réel le prix total de la commande à chaque modification
-- [ ] Valider une commande (uniquement en mode connecté)
-- [ ] Afficher les commandes de tous les vendeurs (pas uniquement les siennes)
+- [ ] Valider une commande
+- [ ] Afficher les commandes de tous les vendeurs avec pagination
 
-### 3.3 Base de données locale (SQLite)
-- [ ] Mettre en place la base SQLite locale (sans Entity Framework)
-- [ ] Synchroniser la base locale avec la base de données centrale (ASP.NET)
-- [ ] Gérer le mode déconnecté : interdit la validation de commande
+### 3.3 Consultation du stock
+- [ ] Afficher la vue du stock global avec pagination
+- [ ] Permettre à un vendeur de faire une demande d'ajout de stock pour un type de produit
 
 ### 3.4 Expérience utilisateur
-- [ ] Aucun freeze — toutes les opérations réseau doivent être asynchrones
-- [ ] Indicateurs d'état (chargement, synchronisation, mode hors-ligne)
+- [ ] Interface responsive (Bootstrap)
+- [ ] Appliquer la charte graphique Material Design (`#558C2F` / `#283593`)
+- [ ] Thème clair et thème sombre
 
-**Labels :** `uwp`, `enhancement`
+**Labels :** `vendeur`, `aspnet`, `enhancement`
 
 **Réponses aux questions :**
-> - **Quel est le mécanisme de synchronisation entre la base locale SQLite et la base centrale ?**
->   → À définir (à voir).
-> - **Les vendeurs voient-ils les commandes des autres vendeurs sur l'UWP ?**
+> - **Les vendeurs voient-ils les commandes des autres vendeurs ?**
 >   → Oui.
-> - **Comment gérer les conflits lors de la synchronisation ?**
->   → À définir (à voir).
-> - **L'UWP supporte-t-elle plusieurs vendeurs sur un même poste ?**
->   → Non précisé.
+> - **Y a-t-il une pagination sur la liste des commandes et du stock ?**
+>   → Oui.
 
 ---
 
@@ -167,27 +165,35 @@ Ensemble des contraintes techniques imposées par le cahier des charges.
 **Sous-tâches :**
 
 ### 5.1 Bibliothèque partagée
-- [ ] Cibler .NET Framework ≥ 4.6
+- [ ] Cibler .NET 8 (LTS)
 
-### 5.2 Application UWP
-- [ ] Cibler Windows 10 mise à jour de mai 2019 (Build 18362)
-- [ ] Utiliser SQLite comme base de données locale
-- [ ] Ne pas utiliser Entity Framework
-- [ ] Connexion sécurisée à l'ASP.NET (login/password)
-- [ ] Opérations 100% asynchrones (pas de freeze)
-
-### 5.3 Application ASP.NET
-- [ ] Compatible IIS Express (Visual Studio)
-- [ ] Utiliser SQL Server LocalDb comme base de données
+### 5.2 Application Vendeur ASP.NET
+- [ ] Cibler ASP.NET Core (dernière version LTS)
 - [ ] Utiliser **Entity Framework Core (dernière version LTS)**
 - [ ] Authentification obligatoire pour tous les accès
-- [ ] Exposer une **API REST** pour la communication avec l'UWP
+- [ ] Interface responsive avec Bootstrap
 
-### 5.4 Tests unitaires
+### 5.3 Application ASP.NET (admin)
+- [ ] Compatible avec un serveur web standard (Kestrel / IIS)
+- [ ] Utiliser SQL Server ou SQLite comme base de données
+- [ ] Utiliser **Entity Framework Core (dernière version LTS)**
+- [ ] Authentification obligatoire pour tous les accès
+- [ ] Exposer une **API REST** pour la communication avec l'application MAUI
+
+### 5.4 Application MAUI
+- [ ] Cibler .NET MAUI (.NET 8 LTS)
+- [ ] Multiplateforme : Windows, Android, iOS, macOS
+- [ ] Utiliser SQLite comme base de données locale (sans Entity Framework)
+- [ ] Connexion sécurisée à l'API REST de l'ASP.NET (login/password)
+- [ ] Opérations 100% asynchrones (`async/await`, pas de freeze)
+- [ ] Gestion du mode hors-ligne (validation de commande interdite)
+- [ ] Synchronisation avec la base centrale via l'API REST
+
+### 5.5 Tests unitaires
 - [ ] Mettre en place des tests unitaires (obligatoires)
 - [ ] Utiliser un framework de test compatible .NET (xUnit, NUnit ou MSTest)
 
-### 5.5 Versionning
+### 5.6 Versionning
 - [ ] Versionner l'ensemble du code avec Git et publier sur GitHub
 - [ ] Ajouter `antoinecronier` comme collaborateur du projet
 
@@ -247,8 +253,9 @@ Respect des conventions de l'interface et du code source.
 ### 7.1 Code couleur (Material Design)
 - [ ] Couleur primaire : `#558C2F` (vert)
 - [ ] Couleur secondaire : `#283593` (bleu indigo)
-- [ ] Appliquer le schéma couleur dans l'application UWP (styles XAML)
-- [ ] Appliquer le schéma couleur dans l'application ASP.NET (CSS/Bootstrap)
+- [ ] Appliquer le schéma couleur dans l'application MAUI (styles XAML)
+- [ ] Appliquer le schéma couleur dans l'application ASP.NET Vendeur (CSS/Bootstrap)
+- [ ] Appliquer le schéma couleur dans l'application ASP.NET admin (CSS/Bootstrap)
 
 ### 7.2 Charte graphique
 - [ ] Respecter la charte graphique détaillée (typographie, icônes, espacements)
@@ -285,7 +292,7 @@ Les réponses suivantes ont été fournies par Antoine CRÔNIER (TACTfactory) :
    → Oui.
 
 ### Sur l'architecture technique
-4. **Quel mécanisme de synchronisation entre l'UWP et l'ASP.NET est attendu ?**
+4. **Quel mécanisme de synchronisation entre l'application MAUI et l'ASP.NET est attendu ?**
    → API REST.
 5. **Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?**
    → Entity Framework Core, dernière version LTS.
@@ -295,7 +302,7 @@ Les réponses suivantes ont été fournies par Antoine CRÔNIER (TACTfactory) :
 ### Sur les fonctionnalités
 7. **L'administrateur peut-il annuler des commandes ?**
    → Oui.
-8. **Les vendeurs peuvent-ils voir les commandes des autres vendeurs sur l'UWP ?**
+8. **Les vendeurs peuvent-ils voir les commandes des autres vendeurs sur l'application MAUI et Vendeur ASP.NET ?**
    → Oui, les vendeurs voient les commandes de tous les vendeurs.
 9. **Comment gérer les conflits de stock (deux vendeurs vendant le même produit simultanément) ?**
    → À définir (à voir).
@@ -317,6 +324,55 @@ Les réponses suivantes ont été fournies par Antoine CRÔNIER (TACTfactory) :
     → Oui.
 16. **Le thème sombre est-il requis en plus du thème clair ?**
     → Oui, le thème sombre est requis.
+
+---
+
+## Issue #8 — Application MAUI
+
+**Titre :** `[MAUI] Application MAUI — Interface vendeur multiplateforme`
+
+**Description :**
+Application native multiplateforme (Windows, Android, iOS, macOS) permettant aux vendeurs de gérer leurs commandes, avec support du mode hors-ligne via une base SQLite locale synchronisée avec l'API REST.
+
+**Sous-tâches :**
+
+### 8.1 Authentification
+- [ ] Implémenter l'écran de connexion (login / mot de passe)
+- [ ] Sécuriser la connexion à l'API REST de l'ASP.NET
+- [ ] Gérer la session utilisateur (token JWT)
+- [ ] Détecter et afficher l'état de connexion (en ligne / hors-ligne)
+
+### 8.2 Gestion des commandes
+- [ ] Permettre la création d'une nouvelle commande
+- [ ] Ajouter/retirer des produits dans une commande
+- [ ] Afficher en temps réel le prix total de la commande à chaque modification
+- [ ] Valider une commande (uniquement en mode connecté)
+- [ ] Afficher les commandes de tous les vendeurs
+
+### 8.3 Base de données locale (SQLite)
+- [ ] Mettre en place la base SQLite locale (sans Entity Framework)
+- [ ] Synchroniser la base locale avec la base centrale via l'API REST
+- [ ] Gérer le mode déconnecté : interdire la validation de commande
+- [ ] Gérer les conflits lors de la synchronisation
+
+### 8.4 Expérience utilisateur
+- [ ] Aucun freeze — toutes les opérations réseau en `async/await`
+- [ ] Indicateurs d'état (chargement, synchronisation, mode hors-ligne)
+- [ ] Appliquer la charte graphique Material Design (`#558C2F` / `#283593`)
+- [ ] Thème clair et thème sombre
+- [ ] Interface adaptée aux formats mobile et tablette
+
+**Labels :** `maui`, `enhancement`
+
+**Réponses aux questions :**
+> - **Quel est le mécanisme de synchronisation entre la base locale SQLite et la base centrale ?**
+>   → API REST — à définir plus précisément.
+> - **Les vendeurs voient-ils les commandes des autres vendeurs ?**
+>   → Oui.
+> - **Comment gérer les conflits lors de la synchronisation ?**
+>   → À définir (à voir).
+> - **L'application MAUI supporte-t-elle plusieurs vendeurs sur un même appareil ?**
+>   → Non précisé.
 
 ---
 
