@@ -4,17 +4,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AspNet_FilRouge_Vendeur.Models
 {
+    public enum PaymentMode
+    {
+        Cash,
+        CreditCard,
+        DebitCard,
+        BankTransfer,
+        Check
+    }
+
     public class Order
     {
         #region Attributs
         private long idOrder;
         private List<Bicycle> bicycles = new();
         private List<OrderLine> orderLines = new();
-        private Seller? seller;
-        private Customer? customer;
+        [Required]
+        private Seller seller = new ();
+        [Required]
+        private Customer customer= new ();
         private DateTime date;
-        private Shop? shop;
-        private string? payMode;
+        private PaymentMode payMode;
         private float discount;
         private bool useLoyaltyPoint;
         private float tax;
@@ -28,11 +38,12 @@ namespace AspNet_FilRouge_Vendeur.Models
         public long IdOrder { get { return idOrder; } set { idOrder = value; } }
         public List<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
         public List<OrderLine> OrderLines { get { return orderLines; } set { orderLines = value; } }
-        public Seller? Seller { get { return seller; } set { seller = value; } }
-        public Customer? Customer { get { return customer; } set { customer = value; } }
+        [Required]
+        public Seller Seller { get { return seller; } set { seller = value; } }
+        [Required]
+        public Customer Customer { get { return customer; } set { customer = value; } }
         public DateTime Date { get { return date; } set { date = value; } }
-        public Shop? Shop { get { return shop; } set { shop = value; } }
-        public string? PayMode { get { return payMode; } set { payMode = value; } }
+        public PaymentMode PayMode { get { return payMode; } set { payMode = value; } }
         public float Discount { get { return discount; } set { discount = value; } }
         public bool UseLoyaltyPoint { get { return useLoyaltyPoint; } set { useLoyaltyPoint = value; } }
         public float Tax { get { return tax; } set { tax = value; } }
@@ -50,7 +61,7 @@ namespace AspNet_FilRouge_Vendeur.Models
 
         public override string ToString()
         {
-            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
+            return this.idOrder + " " + this.bicycles + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
         }
     }
 }
