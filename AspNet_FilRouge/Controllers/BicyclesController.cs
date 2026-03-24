@@ -24,6 +24,29 @@ namespace AspNet_FilRouge.Controllers
             return View(paginatedList);
         }
 
+        // GET: Bicycles/Create
+        [Authorize(Roles = "Administrateur")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Bicycles/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Create([Bind("TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(bicycle);
+            }
+
+            db.Bicycles.Add(bicycle);
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Bicycles/Details/5
         public async Task<IActionResult> Details(long? id)
         {
