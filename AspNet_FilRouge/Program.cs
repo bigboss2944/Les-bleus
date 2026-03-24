@@ -1,4 +1,5 @@
 using AspNet_FilRouge.Models;
+using AspNet_FilRouge.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -47,6 +48,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<LocalDbService>();
+
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "RequestVerificationToken";
+});
+
+builder.Services.AddHostedService<SyncBackgroundService>();
 
 var app = builder.Build();
 

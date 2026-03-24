@@ -209,6 +209,48 @@ namespace AspNet_FilRouge.Services
             cmd.ExecuteNonQuery();
         }
 
+        // ── Statistics ────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Retourne les statistiques de la base locale : nombre d'enregistrements
+        /// par table et date de la dernière synchronisation.
+        /// </summary>
+        public (int Orders, int Bicycles, int Sellers, int Customers, DateTime? LastSyncedAt) GetStats()
+        {
+            using var db = OpenConnection();
+
+            using var cmd = new SqliteCommand(@"
+                SELECT
+                    (SELECT COUNT(*) FROM Orders)   AS OrderCount,
+                    (SELECT COUNT(*) FROM Bicycles) AS BicycleCount,
+                    (SELECT COUNT(*) FROM Sellers)  AS SellerCount,
+                    (SELECT COUNT(*) FROM Customers) AS CustomerCount,
+                    (SELECT MAX(SyncedAt) FROM (
+                        SELECT MAX(SyncedAt) AS SyncedAt FROM Orders
+                        UNION ALL SELECT MAX(SyncedAt) FROM Bicycles
+                        UNION ALL SELECT MAX(SyncedAt) FROM Sellers
+                        UNION ALL SELECT MAX(SyncedAt) FROM Customers
+                    )) AS LastSyncedAt", db);
+
+            using var reader = cmd.ExecuteReader();
+            reader.Read();
+
+            int orders    = reader.GetInt32(0);
+            int bicycles  = reader.GetInt32(1);
+            int sellers   = reader.GetInt32(2);
+            int customers = reader.GetInt32(3);
+
+            var lastSyncStr = reader.IsDBNull(4) ? null : reader.GetString(4);
+            DateTime? lastSync = null;
+            if (lastSyncStr != null &&
+                DateTime.TryParse(lastSyncStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out var parsed))
+            {
+                lastSync = parsed;
+            }
+
+            return (orders, bicycles, sellers, customers, lastSync);
+        }
+
         // ── Customers ─────────────────────────────────────────────────────────
 
         public void UpsertCustomer(Models.Customer customer)

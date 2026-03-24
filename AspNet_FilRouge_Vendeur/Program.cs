@@ -57,6 +57,8 @@ builder.Services.AddAntiforgery(options =>
     options.HeaderName = "RequestVerificationToken";
 });
 
+builder.Services.AddHostedService<SyncBackgroundService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

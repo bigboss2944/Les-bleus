@@ -1,0 +1,166 @@
+@{
+    ViewBag.Title = "Synchronisation base locale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var lastSync = ViewBag.LastSyncedAt as DateTime?;
+}
+
+<h2>Synchronisation — Base de données locale</h2>
+
+<div id="offline-banner" class="alert alert-warning" style="display:none;">
+    <strong>Mode hors-ligne :</strong> la synchronisation avec la base centrale est indisponible.
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><strong>État de la base locale (SQLite)</strong></div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td>Commandes</td>
+                            <td><span id="stat-orders">@ViewBag.Orders</span></td>
+                        </tr>
+                        <tr>
+                            <td>Vélos</td>
+                            <td><span id="stat-bicycles">@ViewBag.Bicycles</span></td>
+                        </tr>
+                        <tr>
+                            <td>Vendeurs</td>
+                            <td><span id="stat-sellers">@ViewBag.Sellers</span></td>
+                        </tr>
+                        <tr>
+                            <td>Clients</td>
+                            <td><span id="stat-customers">@ViewBag.Customers</span></td>
+                        </tr>
+                        <tr>
+                            <td>Dernière synchronisation</td>
+                            <td>
+                                <span id="stat-last-sync">
+                                    @if (lastSync.HasValue)
+                                    {
+                                        @lastSync.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")
+                                    }
+                                    else
+                                    {
+                                        <em class="text-muted">Jamais synchronisé</em>
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><strong>Actions</strong></div>
+            <div class="card-body">
+                <p class="text-muted">
+                    La synchronisation complète copie toutes les données de la base centrale
+                    vers la base locale SQLite embarquée. Les données existantes sont mises à jour
+                    (UPSERT) sans perte. La synchronisation automatique s'effectue toutes les 5 minutes.
+                </p>
+                <button id="btn-sync" class="btn btn-primary" onclick="triggerFullSync()">
+                    Synchroniser maintenant
+                </button>
+                <div id="sync-feedback" class="mt-3" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    @Html.ActionLink("Retour à l'accueil", "Index", "Home", null, new { @class = "btn btn-link" })
+</div>
+
+@Html.AntiForgeryToken()
+
+@section scripts {
+<script>
+    var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+
+    function updateOnlineStatus() {
+        var offline = !navigator.onLine;
+        document.getElementById('offline-banner').style.display = offline ? 'block' : 'none';
+        var btn = document.getElementById('btn-sync');
+        if (btn) {
+            btn.disabled = offline;
+            btn.title = offline ? 'Synchronisation impossible en mode hors-ligne' : '';
+        }
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    function triggerFullSync() {
+        if (!navigator.onLine) {
+            alert('Synchronisation impossible en mode hors-ligne.');
+            return;
+        }
+        if (!token) {
+            showError('Jeton de sécurité manquant. Veuillez actualiser la page et réessayer.');
+            return;
+        }
+        var btn = document.getElementById('btn-sync');
+        var feedback = document.getElementById('sync-feedback');
+        btn.disabled = true;
+        btn.textContent = 'Synchronisation en cours…';
+        feedback.style.display = 'none';
+
+        fetch('/api/sync/full', {
+            method: 'POST',
+            headers: {
+                'RequestVerificationToken': token
+            }
+        })
+        .then(function(r) {
+            if (r.status === 401 || r.status === 403) {
+                throw new Error('Accès refusé. Veuillez vous reconnecter.');
+            }
+            if (!r.ok) {
+                throw new Error('Erreur serveur (' + r.status + '). Veuillez réessayer.');
+            }
+            return r.json();
+        })
+        .then(function(data) {
+            if (data.message) {
+                var syncedAt = data.syncedAt ? new Date(data.syncedAt).toLocaleString('fr-FR') : '—';
+                feedback.className = 'alert alert-success';
+                feedback.innerHTML =
+                    '<strong>Synchronisation réussie</strong> — ' + syncedAt + '<br>' +
+                    'Commandes : ' + data.counts.orders +
+                    ' | Vélos : ' + data.counts.bicycles +
+                    ' | Vendeurs : ' + data.counts.sellers +
+                    ' | Clients : ' + data.counts.customers;
+                feedback.style.display = 'block';
+
+                document.getElementById('stat-orders').textContent    = data.counts.orders;
+                document.getElementById('stat-bicycles').textContent  = data.counts.bicycles;
+                document.getElementById('stat-sellers').textContent   = data.counts.sellers;
+                document.getElementById('stat-customers').textContent = data.counts.customers;
+                document.getElementById('stat-last-sync').textContent = syncedAt;
+            } else {
+                showError('Réponse inattendue du serveur.');
+            }
+        })
+        .catch(function(err) {
+            showError(err.message || 'Erreur réseau. Vérifiez votre connexion et réessayez.');
+        })
+        .finally(function() {
+            btn.disabled = false;
+            btn.textContent = 'Synchroniser maintenant';
+        });
+    }
+
+    function showError(msg) {
+        var feedback = document.getElementById('sync-feedback');
+        feedback.className = 'alert alert-danger';
+        feedback.textContent = msg;
+        feedback.style.display = 'block';
+    }
+</script>
+}
