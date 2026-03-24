@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNet_FilRouge.Models
+namespace Entities
 {
     public class ApplicationUser : IdentityUser
     {

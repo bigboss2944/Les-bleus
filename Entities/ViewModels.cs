@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNet_FilRouge_Vendeur.Models
+namespace Entities
 {
     public class BicycleOrdersViewModel
     {

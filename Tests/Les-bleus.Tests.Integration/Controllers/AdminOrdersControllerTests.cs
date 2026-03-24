@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using AspNet_FilRouge.Controllers;
-using AspNet_FilRouge.Models;
+using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-using AspNet_FilRouge.Models;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LesBleus.Tests.Integration.Repositories;
