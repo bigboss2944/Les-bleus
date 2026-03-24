@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="../../AspNet_FilRouge/AspNet_FilRouge.csproj" />
     <ProjectReference Include="../../AspNet_FilRouge_Vendeur/AspNet_FilRouge_Vendeur.csproj" />
+    <ProjectReference Include="../../Entities/Entities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />

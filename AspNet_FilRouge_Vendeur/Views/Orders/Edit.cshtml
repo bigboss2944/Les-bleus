@@ -1,4 +1,4 @@
-@model AspNet_FilRouge_Vendeur.Models.Order
+@model Entities.Order
 
 @{
     ViewBag.Title = "Modifier la commande";
@@ -48,7 +48,7 @@
             <div class="col-md-10">
                 <select name="CustomerId" class="form-control">
                     <option value="">— Aucun —</option>
-                    @foreach (var c in (List<AspNet_FilRouge_Vendeur.Models.Customer>)ViewBag.Customers)
+                    @foreach (var c in (List<Entities.Customer>)ViewBag.Customers)
                     {
                         if (Model.Customer?.Id == c.Id)
                         {
@@ -68,7 +68,7 @@
             <div class="col-md-10">
                 <select name="ShopId" class="form-control">
                     <option value="">— Aucune —</option>
-                    @foreach (var s in (List<AspNet_FilRouge_Vendeur.Models.Shop>)ViewBag.Shops)
+                    @foreach (var s in (List<Entities.Shop>)ViewBag.Shops)
                     {
                         if (Model.Shop?.ShopId == s.ShopId)
                         {
@@ -161,7 +161,7 @@
 
 @section scripts {
 <script>
-    var bicyclePrices = [@string.Join(",", (Model.Bicycles ?? new List<AspNet_FilRouge_Vendeur.Models.Bicycle>()).Select(b => b.FreeTaxPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)))];
+    var bicyclePrices = [@string.Join(",", (Model.Bicycles ?? new List<Entities.Bicycle>()).Select(b => b.FreeTaxPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)))];
 
     function recalcTotal() {
         var subtotal = bicyclePrices.reduce(function(a, b) { return a + b; }, 0);

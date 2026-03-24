@@ -1,4 +1,4 @@
-namespace AspNet_FilRouge.Models
+namespace Entities
 {
     public class RoleViewModel
     {

@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<AspNet_FilRouge_Vendeur.Models.ApplicationUser> SignInManager
-@inject UserManager<AspNet_FilRouge_Vendeur.Models.ApplicationUser> UserManager
+@inject SignInManager<Entities.ApplicationUser> SignInManager
+@inject UserManager<Entities.ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

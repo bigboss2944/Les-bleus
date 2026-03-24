@@ -1,19 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using VendeurModels = AspNet_FilRouge_Vendeur.Models;
+using Entities;
 
 namespace LesBleus.Tests.Functional.Scenarios;
 
 public class OrderWorkflowTests
 {
-    private static VendeurModels.ApplicationDbContext CreateContext() =>
-        new(new DbContextOptionsBuilder<VendeurModels.ApplicationDbContext>()
+    private static Entities.ApplicationDbContext CreateContext() =>
+        new(new DbContextOptionsBuilder<Entities.ApplicationDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options);
 
     [Fact]
     public void NewOrder_IsNotValidated_ByDefault()
     {
-        var order = new VendeurModels.Order();
+        var order = new Entities.Order();
 
         Assert.False(order.IsValidated);
     }
@@ -21,7 +21,7 @@ public class OrderWorkflowTests
     [Fact]
     public void Order_WithNoBicycles_CannotBeValidated()
     {
-        var order = new VendeurModels.Order { Bicycles = new List<VendeurModels.Bicycle>() };
+        var order = new Entities.Order { Bicycles = new List<Entities.Bicycle>() };
 
         // Business rule: cannot validate an order with no bicycles
         bool canValidate = order.Bicycles.Count > 0;
@@ -32,9 +32,9 @@ public class OrderWorkflowTests
     [Fact]
     public void Order_WithBicycles_CanBeValidated()
     {
-        var order = new VendeurModels.Order
+        var order = new Entities.Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 300f } }
+            Bicycles = new List<Entities.Bicycle> { new() { FreeTaxPrice = 300f } }
         };
 
         bool canValidate = order.Bicycles.Count > 0;
@@ -46,9 +46,9 @@ public class OrderWorkflowTests
     public async Task ValidatedOrder_CannotAddBicycles()
     {
         using var context = CreateContext();
-        var order = new VendeurModels.Order
+        var order = new Entities.Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 200f } },
+            Bicycles = new List<Entities.Bicycle> { new() { FreeTaxPrice = 200f } },
             IsValidated = true
         };
         context.Orders.Add(order);
@@ -72,9 +72,9 @@ public class OrderWorkflowTests
     public async Task Order_Validate_SetIsValidatedTrue()
     {
         using var context = CreateContext();
-        var order = new VendeurModels.Order
+        var order = new Entities.Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 400f } }
+            Bicycles = new List<Entities.Bicycle> { new() { FreeTaxPrice = 400f } }
         };
         context.Orders.Add(order);
         await context.SaveChangesAsync();
@@ -90,9 +90,9 @@ public class OrderWorkflowTests
     [Fact]
     public void PriceCalculation_MatchesExpectedFormula()
     {
-        var order = new VendeurModels.Order
+        var order = new Entities.Order
         {
-            Bicycles = new List<VendeurModels.Bicycle> { new() { FreeTaxPrice = 500f } },
+            Bicycles = new List<Entities.Bicycle> { new() { FreeTaxPrice = 500f } },
             Discount = 5f,
             Tax = 20f,
             ShippingCost = 25f
