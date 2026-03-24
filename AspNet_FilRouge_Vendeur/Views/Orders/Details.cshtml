@@ -109,7 +109,7 @@
             <h5>Ajouter un vélo</h5>
             <div class="input-group" style="max-width:400px;">
                 <input type="number" id="add-bicycle-id" class="form-control" placeholder="ID du vélo" min="1" />
-                <button type="button" class="btn btn-secondary" onclick="addBicycle(@Model.IdOrder)">
+                <button type="button" class="btn btn-secondary" onclick="addBicycle(@Model.IdOrder, this)">
                     Ajouter
                 </button>
             </div>
@@ -167,17 +167,27 @@
             });
     }
 
-    function addBicycle(oId) {
+    function addBicycle(oId, btn) {
         var bicycleId = document.getElementById('add-bicycle-id').value;
         if (!bicycleId) { alert('Veuillez saisir un ID de vélo.'); return; }
+        btn.disabled = true;
+        btn.textContent = 'En cours…';
         fetch('@Url.Action("AddBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bicycleId, {
             method: 'POST',
             headers: { 'RequestVerificationToken': token }
         })
         .then(r => r.json())
         .then(data => {
-            if (data.error) { alert(data.error); }
-            else { location.reload(); }
+            if (data.error) {
+                alert(data.error);
+                btn.disabled = false;
+                btn.textContent = 'Ajouter';
+            } else { location.reload(); }
+        })
+        .catch(function() {
+            alert('Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
+            btn.textContent = 'Ajouter';
         });
     }
 
@@ -195,6 +205,10 @@
                 document.getElementById('row-' + bId)?.remove();
                 document.getElementById('total-price').textContent = data.total.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
             }
+        })
+        .catch(function() {
+            alert('Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
         });
     }
 
@@ -212,6 +226,11 @@
         .then(data => {
             if (data.error) { alert(data.error); btn.disabled = false; btn.textContent = 'Valider la commande'; }
             else { location.reload(); }
+        })
+        .catch(function() {
+            alert('Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
+            btn.textContent = 'Valider la commande';
         });
     }
 </script>
