@@ -50,6 +50,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<LocalDbService>();
+builder.Services.AddSingleton<IVendorSyncService, VendorSyncService>();
 
 builder.Services.AddAntiforgery(options =>
 {
