@@ -65,7 +65,6 @@ namespace AspNet_FilRouge_Vendeur.Models
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<RoleViewModel> RoleViewModels { get; set; }
         public DbSet<StockRequest> StockRequests { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<PhysicalProduct> PhysicalProducts { get; set; }

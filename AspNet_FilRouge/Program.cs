@@ -68,7 +68,7 @@ using (var scope = app.Services.CreateScope())
     await EnsureSqliteStockRequestsTableAsync(dbContext);
 }
 
-await SeedDefaultAdminAsync(app.Services);
+await SeedDefaultAdminAsync(app.Services, app.Configuration);
 
 if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
 {
@@ -99,6 +99,15 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
+    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    await next();
+});
 
 app.MapControllerRoute(
     name: "default",
@@ -228,7 +237,7 @@ static bool HasHttpsEndpoint(ConfigurationManager configuration)
         .Any(url => url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
 }
 
-static async Task SeedDefaultAdminAsync(IServiceProvider services)
+static async Task SeedDefaultAdminAsync(IServiceProvider services, IConfiguration configuration)
 {
     using var scope = services.CreateScope();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
@@ -236,9 +245,10 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services)
 
     const string adminRole = "Administrateur";
     const string vendeurRole = "Vendeur";
-    const string adminUserName = "admin";
-    const string adminEmail = "admin@filrouge.local";
-    const string adminPassword = "Admin!234";
+
+    var adminUserName = configuration["SeedCredentials:AdminUserName"] ?? "admin";
+    var adminEmail = configuration["SeedCredentials:AdminEmail"] ?? "admin@filrouge.local";
+    var adminPassword = configuration["SeedCredentials:AdminPassword"] ?? "Admin!234";
 
     foreach (var roleName in new[] { adminRole, vendeurRole })
     {

@@ -96,6 +96,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
+    context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    await next();
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -114,7 +123,8 @@ if (!app.Environment.IsEnvironment("Testing"))
             await roleManager.CreateAsync(new ApplicationRole(role));
     }
 
-    const string adminEmail = "admin@lesbleus.fr";
+    var adminEmail = app.Configuration["SeedCredentials:AdminEmail"] ?? "admin@lesbleus.fr";
+    var adminPassword = app.Configuration["SeedCredentials:AdminPassword"] ?? "Admin@123!";
     var admin = await userManager.FindByEmailAsync(adminEmail);
     if (admin == null)
     {
@@ -126,12 +136,13 @@ if (!app.Environment.IsEnvironment("Testing"))
             LastName = "Principal",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(admin, "Admin@123!");
+        var result = await userManager.CreateAsync(admin, adminPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(admin, "Administrateur");
     }
 
-    const string vendeurEmail = "vendeur@lesbleus.fr";
+    var vendeurEmail = app.Configuration["SeedCredentials:VendeurEmail"] ?? "vendeur@lesbleus.fr";
+    var vendeurPassword = app.Configuration["SeedCredentials:VendeurPassword"] ?? "Vendeur@123!";
     var vendeur = await userManager.FindByEmailAsync(vendeurEmail);
     if (vendeur == null)
     {
@@ -143,7 +154,7 @@ if (!app.Environment.IsEnvironment("Testing"))
             LastName = "Défaut",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(vendeur, "Vendeur@123!");
+        var result = await userManager.CreateAsync(vendeur, vendeurPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(vendeur, "Vendeur");
     }
