@@ -27,8 +27,8 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var bicycleTypes = await db.Bicycles
                 .Select(b => b.TypeOfBike)
                 .Where(t => t != null)
-                .Distinct()
                 .OrderBy(t => t)
+                .Distinct()
                 .ToListAsync();
             ViewBag.BicycleNames = new SelectList(bicycleTypes);
         }
