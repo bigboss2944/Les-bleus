@@ -54,23 +54,18 @@ namespace AspNet_FilRouge.Services
                 .Include(o => o.Shop)
                 .Include(o => o.Bicycles)
                 .ToListAsync();
-            foreach (var order in orders)
-                _localDb.UpsertOrder(order);
 
             var bicycles = await db.Bicycles
                 .Include(b => b.Order)
                 .Include(b => b.Shop)
                 .ToListAsync();
-            foreach (var bicycle in bicycles)
-                _localDb.UpsertBicycle(bicycle);
 
             var sellers = await db.Sellers.ToListAsync();
-            foreach (var seller in sellers)
-                _localDb.UpsertSeller(seller);
 
             var customers = await db.Customers.ToListAsync();
-            foreach (var customer in customers)
-                _localDb.UpsertCustomer(customer);
+
+            // Écriture atomique en une seule transaction pour éviter les verrous répétés.
+            await _localDb.BulkUpsertAllAsync(orders, bicycles, sellers, customers);
 
             _logger.LogInformation(
                 "Synchronisation automatique terminée — {Orders} commandes, {Bicycles} vélos, {Sellers} vendeurs, {Customers} clients.",

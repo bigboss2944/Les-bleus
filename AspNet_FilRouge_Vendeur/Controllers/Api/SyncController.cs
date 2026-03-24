@@ -159,20 +159,14 @@ namespace AspNet_FilRouge_Vendeur.Controllers.Api
                 .Include(o => o.Bicycles)
                 .ToListAsync();
 
-            foreach (var order in orders)
-                _localDb.UpsertOrder(order);
-
             var bicycles = await _db.Bicycles.Include(b => b.Order).Include(b => b.Shop).ToListAsync();
-            foreach (var bicycle in bicycles)
-                _localDb.UpsertBicycle(bicycle);
 
             var sellers = await _db.Sellers.ToListAsync();
-            foreach (var seller in sellers)
-                _localDb.UpsertSeller(seller);
 
             var customers = await _db.Customers.ToListAsync();
-            foreach (var customer in customers)
-                _localDb.UpsertCustomer(customer);
+
+            // Écriture atomique en une seule transaction pour éviter les verrous répétés.
+            await _localDb.BulkUpsertAllAsync(orders, bicycles, sellers, customers);
 
             return Ok(new
             {
