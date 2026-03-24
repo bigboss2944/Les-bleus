@@ -29,7 +29,13 @@
                         {
                             <li class="nav-item">@Html.ActionLink("Vendeurs", "Index", "Sellers", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
                             <li class="nav-item">@Html.ActionLink("Rôles", "Index", "Role", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Synchronisation", "Index", "SyncManagement", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
                         }
+                        <li class="nav-item ms-2">
+                            <button id="btn-sync" class="btn btn-outline-light btn-sm" onclick="syncData()" title="Synchroniser les données">
+                                🔄 Synchroniser
+                            </button>
+                        </li>
                     }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -69,6 +75,44 @@
         window.addEventListener('online',  updateGlobalOnlineStatus);
         window.addEventListener('offline', updateGlobalOnlineStatus);
         updateGlobalOnlineStatus();
+
+        // Synchronisation avec la base centrale
+        function syncData() {
+            if (!navigator.onLine) {
+                alert('Synchronisation impossible en mode hors-ligne.');
+                return;
+            }
+            var btn = document.getElementById('btn-sync');
+            if (!btn) return;
+            btn.disabled = true;
+            btn.textContent = '⏳ Synchronisation…';
+
+            var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+
+            fetch('/api/sync/full', {
+                method: 'POST',
+                headers: { 'RequestVerificationToken': token }
+            })
+            .then(function(r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            })
+            .then(function(data) {
+                var indicator = document.getElementById('online-indicator');
+                if (indicator) {
+                    indicator.textContent = '🟢 Synchronisé — ' + new Date().toLocaleTimeString('fr-FR');
+                    indicator.style.color = 'green';
+                    setTimeout(updateGlobalOnlineStatus, 5000);
+                }
+                btn.disabled = false;
+                btn.textContent = '🔄 Synchroniser';
+            })
+            .catch(function() {
+                alert('Erreur lors de la synchronisation.');
+                btn.disabled = false;
+                btn.textContent = '🔄 Synchroniser';
+            });
+        }
     </script>
     @RenderSection("scripts", required: false)
 </body>

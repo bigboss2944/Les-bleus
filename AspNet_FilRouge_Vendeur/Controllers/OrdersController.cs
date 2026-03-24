@@ -49,8 +49,8 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             return View(order);
         }
 
-        // Create / Edit — admin only
-        [Authorize(Roles = "Administrateur")]
+        // Create — vendeurs et administrateurs
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public IActionResult Create()
         {
             ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null).ToList();
@@ -69,7 +69,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // POST: Orders/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> Create([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost")] Order order, long? BicycleId, long? CustomerId, long? ShopId, List<long>? BicycleIds)
         {
             if (ModelState.IsValid)
