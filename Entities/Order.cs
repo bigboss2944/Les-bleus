@@ -9,6 +9,7 @@ namespace Entities
         #region Attributs
         private long idOrder;
         private List<Bicycle> bicycles = new();
+        private List<OrderLine> orderLines = new();
         private Seller? seller;
         private Customer? customer;
         private DateTime date;
@@ -25,6 +26,7 @@ namespace Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IdOrder { get { return idOrder; } set { idOrder = value; } }
         public List<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
+        public List<OrderLine> OrderLines { get { return orderLines; } set { orderLines = value; } }
         public Seller? Seller { get { return seller; } set { seller = value; } }
         public Customer? Customer { get { return customer; } set { customer = value; } }
         public DateTime Date { get { return date; } set { date = value; } }
@@ -39,6 +41,7 @@ namespace Entities
         public Order()
         {
             this.Bicycles = new List<Bicycle>();
+            this.OrderLines = new List<OrderLine>();
         }
 
         public override string ToString()
