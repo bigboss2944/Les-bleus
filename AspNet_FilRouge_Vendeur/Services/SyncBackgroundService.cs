@@ -64,12 +64,15 @@ namespace AspNet_FilRouge_Vendeur.Services
 
             var customers = await db.Customers.ToListAsync();
 
+            var stockRequests = await db.StockRequests.ToListAsync();
+
             // Écriture atomique en une seule transaction pour éviter les verrous répétés.
             await _localDb.BulkUpsertAllAsync(orders, bicycles, sellers, customers);
+            await _localDb.BulkUpsertStockRequestsAsync(stockRequests);
 
             _logger.LogInformation(
-                "Synchronisation automatique terminée — {Orders} commandes, {Bicycles} vélos, {Sellers} vendeurs, {Customers} clients.",
-                orders.Count, bicycles.Count, sellers.Count, customers.Count);
+                "Synchronisation automatique terminée — {Orders} commandes, {Bicycles} vélos, {Sellers} vendeurs, {Customers} clients, {StockRequests} demandes de stock.",
+                orders.Count, bicycles.Count, sellers.Count, customers.Count, stockRequests.Count);
         }
     }
 }
