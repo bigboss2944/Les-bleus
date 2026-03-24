@@ -1,0 +1,45 @@
+@model Entities.Customer
+
+@{
+    ViewBag.Title = "Détails du client";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Détails du client</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Gender)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Gender)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Address)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Town)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Town)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PostalCode)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.PostalCode)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LoyaltyPoints)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.LoyaltyPoints)</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary" }) |
+    @Html.ActionLink("Retour à la liste", "Index")
+</p>
