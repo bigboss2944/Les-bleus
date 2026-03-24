@@ -7,19 +7,21 @@ using System.Runtime.InteropServices;
 var builder = WebApplication.CreateBuilder(args);
 var hasHttpsEndpoint = HasHttpsEndpoint(builder.Configuration);
 
-// Database
+// Database - shared with vendor app
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-        ?? "Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\aspnet-AspNet_FilRouge.mdf;Initial Catalog=aspnet-AspNet_FilRouge;Integrated Security=True";
+        ?? "Server=(localdb)\\mssqllocaldb;Database=aspnet-AspNet_FilRouge;Trusted_Connection=True;MultipleActiveResultSets=true";
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
 }
 else
 {
+    var sqliteConnectionString = builder.Configuration.GetConnectionString("SqliteConnection")
+        ?? "Data Source=aspnet-filrouge.db";
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite("Data Source=aspnet-filrouge.db"));
+        options.UseSqlite(sqliteConnectionString));
 }
 
 // Identity
@@ -53,6 +55,7 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
     await EnsureSqliteIdentitySchemaAsync(dbContext);
+    await EnsureSqliteStockRequestsTableAsync(dbContext);
 }
 
 await SeedDefaultAdminAsync(app.Services);
@@ -148,6 +151,55 @@ static async Task EnsureSqliteIdentitySchemaAsync(ApplicationDbContext dbContext
     foreach (var alterStatement in alterStatements)
     {
         await dbContext.Database.ExecuteSqlRawAsync(alterStatement);
+    }
+}
+
+static async Task EnsureSqliteStockRequestsTableAsync(ApplicationDbContext dbContext)
+{
+    if (!dbContext.Database.IsSqlite())
+    {
+        return;
+    }
+
+    var connection = dbContext.Database.GetDbConnection();
+    var wasClosed = connection.State != System.Data.ConnectionState.Open;
+
+    if (wasClosed)
+    {
+        await connection.OpenAsync();
+    }
+
+    try
+    {
+        // Table name is a hardcoded constant — no user input, no injection risk.
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='StockRequests';";
+        var result = await command.ExecuteScalarAsync();
+        if (result == null)
+        {
+            // Schema must match the StockRequest model in Models/IdentityModels.cs.
+            // AspNetUsers is guaranteed to exist: EnsureCreated() runs before this method.
+            await using var createCommand = connection.CreateCommand();
+            createCommand.CommandText = @"
+                CREATE TABLE StockRequests (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    BicycleName TEXT NOT NULL,
+                    Quantity INTEGER NOT NULL,
+                    RequestDate TEXT NOT NULL,
+                    Status TEXT NOT NULL,
+                    RequestedById TEXT,
+                    Notes TEXT,
+                    FOREIGN KEY (RequestedById) REFERENCES AspNetUsers(Id)
+                );";
+            await createCommand.ExecuteNonQueryAsync();
+        }
+    }
+    finally
+    {
+        if (wasClosed)
+        {
+            await connection.CloseAsync();
+        }
     }
 }
 
