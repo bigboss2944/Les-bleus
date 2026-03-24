@@ -23,12 +23,12 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Votre mot de passe a été modifié."
+                : message == ManageMessageId.SetPasswordSuccess ? "Votre mot de passe a été défini."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Votre fournisseur d'authentification à deux facteurs a été configuré."
+                : message == ManageMessageId.Error ? "Une erreur s'est produite."
+                : message == ManageMessageId.AddPhoneSuccess ? "Votre numéro de téléphone a été ajouté."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Votre numéro de téléphone a été supprimé."
                 : "";
 
             var user = await _userManager.GetUserAsync(User);
@@ -216,8 +216,8 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? "La connexion externe a été supprimée."
+                : message == ManageMessageId.Error ? "Une erreur s'est produite."
                 : "";
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
