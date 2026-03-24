@@ -19,9 +19,25 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // GET: Bicycles — paginated stock view
         public async Task<IActionResult> Index(int page = 1)
         {
-            var bicycles = db.Bicycles.AsQueryable();
+            var bicycles = db.Bicycles
+                .OrderBy(b => b.Id)
+                .AsQueryable();
             var paginatedList = await PaginatedList<Bicycle>.CreateAsync(bicycles, page, PageSize);
-            ViewBag.Stocks = await db.Stocks.Include(s => s.ProductType).ToListAsync();
+
+            ViewBag.StockSummaries = await db.Bicycles
+                .GroupBy(b => new { b.TypeOfBike, b.Reference, b.Color })
+                .Select(group => new StockSummaryViewModel
+                {
+                    TypeOfBike = group.Key.TypeOfBike,
+                    Reference = group.Key.Reference,
+                    Color = group.Key.Color,
+                    Quantity = group.Sum(b => b.Quantity)
+                })
+                .OrderBy(summary => summary.TypeOfBike)
+                .ThenBy(summary => summary.Reference)
+                .ThenBy(summary => summary.Color)
+                .ToListAsync();
+
             return View(paginatedList);
         }
 
@@ -51,7 +67,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrateur")]
-        public async Task<IActionResult> Create([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
+        public async Task<IActionResult> Create([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Quantity,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +98,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrateur")]
-        public async Task<IActionResult> Edit([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
+        public async Task<IActionResult> Edit([Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Quantity,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (ModelState.IsValid)
             {

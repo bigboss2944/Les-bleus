@@ -58,15 +58,50 @@ namespace AspNet_FilRouge.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Town,PostalCode,Address,LoyaltyPoints,Phone,Email,Gender,LastName,FirstName")] Customer customer)
         {
-            if (ModelState.IsValid)
+            if (id != customer.Id)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return BadRequest();
             }
-            return View(customer);
+
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
+
+            Customer? customerToUpdate = await db.Customers.FindAsync(id);
+            if (customerToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            customerToUpdate.Town = customer.Town;
+            customerToUpdate.PostalCode = customer.PostalCode;
+            customerToUpdate.Address = customer.Address;
+            customerToUpdate.LoyaltyPoints = customer.LoyaltyPoints;
+            customerToUpdate.Phone = customer.Phone;
+            customerToUpdate.Email = customer.Email;
+            customerToUpdate.Gender = customer.Gender;
+            customerToUpdate.LastName = customer.LastName;
+            customerToUpdate.FirstName = customer.FirstName;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var exists = await db.Customers.AnyAsync(c => c.Id == customer.Id);
+                if (!exists)
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(string? id)

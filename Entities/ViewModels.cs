@@ -8,6 +8,14 @@ namespace Entities
         public List<Bicycle> Bicycles { get; set; } = new List<Bicycle>();
     }
 
+    public class StockSummaryViewModel
+    {
+        public string? TypeOfBike { get; set; }
+        public string? Reference { get; set; }
+        public string? Color { get; set; }
+        public int Quantity { get; set; }
+    }
+
     public class PaginatedList<T> : List<T>
     {
         public int PageIndex { get; private set; }

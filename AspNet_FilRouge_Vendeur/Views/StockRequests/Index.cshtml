@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Demandes de stock";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    var isAdmin = User.IsInRole("Administrateur");
 }
 
 <h2>Demandes d'ajout de stock</h2>
@@ -22,11 +24,7 @@
         <th>Statut</th>
         <th>Demandé par</th>
         <th>Notes</th>
-        <th>Détails</th>
-        @if (User.IsInRole("Administrateur"))
-        {
-            <th>Actions</th>
-        }
+        <th>Actions</th>
     </tr>
 
     @foreach (var item in Model)
@@ -56,12 +54,22 @@
                 }
             </td>
             <td>@Html.DisplayFor(modelItem => item.Notes)</td>
-            <td>@Html.ActionLink("Détails", "Details", new { id = item.Id })</td>
-            @if (User.IsInRole("Administrateur"))
-            {
-                <td>
+            <td>
+                @Html.ActionLink("Détails", "Details", new { id = item.Id })
+
+                @if (item.Status == "En attente" && (isAdmin || item.RequestedById == currentUserId))
+                {
+                    @: |
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Id })
+                    @: |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = item.Id }, new { @class = "text-danger" })
+                }
+
+                @if (isAdmin)
+                {
                     @if (item.Status == "En attente")
                     {
+                        @: |
                         using (Html.BeginForm("Approve", "StockRequests", new { id = item.Id }, FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
@@ -78,8 +86,8 @@
                     {
                         <span class="text-muted">Traitée</span>
                     }
-                </td>
-            }
+                }
+            </td>
         </tr>
     }
 </table>

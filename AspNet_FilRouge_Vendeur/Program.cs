@@ -79,6 +79,7 @@ if (!app.Environment.IsEnvironment("Testing"))
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     EnsureCreatedWithSqliteRaceTolerance(dbContext);
+    await EnsureSqliteBicyclesSchemaAsync(dbContext);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -119,6 +120,7 @@ if (!app.Environment.IsEnvironment("Testing"))
     using var scope = app.Services.CreateScope();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
     string[] roles = { "Administrateur", "Vendeur" };
     foreach (var role in roles)
@@ -160,6 +162,20 @@ if (!app.Environment.IsEnvironment("Testing"))
         if (result.Succeeded)
             await userManager.AddToRoleAsync(vendeur, "Vendeur");
     }
+
+    if (vendeur != null && !await dbContext.Sellers.AnyAsync(s => s.Id == vendeur.Id))
+    {
+        dbContext.Sellers.Add(new Seller
+        {
+            Id = vendeur.Id,
+            UserName = vendeur.UserName,
+            Email = vendeur.Email,
+            FirstName = vendeur.FirstName,
+            LastName = vendeur.LastName,
+            PhoneNumber = vendeur.PhoneNumber
+        });
+        await dbContext.SaveChangesAsync();
+    }
 }
 
 app.Run();
@@ -174,5 +190,46 @@ static void EnsureCreatedWithSqliteRaceTolerance(ApplicationDbContext dbContext)
     {
         // Two app instances can call EnsureCreated concurrently on the shared SQLite file.
         // If a table was created by the other process between checks, we can safely continue.
+    }
+}
+
+static async Task EnsureSqliteBicyclesSchemaAsync(ApplicationDbContext dbContext)
+{
+    if (!dbContext.Database.IsSqlite())
+    {
+        return;
+    }
+
+    var columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    var connection = dbContext.Database.GetDbConnection();
+    var wasClosed = connection.State != System.Data.ConnectionState.Open;
+
+    if (wasClosed)
+    {
+        await connection.OpenAsync();
+    }
+
+    try
+    {
+        await using var command = connection.CreateCommand();
+        command.CommandText = "PRAGMA table_info('Bicycles');";
+
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            columns.Add(reader.GetString(1));
+        }
+    }
+    finally
+    {
+        if (wasClosed)
+        {
+            await connection.CloseAsync();
+        }
+    }
+
+    if (!columns.Contains("Quantity"))
+    {
+        await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Bicycles ADD COLUMN Quantity INTEGER NOT NULL DEFAULT 1;");
     }
 }

@@ -66,5 +66,12 @@
 }
 
 <div class="mt-3">
+    @if (User.IsInRole("Administrateur"))
+    {
+        @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.Raw(" ")
+        @Html.ActionLink("Supprimer", "Delete", new { id = Model.Id }, new { @class = "btn btn-outline-danger" })
+        @Html.Raw(" ")
+    }
     @Html.ActionLink("Retour à la liste", "Index")
 </div>

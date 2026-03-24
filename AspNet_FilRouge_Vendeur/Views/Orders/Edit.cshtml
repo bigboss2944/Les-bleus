@@ -119,17 +119,62 @@
         {
             <table class="table table-bordered">
                 <thead>
-                    <tr><th>Référence</th><th>Catégorie</th><th>Prix HT (€)</th></tr>
+                    <tr>
+                        <th>Référence</th>
+                        <th>Catégorie</th>
+                        <th>Prix HT (€)</th>
+                        <th>Retirer</th>
+                    </tr>
                 </thead>
-                <tbody>
+                <tbody id="bicycle-list">
                     @foreach (var b in Model.Bicycles)
                     {
-                        <tr><td>@b.Reference</td><td>@b.Category</td><td>@b.FreeTaxPrice.ToString("F2")</td></tr>
+                        <tr id="row-@b.Id">
+                            <td>@b.Reference</td>
+                            <td>@b.Category</td>
+                            <td>@b.FreeTaxPrice.ToString("F2")</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger"
+                                        onclick="removeBicycle(@Model.IdOrder, @b.Id, this)">
+                                    Retirer
+                                </button>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
-            <p class="text-muted small">Pour ajouter/retirer des produits, utilisez la page de détails.</p>
         }
+        <h5>Ajouter un vélo</h5>
+        <div class="input-group" style="max-width:400px;">
+            <select id="add-bicycle-id" class="form-control">
+                <option value="">-- Choisir une référence --</option>
+                @{
+                    var currentBicycleIds = new HashSet<long>((Model.Bicycles ?? new List<Entities.Bicycle>()).Select(b => b.Id));
+                    var bicyclesForDropdown = ((IEnumerable<Entities.Bicycle>?)ViewBag.Bicycles ?? Enumerable.Empty<Entities.Bicycle>())
+                        .Where(b => b.Quantity > 0 && !currentBicycleIds.Contains(b.Id))
+                        .OrderBy(b => b.Reference)
+                        .ThenBy(b => b.Id)
+                        .ToList();
+                }
+                @foreach (var bicycle in bicyclesForDropdown)
+                {
+                    var referenceLabel = string.IsNullOrWhiteSpace(bicycle.Reference)
+                        ? $"Velo #{bicycle.Id}"
+                        : bicycle.Reference;
+                    var categoryLabel = string.IsNullOrWhiteSpace(bicycle.Category)
+                        ? "Sans categorie"
+                        : bicycle.Category;
+                    <option value="@bicycle.Id">@referenceLabel (@categoryLabel)</option>
+                }
+                @if (!bicyclesForDropdown.Any())
+                {
+                    <option value="" disabled>Aucun produit disponible</option>
+                }
+            </select>
+            <button type="button" class="btn btn-secondary" onclick="addBicycle(@Model.IdOrder, this)">
+                Ajouter
+            </button>
+        </div>
 
         <hr />
         <div class="row mb-3">
@@ -161,6 +206,8 @@
 
 @section scripts {
 <script>
+    var orderId = @Model.IdOrder;
+    var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
     var bicyclePrices = [@string.Join(",", (Model.Bicycles ?? new List<Entities.Bicycle>()).Select(b => b.FreeTaxPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)))];
 
     function recalcTotal() {
@@ -180,5 +227,74 @@
         el.addEventListener('change', recalcTotal);
         el.addEventListener('input',  recalcTotal);
     });
+
+    function parseApiResponse(response) {
+        var contentType = response.headers.get('content-type') || '';
+        if (contentType.indexOf('application/json') >= 0) {
+            return response.json().then(function(data) {
+                if (!response.ok) {
+                    throw new Error(data && data.error ? data.error : ('Erreur ' + response.status));
+                }
+                return data;
+            });
+        }
+
+        if (!response.ok) {
+            throw new Error('Erreur ' + response.status + '. Veuillez recharger la page.');
+        }
+
+        return Promise.resolve({});
+    }
+
+    function addBicycle(oId, btn) {
+        var bicycleId = document.getElementById('add-bicycle-id').value;
+        if (!bicycleId) { alert('Veuillez sélectionner une référence produit.'); return; }
+
+        btn.disabled = true;
+        btn.textContent = 'En cours...';
+
+        fetch('@Url.Action("AddBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bicycleId, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        })
+        .then(parseApiResponse)
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                btn.disabled = false;
+                btn.textContent = 'Ajouter';
+            } else {
+                location.reload();
+            }
+        })
+        .catch(function(error) {
+            alert(error && error.message ? error.message : 'Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
+            btn.textContent = 'Ajouter';
+        });
+    }
+
+    function removeBicycle(oId, bId, btn) {
+        if (!confirm('Retirer ce vélo de la commande ?')) return;
+
+        btn.disabled = true;
+        fetch('@Url.Action("RemoveBicycle", "Orders")?orderId=' + oId + '&bicycleId=' + bId, {
+            method: 'POST',
+            headers: { 'RequestVerificationToken': token }
+        })
+        .then(parseApiResponse)
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                btn.disabled = false;
+            } else {
+                location.reload();
+            }
+        })
+        .catch(function(error) {
+            alert(error && error.message ? error.message : 'Erreur réseau. Veuillez réessayer.');
+            btn.disabled = false;
+        });
+    }
 </script>
 }

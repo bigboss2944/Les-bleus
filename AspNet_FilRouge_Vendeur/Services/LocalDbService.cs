@@ -332,6 +332,22 @@ namespace AspNet_FilRouge_Vendeur.Services
             }
         }
 
+        public async Task DeleteStockRequestAsync(int requestId)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var cmd = new SqliteCommand("DELETE FROM StockRequests WHERE Id = @Id", db);
+                cmd.Parameters.AddWithValue("@Id", requestId);
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
         private static void ExecuteUpsertStockRequest(StockRequest request, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"

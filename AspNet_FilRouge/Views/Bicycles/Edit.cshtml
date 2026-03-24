@@ -1,15 +1,16 @@
 @model Entities.Bicycle
 
 @{
-    ViewBag.Title = "Ajouter un vélo";
+    ViewBag.Title = "Modifier un vélo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ajouter un vélo</h2>
+<h2>Modifier un vélo</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
 
     <div class="form-horizontal">
         <hr />
@@ -92,7 +93,7 @@
         </div>
 
         <div class="form-group" style="margin-top:15px;">
-            <input type="submit" value="Créer" class="btn btn-primary" />
+            <input type="submit" value="Enregistrer" class="btn btn-primary" />
             @Html.ActionLink("Retour", "Index", null, new { @class = "btn btn-default" })
         </div>
     </div>

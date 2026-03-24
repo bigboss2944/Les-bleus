@@ -59,6 +59,18 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Vendeur");
+
+                    db.Sellers.Add(new Seller
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        PhoneNumber = user.PhoneNumber
+                    });
+                    await db.SaveChangesAsync();
+
                     return RedirectToAction("Index");
                 }
 

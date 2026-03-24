@@ -36,8 +36,19 @@ namespace AspNet_FilRouge.Controllers
         // GET: StockRequests — all authenticated users
         public async Task<IActionResult> Index()
         {
-            var requests = await db.StockRequests
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
+            var query = db.StockRequests
                 .Include(r => r.RequestedBy)
+                .AsQueryable();
+
+            if (!isAdmin)
+            {
+                query = query.Where(r => r.RequestedById == currentUserId);
+            }
+
+            var requests = await query
                 .OrderByDescending(r => r.RequestDate)
                 .ToListAsync();
             return View(requests);
@@ -78,6 +89,23 @@ namespace AspNet_FilRouge.Controllers
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);
             if (request == null) return NotFound();
+
+            var requestedType = request.BicycleName?.Trim();
+            if (!string.IsNullOrWhiteSpace(requestedType) && request.Quantity > 0)
+            {
+                var normalizedRequestedType = requestedType.ToLower();
+                var bicycle = await db.Bicycles
+                    .OrderBy(b => b.Id)
+                    .FirstOrDefaultAsync(b =>
+                        b.TypeOfBike != null &&
+                        b.TypeOfBike.ToLower() == normalizedRequestedType);
+
+                if (bicycle != null)
+                {
+                    bicycle.Quantity += request.Quantity;
+                }
+            }
+
             request.Status = "Approuvée";
             await db.SaveChangesAsync();
             await _vendorSync.WriteStatusToVendorCacheAsync(id, "Approuvée");
@@ -102,11 +130,101 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return BadRequest("L'identifiant de la demande est requis.");
+            var currentUserId = _userManager.GetUserId(User);
+            var isAdmin = User.IsInRole("Administrateur");
+
             StockRequest? request = await db.StockRequests
                 .Include(r => r.RequestedBy)
                 .FirstOrDefaultAsync(r => r.Id == id);
             if (request == null) return NotFound();
+            if (!isAdmin && request.RequestedById != currentUserId) return Forbid();
             return View(request);
+        }
+
+        // GET: StockRequests/Edit/5 — admin only
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return BadRequest("L'identifiant de la demande est requis.");
+            StockRequest? request = await db.StockRequests.FindAsync(id);
+            if (request == null) return NotFound();
+
+            await PopulateBicycleNamesViewBagAsync();
+            return View(request);
+        }
+
+        // POST: StockRequests/Edit/5 — admin only
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BicycleName,Quantity,Notes")] StockRequest stockRequest)
+        {
+            if (id != stockRequest.Id)
+            {
+                return BadRequest("L'identifiant de la demande ne correspond pas.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                await PopulateBicycleNamesViewBagAsync();
+                return View(stockRequest);
+            }
+
+            StockRequest? requestToUpdate = await db.StockRequests.FindAsync(id);
+            if (requestToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            requestToUpdate.BicycleName = stockRequest.BicycleName;
+            requestToUpdate.Quantity = stockRequest.Quantity;
+            requestToUpdate.Notes = stockRequest.Notes;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var exists = await db.StockRequests.AnyAsync(r => r.Id == id);
+                if (!exists)
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: StockRequests/Delete/5 — admin only
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return BadRequest("L'identifiant de la demande est requis.");
+            StockRequest? request = await db.StockRequests
+                .Include(r => r.RequestedBy)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (request == null) return NotFound();
+
+            return View(request);
+        }
+
+        // POST: StockRequests/Delete/5 — admin only
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            StockRequest? request = await db.StockRequests.FindAsync(id);
+            if (request != null)
+            {
+                db.StockRequests.Remove(request);
+                await db.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
