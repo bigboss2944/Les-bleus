@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge_Vendeur.Models;
+using AspNet_FilRouge_Vendeur.Services;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
 {
@@ -11,11 +12,13 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly LocalDbService _localDb;
 
-        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, LocalDbService localDb)
         {
             db = context;
             _userManager = userManager;
+            _localDb = localDb;
         }
 
         // GET: StockRequests — all authenticated users
@@ -48,6 +51,10 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 stockRequest.RequestedById = _userManager.GetUserId(User);
                 db.StockRequests.Add(stockRequest);
                 await db.SaveChangesAsync();
+
+                // Synchronisation immédiate vers le cache local pour que l'Admin puisse voir la demande.
+                await _localDb.BulkUpsertStockRequestsAsync(new[] { stockRequest });
+
                 return RedirectToAction("Index");
             }
             return View(stockRequest);
