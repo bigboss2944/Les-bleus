@@ -6,6 +6,7 @@ using Microsoft.Extensions.FileProviders;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
+var hasHttpsEndpoint = HasHttpsEndpoint(builder.Configuration);
 
 // Database - shared with client app
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -68,13 +69,16 @@ if (!app.Environment.IsEnvironment("Testing"))
     dbContext.Database.EnsureCreated();
 }
 
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (hasHttpsEndpoint)
+{
+    app.UseHttpsRedirection();
+}
 
 // Static files - use the client app's assets
 var clientContentRoot = Path.Combine(app.Environment.ContentRootPath, "..", "AspNet_FilRouge");
@@ -161,3 +165,18 @@ if (!app.Environment.IsEnvironment("Testing"))
 }
 
 app.Run();
+
+static bool HasHttpsEndpoint(ConfigurationManager configuration)
+{
+    var urls = configuration["ASPNETCORE_URLS"]
+        ?? Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+
+    if (string.IsNullOrWhiteSpace(urls))
+    {
+        return false;
+    }
+
+    return urls
+        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Any(url => url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
+}
