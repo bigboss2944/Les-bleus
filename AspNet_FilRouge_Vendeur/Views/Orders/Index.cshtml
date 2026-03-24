@@ -47,6 +47,13 @@
     </div>
 </form>
 
+<div>
+    @if (User.IsInRole("Administrateur") || User.IsInRole("Vendeur"))
+    {
+        @Html.ActionLink("Créer une nouvelle commande", "Create", null, new { @class = "btn btn-primary mb-3" })
+    }
+</div>
+
 <table class="table table-striped">
     <tr>
         <th>Date</th>

@@ -31,6 +31,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
             ViewBag.Sellers = await db.Sellers.OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToListAsync();
             ViewBag.CurrentSellerId = sellerId;
+            ViewBag.CurrentUserId = _userManager.GetUserId(User);
 
             return View(paginatedList);
         }
@@ -110,7 +111,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             return View(order);
         }
 
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null) return BadRequest();
@@ -118,8 +119,17 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .Include(o => o.Bicycles)
                 .Include(o => o.Customer)
                 .Include(o => o.Shop)
+                .Include(o => o.Seller)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
+
+            // Vendors can only edit their own orders
+            if (!User.IsInRole("Administrateur"))
+            {
+                var currentUserId = _userManager.GetUserId(User);
+                if (order.Seller?.Id != currentUserId)
+                    return Forbid();
+            }
 
             ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null || b.Order.IdOrder == id).ToList();
             ViewBag.Customers = db.Customers.ToList();
@@ -130,15 +140,24 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> Edit([Bind("IdOrder,Date,PayMode,Discount,UseLoyaltyPoint,Tax,ShippingCost,IsValidated")] Order order, long? CustomerId, long? ShopId)
         {
             if (ModelState.IsValid)
             {
                 var existing = await db.Orders
                     .Include(o => o.Bicycles)
+                    .Include(o => o.Seller)
                     .FirstOrDefaultAsync(o => o.IdOrder == order.IdOrder);
                 if (existing == null) return NotFound();
+
+                // Vendors can only edit their own orders
+                if (!User.IsInRole("Administrateur"))
+                {
+                    var currentUserId = _userManager.GetUserId(User);
+                    if (existing.Seller?.Id != currentUserId)
+                        return Forbid();
+                }
 
                 existing.Date = order.Date;
                 existing.PayMode = order.PayMode;
