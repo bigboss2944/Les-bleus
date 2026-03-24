@@ -190,10 +190,25 @@ Ensemble des contraintes techniques imposées par le cahier des charges.
 - [ ] Synchronisation avec la base centrale via l'API REST
 
 ### 5.5 Tests unitaires
-- [ ] Mettre en place des tests unitaires (obligatoires)
-- [ ] Utiliser un framework de test compatible .NET (xUnit, NUnit ou MSTest)
+- [ ] Tester les entités et la logique métier de la bibliothèque partagée (calcul de prix, remises, stock)
+- [ ] Tester les services et les validations de chaque application en isolation
+- [ ] Utiliser un framework de test compatible .NET (xUnit recommandé)
+- [ ] Utiliser un framework de mock (Moq ou NSubstitute) pour isoler les dépendances
+- [ ] Viser une couverture de code significative sur la couche métier
 
-### 5.6 Versionning
+### 5.6 Tests d'intégration
+- [ ] Tester les repositories et l'accès aux données via Entity Framework Core (base de données en mémoire ou SQLite)
+- [ ] Tester les endpoints de l'API REST (ASP.NET) avec `WebApplicationFactory`
+- [ ] Vérifier la cohérence des opérations CRUD sur le stock et les commandes
+- [ ] Tester la synchronisation entre la base SQLite locale (MAUI) et l'API REST
+
+### 5.7 Tests fonctionnels
+- [ ] Tester les scénarios utilisateur de bout en bout (création de commande, validation, annulation)
+- [ ] Tester les flux d'authentification et de gestion des rôles (`Vendeur` / `Administrateur`)
+- [ ] Tester le comportement en mode hors-ligne (MAUI) : blocage de la validation, synchronisation au retour en ligne
+- [ ] Utiliser un outil de test UI si applicable (ex. Selenium pour ASP.NET, ou tests MAUI avec `UITest`)
+
+### 5.8 Versionning
 - [ ] Versionner l'ensemble du code avec Git et publier sur GitHub
 - [ ] Ajouter `antoinecronier` comme collaborateur du projet
 
@@ -204,8 +219,8 @@ Ensemble des contraintes techniques imposées par le cahier des charges.
 >   → Entity Framework Core, dernière version LTS.
 > - **La synchronisation UWP ↔ ASP.NET doit-elle utiliser une API REST, SignalR, ou autre ?**
 >   → API REST.
-> - **Des tests unitaires sont-ils attendus ? Si oui, quel framework de test ?**
->   → Oui, et ils sont obligatoires.
+> - **Des tests sont-ils attendus ? Si oui, lesquels et quel framework ?**
+>   → Oui, obligatoires : tests unitaires, d'intégration et fonctionnels. Framework recommandé : xUnit.
 
 ---
 
@@ -296,8 +311,8 @@ Les réponses suivantes ont été fournies par Antoine CRÔNIER (TACTfactory) :
    → API REST.
 5. **Quelle version d'Entity Framework est attendue (EF6 ou EF Core) ?**
    → Entity Framework Core, dernière version LTS.
-6. **Des tests unitaires sont-ils requis ?**
-   → Oui, et ils sont **obligatoires**.
+6. **Des tests sont-ils requis ? Lesquels ?**
+   → Oui, et ils sont **obligatoires** : tests **unitaires**, **d'intégration** et **fonctionnels**.
 
 ### Sur les fonctionnalités
 7. **L'administrateur peut-il annuler des commandes ?**
