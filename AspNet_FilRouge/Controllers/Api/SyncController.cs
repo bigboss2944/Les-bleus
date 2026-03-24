@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AspNet_FilRouge_Vendeur.Models;
-using AspNet_FilRouge_Vendeur.Services;
+using AspNet_FilRouge.Models;
+using AspNet_FilRouge.Services;
 
-namespace AspNet_FilRouge_Vendeur.Controllers.Api
+namespace AspNet_FilRouge.Controllers.Api
 {
     /// <summary>
-    /// API REST de synchronisation — permet aux clients de synchroniser
-    /// leur base locale SQLite avec la base centrale.
+    /// API REST de synchronisation — permet de synchroniser
+    /// la base locale SQLite avec la base centrale.
     /// </summary>
     [ApiController]
     [Route("api/sync")]
@@ -24,7 +24,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers.Api
             _localDb = localDb;
         }
 
-        // GET api/sync/orders — retourne toutes les commandes (tous vendeurs)
+        // GET api/sync/orders — retourne toutes les commandes
         [HttpGet("orders")]
         public async Task<IActionResult> GetOrders()
         {
@@ -63,7 +63,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers.Api
             return Ok(result);
         }
 
-        // GET api/sync/bicycles — retourne tous les vélos disponibles
+        // GET api/sync/bicycles — retourne tous les vélos
         [HttpGet("bicycles")]
         public async Task<IActionResult> GetBicycles()
         {
