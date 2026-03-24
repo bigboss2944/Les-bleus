@@ -132,6 +132,21 @@ namespace AspNet_FilRouge_Vendeur.Controllers.Api
             return Ok(result);
         }
 
+        // GET api/sync/status — retourne les statistiques de la base locale
+        [HttpGet("status")]
+        public IActionResult GetStatus()
+        {
+            var stats = _localDb.GetStats();
+            return Ok(new
+            {
+                localOrders    = stats.Orders,
+                localBicycles  = stats.Bicycles,
+                localSellers   = stats.Sellers,
+                localCustomers = stats.Customers,
+                lastSyncedAt   = stats.LastSyncedAt?.ToString("o")
+            });
+        }
+
         // POST api/sync/full — synchronise toute la base locale à partir de la base centrale
         [HttpPost("full")]
         [ValidateAntiForgeryToken]

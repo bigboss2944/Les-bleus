@@ -42,7 +42,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                        ?? await _userManager.FindByNameAsync(model.Email!);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Tentative de connexion invalide.");
                 return View(model);
             }
 
@@ -59,12 +59,12 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
             }
-            ModelState.AddModelError("", "Invalid login attempt.");
+            ModelState.AddModelError("", "Tentative de connexion invalide.");
             return View(model);
         }
 
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrateur")]
         public IActionResult Register()
         {
             return View();
@@ -72,7 +72,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrateur")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -336,7 +336,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return View("Lockout");
             }
-            ModelState.AddModelError("", "Invalid code.");
+            ModelState.AddModelError("", "Code invalide.");
             return View(model);
         }
 
