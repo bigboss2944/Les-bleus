@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
 
@@ -18,6 +19,17 @@ namespace AspNet_FilRouge.Controllers
             _userManager = userManager;
         }
 
+        private async Task PopulateBicycleNamesViewBagAsync()
+        {
+            var bicycleTypes = await db.Bicycles
+                .Select(b => b.TypeOfBike)
+                .Where(t => t != null)
+                .Distinct()
+                .OrderBy(t => t)
+                .ToListAsync();
+            ViewBag.BicycleNames = new SelectList(bicycleTypes);
+        }
+
         // GET: StockRequests — all authenticated users
         public async Task<IActionResult> Index()
         {
@@ -30,8 +42,9 @@ namespace AspNet_FilRouge.Controllers
 
         // GET: StockRequests/Create — sellers only
         [Authorize(Roles = "Vendeur")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await PopulateBicycleNamesViewBagAsync();
             return View();
         }
 
@@ -50,6 +63,7 @@ namespace AspNet_FilRouge.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            await PopulateBicycleNamesViewBagAsync();
             return View(stockRequest);
         }
 
@@ -91,3 +105,4 @@ namespace AspNet_FilRouge.Controllers
         }
     }
 }
+
