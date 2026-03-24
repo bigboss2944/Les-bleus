@@ -357,6 +357,29 @@ namespace AspNet_FilRouge_Vendeur.Services
         // ── Statistics ────────────────────────────────────────────────────────
 
         /// <summary>
+        /// Retourne un dictionnaire Id → Statut pour toutes les demandes de stock
+        /// présentes dans le cache local. Utilisé par le service de synchronisation
+        /// pour appliquer les décisions de l'admin (approbation/rejet) à la base EF Core.
+        /// </summary>
+        public Dictionary<int, string> GetStockRequestStatuses()
+        {
+            var result = new Dictionary<int, string>();
+            using var db = OpenConnection();
+
+            using var checkCmd = new SqliteCommand(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='StockRequests';", db);
+            if (checkCmd.ExecuteScalar() == null) return result;
+
+            using var cmd = new SqliteCommand("SELECT Id, Status FROM StockRequests", db);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                result[reader.GetInt32(0)] = reader.GetString(1);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Retourne les statistiques de la base locale : nombre d'enregistrements
         /// par table et date de la dernière synchronisation.
         /// </summary>
