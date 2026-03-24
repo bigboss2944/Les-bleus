@@ -95,6 +95,35 @@ namespace AspNet_FilRouge.Services
                     FirstName TEXT NULL,
                     SyncedAt TEXT NULL
                 )");
+
+            ExecuteNonQuery(db, @"
+                CREATE TABLE IF NOT EXISTS StockRequestStatus (
+                    Id INTEGER PRIMARY KEY,
+                    Status TEXT NOT NULL,
+                    UpdatedAt TEXT NOT NULL
+                )");
+
+            ExecuteNonQuery(db, @"
+                CREATE TABLE IF NOT EXISTS StockRequests (
+                    Id INTEGER PRIMARY KEY,
+                    BicycleName TEXT NOT NULL,
+                    Quantity INTEGER NOT NULL,
+                    RequestDate TEXT NOT NULL,
+                    Status TEXT NOT NULL,
+                    RequestedById TEXT NULL,
+                    Notes TEXT NULL,
+                    SyncedAt TEXT NULL
+                )");
+
+            ExecuteNonQuery(db, @"
+                CREATE TABLE IF NOT EXISTS PendingVendorStatusUpdates (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    RequestId INTEGER NOT NULL,
+                    Status TEXT NOT NULL,
+                    CreatedAt TEXT NOT NULL,
+                    LastError TEXT NULL,
+                    RetryCount INTEGER NOT NULL DEFAULT 0
+                )");
         }
 
         private SqliteConnection OpenConnection()
@@ -336,6 +365,203 @@ namespace AspNet_FilRouge.Services
             }
 
             return (orders, bicycles, sellers, customers, lastSync);
+        }
+
+        // ── Stock Request Status ──────────────────────────────────────────────
+
+        /// <summary>
+        /// Enregistre une mise à jour de statut pour une demande de stock.
+        /// Permettra au vendeur de lire ces changements lors de sa synchronisation.
+        /// </summary>
+        public async Task SaveStockRequestStatusAsync(int stockRequestId, string newStatus)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var cmd = new SqliteCommand(@"
+                    INSERT INTO StockRequestStatus (Id, Status, UpdatedAt)
+                    VALUES (@Id, @Status, @UpdatedAt)
+                    ON CONFLICT(Id) DO UPDATE SET
+                        Status=excluded.Status,
+                        UpdatedAt=excluded.UpdatedAt", db);
+
+                cmd.Parameters.AddWithValue("@Id", stockRequestId);
+                cmd.Parameters.AddWithValue("@Status", newStatus);
+                cmd.Parameters.AddWithValue("@UpdatedAt", DateTime.UtcNow.ToString("o"));
+                await cmd.ExecuteNonQueryAsync();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
+        /// <summary>
+        /// Retourne un dictionnaire Id → Statut pour toutes les demandes de stock
+        /// dont le statut a été mis à jour par l'admin.
+        /// </summary>
+        public Dictionary<int, string> GetStockRequestStatuses()
+        {
+            var result = new Dictionary<int, string>();
+            using var db = OpenConnection();
+
+            using var checkCmd = new SqliteCommand(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='StockRequestStatus';", db);
+            if (checkCmd.ExecuteScalar() == null) return result;
+
+            using var cmd = new SqliteCommand("SELECT Id, Status FROM StockRequestStatus", db);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                result[reader.GetInt32(0)] = reader.GetString(1);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Écrit toutes les demandes de stock dans la base locale.
+        /// </summary>
+        public async Task BulkUpsertStockRequestsAsync(IEnumerable<StockRequest> requests)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var tx = db.BeginTransaction();
+
+                foreach (var request in requests)
+                    ExecuteUpsertStockRequest(request, db, tx);
+
+                tx.Commit();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
+        private static void ExecuteUpsertStockRequest(StockRequest request, SqliteConnection db, SqliteTransaction tx)
+        {
+            using var cmd = new SqliteCommand(@"
+                INSERT INTO StockRequests (Id, BicycleName, Quantity, RequestDate, Status, RequestedById, Notes, SyncedAt)
+                VALUES (@Id, @BicycleName, @Quantity, @RequestDate, @Status, @RequestedById, @Notes, @SyncedAt)
+                ON CONFLICT(Id) DO UPDATE SET
+                    BicycleName=excluded.BicycleName, Quantity=excluded.Quantity,
+                    RequestDate=excluded.RequestDate, Status=excluded.Status,
+                    RequestedById=excluded.RequestedById, Notes=excluded.Notes,
+                    SyncedAt=excluded.SyncedAt", db, tx);
+
+            cmd.Parameters.AddWithValue("@Id", request.Id);
+            cmd.Parameters.AddWithValue("@BicycleName", request.BicycleName ?? throw new InvalidOperationException($"BicycleName ne peut pas être null pour la demande Id={request.Id}."));
+            cmd.Parameters.AddWithValue("@Quantity", request.Quantity);
+            cmd.Parameters.AddWithValue("@RequestDate", request.RequestDate.ToString("o"));
+            cmd.Parameters.AddWithValue("@Status", request.Status);
+            cmd.Parameters.AddWithValue("@RequestedById", (object?)request.RequestedById ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@Notes", (object?)request.Notes ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@SyncedAt", DateTime.UtcNow.ToString("o"));
+            cmd.ExecuteNonQuery();
+        }
+
+        // ── Pending Vendor Sync Queue ───────────────────────────────────────
+
+        public sealed record PendingVendorStatusUpdate(
+            long Id,
+            int RequestId,
+            string Status,
+            DateTime CreatedAt,
+            int RetryCount,
+            string? LastError);
+
+        public async Task EnqueuePendingVendorStatusUpdateAsync(int requestId, string status, string? lastError)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var cmd = new SqliteCommand(@"
+                    INSERT INTO PendingVendorStatusUpdates (RequestId, Status, CreatedAt, LastError, RetryCount)
+                    VALUES (@RequestId, @Status, @CreatedAt, @LastError, 0)", db);
+
+                cmd.Parameters.AddWithValue("@RequestId", requestId);
+                cmd.Parameters.AddWithValue("@Status", status);
+                cmd.Parameters.AddWithValue("@CreatedAt", DateTime.UtcNow.ToString("o"));
+                cmd.Parameters.AddWithValue("@LastError", (object?)lastError ?? DBNull.Value);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
+        public List<PendingVendorStatusUpdate> GetPendingVendorStatusUpdates(int limit)
+        {
+            var items = new List<PendingVendorStatusUpdate>();
+            using var db = OpenConnection();
+
+            using var cmd = new SqliteCommand(@"
+                SELECT Id, RequestId, Status, CreatedAt, RetryCount, LastError
+                FROM PendingVendorStatusUpdates
+                ORDER BY Id ASC
+                LIMIT @Limit", db);
+            cmd.Parameters.AddWithValue("@Limit", limit);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var createdAtRaw = reader.GetString(3);
+                DateTime.TryParse(createdAtRaw, null,
+                    System.Globalization.DateTimeStyles.RoundtripKind,
+                    out var createdAt);
+
+                items.Add(new PendingVendorStatusUpdate(
+                    Id: reader.GetInt64(0),
+                    RequestId: reader.GetInt32(1),
+                    Status: reader.GetString(2),
+                    CreatedAt: createdAt,
+                    RetryCount: reader.GetInt32(4),
+                    LastError: reader.IsDBNull(5) ? null : reader.GetString(5)));
+            }
+
+            return items;
+        }
+
+        public async Task DeletePendingVendorStatusUpdateAsync(long id)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var cmd = new SqliteCommand("DELETE FROM PendingVendorStatusUpdates WHERE Id=@Id", db);
+                cmd.Parameters.AddWithValue("@Id", id);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
+        }
+
+        public async Task MarkPendingVendorStatusUpdateRetryAsync(long id, string? lastError)
+        {
+            await _writeLock.WaitAsync();
+            try
+            {
+                using var db = OpenConnection();
+                using var cmd = new SqliteCommand(@"
+                    UPDATE PendingVendorStatusUpdates
+                    SET RetryCount = RetryCount + 1,
+                        LastError = @LastError
+                    WHERE Id=@Id", db);
+                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.Parameters.AddWithValue("@LastError", (object?)lastError ?? DBNull.Value);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            finally
+            {
+                _writeLock.Release();
+            }
         }
     }
 }

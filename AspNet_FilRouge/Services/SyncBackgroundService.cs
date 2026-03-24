@@ -13,6 +13,7 @@ namespace AspNet_FilRouge.Services
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly LocalDbService _localDb;
+        private readonly IVendorSyncService _vendorSync;
         private readonly IWebHostEnvironment _env;
         private readonly string _vendeurCachePath;
         private readonly ILogger<SyncBackgroundService> _logger;
@@ -21,12 +22,14 @@ namespace AspNet_FilRouge.Services
         public SyncBackgroundService(
             IServiceScopeFactory scopeFactory,
             LocalDbService localDb,
+            IVendorSyncService vendorSync,
             IWebHostEnvironment env,
             IConfiguration configuration,
             ILogger<SyncBackgroundService> logger)
         {
             _scopeFactory = scopeFactory;
             _localDb = localDb;
+            _vendorSync = vendorSync;
             _env = env;
             _logger = logger;
 
@@ -52,6 +55,8 @@ namespace AspNet_FilRouge.Services
 
                 await Task.Delay(_interval, stoppingToken);
             }
+
+            _logger.LogInformation("Synchronisation automatique arrêtée.");
         }
 
         private async Task SyncAsync()
@@ -59,90 +64,164 @@ namespace AspNet_FilRouge.Services
             using var scope = _scopeFactory.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            var orders = await db.Orders
-                .Include(o => o.Seller)
-                .Include(o => o.Customer)
-                .Include(o => o.Shop)
-                .Include(o => o.Bicycles)
-                .ToListAsync();
-
-            var bicycles = await db.Bicycles
-                .Include(b => b.Order)
-                .Include(b => b.Shop)
-                .ToListAsync();
-
-            var sellers = await db.Sellers.ToListAsync();
-
-            var customers = await db.Customers.ToListAsync();
-
-            // Écriture atomique en une seule transaction pour éviter les verrous répétés.
-            await _localDb.BulkUpsertAllAsync(orders, bicycles, sellers, customers);
-
-            _logger.LogInformation(
-                "Synchronisation automatique terminée — {Orders} commandes, {Bicycles} vélos, {Sellers} vendeurs, {Customers} clients.",
-                orders.Count, bicycles.Count, sellers.Count, customers.Count);
-
-            // Importer les demandes de stock depuis la base locale du Vendeur.
-            var imported = await ImportStockRequestsFromVendorAsync(db);
-            if (imported > 0)
+            try
             {
+                var orders = await db.Orders
+                    .Include(o => o.Seller)
+                    .Include(o => o.Customer)
+                    .Include(o => o.Shop)
+                    .Include(o => o.Bicycles)
+                    .ToListAsync();
+
+                var bicycles = await db.Bicycles
+                    .Include(b => b.Order)
+                    .Include(b => b.Shop)
+                    .ToListAsync();
+
+                var sellers = await db.Sellers.ToListAsync();
+
+                var customers = await db.Customers.ToListAsync();
+
+                // Écriture atomique en une seule transaction pour éviter les verrous répétés.
+                await _localDb.BulkUpsertAllAsync(orders, bicycles, sellers, customers);
+
                 _logger.LogInformation(
-                    "Synchronisation des demandes de stock : {Count} nouvelles demandes importées depuis la base Vendeur.", imported);
+                    "Synchronisation des données centrales : {Orders} ordres, {Bicycles} vélos, {Sellers} vendeurs, {Customers} clients.",
+                    orders.Count, bicycles.Count, sellers.Count, customers.Count);
+
+                var flushed = await _vendorSync.FlushPendingUpdatesAsync();
+                if (flushed > 0)
+                {
+                    _logger.LogInformation("Replay offline applique: {Count} mise(s) a jour vers le vendeur.", flushed);
+                }
+
+                // Importer les demandes de stock depuis la base locale du Vendeur.
+                var importedCount = await ImportStockRequestsFromVendorAsync(db);
+                _logger.LogInformation(
+                    "Stock requests: {ImportedCount} imported/updated from vendor cache.", importedCount);
+
+                // Synchroniser toutes les demandes de stock vers le cache local
+                var allRequests = await db.StockRequests.ToListAsync();
+                await _localDb.BulkUpsertStockRequestsAsync(allRequests);
+                _logger.LogInformation(
+                    "Synchronisation Stock Requests: {Count} synced to local cache.", allRequests.Count);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans SyncAsync");
+                throw;
             }
         }
 
         /// <summary>
-        /// Lit les demandes de stock depuis la base locale SQLite du Vendeur et les insère
-        /// dans la base Admin si elles n'existent pas encore.
+        /// Lit les demandes de stock depuis la base locale SQLite du Vendeur,
+        /// insere les nouvelles et met a jour les existantes dans la base Admin.
+        /// RequestedById est neutralise si l'utilisateur n'existe pas en base centrale
+        /// afin d'eviter les erreurs de contrainte FK SQLite.
         /// </summary>
         private async Task<int> ImportStockRequestsFromVendorAsync(ApplicationDbContext db)
         {
             if (!File.Exists(_vendeurCachePath))
             {
+                _logger.LogDebug("Fichier cache vendeur non trouvé : {Path}", _vendeurCachePath);
                 return 0;
             }
 
             var vendorRequests = ReadStockRequestsFromCache(_vendeurCachePath);
-            if (vendorRequests.Count == 0) return 0;
+            if (vendorRequests.Count == 0)
+            {
+                _logger.LogDebug("Aucune demande de stock dans le cache vendeur.");
+                return 0;
+            }
 
-            // Récupérer les IDs déjà présents pour éviter les requêtes inutiles.
-            var existingIds = await db.StockRequests.Select(r => r.Id).ToHashSetAsync();
-            var existingUserIds = await db.Users.Select(u => u.Id).ToHashSetAsync();
+            var existingIds = new HashSet<int>(await db.StockRequests.Select(r => r.Id).ToListAsync());
+            var existingUserIds = new HashSet<string>(await db.Users.Select(u => u.Id).ToListAsync());
+            int insertCount = 0, updateCount = 0;
+            var dbRequests = new Dictionary<int, StockRequest>();
 
-            int count = 0;
+            // Charger les demandes existantes pour optimiser les mises à jour
+            if (existingIds.Count > 0)
+            {
+                var vendorIds = vendorRequests.Select(vr => vr.Id).ToList();
+                foreach (var req in await db.StockRequests.Where(r => vendorIds.Contains(r.Id)).ToListAsync())
+                {
+                    dbRequests[req.Id] = req;
+                }
+            }
+
             foreach (var vr in vendorRequests)
             {
-                if (existingIds.Contains(vr.Id)) continue;
-
                 var requestedById = vr.RequestedById;
                 if (!string.IsNullOrWhiteSpace(requestedById) && !existingUserIds.Contains(requestedById))
                 {
                     _logger.LogWarning(
-                        "Demande de stock Id={RequestId}: RequestedById '{RequestedById}' introuvable dans AspNetUsers. Valeur ignorée.",
-                        vr.Id,
-                        requestedById);
+                        "Demande de stock Id={RequestId}: RequestedById '{RequestedById}' introuvable dans AspNetUsers. Valeur ignoree.",
+                        vr.Id, requestedById);
                     requestedById = null;
                 }
 
-                db.StockRequests.Add(new StockRequest
+                if (existingIds.Contains(vr.Id))
                 {
-                    Id = vr.Id,
-                    BicycleName = vr.BicycleName,
-                    Quantity = vr.Quantity,
-                    RequestDate = vr.RequestDate,
-                    Status = vr.Status,
-                    RequestedById = requestedById,
-                    Notes = vr.Notes
-                });
-                count++;
+                    // Mise à jour de demande existante
+                    if (dbRequests.TryGetValue(vr.Id, out var existing))
+                    {
+                        var changed = false;
+                        if (existing.BicycleName != vr.BicycleName)
+                        {
+                            existing.BicycleName = vr.BicycleName;
+                            changed = true;
+                        }
+                        if (existing.Quantity != vr.Quantity)
+                        {
+                            existing.Quantity = vr.Quantity;
+                            changed = true;
+                        }
+                        if (existing.Notes != vr.Notes)
+                        {
+                            existing.Notes = vr.Notes;
+                            changed = true;
+                        }
+                        if (existing.RequestedById != requestedById)
+                        {
+                            existing.RequestedById = requestedById;
+                            changed = true;
+                        }
+                        // Note: On ne met pas à jour le Status depuis le vendeur car 
+                        // c'est l'admin qui décide du statut final
+
+                        if (changed)
+                        {
+                            db.StockRequests.Update(existing);
+                            updateCount++;
+                        }
+                    }
+                }
+                else
+                {
+                    // Nouvelle demande
+                    db.StockRequests.Add(new StockRequest
+                    {
+                        Id = vr.Id,
+                        BicycleName = vr.BicycleName,
+                        Quantity = vr.Quantity,
+                        RequestDate = vr.RequestDate,
+                        Status = vr.Status,
+                        RequestedById = requestedById,
+                        Notes = vr.Notes
+                    });
+                    insertCount++;
+                }
             }
 
-            if (count > 0)
+            if (insertCount > 0 || updateCount > 0)
             {
                 await db.SaveChangesAsync();
+                _logger.LogInformation(
+                    "Stock Requests: {Inserted} new, {Updated} updated from vendor cache.",
+                    insertCount, updateCount);
             }
 
-            return count;
+            return insertCount + updateCount;
         }
 
         private sealed record VendorStockRequest(

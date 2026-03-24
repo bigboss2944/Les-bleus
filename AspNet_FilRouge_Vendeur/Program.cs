@@ -1,5 +1,6 @@
 using AspNet_FilRouge_Vendeur.Models;
 using AspNet_FilRouge_Vendeur.Services;
+using Microsoft.Data.Sqlite;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -18,8 +19,20 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 }
 else
 {
-    var sqliteConnectionString = builder.Configuration.GetConnectionString("SqliteConnection")
-        ?? "Data Source=aspnet-filrouge.db";
+    var configuredSharedDbPath = builder.Configuration["Sync:SharedDbPath"];
+    var sharedDbPath = string.IsNullOrWhiteSpace(configuredSharedDbPath)
+        ? Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, "..", "aspnet-filrouge.shared.db"))
+        : (Path.IsPathRooted(configuredSharedDbPath)
+            ? configuredSharedDbPath
+            : Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, configuredSharedDbPath)));
+
+    var sharedDbDirectory = Path.GetDirectoryName(sharedDbPath);
+    if (!string.IsNullOrWhiteSpace(sharedDbDirectory))
+    {
+        Directory.CreateDirectory(sharedDbDirectory);
+    }
+
+    var sqliteConnectionString = $"Data Source={sharedDbPath}";
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite(sqliteConnectionString));
 }
@@ -65,7 +78,7 @@ if (!app.Environment.IsEnvironment("Testing"))
 {
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.EnsureCreated();
+    EnsureCreatedWithSqliteRaceTolerance(dbContext);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -150,3 +163,16 @@ if (!app.Environment.IsEnvironment("Testing"))
 }
 
 app.Run();
+
+static void EnsureCreatedWithSqliteRaceTolerance(ApplicationDbContext dbContext)
+{
+    try
+    {
+        dbContext.Database.EnsureCreated();
+    }
+    catch (SqliteException ex) when (ex.Message.Contains("already exists", StringComparison.OrdinalIgnoreCase))
+    {
+        // Two app instances can call EnsureCreated concurrently on the shared SQLite file.
+        // If a table was created by the other process between checks, we can safely continue.
+    }
+}
