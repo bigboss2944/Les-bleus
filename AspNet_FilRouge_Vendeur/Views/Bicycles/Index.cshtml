@@ -27,6 +27,7 @@
         <th>Catégorie</th>
         <th>Référence</th>
         <th>Prix HT</th>
+        <th>TVA</th>
         <th>Quantité</th>
         <th>Marque</th>
         <th>Couleur</th>
@@ -47,6 +48,7 @@
             <td>@Html.DisplayFor(modelItem => item.Category)</td>
             <td>@Html.DisplayFor(modelItem => item.Reference)</td>
             <td>@Html.DisplayFor(modelItem => item.FreeTaxPrice)</td>
+            <td>@Html.DisplayFor(modelItem => item.Tax)</td>
             <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
             <td>@Html.DisplayFor(modelItem => item.Brand)</td>
             <td>@Html.DisplayFor(modelItem => item.Color)</td>
