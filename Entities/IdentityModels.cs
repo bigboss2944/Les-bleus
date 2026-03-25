@@ -96,7 +96,19 @@ namespace Entities
                 .HasValue<InsuredProduct>("InsuredProduct")
                 .HasValue<ExchangeableProduct>("ExchangeableProduct");
 
-            modelBuilder.Entity<PhysicalProduct>().HasMany(p => p.ProductTypes).WithMany();
+            modelBuilder.Entity<ProductType>()
+                .OwnsOne(pt => pt.Characteristics, characteristics =>
+                {
+                    characteristics.Property(c => c.Size).HasColumnName("Size");
+                    characteristics.Property(c => c.Weight).HasColumnName("Weight");
+                    characteristics.Property(c => c.Color).HasColumnName("Color");
+                });
+
+            modelBuilder.Entity<PhysicalProduct>()
+                .HasOne(p => p.ProductType)
+                .WithMany()
+                .HasForeignKey(p => p.ProductTypeId)
+                .IsRequired();
 
             modelBuilder.Entity<Stock>()
                 .HasOne(s => s.ProductType)

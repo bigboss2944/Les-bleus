@@ -5,35 +5,37 @@ namespace LesBleus.Tests.Unit.Entities;
 public class PhysicalProductTests
 {
     [Fact]
-    public void NewPhysicalProduct_HasEmptyProductTypesList()
+    public void NewPhysicalProduct_HasNoProductTypeAssigned()
     {
         var pp = new PhysicalProduct();
 
-        Assert.NotNull(pp.ProductTypes);
-        Assert.Empty(pp.ProductTypes);
+        Assert.Null(pp.ProductType);
+        Assert.Equal(0, pp.ProductTypeId);
     }
 
     [Fact]
-    public void PhysicalProduct_AddProductType_ListUpdated()
+    public void PhysicalProduct_AssignProductType_ReferenceUpdated()
     {
-        var pp = new PhysicalProduct();
-        var pt = new ProductType { Reference = "REF-001" };
+        var pt = new ProductType { Id = 7, Reference = "REF-001" };
+        var pp = new PhysicalProduct { ProductType = pt, ProductTypeId = pt.Id };
 
-        pp.ProductTypes.Add(pt);
-
-        Assert.Single(pp.ProductTypes);
-        Assert.Equal("REF-001", pp.ProductTypes[0].Reference);
+        Assert.NotNull(pp.ProductType);
+        Assert.Equal(7, pp.ProductTypeId);
+        Assert.Equal("REF-001", pp.ProductType!.Reference);
     }
 
     [Fact]
-    public void PhysicalProduct_CanBelongToMultipleProductTypes()
+    public void PhysicalProduct_OnlyOneProductTypeAtATime()
     {
-        var pp = new PhysicalProduct();
-        pp.ProductTypes.Add(new DeliverableProduct { Reference = "DEL-001" });
-        pp.ProductTypes.Add(new InsuredProduct { Reference = "INS-001" });
-        pp.ProductTypes.Add(new ExchangeableProduct { Reference = "EXC-001" });
+        var firstType = new DeliverableProduct { Id = 1, Reference = "DEL-001" };
+        var secondType = new InsuredProduct { Id = 2, Reference = "INS-001" };
+        var pp = new PhysicalProduct { ProductType = firstType, ProductTypeId = firstType.Id };
 
-        Assert.Equal(3, pp.ProductTypes.Count);
+        pp.ProductType = secondType;
+        pp.ProductTypeId = secondType.Id;
+
+        Assert.Equal(2, pp.ProductTypeId);
+        Assert.Equal("INS-001", pp.ProductType!.Reference);
     }
 
     [Fact]

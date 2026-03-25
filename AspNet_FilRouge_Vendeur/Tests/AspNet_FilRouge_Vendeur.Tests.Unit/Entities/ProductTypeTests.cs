@@ -9,9 +9,10 @@ public class ProductTypeTests
     {
         var pt = new ProductType();
 
-        Assert.Equal(0f, pt.Size);
-        Assert.Equal(0f, pt.Weight);
-        Assert.Null(pt.Color);
+        Assert.NotNull(pt.Characteristics);
+        Assert.Equal(0f, pt.Characteristics.Size);
+        Assert.Equal(0f, pt.Characteristics.Weight);
+        Assert.Null(pt.Characteristics.Color);
         Assert.Null(pt.Reference);
         Assert.Equal(0f, pt.FreeTaxPrice);
         Assert.Equal(0f, pt.Tax);
@@ -23,6 +24,7 @@ public class ProductTypeTests
         var pt = new ProductType { Size = 54.5f };
 
         Assert.Equal(54.5f, pt.Size);
+        Assert.Equal(54.5f, pt.Characteristics.Size);
     }
 
     [Fact]
@@ -31,6 +33,7 @@ public class ProductTypeTests
         var pt = new ProductType { Weight = 8.2f };
 
         Assert.Equal(8.2f, pt.Weight);
+        Assert.Equal(8.2f, pt.Characteristics.Weight);
     }
 
     [Fact]
@@ -39,6 +42,25 @@ public class ProductTypeTests
         var pt = new ProductType { Color = "Rouge" };
 
         Assert.Equal("Rouge", pt.Color);
+        Assert.Equal("Rouge", pt.Characteristics.Color);
+    }
+
+    [Fact]
+    public void ProductType_Characteristics_ObjectCanBeAssigned()
+    {
+        var pt = new ProductType
+        {
+            Characteristics = new ProductCharacteristics
+            {
+                Size = 56f,
+                Weight = 9.1f,
+                Color = "Noir"
+            }
+        };
+
+        Assert.Equal(56f, pt.Size);
+        Assert.Equal(9.1f, pt.Weight);
+        Assert.Equal("Noir", pt.Color);
     }
 
     [Fact]
