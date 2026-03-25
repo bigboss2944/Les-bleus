@@ -29,12 +29,20 @@ public class AdminOrdersControllerTests
     {
         var userManager = CreateUserManagerMock();
         var controller = new OrdersController(context, userManager.Object);
+        
+        // Create a ClaimsPrincipal with both Name and Admin role
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, "test"),
+            new Claim(ClaimTypes.NameIdentifier, "user-id"),
+            new Claim(ClaimTypes.Role, "Administrateur")
+        };
+        
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity(
-                    new[] { new Claim(ClaimTypes.Name, "test") }, "test"))
+                User = new ClaimsPrincipal(new ClaimsIdentity(claims, "test"))
             }
         };
         return controller;

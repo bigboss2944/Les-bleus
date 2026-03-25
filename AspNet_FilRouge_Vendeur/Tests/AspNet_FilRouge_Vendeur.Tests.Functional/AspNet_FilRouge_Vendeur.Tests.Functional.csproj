@@ -4,21 +4,30 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <RootNamespace>LesBleus.Tests.Integration</RootNamespace>
+    <RootNamespace>AspNet_FilRouge_Vendeur.Tests.Functional</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="../../AspNet_FilRouge/AspNet_FilRouge.csproj" />
-    <ProjectReference Include="../../AspNet_FilRouge_Vendeur/AspNet_FilRouge_Vendeur.csproj" />
-    <ProjectReference Include="../../Entities/Entities.csproj" />
+    <ProjectReference Include="../../AspNet_FilRouge_Vendeur.csproj" />
+    <ProjectReference Include="../../../Entities/Entities.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Helpers/*.cs" />
+    <Compile Include="Authentication/*.cs" />
+    <Compile Include="Scenarios/*.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
