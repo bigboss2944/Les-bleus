@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using AspNet_FilRouge_Vendeur.Models;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
@@ -365,6 +366,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (User.IsInRole("Vendeur") && !User.IsInRole("Administrateur"))
                 return Forbid();
 
+            if (IsClientOfflineRequest())
+                return BadRequest(new { error = "Validation impossible en mode hors-ligne." });
+
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole("Administrateur");
 
@@ -400,6 +404,17 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             float afterDiscount = subtotal * (1 - order.Discount / 100f);
             float withTax = afterDiscount * (1 + order.Tax / 100f);
             return withTax + order.ShippingCost;
+        }
+
+        private bool IsClientOfflineRequest()
+        {
+            if (!Request.Headers.TryGetValue("X-Client-Online", out StringValues headerValues))
+                return false;
+
+            var value = headerValues.ToString();
+            return value.Equals("false", StringComparison.OrdinalIgnoreCase)
+                || value.Equals("0", StringComparison.OrdinalIgnoreCase)
+                || value.Equals("offline", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

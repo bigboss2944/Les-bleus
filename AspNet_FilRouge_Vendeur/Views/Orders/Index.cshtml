@@ -134,7 +134,25 @@
 
 @section scripts {
 <script>
+    function updateValidateButtonsOnlineState() {
+        var isOnline = navigator.onLine;
+        document.querySelectorAll('.btn-validate').forEach(function(btn) {
+            btn.disabled = !isOnline;
+            btn.title = isOnline ? '' : 'Validation impossible en mode hors-ligne';
+        });
+    }
+
+    window.addEventListener('online', updateValidateButtonsOnlineState);
+    window.addEventListener('offline', updateValidateButtonsOnlineState);
+    updateValidateButtonsOnlineState();
+
     function validateOrder(orderId, btn) {
+        if (!navigator.onLine) {
+            alert('Validation impossible en mode hors-ligne.');
+            updateValidateButtonsOnlineState();
+            return;
+        }
+
         if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
 
         btn.disabled = true;
@@ -143,7 +161,8 @@
         fetch('@Url.Action("Validate", "Orders")/' + orderId, {
             method: 'POST',
             headers: {
-                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? ''
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '',
+                'X-Client-Online': String(navigator.onLine)
             }
         })
         .then(function(r) { return r.json(); })

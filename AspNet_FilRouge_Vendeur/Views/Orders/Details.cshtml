@@ -126,7 +126,27 @@
 @section scripts {
 <script>
     var token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+
+    function updateValidateButtonOnlineState() {
+        var btn = document.getElementById('btn-validate');
+        if (!btn) return;
+
+        var isOnline = navigator.onLine;
+        btn.disabled = !isOnline;
+        btn.title = isOnline ? '' : 'Validation impossible en mode hors-ligne';
+    }
+
+    window.addEventListener('online', updateValidateButtonOnlineState);
+    window.addEventListener('offline', updateValidateButtonOnlineState);
+    updateValidateButtonOnlineState();
+
     function validateOrder(oId) {
+        if (!navigator.onLine) {
+            alert('Validation impossible en mode hors-ligne.');
+            updateValidateButtonOnlineState();
+            return;
+        }
+
         if (!confirm('Valider cette commande ? Cette action est irréversible.')) return;
         var btn = document.getElementById('btn-validate');
         if (!btn) return;
@@ -136,7 +156,10 @@
 
         fetch('@Url.Action("Validate", "Orders")/' + oId, {
             method: 'POST',
-            headers: { 'RequestVerificationToken': token }
+            headers: {
+                'RequestVerificationToken': token,
+                'X-Client-Online': String(navigator.onLine)
+            }
         })
         .then(r => r.json())
         .then(data => {
