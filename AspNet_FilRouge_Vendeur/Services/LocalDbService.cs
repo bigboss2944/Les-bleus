@@ -56,6 +56,7 @@ namespace AspNet_FilRouge_Vendeur.Services
                     Category TEXT NULL,
                     Reference TEXT NULL,
                     FreeTaxPrice REAL NOT NULL DEFAULT 0,
+                    Tax REAL NOT NULL DEFAULT 0,
                     Exchangeable INTEGER NOT NULL DEFAULT 0,
                     Insurance INTEGER NOT NULL DEFAULT 0,
                     Deliverable INTEGER NOT NULL DEFAULT 0,
@@ -224,15 +225,15 @@ namespace AspNet_FilRouge_Vendeur.Services
         private static void ExecuteUpsertBicycle(Bicycle bicycle, SqliteConnection db, SqliteTransaction tx)
         {
             using var cmd = new SqliteCommand(@"
-                INSERT INTO Bicycles (Id, TypeOfBike, Category, Reference, FreeTaxPrice, Exchangeable, Insurance,
+                INSERT INTO Bicycles (Id, TypeOfBike, Category, Reference, FreeTaxPrice, Tax, Exchangeable, Insurance,
                                       Deliverable, Size, Weight, Color, WheelSize, Electric, State, Brand, Confort,
                                       Order_IdOrder, Shop_ShopId, SyncedAt)
-                VALUES (@Id, @TypeOfBike, @Category, @Reference, @FreeTaxPrice, @Exchangeable, @Insurance,
+                VALUES (@Id, @TypeOfBike, @Category, @Reference, @FreeTaxPrice, @Tax, @Exchangeable, @Insurance,
                         @Deliverable, @Size, @Weight, @Color, @WheelSize, @Electric, @State, @Brand, @Confort,
                         @Order_IdOrder, @Shop_ShopId, @SyncedAt)
                 ON CONFLICT(Id) DO UPDATE SET
                     TypeOfBike=excluded.TypeOfBike, Category=excluded.Category, Reference=excluded.Reference,
-                    FreeTaxPrice=excluded.FreeTaxPrice, Exchangeable=excluded.Exchangeable,
+                    FreeTaxPrice=excluded.FreeTaxPrice, Tax=excluded.Tax, Exchangeable=excluded.Exchangeable,
                     Insurance=excluded.Insurance, Deliverable=excluded.Deliverable,
                     Size=excluded.Size, Weight=excluded.Weight, Color=excluded.Color,
                     WheelSize=excluded.WheelSize, Electric=excluded.Electric, State=excluded.State,
@@ -245,6 +246,7 @@ namespace AspNet_FilRouge_Vendeur.Services
             cmd.Parameters.AddWithValue("@Category", (object?)bicycle.Category ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@Reference", (object?)bicycle.Reference ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@FreeTaxPrice", bicycle.FreeTaxPrice);
+            cmd.Parameters.AddWithValue("@Tax", bicycle.Tax);
             cmd.Parameters.AddWithValue("@Exchangeable", bicycle.Exchangeable ? 1 : 0);
             cmd.Parameters.AddWithValue("@Insurance", bicycle.Insurance ? 1 : 0);
             cmd.Parameters.AddWithValue("@Deliverable", bicycle.Deliverable ? 1 : 0);
