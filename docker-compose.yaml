@@ -4,7 +4,7 @@ services:
       context: ./AspNet_FilRouge
       dockerfile: Dockerfile
     # Raspberry Pi 3 = ARMv7 32-bit
-      platform: linux/arm/v7
+    platform: linux/arm/v7
     ports:
       - "5100:5100"
     environment:
@@ -15,7 +15,7 @@ services:
       context: ./AspNet_FilRouge_Vendeur
       dockerfile: Dockerfile
     # Raspberry Pi 3 = ARMv7 32-bit
-      platform: linux/arm/v7
+    platform: linux/arm/v7
     ports:
       - "5101:5101"
     environment:
