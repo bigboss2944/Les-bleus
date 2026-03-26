@@ -2,8 +2,8 @@ FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copie toutes les sources nécessaires au build (attention : ne build QU'UN projet à la fois !)
-COPY ../Database/ ../Database/
-COPY ../Entities/ ../Entities/
+COPY Database/ Database/
+COPY Entities/ Entities/
 COPY AspNet_FilRouge_Vendeur/ ./      
 
 RUN dotnet restore
