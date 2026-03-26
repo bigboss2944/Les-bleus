@@ -1,8 +1,8 @@
 services:
   aspnetfilrouge:
     build:
-      context: ./AspNet_FilRouge
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: AspNet_FilRouge/Dockerfile
     # Raspberry Pi 3 = ARMv7 32-bit
     platform: linux/arm/v7
     ports:
@@ -12,8 +12,8 @@ services:
     restart: unless-stopped
   aspnetfilrougevendeur:
     build:
-      context: ./AspNet_FilRouge_Vendeur
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: AspNet_FilRouge_Vendeur/Dockerfile
     # Raspberry Pi 3 = ARMv7 32-bit
     platform: linux/arm/v7
     ports:
