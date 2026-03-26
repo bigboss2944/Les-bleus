@@ -6,7 +6,7 @@ COPY Database/ Database/
 COPY Entities/ Entities/
 COPY AspNet_FilRouge_Vendeur/ ./      
 
-WORKDIR /src
+WORKDIR /src/AspNet_FilRouge_Vendeur
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish --no-restore
