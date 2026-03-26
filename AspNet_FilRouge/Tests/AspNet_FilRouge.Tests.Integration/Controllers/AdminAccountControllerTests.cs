@@ -138,7 +138,7 @@ public class AccountControllerTests
             .ReturnsAsync(user);
 
         var signInManager = CreateSignInManagerMock(userManager);
-        signInManager.Setup(s => s.PasswordSignInAsync(user, "password123", false, false))
+        signInManager.Setup(s => s.PasswordSignInAsync(user, "password123", false, true))
             .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
 
         var controller = CreateController(userManager, signInManager);
@@ -164,7 +164,7 @@ public class AccountControllerTests
             .ReturnsAsync(user);
 
         var signInManager = CreateSignInManagerMock(userManager);
-        signInManager.Setup(s => s.PasswordSignInAsync(user, "password123", false, false))
+        signInManager.Setup(s => s.PasswordSignInAsync(user, "password123", false, true))
             .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.LockedOut);
 
         var controller = CreateController(userManager, signInManager);
