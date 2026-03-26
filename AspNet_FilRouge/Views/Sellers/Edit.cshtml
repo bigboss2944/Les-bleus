@@ -1,23 +1,23 @@
 @model Entities.Seller
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modifier un vendeur";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Modifier un vendeur</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Seller</h4>
+    <h4>Vendeur</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     <div class="row mb-3">
-        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        @Html.Label("LastName", "Nom", htmlAttributes: new { @class = "col-md-2 col-form-label" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
@@ -25,7 +25,7 @@
     </div>
 
     <div class="row mb-3">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        @Html.Label("FirstName", "Prénom", htmlAttributes: new { @class = "col-md-2 col-form-label" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
@@ -33,7 +33,7 @@
     </div>
 
     <div class="row mb-3">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        @Html.Label("Email", "Email", htmlAttributes: new { @class = "col-md-2 col-form-label" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
     </div>
 
     <div class="row mb-3">
-        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        @Html.Label("PhoneNumber", "Téléphone", htmlAttributes: new { @class = "col-md-2 col-form-label" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
     </div>
 
     <div class="row mb-3">
-        <label class="col-md-2 col-form-label">Shop</label>
+        <label class="col-md-2 col-form-label">Boutique</label>
         <div class="col-md-10">
             @Html.DropDownList("shopId", (SelectList)ViewBag.ShopId, "-- Aucune boutique --", new { @class = "form-control" })
         </div>
@@ -57,12 +57,12 @@
 
     <div class="row mb-3">
         <div class="offset-md-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-secondary" />
+            <input type="submit" value="Enregistrer" class="btn btn-secondary" />
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retour à la liste", "Index")
 </div>

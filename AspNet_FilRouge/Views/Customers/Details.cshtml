@@ -1,91 +1,46 @@
 ﻿@model Entities.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Détails du client";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Détails du client</h2>
 
 <div>
-    <h4>Customer</h4>
+    <h4>Client</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Town)
-        </dt>
+        <dt>Ville</dt>
+        <dd>@Html.DisplayFor(model => model.Town)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Town)
-        </dd>
+        <dt>Code postal</dt>
+        <dd>@Html.DisplayFor(model => model.PostalCode)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
+        <dt>Adresse</dt>
+        <dd>@Html.DisplayFor(model => model.Address)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
+        <dt>Points de fidélité</dt>
+        <dd>@Html.DisplayFor(model => model.LoyaltyPoints)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+        <dt>Téléphone</dt>
+        <dd>@Html.DisplayFor(model => model.Phone)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+        <dt>Email</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LoyaltyPoints)
-        </dt>
+        <dt>Genre</dt>
+        <dd>@Html.DisplayFor(model => model.Gender)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LoyaltyPoints)
-        </dd>
+        <dt>Nom</dt>
+        <dd>@Html.DisplayFor(model => model.LastName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+        <dt>Prénom</dt>
+        <dd>@Html.DisplayFor(model => model.FirstName)</dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Retour à la liste", "Index")
 </p>
