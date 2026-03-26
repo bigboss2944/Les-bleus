@@ -23,7 +23,7 @@ public class AdminOrdersControllerTests
             new(ClaimTypes.Role, isAdmin ? "Administrateur" : "Vendeur")
         };
 
-        var controller = new OrdersController(context)
+        var controller = new OrdersController(context, new OrderPricingService())
         {
             ControllerContext = new ControllerContext
             {

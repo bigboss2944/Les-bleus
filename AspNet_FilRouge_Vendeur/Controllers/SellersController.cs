@@ -6,7 +6,7 @@ using AspNet_FilRouge_Vendeur.Models;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
 {
-    [Authorize(Roles = "Administrateur")]
+    [Authorize(Roles = AppConstants.Roles.Administrateur)]
     public class SellersController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -58,7 +58,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password!);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Vendeur");
+                    await _userManager.AddToRoleAsync(user, AppConstants.Roles.Vendeur);
 
                     db.Sellers.Add(new Seller
                     {

@@ -6,7 +6,7 @@ namespace AspNet_FilRouge.Services
     /// Service de base de données locale SQLite (sans Entity Framework).
     /// Utilisé pour la synchronisation et le mode hors-ligne.
     /// </summary>
-    public class LocalDbService
+    public class LocalDbService : ILocalDbService
     {
         private readonly string _dbPath;
 
@@ -464,14 +464,6 @@ namespace AspNet_FilRouge.Services
         }
 
         // ── Pending Vendor Sync Queue ───────────────────────────────────────
-
-        public sealed record PendingVendorStatusUpdate(
-            long Id,
-            int RequestId,
-            string Status,
-            DateTime CreatedAt,
-            int RetryCount,
-            string? LastError);
 
         public async Task EnqueuePendingVendorStatusUpdateAsync(int requestId, string status, string? lastError)
         {

@@ -12,7 +12,7 @@ namespace AspNet_FilRouge.Services
     public class SyncBackgroundService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
         private readonly IVendorSyncService _vendorSync;
         private readonly IWebHostEnvironment _env;
         private readonly string _vendeurCachePath;
@@ -21,7 +21,7 @@ namespace AspNet_FilRouge.Services
 
         public SyncBackgroundService(
             IServiceScopeFactory scopeFactory,
-            LocalDbService localDb,
+            ILocalDbService localDb,
             IVendorSyncService vendorSync,
             IWebHostEnvironment env,
             IConfiguration configuration,

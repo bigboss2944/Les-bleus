@@ -61,7 +61,7 @@
                     <option value="">— Aucune —</option>
                     @foreach (var s in (List<Entities.Shop>)ViewBag.Shops)
                     {
-                        <option value="@s.ShopId">@s.Nameshop</option>
+                        <option value="@s.ShopId">@s.Name</option>
                     }
                 </select>
             </div>

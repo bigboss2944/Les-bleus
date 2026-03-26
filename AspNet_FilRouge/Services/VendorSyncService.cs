@@ -20,13 +20,13 @@ namespace AspNet_FilRouge.Services
     public class VendorSyncService : IVendorSyncService
     {
         private readonly string _vendeurCachePath;
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
         private readonly ILogger<VendorSyncService> _logger;
 
         public VendorSyncService(
             IWebHostEnvironment env,
             IConfiguration configuration,
-            LocalDbService localDb,
+            ILocalDbService localDb,
             ILogger<VendorSyncService> logger)
         {
             _localDb = localDb;

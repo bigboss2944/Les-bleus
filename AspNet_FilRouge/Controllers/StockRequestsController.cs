@@ -37,7 +37,7 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var query = db.StockRequests
                 .Include(r => r.RequestedBy)
@@ -55,7 +55,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: StockRequests/Create — sellers only
-        [Authorize(Roles = "Vendeur")]
+        [Authorize(Roles = AppConstants.Roles.Vendeur)]
         public async Task<IActionResult> Create()
         {
             await PopulateBicycleNamesViewBagAsync();
@@ -65,7 +65,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: StockRequests/Create — sellers only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Vendeur")]
+        [Authorize(Roles = AppConstants.Roles.Vendeur)]
         public async Task<IActionResult> Create([Bind("BicycleName,Quantity,Notes")] StockRequest stockRequest)
         {
             if (ModelState.IsValid)
@@ -84,7 +84,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: StockRequests/Approve/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Approve(int id)
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);
@@ -115,7 +115,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: StockRequests/Reject/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Reject(int id)
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);
@@ -131,7 +131,7 @@ namespace AspNet_FilRouge.Controllers
         {
             if (id == null) return BadRequest("L'identifiant de la demande est requis.");
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             StockRequest? request = await db.StockRequests
                 .Include(r => r.RequestedBy)
@@ -142,7 +142,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: StockRequests/Edit/5 — admin only
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return BadRequest("L'identifiant de la demande est requis.");
@@ -156,7 +156,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: StockRequests/Edit/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BicycleName,Quantity,Notes")] StockRequest stockRequest)
         {
             if (id != stockRequest.Id)
@@ -199,7 +199,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: StockRequests/Delete/5 — admin only
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return BadRequest("L'identifiant de la demande est requis.");
@@ -214,7 +214,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: StockRequests/Delete/5 — admin only
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);

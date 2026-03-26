@@ -16,9 +16,9 @@ namespace AspNet_FilRouge.Controllers.Api
     public class SyncController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
 
-        public SyncController(ApplicationDbContext db, LocalDbService localDb)
+        public SyncController(ApplicationDbContext db, ILocalDbService localDb)
         {
             _db = db;
             _localDb = localDb;
@@ -48,7 +48,7 @@ namespace AspNet_FilRouge.Controllers.Api
                 o.IsValidated,
                 Seller = o.Seller == null ? null : new { o.Seller.Id, o.Seller.FirstName, o.Seller.LastName },
                 Customer = o.Customer == null ? null : new { o.Customer.Id, o.Customer.FirstName, o.Customer.LastName },
-                Shop = o.Shop == null ? null : new { o.Shop.ShopId, o.Shop.Nameshop },
+                Shop = o.Shop == null ? null : new { o.Shop.ShopId, o.Shop.Name },
                 Bicycles = o.Bicycles.Select(b => new
                 {
                     b.Id,

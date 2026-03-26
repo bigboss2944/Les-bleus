@@ -4,40 +4,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// Représente un client de la boutique, avec ses coordonnées,
+    /// son historique de commandes et ses points de fidélité.
+    /// </summary>
     public class Customer : User
     {
-        #region Attributes
-        private string? town;
-        private int postalCode;
-        private string? address;
-        private int loyaltyPoints;
-        private string? phone;
-        private string? email;
-        private Shop? shop;
-        private List<Order> orders = new();
-        private string? gender;
-        #endregion
+        /// <summary>Ville de résidence du client.</summary>
+        public string? Town { get; set; }
 
-        #region Properties
-        public string? Town { get => town; set => town = value; }
-        public int PostalCode { get => postalCode; set => postalCode = value; }
-        public string? Address { get => address; set => address = value; }
-        public int LoyaltyPoints { get => loyaltyPoints; set => loyaltyPoints = value; }
-        public string? Phone { get => phone; set => phone = value; }
-        public new string? Email { get => email; set => email = value; }
-        public Shop? Shop { get { return shop; } set { shop = value; } }
-        public List<Order> Orders { get { return orders; } set { orders = value; } }
-        public string? Gender { get { return gender; } set { gender = value; } }
-        #endregion
+        /// <summary>Code postal de l'adresse du client.</summary>
+        public int PostalCode { get; set; }
 
-        public Customer() : base()
-        {
-            this.Orders = new List<Order>();
-        }
+        /// <summary>Adresse postale du client.</summary>
+        public string? Address { get; set; }
 
-        public override string ToString()
-        {
-            return this.town + " " + this.postalCode + " " + this.address + " " + this.loyaltyPoints + " " + this.phone + " " + this.email + " " + this.gender + " " + this.shop + " " + this.orders;
-        }
+        /// <summary>Points de fidélité accumulés par le client.</summary>
+        public int LoyaltyPoints { get; set; }
+
+        /// <summary>Numéro de téléphone du client.</summary>
+        public string? Phone { get; set; }
+
+        /// <summary>Adresse e-mail du client (surcharge de la propriété Identity).</summary>
+        public new string? Email { get; set; }
+
+        /// <summary>Magasin de référence du client (peut être null).</summary>
+        public Shop? Shop { get; set; }
+
+        /// <summary>Liste des commandes passées par le client.</summary>
+        public List<Order> Orders { get; set; } = new List<Order>();
+
+        /// <summary>Genre du client (ex. : M, F, autre).</summary>
+        public string? Gender { get; set; }
     }
 }
