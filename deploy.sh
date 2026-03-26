@@ -19,7 +19,7 @@ docker stop filrouge || true && docker rm filrouge || true
 docker stop filrouge-vendeur || true && docker rm filrouge-vendeur || true
 
 echo "[4/4] Lancement des nouveaux conteneurs..."
-docker run -d --name filrouge -p 5000:80 filrouge:latest
-docker run -d --name filrouge-vendeur -p 5001:80 filrouge-vendeur:latest
+docker run -d --name filrouge -p 5100:80 filrouge:latest
+docker run -d --name filrouge-vendeur -p 5101:80 filrouge-vendeur:latest
 
 echo "Déploiement terminé !"
