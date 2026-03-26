@@ -58,6 +58,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Strict;
 });
 
 builder.Services.AddControllersWithViews();
@@ -83,7 +86,7 @@ using (var scope = app.Services.CreateScope())
     await EnsureSqliteStockRequestsTableAsync(dbContext);
 }
 
-await SeedDefaultAdminAsync(app.Services);
+await SeedDefaultAdminAsync(app.Services, app.Configuration, app.Environment);
 
 if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
 {
@@ -297,17 +300,28 @@ static bool HasHttpsEndpoint(ConfigurationManager configuration)
         .Any(url => url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
 }
 
-static async Task SeedDefaultAdminAsync(IServiceProvider services)
+static async Task SeedDefaultAdminAsync(IServiceProvider services, IConfiguration configuration, IWebHostEnvironment environment)
 {
     using var scope = services.CreateScope();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("SeedDefaultAdmin");
 
     const string adminRole = "Administrateur";
     const string vendeurRole = "Vendeur";
     const string adminUserName = "admin";
     const string adminEmail = "admin@filrouge.local";
-    const string adminPassword = "Admin!234";
+    // Lire le mot de passe depuis la configuration (variable d'environnement SeedUsers__AdminPassword ou appsettings).
+    var configuredPassword = configuration["SeedUsers:AdminPassword"];
+    if (string.IsNullOrWhiteSpace(configuredPassword))
+    {
+        if (environment.IsProduction())
+            throw new InvalidOperationException(
+                "SeedUsers:AdminPassword doit être défini en production. " +
+                "Définissez la variable d'environnement SeedUsers__AdminPassword.");
+        logger.LogWarning("SeedUsers:AdminPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
+    }
+    var adminPassword = configuredPassword ?? "Admin!234";
 
     foreach (var roleName in new[] { adminRole, vendeurRole })
     {
