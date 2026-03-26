@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge.Models;
@@ -10,31 +9,18 @@ namespace AspNet_FilRouge.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext db;
-        private readonly UserManager<ApplicationUser> _userManager;
         private const int PageSize = 10;
 
-        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public OrdersController(ApplicationDbContext context)
         {
             db = context;
-            _userManager = userManager;
         }
 
-        // GET: Orders — paginated view (all authenticated users)
+        // GET: Orders — paginated view (all authenticated users see all orders)
         public async Task<IActionResult> Index(int page = 1)
         {
-            var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
-
             var orders = db.Orders
                 .Include(o => o.Seller)
-                .AsQueryable();
-
-            if (!isAdmin)
-            {
-                orders = orders.Where(o => o.Seller != null && o.Seller.Id == currentUserId);
-            }
-
-            orders = orders
                 .OrderByDescending(o => o.Date)
                 .ThenByDescending(o => o.IdOrder)
                 .AsQueryable();
@@ -46,8 +32,6 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null) return BadRequest();
-            var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
 
             var order = await db.Orders
                 .Include(o => o.Seller)
@@ -56,7 +40,6 @@ namespace AspNet_FilRouge.Controllers
                 .Include(o => o.Bicycles)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
-            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return View(order);
         }
 
@@ -93,15 +76,10 @@ namespace AspNet_FilRouge.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPrice(long id)
         {
-            var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
-
             var order = await db.Orders
                 .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
-            if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return Ok(new { total = CalculateTotal(order) });
         }
 
