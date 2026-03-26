@@ -4,9 +4,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copie seulement le projet pour le restore (plus de cache Docker)
-COPY ["AspNet_FilRouge_Vendeur/AspNet_FilRouge_Vendeur.csproj", "AspNet_FilRouge_Vendeur/"]
+COPY ["AspNet_FilRouge_Vendeur.csproj", "AspNet_FilRouge_Vendeur/"]
 
-RUN dotnet restore "AspNet_FilRouge_Vendeur/AspNet_FilRouge_Vendeur.csproj"
+RUN dotnet restore "AspNet_FilRouge_Vendeur.csproj"
 
 # Copie le reste des fichiers
 COPY . .
