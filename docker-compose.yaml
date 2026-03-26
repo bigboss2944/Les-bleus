@@ -1,5 +1,5 @@
 services:
-  AspNet_FilRouge:
+  aspnetfilrouge:
     build:
       context: ./AspNet_FilRouge
       dockerfile: Dockerfile
@@ -10,7 +10,7 @@ services:
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5100"
     restart: unless-stopped
-  AspNet_FilRouge_Vendeur:
+  aspnetfilrougevendeur:
     build:
       context: ./AspNet_FilRouge_Vendeur
       dockerfile: Dockerfile
