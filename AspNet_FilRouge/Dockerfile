@@ -1,15 +1,28 @@
-# Pour l'étape build (SDK)
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# ---- Build stage ----
+# Raspberry Pi 3 utilise ARMv7 32-bit, pas ARM64
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["AspNet_FilRouge.csproj", "AspNet_FilRouge/"]
-RUN dotnet restore "AspNet_FilRouge.csproj"
-COPY . .
-WORKDIR "/src/AspNet_FilRouge"
-RUN dotnet build "AspNet_FilRouge.csproj" -c Release -o /app/build
-RUN dotnet publish "AspNet_FilRouge.csproj" -c Release -o /app/publish
 
-# Pour l’étape runtime (si tu veux une image plus petite pour exécution)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# Copy csproj and restore dependencies
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy remaining files and publish release
+COPY . ./
+RUN dotnet publish -c Release -o /app/publish --no-restore
+
+# ---- Runtime stage ----
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
+
+# Copy published output
 COPY --from=build /app/publish .
+
+# Expose HTTP port
+EXPOSE 5100
+
+# Configure Kestrel to bind to all network interfaces
+ENV ASPNETCORE_URLS=http://0.0.0.0:5100
+
+# Entry point: reference your published DLL directly
 ENTRYPOINT ["dotnet", "AspNet_FilRouge.dll"]
