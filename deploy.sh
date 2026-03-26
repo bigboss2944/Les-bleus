@@ -6,9 +6,6 @@ set -e
 REPO_DIR="/mnt/sauvegarde/git/CSharp/LesBleus" # Adapter si besoin
 cd "$REPO_DIR"
 
-echo "[1/4] Pull du dépôt..."
-git pull
-
 echo "[2/4] Build des images Docker..."
 docker build --platform linux/arm64 -t filrouge:latest ./AspNet_FilRouge
 
