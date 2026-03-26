@@ -1,5 +1,5 @@
 # Étape build : SDK .NET 10 (image tierce Hardened Images)
-FROM hardenedimages/dotnet/debian-13/10-sdk@sha256:6eb6853793f14f52bea7efe2fd0762dda8b78d8cdd7b8d732545c0d811306a1e AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /src
 
@@ -16,7 +16,7 @@ RUN dotnet build "AspNet_FilRouge_Vendeur.csproj" -c Release -o /app/build
 RUN dotnet publish "AspNet_FilRouge_Vendeur.csproj" -c Release -o /app/publish
 
 # Étape runtime : ASP.NET 10 (image tierce Hardened Images)
-FROM hardenedimages/dotnet/debian-13/10-aspnet@sha256:3e418cf6e93fbb8c344052868e8915f4c432cf6496658fb80edefcd4d1c3bf2b AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "AspNet_FilRouge_Vendeur.dll"]
