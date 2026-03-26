@@ -17,11 +17,6 @@
 # Packages NuGet (restaurés lors du build Docker)
 packages
 
-# Projets non nécessaires pour l'API
-UWP_FilRouge
-DataAccessLibraryUWP
-Entities
-
 # Répertoires de données
 AspNet_FilRouge/App_Data
 
