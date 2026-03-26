@@ -59,6 +59,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/Login";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Strict;
 });
 
 builder.Services.AddControllersWithViews();
@@ -122,6 +125,7 @@ if (!app.Environment.IsEnvironment("Testing"))
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var seedLogger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("SeedUsers");
 
     string[] roles = { AppConstants.Roles.Administrateur, AppConstants.Roles.Vendeur };
     foreach (var role in roles)
@@ -142,7 +146,18 @@ if (!app.Environment.IsEnvironment("Testing"))
             LastName = "Principal",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(admin, "Admin@123!");
+        // Lire le mot de passe depuis la configuration (variable d'environnement SeedUsers__AdminPassword ou appsettings).
+        var configuredAdminPassword = app.Configuration["SeedUsers:AdminPassword"];
+        if (string.IsNullOrWhiteSpace(configuredAdminPassword))
+        {
+            if (app.Environment.IsProduction())
+                throw new InvalidOperationException(
+                    "SeedUsers:AdminPassword doit être défini en production. " +
+                    "Définissez la variable d'environnement SeedUsers__AdminPassword.");
+            seedLogger.LogWarning("SeedUsers:AdminPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
+        }
+        var adminPassword = configuredAdminPassword ?? "Admin@123!";
+        var result = await userManager.CreateAsync(admin, adminPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(admin, AppConstants.Roles.Administrateur);
     }
@@ -159,7 +174,18 @@ if (!app.Environment.IsEnvironment("Testing"))
             LastName = "Défaut",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(vendeur, "Vendeur@123!");
+        // Lire le mot de passe depuis la configuration (variable d'environnement SeedUsers__VendeurPassword ou appsettings).
+        var configuredVendeurPassword = app.Configuration["SeedUsers:VendeurPassword"];
+        if (string.IsNullOrWhiteSpace(configuredVendeurPassword))
+        {
+            if (app.Environment.IsProduction())
+                throw new InvalidOperationException(
+                    "SeedUsers:VendeurPassword doit être défini en production. " +
+                    "Définissez la variable d'environnement SeedUsers__VendeurPassword.");
+            seedLogger.LogWarning("SeedUsers:VendeurPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
+        }
+        var vendeurPassword = configuredVendeurPassword ?? "Vendeur@123!";
+        var result = await userManager.CreateAsync(vendeur, vendeurPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(vendeur, AppConstants.Roles.Vendeur);
     }
