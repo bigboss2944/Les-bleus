@@ -4,51 +4,52 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// Représente une commande passée par un client ou créée par un vendeur,
+    /// regroupant les vélos commandés, les lignes de commande, les conditions
+    /// tarifaires (remise, taxe, frais de port) et l'état de validation.
+    /// </summary>
     public class Order
     {
-        #region Attributs
-        private long idOrder;
-        private List<Bicycle> bicycles = new();
-        private List<OrderLine> orderLines = new();
-        private Seller? seller;
-        private Customer? customer;
-        private DateTime date;
-        private Shop? shop;
-        private string? payMode;
-        private float discount;
-        private bool useLoyaltyPoint;
-        private float tax;
-        private float shippingCost;
-        private bool isValidated;
-        #endregion
-
-        #region Properties
+        /// <summary>Identifiant unique de la commande (clé primaire auto-incrémentée).</summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IdOrder { get { return idOrder; } set { idOrder = value; } }
-        public List<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
-        public List<OrderLine> OrderLines { get { return orderLines; } set { orderLines = value; } }
-        public Seller? Seller { get { return seller; } set { seller = value; } }
-        public Customer? Customer { get { return customer; } set { customer = value; } }
-        public DateTime Date { get { return date; } set { date = value; } }
-        public Shop? Shop { get { return shop; } set { shop = value; } }
-        public string? PayMode { get { return payMode; } set { payMode = value; } }
-        public float Discount { get { return discount; } set { discount = value; } }
-        public bool UseLoyaltyPoint { get { return useLoyaltyPoint; } set { useLoyaltyPoint = value; } }
-        public float Tax { get { return tax; } set { tax = value; } }
-        public float ShippingCost { get { return shippingCost; } set { shippingCost = value; } }
-        public bool IsValidated { get { return isValidated; } set { isValidated = value; } }
-        #endregion
+        public long IdOrder { get; set; }
 
-        public Order()
-        {
-            this.Bicycles = new List<Bicycle>();
-            this.OrderLines = new List<OrderLine>();
-        }
+        /// <summary>Liste des vélos associés à cette commande.</summary>
+        public List<Bicycle> Bicycles { get; set; } = new List<Bicycle>();
 
-        public override string ToString()
-        {
-            return this.idOrder + " " + this.bicycles + " " + this.shop + " " + this.seller + " " + this.customer + " " + this.date + " " + this.payMode + " " + this.discount + " " + this.useLoyaltyPoint + " " + this.tax + " " + this.shippingCost;
-        }
+        /// <summary>Lignes de commande (produits du catalogue).</summary>
+        public List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
+
+        /// <summary>Vendeur ayant créé la commande (peut être null).</summary>
+        public Seller? Seller { get; set; }
+
+        /// <summary>Client destinataire de la commande (peut être null).</summary>
+        public Customer? Customer { get; set; }
+
+        /// <summary>Date de création de la commande.</summary>
+        public DateTime Date { get; set; }
+
+        /// <summary>Magasin associé à la commande (peut être null).</summary>
+        public Shop? Shop { get; set; }
+
+        /// <summary>Mode de paiement (ex. : carte, virement, espèces).</summary>
+        public string? PayMode { get; set; }
+
+        /// <summary>Remise commerciale appliquée à la commande (en pourcentage).</summary>
+        public float Discount { get; set; }
+
+        /// <summary>Indique si les points de fidélité du client sont utilisés.</summary>
+        public bool UseLoyaltyPoint { get; set; }
+
+        /// <summary>Taux de TVA appliqué à la commande (en pourcentage).</summary>
+        public float Tax { get; set; }
+
+        /// <summary>Frais de livraison de la commande.</summary>
+        public float ShippingCost { get; set; }
+
+        /// <summary>Indique si la commande a été validée (stock déduit).</summary>
+        public bool IsValidated { get; set; }
     }
 }

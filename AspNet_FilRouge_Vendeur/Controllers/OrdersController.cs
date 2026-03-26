@@ -12,19 +12,21 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
-        private const int PageSize = 10;
+        private readonly IOrderPricingService _pricingService;
+        private const int PageSize = AppConstants.Pagination.DefaultPageSize;
 
-        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IOrderPricingService pricingService)
         {
             db = context;
             _userManager = userManager;
+            _pricingService = pricingService;
         }
 
         // GET: Orders — paginated view with optional seller filter (all authenticated users)
         public async Task<IActionResult> Index(int page = 1, string? sellerId = null)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var orders = db.Orders.Include(o => o.Seller).AsQueryable();
 
@@ -61,7 +63,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (id == null) return BadRequest();
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var order = await db.Orders
                 .Include(o => o.Seller)
@@ -163,7 +165,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (order == null) return NotFound();
 
             // Vendors can only edit their own orders
-            if (!User.IsInRole("Administrateur"))
+            if (!User.IsInRole(AppConstants.Roles.Administrateur))
             {
                 var currentUserId = _userManager.GetUserId(User);
                 if (order.Seller?.Id != currentUserId)
@@ -194,7 +196,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 if (existing == null) return NotFound();
 
                 // Vendors can only edit their own orders
-                if (!User.IsInRole("Administrateur"))
+                if (!User.IsInRole(AppConstants.Roles.Administrateur))
                 {
                     var currentUserId = _userManager.GetUserId(User);
                     if (existing.Seller?.Id != currentUserId)
@@ -210,7 +212,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 existing.UseLoyaltyPoint = order.UseLoyaltyPoint;
                 existing.Tax = order.Tax;
                 existing.ShippingCost = order.ShippingCost;
-                if (User.IsInRole("Administrateur"))
+                if (User.IsInRole(AppConstants.Roles.Administrateur))
                     existing.IsValidated = order.IsValidated;
 
                 if (!string.IsNullOrWhiteSpace(CustomerId))
@@ -241,7 +243,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
 
-            if (!User.IsInRole("Administrateur"))
+            if (!User.IsInRole(AppConstants.Roles.Administrateur))
             {
                 var currentUserId = _userManager.GetUserId(User);
                 if (order.Seller?.Id != currentUserId)
@@ -266,7 +268,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order != null)
             {
-                if (!User.IsInRole("Administrateur"))
+                if (!User.IsInRole(AppConstants.Roles.Administrateur))
                 {
                     var currentUserId = _userManager.GetUserId(User);
                     if (order.Seller?.Id != currentUserId)
@@ -293,7 +295,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> AddBicycle(long orderId, long bicycleId)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var order = await db.Orders
                 .Include(o => o.Bicycles)
@@ -313,7 +315,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             bicycle.Order = order;
             await db.SaveChangesAsync();
 
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // POST: Orders/RemoveBicycle — retire un vélo d'une commande existante
@@ -322,7 +324,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> RemoveBicycle(long orderId, long bicycleId)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var order = await db.Orders
                 .Include(o => o.Bicycles)
@@ -339,7 +341,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             bicycle.Order = null;
             await db.SaveChangesAsync();
 
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // GET: Orders/GetPrice/5 — calcule le prix total d'une commande
@@ -347,7 +349,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> GetPrice(long id)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var order = await db.Orders
                 .Include(o => o.Bicycles)
@@ -355,7 +357,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
             if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // POST: Orders/Validate/5 — valide une commande (requiert connexion)
@@ -363,14 +365,14 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Validate(long id)
         {
-            if (User.IsInRole("Vendeur") && !User.IsInRole("Administrateur"))
+            if (User.IsInRole(AppConstants.Roles.Vendeur) && !User.IsInRole(AppConstants.Roles.Administrateur))
                 return Forbid();
 
             if (IsClientOfflineRequest())
                 return BadRequest(new { error = "Validation impossible en mode hors-ligne." });
 
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var order = await db.Orders
                 .Include(o => o.Bicycles)
@@ -393,18 +395,10 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             order.IsValidated = true;
             await db.SaveChangesAsync();
 
-            return Ok(new { message = "Commande validée avec succès.", total = CalculateTotal(order) });
+            return Ok(new { message = "Commande validée avec succès.", total = _pricingService.CalculateTotal(order) });
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────
-
-        private static float CalculateTotal(Order order)
-        {
-            float subtotal = order.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
-            float afterDiscount = subtotal * (1 - order.Discount / 100f);
-            float withTax = afterDiscount * (1 + order.Tax / 100f);
-            return withTax + order.ShippingCost;
-        }
 
         private bool IsClientOfflineRequest()
         {

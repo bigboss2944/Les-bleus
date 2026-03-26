@@ -3,47 +3,55 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    public class Bicycle : BicyleCharacteristics
+    /// <summary>
+    /// Représente un vélo du catalogue, avec ses caractéristiques commerciales
+    /// (prix, quantité en stock, options) et physiques héritées de <see cref="BicycleCharacteristics"/>.
+    /// </summary>
+    public class Bicycle : BicycleCharacteristics
     {
-        #region Attributs
-        private long id;
-        private string? typeOfBike;
-        private string? category;
-        private string? reference;
-        private float freeTaxPrice;
-        private float tax;
-        private int quantity = 1;
-        private bool exchangeable;
-        private bool insurance;
-        private bool deliverable;
-        private Order? order;
-        private Customer? customer;
-        private Shop? shop;
-        #endregion
-
-        #region Properties
+        /// <summary>Identifiant unique du vélo (clé primaire auto-incrémentée).</summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get { return id; } set { id = value; } }
-        public string? TypeOfBike { get { return typeOfBike; } set { typeOfBike = value; } }
-        public string? Category { get { return category; } set { category = value; } }
-        public string? Reference { get { return reference; } set { reference = value; } }
-        public float FreeTaxPrice { get { return freeTaxPrice; } set { freeTaxPrice = value; } }
-        public float Tax { get { return tax; } set { tax = value; } }
-        public int Quantity { get { return quantity; } set { quantity = value; } }
-        public bool Exchangeable { get { return exchangeable; } set { exchangeable = value; } }
-        public bool Insurance { get { return insurance; } set { insurance = value; } }
-        public bool Deliverable { get { return deliverable; } set { deliverable = value; } }
-        public Order? Order { get { return order; } set { order = value; } }
-        public Customer? Customer { get { return customer; } set { customer = value; } }
-        public Shop? Shop { get { return shop; } set { shop = value; } }
-        #endregion
+        public long Id { get; set; }
 
-        public Bicycle() { }
+        /// <summary>Type de vélo (ex. : route, VTT, ville, etc.).</summary>
+        public string? TypeOfBike { get; set; }
 
-        public override string ToString()
-        {
-            return this.id + " " + this.typeOfBike + " " + this.category + " " + this.freeTaxPrice + " " + this.tax + " " + this.quantity + " " + this.exchangeable + " " + this.insurance + " " + this.deliverable;
-        }
+        /// <summary>Catégorie du vélo (ex. : adulte, enfant, électrique, etc.).</summary>
+        public string? Category { get; set; }
+
+        /// <summary>Référence fournisseur du modèle.</summary>
+        public string? Reference { get; set; }
+
+        /// <summary>Prix hors taxe du vélo.</summary>
+        public float FreeTaxPrice { get; set; }
+
+        /// <summary>Taux de TVA applicable (en pourcentage).</summary>
+        public float Tax { get; set; }
+
+        /// <summary>Quantité disponible en stock (1 par défaut à la création).</summary>
+        public int Quantity { get; set; } = 1;
+
+        /// <summary>Indique si le vélo est échangeable.</summary>
+        public bool Exchangeable { get; set; }
+
+        /// <summary>Indique si une assurance est incluse.</summary>
+        public bool Insurance { get; set; }
+
+        /// <summary>Indique si le vélo peut être livré.</summary>
+        public bool Deliverable { get; set; }
+
+        /// <summary>Commande à laquelle ce vélo est associé (peut être null).</summary>
+        public Order? Order { get; set; }
+
+        /// <summary>Client propriétaire de ce vélo (peut être null).</summary>
+        public Customer? Customer { get; set; }
+
+        /// <summary>Magasin auquel ce vélo est rattaché (peut être null).</summary>
+        public Shop? Shop { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString() =>
+            $"Bicycle #{Id} | {TypeOfBike} | {Category} | {FreeTaxPrice:F2}€ HT | Qté: {Quantity}";
     }
 }

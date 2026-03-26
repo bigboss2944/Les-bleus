@@ -63,7 +63,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<LocalDbService>();
+builder.Services.AddSingleton<ILocalDbService, LocalDbService>();
+builder.Services.AddScoped<IOrderPricingService, OrderPricingService>();
 
 builder.Services.AddAntiforgery(options =>
 {
@@ -122,7 +123,7 @@ if (!app.Environment.IsEnvironment("Testing"))
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    string[] roles = { "Administrateur", "Vendeur" };
+    string[] roles = { AppConstants.Roles.Administrateur, AppConstants.Roles.Vendeur };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))
@@ -143,7 +144,7 @@ if (!app.Environment.IsEnvironment("Testing"))
         };
         var result = await userManager.CreateAsync(admin, "Admin@123!");
         if (result.Succeeded)
-            await userManager.AddToRoleAsync(admin, "Administrateur");
+            await userManager.AddToRoleAsync(admin, AppConstants.Roles.Administrateur);
     }
 
     const string vendeurEmail = "vendeur@lesbleus.fr";
@@ -160,7 +161,7 @@ if (!app.Environment.IsEnvironment("Testing"))
         };
         var result = await userManager.CreateAsync(vendeur, "Vendeur@123!");
         if (result.Succeeded)
-            await userManager.AddToRoleAsync(vendeur, "Vendeur");
+            await userManager.AddToRoleAsync(vendeur, AppConstants.Roles.Vendeur);
     }
 
     if (vendeur != null && !await dbContext.Sellers.AnyAsync(s => s.Id == vendeur.Id))

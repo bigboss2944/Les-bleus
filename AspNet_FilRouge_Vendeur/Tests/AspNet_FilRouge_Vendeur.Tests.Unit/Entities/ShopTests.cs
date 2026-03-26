@@ -49,11 +49,11 @@ public class ShopTests
     }
 
     [Fact]
-    public void Shop_Nameshop_SetAndGet()
+    public void Shop_Name_SetAndGet()
     {
-        var shop = new Shop { Nameshop = "Les Bleus Cycles" };
+        var shop = new Shop { Name = "Les Bleus Cycles" };
 
-        Assert.Equal("Les Bleus Cycles", shop.Nameshop);
+        Assert.Equal("Les Bleus Cycles", shop.Name);
     }
 
     [Fact]
@@ -73,11 +73,11 @@ public class ShopTests
     }
 
     [Fact]
-    public void Shop_Postalcode_SetAndGet()
+    public void Shop_PostalCode_SetAndGet()
     {
-        var shop = new Shop { Postalcode = 69001 };
+        var shop = new Shop { PostalCode = 69001 };
 
-        Assert.Equal(69001, shop.Postalcode);
+        Assert.Equal(69001, shop.PostalCode);
     }
 
     [Fact]
