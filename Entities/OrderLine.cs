@@ -3,33 +3,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// Représente une ligne de commande, associant un <see cref="ProductType"/>
+    /// à une <see cref="Order"/> avec la quantité commandée.
+    /// </summary>
     public class OrderLine
     {
-        #region Attributs
-        private long id;
-        private long orderId;
-        private Order? order;
-        private long productTypeId;
-        private ProductType? productType;
-        private int quantity;
-        #endregion
-
-        #region Properties
+        /// <summary>Identifiant unique de la ligne de commande (clé primaire auto-incrémentée).</summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get { return id; } set { id = value; } }
-        public long OrderId { get { return orderId; } set { orderId = value; } }
-        public Order? Order { get { return order; } set { order = value; } }
-        public long ProductTypeId { get { return productTypeId; } set { productTypeId = value; } }
-        public ProductType? ProductType { get { return productType; } set { productType = value; } }
-        public int Quantity { get { return quantity; } set { quantity = value; } }
-        #endregion
+        public long Id { get; set; }
 
-        public OrderLine() { }
+        /// <summary>Clé étrangère vers la commande parente.</summary>
+        public long OrderId { get; set; }
 
-        public override string ToString()
-        {
-            return this.id + " " + this.orderId + " " + this.productTypeId + " " + this.quantity;
-        }
+        /// <summary>Commande parente (peut être null si non chargée).</summary>
+        public Order? Order { get; set; }
+
+        /// <summary>Clé étrangère vers le type de produit commandé.</summary>
+        public long ProductTypeId { get; set; }
+
+        /// <summary>Type de produit commandé (peut être null si non chargé).</summary>
+        public ProductType? ProductType { get; set; }
+
+        /// <summary>Quantité commandée pour ce type de produit.</summary>
+        public int Quantity { get; set; }
     }
 }

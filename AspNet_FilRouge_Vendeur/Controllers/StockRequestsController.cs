@@ -13,9 +13,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
 
-        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, LocalDbService localDb)
+        public StockRequestsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ILocalDbService localDb)
         {
             db = context;
             _userManager = userManager;
@@ -42,7 +42,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var query = db.StockRequests
                 .Include(r => r.RequestedBy)
@@ -60,7 +60,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         }
 
         // GET: StockRequests/Create — sellers only
-        [Authorize(Roles = "Vendeur")]
+        [Authorize(Roles = AppConstants.Roles.Vendeur)]
         public async Task<IActionResult> Create()
         {
             await PopulateBicycleNamesViewBagAsync();
@@ -70,7 +70,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // POST: StockRequests/Create — sellers only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Vendeur")]
+        [Authorize(Roles = AppConstants.Roles.Vendeur)]
         public async Task<IActionResult> Create([Bind("BicycleName,Quantity,Notes")] StockRequest stockRequest)
         {
             if (ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // POST: StockRequests/Approve/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Approve(int id)
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);
@@ -123,7 +123,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         // POST: StockRequests/Reject/5 — admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Reject(int id)
         {
             StockRequest? request = await db.StockRequests.FindAsync(id);
@@ -138,7 +138,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (id == null) return BadRequest();
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             StockRequest? request = await db.StockRequests
                 .Include(r => r.RequestedBy)
@@ -155,7 +155,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (id == null) return BadRequest();
 
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var request = await db.StockRequests.FindAsync(id);
             if (request == null) return NotFound();
@@ -175,7 +175,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (id != stockRequest.Id) return BadRequest();
 
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var existing = await db.StockRequests.FindAsync(id);
             if (existing == null) return NotFound();
@@ -205,7 +205,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (id == null) return BadRequest();
 
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var request = await db.StockRequests
                 .Include(r => r.RequestedBy)
@@ -224,7 +224,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var isAdmin = User.IsInRole("Administrateur");
+            var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
             var request = await db.StockRequests.FindAsync(id);
             if (request == null) return NotFound();

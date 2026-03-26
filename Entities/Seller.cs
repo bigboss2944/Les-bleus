@@ -1,27 +1,18 @@
 namespace Entities
 {
+    /// <summary>
+    /// Représente un vendeur de la boutique, rattaché à un magasin
+    /// et possédant un historique de commandes traitées.
+    /// </summary>
     public class Seller : User
     {
-        #region Attributes
-        private List<Order> orders = new();
-        private Shop? shop;
-        private Role? role;
-        #endregion
+        /// <summary>Rôle métier du vendeur (distinct du rôle Identity).</summary>
+        public Role? Role { get; set; }
 
-        #region Properties
-        public Role? Role { get { return role; } set { role = value; } }
-        public List<Order> Orders { get { return orders; } set { orders = value; } }
-        public Shop? Shop { get { return shop; } set { shop = value; } }
-        #endregion
+        /// <summary>Liste des commandes traitées par ce vendeur.</summary>
+        public List<Order> Orders { get; set; } = new List<Order>();
 
-        public Seller()
-        {
-            this.Orders = new List<Order>();
-        }
-
-        public override string ToString()
-        {
-            return " ";
-        }
+        /// <summary>Magasin auquel le vendeur est affecté (peut être null).</summary>
+        public Shop? Shop { get; set; }
     }
 }

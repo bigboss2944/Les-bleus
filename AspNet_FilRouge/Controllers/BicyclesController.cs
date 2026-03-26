@@ -9,7 +9,7 @@ namespace AspNet_FilRouge.Controllers
     public class BicyclesController : Controller
     {
         private readonly ApplicationDbContext db;
-        private const int PageSize = 10;
+        private const int PageSize = AppConstants.Pagination.DefaultPageSize;
 
         public BicyclesController(ApplicationDbContext context)
         {
@@ -42,7 +42,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Create
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public IActionResult Create()
         {
             return View();
@@ -51,7 +51,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: Bicycles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Create([Bind("TypeOfBike,Category,Reference,FreeTaxPrice,Quantity,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (!ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Edit/5
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -100,7 +100,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: Bicycles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Edit(long id, [Bind("Id,TypeOfBike,Category,Reference,FreeTaxPrice,Quantity,Exchangeable,Insurance,Deliverable,Size,Weight,Color,WheelSize,Electric,State,Brand,Confort")] Bicycle bicycle)
         {
             if (id != bicycle.Id)
@@ -133,7 +133,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Bicycles/Delete/5
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -153,7 +153,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: Bicycles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             Bicycle? bicycle = await db.Bicycles.FindAsync(id);

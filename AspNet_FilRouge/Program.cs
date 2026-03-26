@@ -62,8 +62,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<LocalDbService>();
+builder.Services.AddSingleton<ILocalDbService, LocalDbService>();
 builder.Services.AddSingleton<IVendorSyncService, VendorSyncService>();
+builder.Services.AddScoped<IOrderPricingService, OrderPricingService>();
 
 builder.Services.AddAntiforgery(options =>
 {
@@ -303,8 +304,8 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services)
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-    const string adminRole = "Administrateur";
-    const string vendeurRole = "Vendeur";
+    const string adminRole = AppConstants.Roles.Administrateur;
+    const string vendeurRole = AppConstants.Roles.Vendeur;
     const string adminUserName = "admin";
     const string adminEmail = "admin@filrouge.local";
     const string adminPassword = "Admin!234";

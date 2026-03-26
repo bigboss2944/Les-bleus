@@ -6,7 +6,7 @@ namespace AspNet_FilRouge_Vendeur.Services
     /// Service de base de données locale SQLite (sans Entity Framework).
     /// Utilisé pour la synchronisation et le mode hors-ligne.
     /// </summary>
-    public class LocalDbService
+    public class LocalDbService : ILocalDbService
     {
         private readonly string _dbPath;
 

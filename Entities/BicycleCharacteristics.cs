@@ -1,29 +1,33 @@
 namespace Entities
 {
+    /// <summary>
+    /// Caractéristiques physiques d'un vélo (taille, poids, couleur, etc.).
+    /// Classe de base héritée par <see cref="Bicycle"/>.
+    /// </summary>
     public class BicycleCharacteristics
     {
-        #region Attributs
-        private float size;
-        private float weight;
-        private string? color;
-        private float wheelSize;
-        private bool electric;
-        private string? confort;
-        private string? state;
-        private string? brand;
-        #endregion
+        /// <summary>Taille du cadre en centimètres.</summary>
+        public float Size { get; set; }
 
-        #region Properties
-        public float Size { get { return size; } set { size = value; } }
-        public float Weight { get { return weight; } set { weight = value; } }
-        public string? Color { get { return color; } set { color = value; } }
-        public float WheelSize { get { return wheelSize; } set { wheelSize = value; } }
-        public bool Electric { get { return electric; } set { electric = value; } }
-        public string? State { get { return state; } set { state = value; } }
-        public string? Brand { get { return brand; } set { brand = value; } }
-        public string? Confort { get { return confort; } set { confort = value; } }
-        #endregion
+        /// <summary>Poids du vélo en kilogrammes.</summary>
+        public float Weight { get; set; }
 
-        public BicycleCharacteristics() { }
+        /// <summary>Couleur du vélo.</summary>
+        public string? Color { get; set; }
+
+        /// <summary>Diamètre des roues en pouces.</summary>
+        public float WheelSize { get; set; }
+
+        /// <summary>Indique si le vélo est électrique (VAE).</summary>
+        public bool Electric { get; set; }
+
+        /// <summary>État du vélo (neuf, occasion, etc.).</summary>
+        public string? State { get; set; }
+
+        /// <summary>Marque du fabricant.</summary>
+        public string? Brand { get; set; }
+
+        /// <summary>Niveau de confort (ex. : sportif, touring, etc.).</summary>
+        public string? Confort { get; set; }
     }
 }

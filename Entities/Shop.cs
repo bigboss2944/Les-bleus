@@ -4,46 +4,48 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// Représente un magasin physique de la chaîne Les Bleus Cycles,
+    /// avec ses coordonnées et les listes de vendeurs, clients, commandes et vélos rattachés.
+    /// </summary>
     public class Shop
     {
-        #region Attributs
-        private long? shopId;
-        private string? town;
-        private int postalCode;
-        private string? adress;
-        private string? nameShop;
-        private string? phone;
-        private string? email;
-        private string? website;
-        private List<Order> orders = new();
-        private List<Seller> sellers = new();
-        private List<Customer> customers = new();
-        private List<Bicycle> bicycles = new();
-        #endregion
-
-        #region Properties
+        /// <summary>Identifiant unique du magasin (clé primaire auto-incrémentée).</summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long? ShopId { get { return shopId; } set { shopId = value; } }
-        public string? Town { get { return town; } set { town = value; } }
-        public int Postalcode { get { return postalCode; } set { postalCode = value; } }
-        public string? Adress { get { return adress; } set { adress = value; } }
-        public string? Nameshop { get { return nameShop; } set { nameShop = value; } }
-        public string? Phone { get { return phone; } set { phone = value; } }
-        public string? Email { get { return email; } set { email = value; } }
-        public string? Website { get { return website; } set { website = value; } }
-        public List<Order> Orders { get { return orders; } set { orders = value; } }
-        public List<Seller> Sellers { get { return sellers; } set { sellers = value; } }
-        public List<Customer> Customers { get { return customers; } set { customers = value; } }
-        public List<Bicycle> Bicycles { get { return bicycles; } set { bicycles = value; } }
-        #endregion
+        public long? ShopId { get; set; }
 
-        public Shop()
-        {
-            this.Orders = new List<Order>();
-            this.Sellers = new List<Seller>();
-            this.Customers = new List<Customer>();
-            this.Bicycles = new List<Bicycle>();
-        }
+        /// <summary>Ville où est situé le magasin.</summary>
+        public string? Town { get; set; }
+
+        /// <summary>Code postal du magasin.</summary>
+        public int PostalCode { get; set; }
+
+        /// <summary>Adresse postale du magasin.</summary>
+        public string? Address { get; set; }
+
+        /// <summary>Nom commercial du magasin.</summary>
+        public string? Name { get; set; }
+
+        /// <summary>Numéro de téléphone du magasin.</summary>
+        public string? Phone { get; set; }
+
+        /// <summary>Adresse e-mail de contact du magasin.</summary>
+        public string? Email { get; set; }
+
+        /// <summary>URL du site web du magasin.</summary>
+        public string? Website { get; set; }
+
+        /// <summary>Commandes passées dans ce magasin.</summary>
+        public List<Order> Orders { get; set; } = new List<Order>();
+
+        /// <summary>Vendeurs affectés à ce magasin.</summary>
+        public List<Seller> Sellers { get; set; } = new List<Seller>();
+
+        /// <summary>Clients rattachés à ce magasin.</summary>
+        public List<Customer> Customers { get; set; } = new List<Customer>();
+
+        /// <summary>Vélos disponibles dans ce magasin.</summary>
+        public List<Bicycle> Bicycles { get; set; } = new List<Bicycle>();
     }
 }

@@ -64,7 +64,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         }
 
         // GET: /Account/Register
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public IActionResult Register()
         {
             return View();
@@ -72,7 +72,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
