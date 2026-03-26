@@ -46,7 +46,7 @@ namespace AspNet_FilRouge.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password!, model.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password!, model.RememberMe, lockoutOnFailure: true);
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -63,16 +63,16 @@ namespace AspNet_FilRouge.Controllers
             return View(model);
         }
 
-        // GET: /Account/Register
-        [AllowAnonymous]
+        // GET: /Account/Register — réservé aux administrateurs
+        [Authorize(Roles = "Administrateur")]
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
+        // POST: /Account/Register — réservé aux administrateurs
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrateur")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -82,7 +82,8 @@ namespace AspNet_FilRouge.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password!);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    // Ne pas connecter automatiquement le nouvel utilisateur ;
+                    // l'administrateur reste connecté et est redirigé vers l'accueil.
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
