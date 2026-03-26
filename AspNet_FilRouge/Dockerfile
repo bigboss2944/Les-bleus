@@ -1,8 +1,8 @@
 # Pour l'étape build (SDK)
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["AspNet_FilRouge/AspNet_FilRouge.csproj", "AspNet_FilRouge/"]
-RUN dotnet restore "AspNet_FilRouge/AspNet_FilRouge.csproj"
+COPY ["AspNet_FilRouge.csproj", "AspNet_FilRouge/"]
+RUN dotnet restore "AspNet_FilRouge.csproj"
 COPY . .
 WORKDIR "/src/AspNet_FilRouge"
 RUN dotnet build "AspNet_FilRouge.csproj" -c Release -o /app/build
