@@ -3,7 +3,7 @@
 # À placer à la racine du dépôt sur la Raspberry
 set -e
 
-REPO_DIR="/home/pi/FilRouge" # Adapter si besoin
+REPO_DIR="/mnt/sauvegarde/git/CSharp/FilRouge" # Adapter si besoin
 cd "$REPO_DIR"
 
 echo "[1/4] Pull du dépôt..."
