@@ -7,7 +7,7 @@ COPY Entities/ Entities/
 COPY AspNet_FilRouge/ ./ 
 
 WORKDIR /src/AspNet_FilRouge
-
+RUN ls -l /src/AspNet_FilRouge
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish --no-restore
 

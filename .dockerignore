@@ -17,9 +17,6 @@
 # Packages NuGet (restaurés lors du build Docker)
 packages
 
-# Répertoires de données
-AspNet_FilRouge/App_Data
-
 # Fichiers de documentation et présentations
 PROJECT_PLAN.md
 Presentation_filrouge-2_1.pptx
