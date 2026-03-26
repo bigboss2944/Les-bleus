@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
 {
-    [Authorize(Roles = "Administrateur")]
+    [Authorize(Roles = AppConstants.Roles.Administrateur)]
     public class RoleController : Controller
     {
         private readonly RoleManager<ApplicationRole> _roleManager;

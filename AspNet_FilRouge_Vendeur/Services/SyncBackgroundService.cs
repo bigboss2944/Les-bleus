@@ -10,13 +10,13 @@ namespace AspNet_FilRouge_Vendeur.Services
     public class SyncBackgroundService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
         private readonly ILogger<SyncBackgroundService> _logger;
         private readonly TimeSpan _interval = TimeSpan.FromMinutes(5);
 
         public SyncBackgroundService(
             IServiceScopeFactory scopeFactory,
-            LocalDbService localDb,
+            ILocalDbService localDb,
             ILogger<SyncBackgroundService> logger)
         {
             _scopeFactory = scopeFactory;

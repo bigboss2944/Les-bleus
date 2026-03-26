@@ -5,7 +5,7 @@ using AspNet_FilRouge.Models;
 
 namespace AspNet_FilRouge.Controllers
 {
-    [Authorize(Roles = "Administrateur")]
+    [Authorize(Roles = AppConstants.Roles.Administrateur)]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -54,7 +54,7 @@ namespace AspNet_FilRouge.Controllers
                 return View(model);
             }
 
-            var roleResult = await _userManager.AddToRoleAsync(user, "Vendeur");
+            var roleResult = await _userManager.AddToRoleAsync(user, AppConstants.Roles.Vendeur);
             if (!roleResult.Succeeded)
             {
                 foreach (var error in roleResult.Errors)

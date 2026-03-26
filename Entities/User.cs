@@ -2,22 +2,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Entities
 {
+    /// <summary>
+    /// Classe de base pour les utilisateurs de l'application (clients et vendeurs),
+    /// étendant <see cref="IdentityUser"/> avec les informations d'identité civile.
+    /// </summary>
     public class User : IdentityUser
     {
-        #region Attributs
-        protected string? lastName;
-        protected string? firstName;
-        #endregion
+        /// <summary>Nom de famille de l'utilisateur.</summary>
+        public string? LastName { get; set; }
 
-        #region Properties
-        public string? LastName { get => lastName; set => lastName = value; }
-        public string? FirstName { get => firstName; set => firstName = value; }
-        #endregion
-
-        #region Constructors
-        public User()
-        {
-        }
-        #endregion
+        /// <summary>Prénom de l'utilisateur.</summary>
+        public string? FirstName { get; set; }
     }
 }

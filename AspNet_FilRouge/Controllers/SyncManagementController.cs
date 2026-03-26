@@ -8,12 +8,12 @@ namespace AspNet_FilRouge.Controllers
     /// Interface d'administration pour la synchronisation de la base locale SQLite.
     /// Accessible uniquement aux administrateurs.
     /// </summary>
-    [Authorize(Roles = "Administrateur")]
+    [Authorize(Roles = AppConstants.Roles.Administrateur)]
     public class SyncManagementController : Controller
     {
-        private readonly LocalDbService _localDb;
+        private readonly ILocalDbService _localDb;
 
-        public SyncManagementController(LocalDbService localDb)
+        public SyncManagementController(ILocalDbService localDb)
         {
             _localDb = localDb;
         }

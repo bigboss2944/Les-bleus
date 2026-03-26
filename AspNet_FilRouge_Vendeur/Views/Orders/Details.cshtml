@@ -25,7 +25,7 @@
             <dd>@(Model.Customer != null ? $"{Model.Customer.FirstName} {Model.Customer.LastName}" : "—")</dd>
 
             <dt>Boutique</dt>
-            <dd>@(Model.Shop?.Nameshop ?? "—")</dd>
+            <dd>@(Model.Shop?.Name ?? "—")</dd>
 
             <dt>Mode paiement</dt>
             <dd>@(Model.PayMode ?? "—")</dd>

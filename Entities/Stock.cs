@@ -3,29 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// Représente le stock disponible pour un <see cref="ProductType"/> donné.
+    /// Relation 1:1 avec <see cref="ProductType"/> via la clé étrangère <see cref="ProductTypeId"/>.
+    /// </summary>
     public class Stock
     {
-        #region Attributs
-        private long id;
-        private long productTypeId;
-        private ProductType? productType;
-        private int quantity;
-        #endregion
-
-        #region Properties
+        /// <summary>Identifiant unique du stock (clé primaire auto-incrémentée).</summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get { return id; } set { id = value; } }
-        public long ProductTypeId { get { return productTypeId; } set { productTypeId = value; } }
-        public ProductType? ProductType { get { return productType; } set { productType = value; } }
-        public int Quantity { get { return quantity; } set { quantity = value; } }
-        #endregion
+        public long Id { get; set; }
 
-        public Stock() { }
+        /// <summary>Clé étrangère vers le type de produit associé.</summary>
+        public long ProductTypeId { get; set; }
 
-        public override string ToString()
-        {
-            return this.id + " " + this.productTypeId + " " + this.quantity;
-        }
+        /// <summary>Type de produit associé (peut être null si non chargé).</summary>
+        public ProductType? ProductType { get; set; }
+
+        /// <summary>Quantité en stock pour ce type de produit.</summary>
+        public int Quantity { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString() =>
+            $"Stock #{Id} | ProductType: {ProductTypeId} | Qté: {Quantity}";
     }
 }

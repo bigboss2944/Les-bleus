@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspNet_FilRouge.Controllers
 {
-    [Authorize(Roles = "Administrateur")]
+    [Authorize(Roles = AppConstants.Roles.Administrateur)]
     public class SellersController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -58,7 +58,7 @@ namespace AspNet_FilRouge.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password!);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Vendeur");
+                    await _userManager.AddToRoleAsync(user, AppConstants.Roles.Vendeur);
 
                     db.Sellers.Add(new Seller
                     {
@@ -85,7 +85,7 @@ namespace AspNet_FilRouge.Controllers
             if (id == null) return BadRequest();
             Seller? seller = await db.Sellers.Include(s => s.Shop).FirstOrDefaultAsync(s => s.Id == id);
             if (seller == null) return NotFound();
-            ViewBag.ShopId = new SelectList(await db.Shops.ToListAsync(), "ShopId", "Nameshop", seller.Shop?.ShopId);
+            ViewBag.ShopId = new SelectList(await db.Shops.ToListAsync(), "ShopId", "Name", seller.Shop?.ShopId);
             return View(seller);
         }
 
@@ -107,7 +107,7 @@ namespace AspNet_FilRouge.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ShopId = new SelectList(await db.Shops.ToListAsync(), "ShopId", "Nameshop", shopId);
+            ViewBag.ShopId = new SelectList(await db.Shops.ToListAsync(), "ShopId", "Name", shopId);
             return View(seller);
         }
 

@@ -9,11 +9,13 @@ namespace AspNet_FilRouge.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext db;
-        private const int PageSize = 10;
+        private readonly IOrderPricingService _pricingService;
+        private const int PageSize = AppConstants.Pagination.DefaultPageSize;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, IOrderPricingService pricingService)
         {
             db = context;
+            _pricingService = pricingService;
         }
 
         // GET: Orders — paginated view (all authenticated users see all orders)
@@ -44,7 +46,7 @@ namespace AspNet_FilRouge.Controllers
         }
 
         // GET: Orders/Cancel/5 — confirmation d'annulation (admin uniquement)
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Cancel(long? id)
         {
             if (id == null) return BadRequest();
@@ -60,7 +62,7 @@ namespace AspNet_FilRouge.Controllers
         // POST: Orders/Cancel/5 — annule (supprime) la commande (admin uniquement)
         [HttpPost, ActionName("Cancel")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> CancelConfirmed(long id)
         {
             var order = await db.Orders.FindAsync(id);
@@ -80,13 +82,13 @@ namespace AspNet_FilRouge.Controllers
                 .Include(o => o.Bicycles)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
             if (order == null) return NotFound();
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // POST: Orders/AddBicycle — ajoute un vélo à une commande existante (admin uniquement)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> AddBicycle(long orderId, long bicycleId)
         {
             var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
@@ -102,13 +104,13 @@ namespace AspNet_FilRouge.Controllers
             bicycle.Order = order;
             await db.SaveChangesAsync();
 
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // POST: Orders/RemoveBicycle — retire un vélo d'une commande existante (admin uniquement)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> RemoveBicycle(long orderId, long bicycleId)
         {
             var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == orderId);
@@ -123,13 +125,13 @@ namespace AspNet_FilRouge.Controllers
             bicycle.Order = null;
             await db.SaveChangesAsync();
 
-            return Ok(new { total = CalculateTotal(order) });
+            return Ok(new { total = _pricingService.CalculateTotal(order) });
         }
 
         // POST: Orders/Validate/5 — valide une commande (admin uniquement)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrateur")]
+        [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> Validate(long id)
         {
             var order = await db.Orders.Include(o => o.Bicycles).FirstOrDefaultAsync(o => o.IdOrder == id);
@@ -149,17 +151,9 @@ namespace AspNet_FilRouge.Controllers
             order.IsValidated = true;
             await db.SaveChangesAsync();
 
-            return Ok(new { message = "Commande validée avec succès.", total = CalculateTotal(order) });
+            return Ok(new { message = "Commande validée avec succès.", total = _pricingService.CalculateTotal(order) });
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────
-
-        private static float CalculateTotal(Order order)
-        {
-            float subtotal = order.Bicycles?.Sum(b => b.FreeTaxPrice) ?? 0f;
-            float afterDiscount = subtotal * (1 - order.Discount / 100f);
-            float withTax = afterDiscount * (1 + order.Tax / 100f);
-            return withTax + order.ShippingCost;
-        }
     }
 }
