@@ -8,7 +8,7 @@ COPY AspNet_FilRouge/ ./
 
 WORKDIR /src/AspNet_FilRouge
 RUN ls -l /src/AspNet_FilRouge
-RUN dotnet restore
+RUN dotnet restore /src/AspNet_FilRouge/AspNet_FilRouge.csproj
 RUN dotnet publish -c Release -o /app/publish --no-restore
 
 FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
