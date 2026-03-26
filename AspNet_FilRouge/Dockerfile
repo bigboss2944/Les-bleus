@@ -8,6 +8,8 @@ COPY *.csproj ./
 RUN dotnet restore
 
 # Copy remaining files and publish release
+COPY ../Database/ Database/
+COPY ../Entities/ Entities/
 COPY . ./
 RUN dotnet publish -c Release -o /app/publish --no-restore
 
