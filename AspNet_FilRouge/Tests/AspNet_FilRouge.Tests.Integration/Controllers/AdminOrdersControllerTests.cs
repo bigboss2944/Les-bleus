@@ -2,10 +2,8 @@ using System.Security.Claims;
 using AspNet_FilRouge.Controllers;
 using Entities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace LesBleus.Tests.Integration.Controllers;
 
@@ -16,33 +14,23 @@ public class AdminOrdersControllerTests
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options);
 
-    private static Mock<UserManager<ApplicationUser>> CreateUserManagerMock()
+    private static OrdersController CreateController(ApplicationDbContext context, bool isAdmin = true)
     {
-        var userStore = new Mock<IUserStore<ApplicationUser>>();
-        var userManager = new Mock<UserManager<ApplicationUser>>(
-            userStore.Object, null!, null!, null!, null!, null!, null!, null!, null!);
-        userManager.Setup(u => u.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("user-id");
-        return userManager;
-    }
-
-    private static OrdersController CreateController(ApplicationDbContext context)
-    {
-        var userManager = CreateUserManagerMock();
-        var controller = new OrdersController(context, userManager.Object);
-        
-        // Create a ClaimsPrincipal with both Name and Admin role
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, "test"),
-            new Claim(ClaimTypes.NameIdentifier, "user-id"),
-            new Claim(ClaimTypes.Role, "Administrateur")
+            new(ClaimTypes.Name, "test"),
+            new(ClaimTypes.NameIdentifier, "user-id"),
+            new(ClaimTypes.Role, isAdmin ? "Administrateur" : "Vendeur")
         };
-        
-        controller.ControllerContext = new ControllerContext
+
+        var controller = new OrdersController(context)
         {
-            HttpContext = new DefaultHttpContext
+            ControllerContext = new ControllerContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity(claims, "test"))
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(new ClaimsIdentity(claims, "test"))
+                }
             }
         };
         return controller;
@@ -60,6 +48,28 @@ public class AdminOrdersControllerTests
 
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.IsAssignableFrom<PaginatedList<Order>>(viewResult.Model);
+    }
+
+    [Fact]
+    public async Task Index_AsVendeur_ReturnsAllOrders()
+    {
+        using var context = CreateContext();
+        var seller1 = new Seller { Id = "seller-1", UserName = "s1@test.com", Email = "s1@test.com" };
+        var seller2 = new Seller { Id = "seller-2", UserName = "s2@test.com", Email = "s2@test.com" };
+        context.Sellers.AddRange(seller1, seller2);
+        context.Orders.AddRange(
+            new Order { PayMode = "Card", Seller = seller1 },
+            new Order { PayMode = "Cash", Seller = seller2 });
+        await context.SaveChangesAsync();
+
+        var controller = CreateController(context, isAdmin: false);
+        var result = await controller.Index();
+
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var list = Assert.IsAssignableFrom<PaginatedList<Order>>(viewResult.Model);
+        Assert.Equal(2, list.Count);
+        Assert.Contains(list, o => o.Seller?.Id == "seller-1");
+        Assert.Contains(list, o => o.Seller?.Id == "seller-2");
     }
 
     [Fact]
@@ -98,6 +108,23 @@ public class AdminOrdersControllerTests
         var viewResult = Assert.IsType<ViewResult>(result);
         var model = Assert.IsType<Order>(viewResult.Model);
         Assert.Equal("Card", model.PayMode);
+    }
+
+    [Fact]
+    public async Task Details_AsVendeur_CanViewAnyOrder()
+    {
+        using var context = CreateContext();
+        var otherSeller = new Seller { Id = "other-seller", UserName = "other@test.com", Email = "other@test.com" };
+        context.Sellers.Add(otherSeller);
+        var order = new Order { PayMode = "Virement", Seller = otherSeller };
+        context.Orders.Add(order);
+        await context.SaveChangesAsync();
+
+        var controller = CreateController(context, isAdmin: false);
+        var result = await controller.Details(order.IdOrder);
+
+        var viewResult = Assert.IsType<ViewResult>(result);
+        Assert.IsType<Order>(viewResult.Model);
     }
 
     [Fact]
