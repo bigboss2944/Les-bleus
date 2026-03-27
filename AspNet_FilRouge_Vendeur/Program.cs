@@ -95,21 +95,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Static files - use the client app's assets
-var clientContentRoot = Path.Combine(app.Environment.ContentRootPath, "..", "AspNet_FilRouge");
-var staticDirs = new[] { ("Scripts", "/Scripts"), ("Content", "/Content"), ("Pictures", "/Pictures") };
-foreach (var (dir, requestPath) in staticDirs)
-{
-    var fullPath = Path.GetFullPath(Path.Combine(clientContentRoot, dir));
-    if (Directory.Exists(fullPath))
-    {
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(fullPath),
-            RequestPath = requestPath
-        });
-    }
-}
+
+// Fichiers statiques servis depuis wwwroot (Content, Scripts, Pictures)
+app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();

@@ -100,22 +100,8 @@ if (hasHttpsEndpoint)
 {
     app.UseHttpsRedirection();
 }
+// Les fichiers statiques sont désormais servis depuis wwwroot (par défaut)
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "Scripts")),
-    RequestPath = "/Scripts"
-});
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "Content")),
-    RequestPath = "/Content"
-});
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "Pictures")),
-    RequestPath = "/Pictures"
-});
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
