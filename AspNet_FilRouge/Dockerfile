@@ -3,7 +3,7 @@ FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY . .
-
+RUN ls -R /src
 WORKDIR /src/AspNet_FilRouge
 
 RUN dotnet restore
