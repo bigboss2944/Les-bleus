@@ -23,4 +23,5 @@ services:
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5101"
       SeedUsers__VendeurPassword: "MotDePasseSeller123!"
+      SeedUsers__AdminPassword: "MotDePasseAdmin123!"
     restart: unless-stopped
