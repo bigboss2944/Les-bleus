@@ -17,5 +17,9 @@ RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+
+# IMPORTANT pour que Kestrel écoute sur le port exposé
+ENV ASPNETCORE_URLS=http://0.0.0.0:5100
+
 EXPOSE 5100
 ENTRYPOINT ["dotnet", "AspNet_FilRouge.dll"]

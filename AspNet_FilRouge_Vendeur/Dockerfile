@@ -6,7 +6,6 @@ COPY FilRouge.sln .
 COPY Entities/ Entities/
 COPY Database/ Database/
 COPY AspNet_FilRouge_Vendeur/ AspNet_FilRouge_Vendeur/
-COPY AspNet_FilRouge_Vendeur/Tests/ AspNet_FilRouge_Vendeur/Tests/
 RUN ls -l /src
 
 WORKDIR /src/AspNet_FilRouge_Vendeur
@@ -17,5 +16,9 @@ RUN dotnet publish AspNet_FilRouge_Vendeur.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+
+# IMPORTANT pour que Kestrel écoute sur le port exposé
+ENV ASPNETCORE_URLS=http://0.0.0.0:5101
+
 EXPOSE 5101
 ENTRYPOINT ["dotnet", "AspNet_FilRouge_Vendeur.dll"]
