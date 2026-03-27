@@ -2,7 +2,7 @@ services:
   aspnetfilrouge:
     container_name: filrouge-admin
     build:
-      context: ./AspNet_FilRouge
+      context: .
       dockerfile: AspNet_FilRouge/Dockerfile
     platform: linux/arm/v7
     ports:
@@ -14,7 +14,7 @@ services:
   aspnetfilrougevendeur:
     container_name: filrouge-vendeur
     build:
-      context: ./AspNet_FilRouge_Vendeur
+      context: .
       dockerfile: AspNet_FilRouge_Vendeur/Dockerfile
     platform: linux/arm/v7
     ports:
