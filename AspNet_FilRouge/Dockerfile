@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-
+RUN ls -l /src
 # Copier le fichier solution et les projets nécessaires
 COPY FilRouge.sln .
 COPY Entities/ Entities/
