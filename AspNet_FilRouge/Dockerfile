@@ -7,8 +7,7 @@ COPY Entities/ Entities/
 COPY Database/ Database/
 COPY AspNet_FilRouge/ AspNet_FilRouge/
 
-# Copie manuelle des scripts si nécessaire
-COPY AspNet_FilRouge/Scripts AspNet_FilRouge/Scripts
+
 
 RUN ls -l /src
 
@@ -20,6 +19,9 @@ RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+
+# Copie manuelle des scripts si nécessaire
+COPY AspNet_FilRouge/Scripts /app/Scripts
 
 # IMPORTANT pour que Kestrel écoute sur le port exposé
 ENV ASPNETCORE_URLS=http://0.0.0.0:5100
