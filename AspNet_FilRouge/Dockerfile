@@ -1,5 +1,5 @@
 # Étape de build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copier **tous les fichiers** depuis la racine de la solution
@@ -13,7 +13,7 @@ RUN dotnet publish AspNet_FilRouge/AspNet_FilRouge.csproj \
     -c Release -o /app/publish --no-restore
 
 # Étape runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
 # Copier les fichiers publiés
