@@ -6,8 +6,10 @@ COPY FilRouge.sln .
 COPY Entities/ Entities/
 COPY Database/ Database/
 COPY AspNet_FilRouge/ AspNet_FilRouge/
+RUN ls -l /src
 
 WORKDIR /src/AspNet_FilRouge
+RUN ls -l /src/AspNet_FilRouge
 RUN dotnet restore ../FilRouge.sln
 RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
 
