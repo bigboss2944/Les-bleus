@@ -2,9 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copier uniquement les fichiers nécessaires
-COPY ../FilRouge.sln ./           # solution
-COPY ../Entities ./Entities/      # projet commun
-COPY ../Database ./Database/      # projet DB
+COPY ../FilRouge.sln ./           
+COPY ../Entities ./Entities/      
+COPY ../Database ./Database/      
 COPY . .
 
 # Restaurer la solution avec le chemin complet
