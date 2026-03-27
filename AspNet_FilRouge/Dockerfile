@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /src
 
@@ -7,7 +7,7 @@ COPY . .
 RUN dotnet restore AspNet_FilRouge.csproj
 RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM --platform=linux/arm/v7 mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /app
 
