@@ -7,6 +7,9 @@ COPY Entities/ Entities/
 COPY Database/ Database/
 COPY AspNet_FilRouge/ AspNet_FilRouge/
 
+# Copie manuelle des scripts si nécessaire
+COPY AspNet_FilRouge/Scripts ./Scripts
+
 RUN ls -l /src
 
 WORKDIR /src/AspNet_FilRouge
