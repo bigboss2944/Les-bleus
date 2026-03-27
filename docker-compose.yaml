@@ -9,6 +9,7 @@ services:
       - "5100:5100"
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5100"
+      SeedUsers__AdminPassword: "MotDePasseAdmin123!"
     restart: unless-stopped
 
   aspnetfilrougevendeur:
@@ -21,4 +22,5 @@ services:
       - "5101:5101"
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5101"
+      SeedUsers__AdminPassword: "MotDePasseSeller123!"
     restart: unless-stopped
