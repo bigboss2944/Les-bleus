@@ -1,23 +1,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copier uniquement les fichiers nécessaires
-COPY ../FilRouge.sln ./           
-COPY ../Entities ./Entities/      
-COPY ../Database ./Database/      
-COPY . .
+# Copier le fichier solution et les projets nécessaires
+COPY FilRouge.sln .
+COPY Entities/ Entities/
+COPY Database/ Database/
+COPY AspNet_FilRouge/ AspNet_FilRouge/
 
-# Restaurer la solution avec le chemin complet
-RUN dotnet restore /src/FilRouge.sln
-
-# Publier uniquement le projet Admin
-RUN dotnet publish /src/AspNet_FilRouge/AspNet_FilRouge.csproj -c Release -o /app/publish --no-restore
+WORKDIR /src/AspNet_FilRouge
+RUN dotnet restore ../FilRouge.sln
+RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
-
 EXPOSE 5100
-ENV ASPNETCORE_URLS=http://0.0.0.0:5100
-
 ENTRYPOINT ["dotnet", "AspNet_FilRouge.dll"]
