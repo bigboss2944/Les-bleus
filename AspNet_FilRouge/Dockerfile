@@ -21,7 +21,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Copie manuelle des scripts si nécessaire
-COPY AspNet_FilRouge/Scripts /app/Scripts
+COPY AspNet_FilRouge/Scripts ./Scripts
 
 # IMPORTANT pour que Kestrel écoute sur le port exposé
 ENV ASPNETCORE_URLS=http://0.0.0.0:5100
