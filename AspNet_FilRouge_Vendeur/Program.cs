@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
+var hasHttpsEndpoint = HasHttpsEndpoint(builder.Configuration);
 
 // Database - shared with client app
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -61,9 +62,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie.Name = "AspNetFilRougeVendeurAuth";
     options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SecurePolicy = hasHttpsEndpoint ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest;
     options.Cookie.SameSite = SameSiteMode.Strict;
 });
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new System.IO.DirectoryInfo("/data/keys"))
+    .SetApplicationName("FilRouge");
 
 builder.Services.AddControllersWithViews();
 
@@ -87,13 +92,16 @@ if (!app.Environment.IsEnvironment("Testing"))
     await EnsureSqliteBicyclesSchemaAsync(dbContext);
 }
 
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (hasHttpsEndpoint)
+{
+    app.UseHttpsRedirection();
+}
 
 
 // Fichiers statiques servis depuis wwwroot (Content, Scripts, Pictures)
@@ -248,4 +256,19 @@ static async Task EnsureSqliteBicyclesSchemaAsync(ApplicationDbContext dbContext
     {
         await dbContext.Database.ExecuteSqlRawAsync("ALTER TABLE Bicycles ADD COLUMN Quantity INTEGER NOT NULL DEFAULT 1;");
     }
+}
+
+static bool HasHttpsEndpoint(ConfigurationManager configuration)
+{
+    var urls = configuration["ASPNETCORE_URLS"]
+        ?? Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+
+    if (string.IsNullOrWhiteSpace(urls))
+    {
+        return false;
+    }
+
+    return urls
+        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Any(url => url.StartsWith("https://", StringComparison.OrdinalIgnoreCase));
 }
