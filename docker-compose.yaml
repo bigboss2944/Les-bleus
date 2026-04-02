@@ -9,7 +9,11 @@ services:
       - "5100:5100"
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5100"
-      SeedUsers__AdminPassword: "MotDePasseAdmin123!"
+      ASPNETCORE_ENVIRONMENT: "Production"
+      Sync__SharedDbPath: "/data/aspnet-filrouge.shared.db"
+      SeedUsers__AdminPassword: "ChangeMe_Admin_123!"
+    volumes:
+      - filrouge_data:/data
     restart: unless-stopped
 
   aspnetfilrougevendeur:
@@ -22,6 +26,13 @@ services:
       - "5101:5101"
     environment:
       ASPNETCORE_URLS: "http://0.0.0.0:5101"
-      SeedUsers__VendeurPassword: "MotDePasseSeller123!"
-      SeedUsers__AdminPassword: "MotDePasseAdmin123!"
+      ASPNETCORE_ENVIRONMENT: "Production"
+      Sync__SharedDbPath: "/data/aspnet-filrouge.shared.db"
+      SeedUsers__VendeurPassword: "ChangeMe_Vendeur_123!"
+      SeedUsers__AdminPassword: "ChangeMe_Admin_123!"
+    volumes:
+      - filrouge_data:/data
     restart: unless-stopped
+
+volumes:
+  filrouge_data:

@@ -1,25 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS build
 WORKDIR /src
-RUN ls -l /src
-# Copier le fichier solution et les projets nécessaires
-COPY FilRouge.sln .
+
+COPY FilRouge.sln ./
 COPY Entities/ Entities/
-COPY Database/ Database/
 COPY AspNet_FilRouge/ AspNet_FilRouge/
 
-RUN ls -l /src
-
 WORKDIR /src/AspNet_FilRouge
-RUN ls -l /src/AspNet_FilRouge
-RUN dotnet restore AspNet_FilRouge.csproj
-RUN dotnet publish AspNet_FilRouge.csproj -c Release -o /app/publish
+RUN dotnet restore AspNet_FilRouge.csproj -r linux-arm
+RUN dotnet publish AspNet_FilRouge.csproj -c Release -r linux-arm --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=false -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM arm32v7/debian:bookworm-slim
 WORKDIR /app
-COPY --from=build /app/publish .
 
-# IMPORTANT pour que Kestrel écoute sur le port exposé
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates libicu72 libssl3 tzdata \
+	&& rm -rf /var/lib/apt/lists/*
+
 ENV ASPNETCORE_URLS=http://0.0.0.0:5100
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+COPY --from=build /app/publish ./
 
 EXPOSE 5100
-ENTRYPOINT ["dotnet", "AspNet_FilRouge.dll"]
+ENTRYPOINT ["./AspNet_FilRouge"]
