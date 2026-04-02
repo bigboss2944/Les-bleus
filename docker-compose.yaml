@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: AspNet_FilRouge/Dockerfile
-    platform: linux/arm/v7
     ports:
       - "5100:5100"
     environment:
@@ -21,7 +20,6 @@ services:
     build:
       context: .
       dockerfile: AspNet_FilRouge_Vendeur/Dockerfile
-    platform: linux/arm/v7
     ports:
       - "5101:5101"
     environment:
