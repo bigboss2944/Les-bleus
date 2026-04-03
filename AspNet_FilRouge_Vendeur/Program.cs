@@ -67,7 +67,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new System.IO.DirectoryInfo("/data/keys"))
+    .PersistKeysToFileSystem(GetDataProtectionKeysDirectory(builder))
     .SetApplicationName("FilRouge");
 
 builder.Services.AddControllersWithViews();
@@ -215,6 +215,30 @@ static void EnsureCreatedWithSqliteRaceTolerance(ApplicationDbContext dbContext)
         // Two app instances can call EnsureCreated concurrently on the shared SQLite file.
         // If a table was created by the other process between checks, we can safely continue.
     }
+}
+
+static System.IO.DirectoryInfo GetDataProtectionKeysDirectory(WebApplicationBuilder builder)
+{
+    var configuredPath = builder.Configuration["DataProtection:KeysPath"];
+    string keysPath;
+
+    if (!string.IsNullOrWhiteSpace(configuredPath))
+    {
+        keysPath = Path.IsPathRooted(configuredPath)
+            ? configuredPath
+            : Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, configuredPath));
+    }
+    else if (builder.Environment.IsProduction())
+    {
+        keysPath = "/data/keys";
+    }
+    else
+    {
+        keysPath = Path.Combine(Path.GetTempPath(), "filrouge", builder.Environment.ApplicationName, "keys");
+    }
+
+    Directory.CreateDirectory(keysPath);
+    return new System.IO.DirectoryInfo(keysPath);
 }
 
 static async Task EnsureSqliteBicyclesSchemaAsync(ApplicationDbContext dbContext)

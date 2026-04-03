@@ -4,25 +4,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <RootNamespace>AspNet_FilRouge_Vendeur.Tests.Unit</RootNamespace>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <RootNamespace>AspNet_FilRouge.Tests.Functional</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.0.5" />
+    <PackageReference Include="coverlet.collector" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../AspNet_FilRouge_Vendeur.csproj" />
-    <ProjectReference Include="../../../Entities/Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="BusinessLogic/*.cs" />
-    <Compile Include="Entities/*.cs" />
+    <ProjectReference Include="../../AspNet_FilRouge/AspNet_FilRouge.csproj" />
+    <ProjectReference Include="../../Entities/Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
