@@ -17,21 +17,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet_FilRouge.TestsFolder
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C1A6CC31-0300-32C7-081B-68313A4DCE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Unit", "AspNet_FilRouge\Tests\AspNet_FilRouge.Tests.Unit\AspNet_FilRouge.Tests.Unit.csproj", "{2B5209EE-32BB-4F88-A3D1-717D373A3AC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Unit", "Tests\AspNet_FilRouge.Tests.Unit\AspNet_FilRouge.Tests.Unit.csproj", "{2B5209EE-32BB-4F88-A3D1-717D373A3AC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Integration", "AspNet_FilRouge\Tests\AspNet_FilRouge.Tests.Integration\AspNet_FilRouge.Tests.Integration.csproj", "{48ADE307-EAC5-46EB-9B0C-7A983BCC12F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Integration", "Tests\AspNet_FilRouge.Tests.Integration\AspNet_FilRouge.Tests.Integration.csproj", "{48ADE307-EAC5-46EB-9B0C-7A983BCC12F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Functional", "AspNet_FilRouge\Tests\AspNet_FilRouge.Tests.Functional\AspNet_FilRouge.Tests.Functional.csproj", "{0C6A66C3-FEF9-4CD8-BC79-0BBD54A9A1A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge.Tests.Functional", "Tests\AspNet_FilRouge.Tests.Functional\AspNet_FilRouge.Tests.Functional.csproj", "{0C6A66C3-FEF9-4CD8-BC79-0BBD54A9A1A7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet_FilRouge_Vendeur.TestsFolder", "AspNet_FilRouge_Vendeur.TestsFolder", "{B0E0565E-7B11-457D-C258-72231F7E5515}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A8F96691-7D08-847F-4F41-EF77A9AF0E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Unit", "AspNet_FilRouge_Vendeur\Tests\AspNet_FilRouge_Vendeur.Tests.Unit\AspNet_FilRouge_Vendeur.Tests.Unit.csproj", "{BD711C18-4712-4019-87E0-5FCFE26F6425}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Unit", "Tests\AspNet_FilRouge_Vendeur.Tests.Unit\AspNet_FilRouge_Vendeur.Tests.Unit.csproj", "{BD711C18-4712-4019-87E0-5FCFE26F6425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Integration", "AspNet_FilRouge_Vendeur\Tests\AspNet_FilRouge_Vendeur.Tests.Integration\AspNet_FilRouge_Vendeur.Tests.Integration.csproj", "{50F90DE5-88DB-4445-84CB-8BCA5D92D5B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Integration", "Tests\AspNet_FilRouge_Vendeur.Tests.Integration\AspNet_FilRouge_Vendeur.Tests.Integration.csproj", "{50F90DE5-88DB-4445-84CB-8BCA5D92D5B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Functional", "AspNet_FilRouge_Vendeur\Tests\AspNet_FilRouge_Vendeur.Tests.Functional\AspNet_FilRouge_Vendeur.Tests.Functional.csproj", "{6FD4FC66-6E02-4F23-9AB3-632C9EC63B90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet_FilRouge_Vendeur.Tests.Functional", "Tests\AspNet_FilRouge_Vendeur.Tests.Functional\AspNet_FilRouge_Vendeur.Tests.Functional.csproj", "{6FD4FC66-6E02-4F23-9AB3-632C9EC63B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

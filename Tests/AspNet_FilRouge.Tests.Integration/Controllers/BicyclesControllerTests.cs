@@ -217,7 +217,7 @@ public class BicyclesControllerTests
         // Assert
         var viewResult = Assert.IsType<ViewResult>(result);
         var paginatedList = Assert.IsAssignableFrom<PaginatedList<Bicycle>>(viewResult.Model);
-        Assert.Equal(0, paginatedList.Count);
+        Assert.Empty(paginatedList);
     }
 
     [Fact]
