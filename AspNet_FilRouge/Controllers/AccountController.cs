@@ -10,13 +10,16 @@ namespace AspNet_FilRouge.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IWebHostEnvironment _environment;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _environment = environment;
         }
 
         // GET: /Account/Login
@@ -135,7 +138,11 @@ namespace AspNet_FilRouge.Controllers
                     new { code },
                     protocol: Request.Scheme);
 
-                TempData["ResetPasswordLink"] = callbackUrl;
+                // Never expose reset tokens outside of local development.
+                if (_environment.IsDevelopment())
+                {
+                    TempData["ResetPasswordLink"] = callbackUrl;
+                }
                 return RedirectToAction("ForgotPasswordConfirmation");
             }
             return View(model);

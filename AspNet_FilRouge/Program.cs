@@ -331,10 +331,12 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services, IConfiguratio
     var configuredPassword = configuration["SeedUsers:AdminPassword"];
     if (string.IsNullOrWhiteSpace(configuredPassword))
     {
-        if (environment.IsProduction())
+        if (!environment.IsDevelopment() && !environment.IsEnvironment("Testing"))
+        {
             throw new InvalidOperationException(
-                "SeedUsers:AdminPassword doit être défini en production. " +
+                "SeedUsers:AdminPassword doit être défini hors développement. " +
                 "Définissez la variable d'environnement SeedUsers__AdminPassword.");
+        }
         logger.LogWarning("SeedUsers:AdminPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
     }
     var adminPassword = configuredPassword ?? "Admin!234";

@@ -12,7 +12,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers.Api
     /// </summary>
     [ApiController]
     [Route("api/sync")]
-    [Authorize]
+    [Authorize(Roles = AppConstants.Roles.Administrateur + "," + AppConstants.Roles.Vendeur)]
     public class SyncController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
