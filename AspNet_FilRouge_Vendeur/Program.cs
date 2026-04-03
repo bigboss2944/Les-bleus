@@ -147,10 +147,12 @@ if (!app.Environment.IsEnvironment("Testing"))
         var configuredAdminPassword = app.Configuration["SeedUsers:AdminPassword"];
         if (string.IsNullOrWhiteSpace(configuredAdminPassword))
         {
-            if (app.Environment.IsProduction())
+            if (!app.Environment.IsDevelopment() && !app.Environment.IsEnvironment("Testing"))
+            {
                 throw new InvalidOperationException(
-                    "SeedUsers:AdminPassword doit être défini en production. " +
+                    "SeedUsers:AdminPassword doit être défini hors développement. " +
                     "Définissez la variable d'environnement SeedUsers__AdminPassword.");
+            }
             seedLogger.LogWarning("SeedUsers:AdminPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
         }
         var adminPassword = configuredAdminPassword ?? "Admin@123!";
@@ -175,10 +177,12 @@ if (!app.Environment.IsEnvironment("Testing"))
         var configuredVendeurPassword = app.Configuration["SeedUsers:VendeurPassword"];
         if (string.IsNullOrWhiteSpace(configuredVendeurPassword))
         {
-            if (app.Environment.IsProduction())
+            if (!app.Environment.IsDevelopment() && !app.Environment.IsEnvironment("Testing"))
+            {
                 throw new InvalidOperationException(
-                    "SeedUsers:VendeurPassword doit être défini en production. " +
+                    "SeedUsers:VendeurPassword doit être défini hors développement. " +
                     "Définissez la variable d'environnement SeedUsers__VendeurPassword.");
+            }
             seedLogger.LogWarning("SeedUsers:VendeurPassword n'est pas configuré. Utilisation du mot de passe par défaut (développement uniquement).");
         }
         var vendeurPassword = configuredVendeurPassword ?? "Vendeur@123!";

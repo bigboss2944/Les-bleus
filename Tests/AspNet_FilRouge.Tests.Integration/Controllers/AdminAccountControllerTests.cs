@@ -2,6 +2,7 @@ using System.Security.Claims;
 using AspNet_FilRouge.Controllers;
 using AspNet_FilRouge.Models;
 using Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,10 @@ public class AccountControllerTests
         Mock<UserManager<ApplicationUser>> userManager,
         Mock<SignInManager<ApplicationUser>> signInManager)
     {
-        var controller = new AccountController(userManager.Object, signInManager.Object);
+        var environment = new Mock<IWebHostEnvironment>();
+        environment.Setup(e => e.EnvironmentName).Returns("Testing");
+
+        var controller = new AccountController(userManager.Object, signInManager.Object, environment.Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -281,5 +285,41 @@ public class AccountControllerTests
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("ForgotPasswordConfirmation", redirectResult.ActionName);
+    }
+
+    [Fact]
+    public async Task ForgotPassword_Post_DoesNotExposeResetLinkOutsideDevelopment()
+    {
+        // Arrange
+        var user = new ApplicationUser { Id = "1", Email = "test@test.com", UserName = "test@test.com" };
+        var userManager = CreateUserManagerMock();
+        userManager.Setup(u => u.FindByEmailAsync("test@test.com")).ReturnsAsync(user);
+        userManager.Setup(u => u.IsEmailConfirmedAsync(user)).ReturnsAsync(true);
+        userManager.Setup(u => u.GeneratePasswordResetTokenAsync(user)).ReturnsAsync("token");
+
+        var signInManager = CreateSignInManagerMock(userManager);
+        var environment = new Mock<IWebHostEnvironment>();
+        environment.Setup(e => e.EnvironmentName).Returns("Testing");
+
+        var controller = new AccountController(userManager.Object, signInManager.Object, environment.Object);
+        controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext()
+        };
+        controller.TempData = new Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionary(
+            controller.HttpContext,
+            Mock.Of<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider>());
+        controller.Url = Mock.Of<IUrlHelper>(u =>
+            u.Action(It.IsAny<Microsoft.AspNetCore.Mvc.Routing.UrlActionContext>()) == "https://localhost/Account/ResetPassword?code=token");
+
+        var model = new ForgotPasswordViewModel { Email = "test@test.com" };
+
+        // Act
+        var result = await controller.ForgotPassword(model);
+
+        // Assert
+        var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal("ForgotPasswordConfirmation", redirectResult.ActionName);
+        Assert.False(controller.TempData.ContainsKey("ResetPasswordLink"));
     }
 }
