@@ -3,6 +3,7 @@ WORKDIR /src
 
 COPY FilRouge.sln ./
 COPY Entities/ Entities/
+COPY Shared/ Shared/
 COPY AspNet_FilRouge/ AspNet_FilRouge/
 
 WORKDIR /src/AspNet_FilRouge
