@@ -10,7 +10,7 @@ services:
       ASPNETCORE_URLS: "http://0.0.0.0:5100"
       ASPNETCORE_ENVIRONMENT: "Production"
       Sync__SharedDbPath: "/data/aspnet-filrouge.shared.db"
-      SeedUsers__AdminPassword: "***REMOVED***"
+      SeedUsers__AdminPassword: "${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}"
     volumes:
       - filrouge_data:/data
     restart: unless-stopped
@@ -26,8 +26,8 @@ services:
       ASPNETCORE_URLS: "http://0.0.0.0:5101"
       ASPNETCORE_ENVIRONMENT: "Production"
       Sync__SharedDbPath: "/data/aspnet-filrouge.shared.db"
-      SeedUsers__VendeurPassword: "***REMOVED***"
-      SeedUsers__AdminPassword: "***REMOVED***"
+      SeedUsers__VendeurPassword: "${VENDEUR_PASSWORD:?Set VENDEUR_PASSWORD in .env}"
+      SeedUsers__AdminPassword: "${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}"
     volumes:
       - filrouge_data:/data
     restart: unless-stopped

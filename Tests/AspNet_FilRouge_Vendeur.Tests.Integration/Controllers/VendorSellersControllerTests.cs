@@ -218,10 +218,9 @@ public class VendorSellersControllerTests
         context.Entry(seller).State = EntityState.Detached;
 
         var controller = CreateController(context);
-        var updatedSeller = new Seller { Id = "1", FirstName = "Jane", LastName = "Smith" };
 
         // Act
-        var result = await controller.Edit(updatedSeller);
+        var result = await controller.Edit("1", "Smith", "Jane");
 
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
@@ -230,6 +229,35 @@ public class VendorSellersControllerTests
         // Verify update
         var updated = await context.Sellers.FindAsync("1");
         Assert.Equal("Jane", updated!.FirstName);
+    }
+
+    [Fact]
+    public async Task Edit_Post_DoesNotNullOutUnboundFields()
+    {
+        // Arrange — regression test for the fix that stopped Edit from wiping
+        // Email/PhoneNumber via a partially-bound EntityState.Modified update.
+        using var context = CreateContext();
+        var seller = new Seller
+        {
+            Id = "1",
+            FirstName = "John",
+            LastName = "Doe",
+            Email = "john.doe@example.com",
+            PhoneNumber = "0102030405"
+        };
+        context.Sellers.Add(seller);
+        await context.SaveChangesAsync();
+        context.Entry(seller).State = EntityState.Detached;
+
+        var controller = CreateController(context);
+
+        // Act
+        await controller.Edit("1", "Smith", "Jane");
+
+        // Assert
+        var updated = await context.Sellers.FindAsync("1");
+        Assert.Equal("john.doe@example.com", updated!.Email);
+        Assert.Equal("0102030405", updated.PhoneNumber);
     }
 
     [Fact]

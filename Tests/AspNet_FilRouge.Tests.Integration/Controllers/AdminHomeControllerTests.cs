@@ -1,9 +1,11 @@
-using AspNet_FilRouge.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Controllers;
 
 namespace LesBleus.Tests.Integration.Controllers;
 
+// HomeController is shared between the Admin and Vendeur apps (Shared/Controllers/HomeController.cs);
+// this single suite covers it for both, so no per-app duplicate exists.
 public class HomeControllerTests
 {
     private static HomeController CreateController()

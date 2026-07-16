@@ -90,11 +90,16 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,LastName,FirstName")] Seller seller)
+        public async Task<IActionResult> Edit(string id, string? lastName, string? firstName)
         {
+            Seller? seller = await db.Sellers.FindAsync(id);
+            if (seller == null) return NotFound();
+
+            seller.LastName = lastName;
+            seller.FirstName = firstName;
+
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

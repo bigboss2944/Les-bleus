@@ -56,6 +56,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/Login";
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     options.Cookie.Name = "AspNetFilRougeAdminAuth";
@@ -66,9 +67,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(GetDataProtectionKeysDirectory(builder))
-    .SetApplicationName("FilRouge");
+    .SetApplicationName("FilRouge.Admin");
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddApplicationPart(typeof(Shared.Controllers.HomeController).Assembly);
 
 builder.Services.AddSingleton<ILocalDbService, LocalDbService>();
 builder.Services.AddSingleton<IVendorSyncService, VendorSyncService>();
@@ -94,14 +96,14 @@ using (var scope = app.Services.CreateScope())
 
 await SeedDefaultAdminAsync(app.Services, app.Configuration, app.Environment);
 
-if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
 }
 
 if (hasHttpsEndpoint)
 {
+    app.UseHsts();
     app.UseHttpsRedirection();
 }
 // Les fichiers statiques sont désormais servis depuis wwwroot (par défaut)

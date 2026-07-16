@@ -11,6 +11,8 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _environment;
+        private static readonly PasswordHasher<ApplicationUser> _timingSafetyHasher = new();
+        private static readonly string _dummyPasswordHash = _timingSafetyHasher.HashPassword(new ApplicationUser(), Guid.NewGuid().ToString());
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -45,6 +47,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                        ?? await _userManager.FindByNameAsync(model.Email!);
             if (user == null)
             {
+                // Hash a dummy password so the response takes roughly as long as a real
+                // login attempt, preventing user enumeration via timing.
+                _timingSafetyHasher.VerifyHashedPassword(new ApplicationUser(), _dummyPasswordHash, model.Password!);
                 ModelState.AddModelError("", "Tentative de connexion invalide.");
                 return View(model);
             }

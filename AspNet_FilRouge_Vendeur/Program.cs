@@ -68,9 +68,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(GetDataProtectionKeysDirectory(builder))
-    .SetApplicationName("FilRouge");
+    .SetApplicationName("FilRouge.Vendeur");
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddApplicationPart(typeof(Shared.Controllers.HomeController).Assembly);
 
 builder.Services.AddSingleton<ILocalDbService, LocalDbService>();
 builder.Services.AddScoped<IOrderPricingService, OrderPricingService>();
@@ -92,14 +93,14 @@ if (!app.Environment.IsEnvironment("Testing"))
     await EnsureSqliteBicyclesSchemaAsync(dbContext);
 }
 
-if (!app.Environment.IsDevelopment() && hasHttpsEndpoint)
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
 }
 
 if (hasHttpsEndpoint)
 {
+    app.UseHsts();
     app.UseHttpsRedirection();
 }
 

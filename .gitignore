@@ -35,6 +35,9 @@ DataAccessLibraryUWP/bin/
 *.coverage
 *.coveragexml
 
+# Secrets
+.env
+
 # NuGet
 *.nupkg
 *.snupkg

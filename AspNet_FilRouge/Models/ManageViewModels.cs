@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -19,11 +18,6 @@ namespace AspNet_FilRouge.Models
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; } = new List<UserLoginInfo>();
         public IList<AuthenticationScheme> OtherLogins { get; set; } = new List<AuthenticationScheme>();
-    }
-
-    public class FactorViewModel
-    {
-        public string? Purpose { get; set; }
     }
 
     public class SetPasswordViewModel
@@ -77,11 +71,5 @@ namespace AspNet_FilRouge.Models
         [Phone]
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
-    }
-
-    public class ConfigureTwoFactorViewModel
-    {
-        public string? SelectedProvider { get; set; }
-        public ICollection<SelectListItem> Providers { get; set; } = new List<SelectListItem>();
     }
 }

@@ -19,9 +19,10 @@ Le déploiement cible principal est Raspberry Pi (ARMv7) via Docker Compose.
 
 - `AspNet_FilRouge/`: application Admin
 - `AspNet_FilRouge_Vendeur/`: application Vendeur
+- `Shared/`: contrôleurs strictement identiques entre les deux applications (actuellement `HomeController`)
 - `Entities/`: modèles et logique métier partagée
-- `Database/`: composants d'accès données historiques
-- `Tests/`: tests unitaires, intégration et fonctionnels
+- `Tests/`: tests unitaires (dont `Entities.Tests`, partagé entre les deux apps), intégration et fonctionnels
+- `docs/`: documents de cadrage historiques (cahier des charges, présentation)
 - `docker-compose.yaml`: orchestration locale/serveur
 
 ## Prérequis
@@ -46,6 +47,14 @@ Variables d'environnement principales (définies dans `docker-compose.yaml`) :
 - `Sync__SharedDbPath`
 - `SeedUsers__AdminPassword`
 - `SeedUsers__VendeurPassword`
+
+Les deux derniers mots de passe sont lus depuis un fichier `.env` (jamais commité, cf.
+`.gitignore`) à la racine du dépôt. Copier `.env.example` vers `.env` et renseigner des mots
+de passe forts avant tout déploiement réel :
+
+```bash
+cp .env.example .env
+```
 
 Comportement base de données :
 
@@ -113,22 +122,22 @@ Exécuter tous les tests :
 dotnet test
 ```
 
-Exécuter uniquement les tests unitaires :
+Exécuter uniquement les tests des entités/logique métier partagée :
 
 ```bash
-dotnet test Tests/Les-bleus.Tests.Unit/Les-bleus.Tests.Unit.csproj
+dotnet test Tests/Entities.Tests/Entities.Tests.csproj
 ```
 
-Exécuter uniquement les tests d'intégration :
+Exécuter uniquement les tests d'intégration d'une application (exemple Admin) :
 
 ```bash
-dotnet test Tests/Les-bleus.Tests.Integration/Les-bleus.Tests.Integration.csproj
+dotnet test Tests/AspNet_FilRouge.Tests.Integration/AspNet_FilRouge.Tests.Integration.csproj
 ```
 
-Exécuter uniquement les tests fonctionnels :
+Exécuter uniquement les tests fonctionnels d'une application (exemple Vendeur) :
 
 ```bash
-dotnet test Tests/Les-bleus.Tests.Functional/Les-bleus.Tests.Functional.csproj
+dotnet test Tests/AspNet_FilRouge_Vendeur.Tests.Functional/AspNet_FilRouge_Vendeur.Tests.Functional.csproj
 ```
 
 ## Déploiement Raspberry Pi
@@ -175,7 +184,10 @@ Puis relancer le build.
 
 ### Antiforgery: The antiforgery token could not be decrypted
 
-Vérifier que les deux applications partagent le même emplacement de clés Data Protection et le même `ApplicationName`.
+Chaque application a son propre `ApplicationName` Data Protection (`FilRouge.Admin` /
+`FilRouge.Vendeur`), volontairement distinct pour isoler leurs clés. Si cette erreur apparaît,
+vérifier que le volume `/data/keys` de l'application concernée n'a pas été supprimé ou partagé
+par erreur avec l'autre application.
 
 ### Login impossible en HTTP
 
