@@ -8,19 +8,14 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IAccountService _accountService;
         private readonly IWebHostEnvironment _environment;
-        private static readonly PasswordHasher<ApplicationUser> _timingSafetyHasher = new();
-        private static readonly string _dummyPasswordHash = _timingSafetyHasher.HashPassword(new ApplicationUser(), Guid.NewGuid().ToString());
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            IAccountService accountService,
             IWebHostEnvironment environment)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _accountService = accountService;
             _environment = environment;
         }
 
@@ -43,18 +38,15 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.FindByEmailAsync(model.Email!)
-                       ?? await _userManager.FindByNameAsync(model.Email!);
+            var user = await _accountService.FindUserForLoginAsync(model.Email!);
             if (user == null)
             {
-                // Hash a dummy password so the response takes roughly as long as a real
-                // login attempt, preventing user enumeration via timing.
-                _timingSafetyHasher.VerifyHashedPassword(new ApplicationUser(), _dummyPasswordHash, model.Password!);
+                _accountService.SimulateTimingSafeVerification(model.Password!);
                 ModelState.AddModelError("", "Tentative de connexion invalide.");
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password!, model.RememberMe, lockoutOnFailure: true);
+            var result = await _accountService.PasswordSignInAsync(user, model.Password!, model.RememberMe);
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -87,7 +79,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password!);
+                var result = await _accountService.CreateUserAsync(user, model.Password!);
                 if (result.Succeeded)
                 {
                     // Ne pas connecter automatiquement le nouvel utilisateur ;
@@ -107,9 +99,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return View("Error");
             }
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _accountService.FindByIdAsync(userId);
             if (user == null) return View("Error");
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await _accountService.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -128,15 +120,14 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email!)
-                           ?? await _userManager.FindByNameAsync(model.Email!);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                var user = await _accountService.FindUserForLoginAsync(model.Email!);
+                if (user == null || !(await _accountService.IsEmailConfirmedAsync(user)))
                 {
                     // Do not reveal whether the user exists
                     return RedirectToAction("ForgotPasswordConfirmation");
                 }
 
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var code = await _accountService.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action(
                     "ResetPassword",
                     "Account",
@@ -178,13 +169,12 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByEmailAsync(model.Email!)
-                       ?? await _userManager.FindByNameAsync(model.Email!);
+            var user = await _accountService.FindUserForLoginAsync(model.Email!);
             if (user == null)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code!, model.Password!);
+            var result = await _accountService.ResetPasswordAsync(user, model.Code!, model.Password!);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -207,7 +197,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public IActionResult ExternalLogin(string provider, string? returnUrl)
         {
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            var properties = _accountService.ConfigureExternalLogin(provider, redirectUrl);
             return Challenge(properties, provider);
         }
 
@@ -215,13 +205,13 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string? returnUrl)
         {
-            var loginInfo = await _signInManager.GetExternalLoginInfoAsync();
+            var loginInfo = await _accountService.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
 
-            var result = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, isPersistent: false);
+            var result = await _accountService.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, isPersistent: false);
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -249,19 +239,19 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
             if (ModelState.IsValid)
             {
-                var info = await _signInManager.GetExternalLoginInfoAsync();
+                var info = await _accountService.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
+                var result = await _accountService.CreateUserAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    result = await _accountService.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _accountService.SignInAsync(user, isPersistent: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -277,7 +267,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await _signInManager.SignOutAsync();
+            await _accountService.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -292,12 +282,12 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SendCode(string? returnUrl, bool rememberMe)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await _accountService.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return View("Error");
             }
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
+            var userFactors = await _accountService.GetValidTwoFactorProvidersAsync(user);
             var factorOptions = userFactors.Select(purpose => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -312,9 +302,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return View();
             }
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await _accountService.GetTwoFactorAuthenticationUserAsync();
             if (user == null) return View("Error");
-            await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider!);
+            await _accountService.GenerateTwoFactorTokenAsync(user, model.SelectedProvider!);
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
@@ -322,7 +312,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> VerifyCode(string provider, string? returnUrl, bool rememberMe)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await _accountService.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return View("Error");
@@ -340,7 +330,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return View(model);
             }
-            var result = await _signInManager.TwoFactorSignInAsync(model.Provider!, model.Code!, isPersistent: model.RememberMe, rememberClient: model.RememberBrowser);
+            var result = await _accountService.TwoFactorSignInAsync(model.Provider!, model.Code!, isPersistent: model.RememberMe, rememberClient: model.RememberBrowser);
             if (result.Succeeded)
             {
                 return RedirectToLocal(model.ReturnUrl);

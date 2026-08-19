@@ -53,7 +53,12 @@ public class VendorOrdersControllerTests
             User = new ClaimsPrincipal(new ClaimsIdentity(claims, "test"))
         };
 
-        var controller = new OrdersController(context, userManager.Object, new OrderPricingService())
+        var orderService = new OrderService(new OrderRepository(context), new BicycleRepository(context), new OrderPricingService());
+        var bicycleService = new BicycleService(new BicycleRepository(context));
+        var customerService = new CustomerService(new CustomerRepository(context));
+        var sellerService = new SellerService(new SellerRepository(context), userManager.Object);
+
+        var controller = new OrdersController(context, userManager.Object, orderService, bicycleService, customerService, sellerService)
         {
             ControllerContext = new ControllerContext { HttpContext = httpContext }
         };

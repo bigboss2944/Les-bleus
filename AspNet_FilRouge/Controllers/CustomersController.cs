@@ -8,24 +8,24 @@ namespace AspNet_FilRouge.Controllers
     [Authorize]
     public class CustomersController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ICustomerService customerService)
         {
-            db = context;
+            _customerService = customerService;
         }
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await db.Customers.ToListAsync());
+            return View(await _customerService.GetAllAsync());
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null) return BadRequest();
-            Customer? customer = await db.Customers.FindAsync(id);
+            Customer? customer = await _customerService.GetByIdAsync(id);
             if (customer == null) return NotFound();
             return View(customer);
         }
@@ -41,8 +41,7 @@ namespace AspNet_FilRouge.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                await db.SaveChangesAsync();
+                await _customerService.CreateAsync(customer);
                 return RedirectToAction("Index");
             }
             return View(customer);
@@ -51,7 +50,7 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Edit(string? id)
         {
             if (id == null) return BadRequest();
-            Customer? customer = await db.Customers.FindAsync(id);
+            Customer? customer = await _customerService.GetByIdAsync(id);
             if (customer == null) return NotFound();
             return View(customer);
         }
@@ -70,29 +69,19 @@ namespace AspNet_FilRouge.Controllers
                 return View(customer);
             }
 
-            Customer? customerToUpdate = await db.Customers.FindAsync(id);
+            Customer? customerToUpdate = await _customerService.GetByIdAsync(id);
             if (customerToUpdate == null)
             {
                 return NotFound();
             }
 
-            customerToUpdate.Town = customer.Town;
-            customerToUpdate.PostalCode = customer.PostalCode;
-            customerToUpdate.Address = customer.Address;
-            customerToUpdate.LoyaltyPoints = customer.LoyaltyPoints;
-            customerToUpdate.Phone = customer.Phone;
-            customerToUpdate.Email = customer.Email;
-            customerToUpdate.Gender = customer.Gender;
-            customerToUpdate.LastName = customer.LastName;
-            customerToUpdate.FirstName = customer.FirstName;
-
             try
             {
-                await db.SaveChangesAsync();
+                await _customerService.UpdateAsync(customerToUpdate, customer);
             }
             catch (DbUpdateConcurrencyException)
             {
-                var exists = await db.Customers.AnyAsync(c => c.Id == customer.Id);
+                var exists = await _customerService.ExistsAsync(customer.Id);
                 if (!exists)
                 {
                     return NotFound();
@@ -107,7 +96,7 @@ namespace AspNet_FilRouge.Controllers
         public async Task<IActionResult> Delete(string? id)
         {
             if (id == null) return BadRequest();
-            Customer? customer = await db.Customers.FindAsync(id);
+            Customer? customer = await _customerService.GetByIdAsync(id);
             if (customer == null) return NotFound();
             return View(customer);
         }
@@ -116,12 +105,7 @@ namespace AspNet_FilRouge.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            Customer? customer = await db.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                db.Customers.Remove(customer);
-                await db.SaveChangesAsync();
-            }
+            await _customerService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
     }

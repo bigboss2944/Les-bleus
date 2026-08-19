@@ -15,7 +15,7 @@ public class BicyclesControllerTests
 
     private static BicyclesController CreateController(ApplicationDbContext context)
     {
-        var controller = new BicyclesController(context);
+        var controller = new BicyclesController(new BicycleService(new BicycleRepository(context)));
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext

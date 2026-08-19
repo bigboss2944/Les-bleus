@@ -48,7 +48,8 @@ public class AccountControllerTests
         var environment = new Mock<IWebHostEnvironment>();
         environment.Setup(e => e.EnvironmentName).Returns("Testing");
 
-        var controller = new AccountController(userManager.Object, signInManager.Object, environment.Object);
+        var accountService = new AccountService(new AccountRepository(userManager.Object), signInManager.Object);
+        var controller = new AccountController(accountService, environment.Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -301,7 +302,8 @@ public class AccountControllerTests
         var environment = new Mock<IWebHostEnvironment>();
         environment.Setup(e => e.EnvironmentName).Returns("Testing");
 
-        var controller = new AccountController(userManager.Object, signInManager.Object, environment.Object);
+        var accountService = new AccountService(new AccountRepository(userManager.Object), signInManager.Object);
+        var controller = new AccountController(accountService, environment.Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()

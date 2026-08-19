@@ -76,6 +76,18 @@ builder.Services.AddSingleton<ILocalDbService, LocalDbService>();
 builder.Services.AddSingleton<IVendorSyncService, VendorSyncService>();
 builder.Services.AddScoped<IOrderPricingService, OrderPricingService>();
 
+builder.Services.AddScoped<IBicycleRepository, BicycleRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
+builder.Services.AddScoped<IBicycleService, BicycleService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ISellerService, SellerService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "RequestVerificationToken";

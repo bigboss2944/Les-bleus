@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge_Vendeur.Models;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
@@ -8,24 +7,24 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     [Authorize(Roles = "Administrateur,Vendeur")]
     public class CustomersController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ICustomerService customerService)
         {
-            db = context;
+            _customerService = customerService;
         }
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await db.Customers.ToListAsync());
+            return View(await _customerService.GetAllAsync());
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null) return BadRequest();
-            Customer? customer = await db.Customers.FindAsync(id);
+            Customer? customer = await _customerService.GetByIdAsync(id);
             if (customer == null) return NotFound();
             return View(customer);
         }
@@ -43,8 +42,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                await db.SaveChangesAsync();
+                await _customerService.CreateAsync(customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
@@ -54,7 +52,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Edit(string? id)
         {
             if (id == null) return BadRequest();
-            Customer? customer = await db.Customers.FindAsync(id);
+            Customer? customer = await _customerService.GetByIdAsync(id);
             if (customer == null) return NotFound();
             return View(customer);
         }
@@ -68,11 +66,10 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
             if (ModelState.IsValid)
             {
-                var existing = await db.Customers.FindAsync(id);
+                var existing = await _customerService.GetByIdAsync(id);
                 if (existing == null) return NotFound();
 
-                db.Entry(existing).CurrentValues.SetValues(customer);
-                await db.SaveChangesAsync();
+                await _customerService.UpdateAsync(existing, customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);

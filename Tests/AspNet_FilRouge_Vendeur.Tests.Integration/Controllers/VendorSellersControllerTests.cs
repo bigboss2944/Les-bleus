@@ -27,7 +27,7 @@ public class VendorSellersControllerTests
     private static SellersController CreateController(ApplicationDbContext context, Mock<UserManager<ApplicationUser>>? userManagerMock = null)
     {
         var userManager = userManagerMock ?? CreateUserManagerMock();
-        var controller = new SellersController(context, userManager.Object);
+        var controller = new SellersController(new SellerService(new SellerRepository(context), userManager.Object));
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext

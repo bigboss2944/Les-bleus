@@ -23,7 +23,8 @@ public class AdminOrdersControllerTests
             new(ClaimTypes.Role, isAdmin ? "Administrateur" : "Vendeur")
         };
 
-        var controller = new OrdersController(context, new OrderPricingService())
+        var orderService = new OrderService(new OrderRepository(context), new BicycleRepository(context), new OrderPricingService());
+        var controller = new OrdersController(orderService)
         {
             ControllerContext = new ControllerContext
             {

@@ -48,7 +48,8 @@ public class VendorAccountControllerTests
         var environment = new Mock<IWebHostEnvironment>();
         environment.Setup(e => e.EnvironmentName).Returns("Testing");
 
-        var controller = new AspNet_FilRouge_Vendeur.Controllers.AccountController(userManager.Object, signInManager.Object, environment.Object);
+        var accountService = new AccountService(new AccountRepository(userManager.Object), signInManager.Object);
+        var controller = new AspNet_FilRouge_Vendeur.Controllers.AccountController(accountService, environment.Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -196,7 +197,8 @@ public class VendorAccountControllerTests
         var environment = new Mock<IWebHostEnvironment>();
         environment.Setup(e => e.EnvironmentName).Returns("Testing");
 
-        var controller = new AspNet_FilRouge_Vendeur.Controllers.AccountController(userManager.Object, signInManager.Object, environment.Object);
+        var accountService = new AccountService(new AccountRepository(userManager.Object), signInManager.Object);
+        var controller = new AspNet_FilRouge_Vendeur.Controllers.AccountController(accountService, environment.Object);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()

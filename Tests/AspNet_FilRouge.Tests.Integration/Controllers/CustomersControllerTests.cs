@@ -17,7 +17,7 @@ public class CustomersControllerTests
 
     private static CustomersController CreateController(ApplicationDbContext context)
     {
-        var controller = new CustomersController(context);
+        var controller = new CustomersController(new CustomerService(new CustomerRepository(context)));
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext

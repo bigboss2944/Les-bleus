@@ -10,16 +10,29 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     [Authorize]
     public class OrdersController : Controller
     {
+        // Shops are out of the Repository/Service scope for this refactor; kept as direct DbContext access.
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IOrderPricingService _pricingService;
+        private readonly IOrderService _orderService;
+        private readonly IBicycleService _bicycleService;
+        private readonly ICustomerService _customerService;
+        private readonly ISellerService _sellerService;
         private const int PageSize = AppConstants.Pagination.DefaultPageSize;
 
-        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IOrderPricingService pricingService)
+        public OrdersController(
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            IOrderService orderService,
+            IBicycleService bicycleService,
+            ICustomerService customerService,
+            ISellerService sellerService)
         {
             db = context;
             _userManager = userManager;
-            _pricingService = pricingService;
+            _orderService = orderService;
+            _bicycleService = bicycleService;
+            _customerService = customerService;
+            _sellerService = sellerService;
         }
 
         // GET: Orders — paginated view with optional seller filter (all authenticated users)
@@ -28,31 +41,12 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var orders = db.Orders.Include(o => o.Seller).AsQueryable();
+            var effectiveSellerId = isAdmin ? sellerId : currentUserId;
 
-            if (isAdmin)
-            {
-                if (!string.IsNullOrWhiteSpace(sellerId))
-                    orders = orders.Where(o => o.Seller != null && o.Seller.Id == sellerId);
-            }
-            else
-            {
-                orders = orders.Where(o => o.Seller != null && o.Seller.Id == currentUserId);
-                sellerId = currentUserId;
-            }
+            var paginatedList = await _orderService.GetPagedAsync(page, PageSize, effectiveSellerId);
 
-            orders = orders
-                .OrderByDescending(o => o.Date)
-                .ThenByDescending(o => o.IdOrder);
-
-            var paginatedList = await PaginatedList<Order>.CreateAsync(orders, page, PageSize);
-
-            ViewBag.Sellers = await db.Sellers
-                .Where(s => isAdmin || s.Id == currentUserId)
-                .OrderBy(s => s.LastName)
-                .ThenBy(s => s.FirstName)
-                .ToListAsync();
-            ViewBag.CurrentSellerId = sellerId;
+            ViewBag.Sellers = await _sellerService.GetFilteredAsync(isAdmin, currentUserId);
+            ViewBag.CurrentSellerId = effectiveSellerId;
             ViewBag.CurrentUserId = currentUserId;
 
             return View(paginatedList);
@@ -65,12 +59,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var order = await db.Orders
-                .Include(o => o.Seller)
-                .Include(o => o.Customer)
-                .Include(o => o.Shop)
-                .Include(o => o.Bicycles)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetDetailsByIdAsync(id.Value);
             if (order == null) return NotFound();
             if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
             return View(order);
@@ -78,18 +67,18 @@ namespace AspNet_FilRouge_Vendeur.Controllers
 
         // Create — vendeurs et administrateurs
         [Authorize(Roles = "Administrateur,Vendeur")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
-            ViewBag.Customers = db.Customers.ToList();
-            ViewBag.Shops = db.Shops.ToList();
+            ViewBag.Bicycles = await _bicycleService.GetAvailableAsync();
+            ViewBag.Customers = await _customerService.GetAllAsync();
+            ViewBag.Shops = await db.Shops.ToListAsync();
             return View(new Order { Date = DateTime.Now });
         }
 
         // Partial view helper — retourne la liste déroulante des vélos disponibles
-        public IActionResult SelectIdCategory()
+        public async Task<IActionResult> SelectIdCategory()
         {
-            var bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
+            var bicycles = await _bicycleService.GetAvailableAsync();
             return PartialView("~/Views/Shared/_listBicycleDropDownList.cshtml", new BicycleOrdersViewModel { Bicycles = bicycles });
         }
 
@@ -105,7 +94,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                 var currentUser = await _userManager.GetUserAsync(User);
                 if (currentUser != null)
                 {
-                    var seller = await db.Sellers.FirstOrDefaultAsync(s => s.Id == currentUser.Id);
+                    var seller = await _sellerService.GetByIdAsync(currentUser.Id);
                     if (seller == null)
                     {
                         seller = new Seller
@@ -117,38 +106,35 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                             LastName = currentUser.LastName,
                             PhoneNumber = currentUser.PhoneNumber
                         };
-                        db.Sellers.Add(seller);
+                        await _sellerService.CreateAsync(seller);
                     }
 
                     order.Seller = seller;
                 }
 
                 if (!string.IsNullOrWhiteSpace(CustomerId))
-                    order.Customer = await db.Customers.FindAsync(CustomerId);
+                    order.Customer = await _customerService.GetByIdAsync(CustomerId);
 
                 if (ShopId.HasValue)
                     order.Shop = await db.Shops.FindAsync(ShopId.Value);
 
-                db.Orders.Add(order);
-                await db.SaveChangesAsync();
+                await _orderService.CreateAsync(order);
 
                 // Associer les vélos sélectionnés
                 if (BicycleIds != null && BicycleIds.Count > 0)
                 {
-                    var bicycles = await db.Bicycles
-                        .Where(b => BicycleIds.Contains(b.Id))
-                        .ToListAsync();
+                    var bicycles = await _bicycleService.GetByIdsAsync(BicycleIds);
                     foreach (var bicycle in bicycles)
                         bicycle.Order = order;
-                    await db.SaveChangesAsync();
+                    await _orderService.SaveChangesAsync();
                 }
 
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Quantity > 0).ToList();
-            ViewBag.Customers = db.Customers.ToList();
-            ViewBag.Shops = db.Shops.ToList();
+            ViewBag.Bicycles = await _bicycleService.GetAvailableAsync();
+            ViewBag.Customers = await _customerService.GetAllAsync();
+            ViewBag.Shops = await db.Shops.ToListAsync();
             return View(order);
         }
 
@@ -156,12 +142,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null) return BadRequest();
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Customer)
-                .Include(o => o.Shop)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetDetailsByIdAsync(id.Value);
             if (order == null) return NotFound();
 
             // Vendors can only edit their own orders
@@ -175,9 +156,9 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                     return Forbid();
             }
 
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null || b.Order.IdOrder == id).ToList();
-            ViewBag.Customers = db.Customers.ToList();
-            ViewBag.Shops = db.Shops.ToList();
+            ViewBag.Bicycles = await _bicycleService.GetAvailableForOrderAsync(id.Value);
+            ViewBag.Customers = await _customerService.GetAllAsync();
+            ViewBag.Shops = await db.Shops.ToListAsync();
             return View(order);
         }
 
@@ -189,10 +170,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existing = await db.Orders
-                    .Include(o => o.Bicycles)
-                    .Include(o => o.Seller)
-                    .FirstOrDefaultAsync(o => o.IdOrder == order.IdOrder);
+                var existing = await _orderService.GetWithBicyclesAndSellerAsync(order.IdOrder);
                 if (existing == null) return NotFound();
 
                 // Vendors can only edit their own orders
@@ -216,18 +194,18 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                     existing.IsValidated = order.IsValidated;
 
                 if (!string.IsNullOrWhiteSpace(CustomerId))
-                    existing.Customer = await db.Customers.FindAsync(CustomerId);
+                    existing.Customer = await _customerService.GetByIdAsync(CustomerId);
 
                 if (ShopId.HasValue)
                     existing.Shop = await db.Shops.FindAsync(ShopId.Value);
 
-                await db.SaveChangesAsync();
+                await _orderService.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Bicycles = db.Bicycles.Where(b => b.Order == null || b.Order.IdOrder == order.IdOrder).ToList();
-            ViewBag.Customers = db.Customers.ToList();
-            ViewBag.Shops = db.Shops.ToList();
+            ViewBag.Bicycles = await _bicycleService.GetAvailableForOrderAsync(order.IdOrder);
+            ViewBag.Customers = await _customerService.GetAllAsync();
+            ViewBag.Shops = await db.Shops.ToListAsync();
             return View(order);
         }
 
@@ -236,11 +214,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null) return BadRequest();
-            var order = await db.Orders
-                .Include(o => o.Seller)
-                .Include(o => o.Customer)
-                .Include(o => o.Shop)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetDetailsByIdAsync(id.Value);
             if (order == null) return NotFound();
 
             if (!User.IsInRole(AppConstants.Roles.Administrateur))
@@ -262,10 +236,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [Authorize(Roles = "Administrateur,Vendeur")]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetWithBicyclesAndSellerAsync(id);
             if (order != null)
             {
                 if (!User.IsInRole(AppConstants.Roles.Administrateur))
@@ -278,11 +249,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
                         return Forbid();
                 }
 
-                // Détacher les vélos avant de supprimer la commande
-                foreach (var b in order.Bicycles)
-                    b.Order = null;
-                db.Orders.Remove(order);
-                await db.SaveChangesAsync();
+                await _orderService.DeleteAsync(id);
             }
             return RedirectToAction(nameof(Index));
         }
@@ -297,25 +264,13 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            var order = await _orderService.GetWithBicyclesAndSellerAsync(orderId);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
             if (!isAdmin && order.Seller?.Id != currentUserId)
                 return StatusCode(StatusCodes.Status403Forbidden, new { error = "Vous ne pouvez modifier que vos propres commandes." });
-            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
 
-            var bicycle = await db.Bicycles.FindAsync(bicycleId);
-            if (bicycle == null) return NotFound(new { error = "Vélo introuvable." });
-            if (bicycle.Quantity <= 0) return BadRequest(new { error = "Stock insuffisant pour ce vélo." });
-            if (bicycle.Order != null && bicycle.Order.IdOrder != orderId)
-                return BadRequest(new { error = "Ce vélo est déjà associé à une autre commande." });
-
-            bicycle.Order = order;
-            await db.SaveChangesAsync();
-
-            return Ok(new { total = _pricingService.CalculateTotal(order) });
+            var result = await _orderService.AddBicycleAsync(orderId, bicycleId);
+            return ToActionResult(result);
         }
 
         // POST: Orders/RemoveBicycle — retire un vélo d'une commande existante
@@ -326,22 +281,13 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == orderId);
+            var order = await _orderService.GetWithBicyclesAndSellerAsync(orderId);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
             if (!isAdmin && order.Seller?.Id != currentUserId)
                 return StatusCode(StatusCodes.Status403Forbidden, new { error = "Vous ne pouvez modifier que vos propres commandes." });
-            if (order.IsValidated) return BadRequest(new { error = "Impossible de modifier une commande validée." });
 
-            var bicycle = await db.Bicycles.FirstOrDefaultAsync(b => b.Id == bicycleId && b.Order != null && b.Order.IdOrder == orderId);
-            if (bicycle == null) return NotFound(new { error = "Vélo introuvable dans cette commande." });
-
-            bicycle.Order = null;
-            await db.SaveChangesAsync();
-
-            return Ok(new { total = _pricingService.CalculateTotal(order) });
+            var result = await _orderService.RemoveBicycleAsync(orderId, bicycleId);
+            return ToActionResult(result);
         }
 
         // GET: Orders/GetPrice/5 — calcule le prix total d'une commande
@@ -351,13 +297,10 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetWithBicyclesAndSellerAsync(id);
             if (order == null) return NotFound();
             if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
-            return Ok(new { total = _pricingService.CalculateTotal(order) });
+            return Ok(new { total = _orderService.CalculateTotal(order) });
         }
 
         // POST: Orders/Validate/5 — valide une commande (requiert connexion)
@@ -374,28 +317,16 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             var currentUserId = _userManager.GetUserId(User);
             var isAdmin = User.IsInRole(AppConstants.Roles.Administrateur);
 
-            var order = await db.Orders
-                .Include(o => o.Bicycles)
-                .Include(o => o.Seller)
-                .FirstOrDefaultAsync(o => o.IdOrder == id);
+            var order = await _orderService.GetWithBicyclesAndSellerAsync(id);
             if (order == null) return NotFound(new { error = "Commande introuvable." });
             if (!isAdmin && order.Seller?.Id != currentUserId) return Forbid();
-            if (order.IsValidated) return BadRequest(new { error = "La commande est déjà validée." });
-            if (!order.Bicycles.Any()) return BadRequest(new { error = "Impossible de valider une commande sans produits." });
 
-            var outOfStock = order.Bicycles.FirstOrDefault(b => b.Quantity <= 0);
-            if (outOfStock != null)
-                return BadRequest(new { error = $"Stock insuffisant pour le vélo #{outOfStock.Id}." });
-
-            foreach (var bicycle in order.Bicycles)
+            var result = await _orderService.ValidateAsync(id);
+            if (result.Status == OrderOperationStatus.Success)
             {
-                bicycle.Quantity -= 1;
+                return Ok(new { message = result.Message, total = result.Total });
             }
-
-            order.IsValidated = true;
-            await db.SaveChangesAsync();
-
-            return Ok(new { message = "Commande validée avec succès.", total = _pricingService.CalculateTotal(order) });
+            return ToActionResult(result);
         }
 
         // ── Helpers ───────────────────────────────────────────────────────────
@@ -409,6 +340,16 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             return value.Equals("false", StringComparison.OrdinalIgnoreCase)
                 || value.Equals("0", StringComparison.OrdinalIgnoreCase)
                 || value.Equals("offline", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private IActionResult ToActionResult(OrderOperationResult result)
+        {
+            return result.Status switch
+            {
+                OrderOperationStatus.NotFound => NotFound(new { error = result.Error }),
+                OrderOperationStatus.InvalidState => BadRequest(new { error = result.Error }),
+                _ => Ok(new { total = result.Total })
+            };
         }
     }
 }

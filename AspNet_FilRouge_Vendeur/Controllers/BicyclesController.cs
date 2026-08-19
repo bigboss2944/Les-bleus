@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AspNet_FilRouge_Vendeur.Models;
 
 namespace AspNet_FilRouge_Vendeur.Controllers
@@ -8,36 +7,19 @@ namespace AspNet_FilRouge_Vendeur.Controllers
     [Authorize]
     public class BicyclesController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly IBicycleService _bicycleService;
         private const int PageSize = AppConstants.Pagination.DefaultPageSize;
 
-        public BicyclesController(ApplicationDbContext context)
+        public BicyclesController(IBicycleService bicycleService)
         {
-            db = context;
+            _bicycleService = bicycleService;
         }
 
         // GET: Bicycles — paginated stock view
         public async Task<IActionResult> Index(int page = 1)
         {
-            var bicycles = db.Bicycles
-                .OrderBy(b => b.Id)
-                .AsQueryable();
-            var paginatedList = await PaginatedList<Bicycle>.CreateAsync(bicycles, page, PageSize);
-
-            ViewBag.StockSummaries = await db.Bicycles
-                .GroupBy(b => new { b.TypeOfBike, b.Reference, b.Color })
-                .Select(group => new StockSummaryViewModel
-                {
-                    TypeOfBike = group.Key.TypeOfBike,
-                    Reference = group.Key.Reference,
-                    Color = group.Key.Color,
-                    Quantity = group.Sum(b => b.Quantity)
-                })
-                .OrderBy(summary => summary.TypeOfBike)
-                .ThenBy(summary => summary.Reference)
-                .ThenBy(summary => summary.Color)
-                .ToListAsync();
-
+            var paginatedList = await _bicycleService.GetPagedAsync(page, PageSize);
+            ViewBag.StockSummaries = await _bicycleService.GetStockSummariesAsync();
             return View(paginatedList);
         }
 
@@ -48,7 +30,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return BadRequest();
             }
-            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await _bicycleService.GetByIdAsync(id.Value);
             if (bicycle == null)
             {
                 return NotFound();
@@ -71,8 +53,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Bicycles.Add(bicycle);
-                await db.SaveChangesAsync();
+                await _bicycleService.CreateAsync(bicycle);
                 return RedirectToAction("Index");
             }
             return View(bicycle);
@@ -86,7 +67,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return BadRequest();
             }
-            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await _bicycleService.GetByIdAsync(id.Value);
             if (bicycle == null)
             {
                 return NotFound();
@@ -102,8 +83,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(bicycle).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _bicycleService.UpdateAsync(bicycle);
                 return RedirectToAction("Index");
             }
             return View(bicycle);
@@ -117,7 +97,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
             {
                 return BadRequest();
             }
-            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
+            Bicycle? bicycle = await _bicycleService.GetByIdAsync(id.Value);
             if (bicycle == null)
             {
                 return NotFound();
@@ -131,12 +111,7 @@ namespace AspNet_FilRouge_Vendeur.Controllers
         [Authorize(Roles = AppConstants.Roles.Administrateur)]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            Bicycle? bicycle = await db.Bicycles.FindAsync(id);
-            if (bicycle != null)
-            {
-                db.Bicycles.Remove(bicycle);
-                await db.SaveChangesAsync();
-            }
+            await _bicycleService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
     }
