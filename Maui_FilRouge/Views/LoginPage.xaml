@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Maui_FilRouge.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Connexion"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+
+            <Label
+                Text="Fil Rouge — Vendeur"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="{StaticResource Primary}"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Connectez-vous avec votre compte vendeur ou administrateur."
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+
+            <Label Text="Adresse du serveur" FontAttributes="Bold" Margin="0,16,0,0" />
+            <Entry x:Name="ServerUrlEntry" Placeholder="http://10.0.2.2:5000/" Keyboard="Url" />
+
+            <Label Text="Identifiant" FontAttributes="Bold" />
+            <Entry x:Name="UserNameEntry" Placeholder="Nom d'utilisateur ou email" />
+
+            <Label Text="Mot de passe" FontAttributes="Bold" />
+            <Entry x:Name="PasswordEntry" IsPassword="True" />
+
+            <Label
+                x:Name="ErrorLabel"
+                TextColor="{StaticResource Danger}"
+                IsVisible="False"
+                HorizontalTextAlignment="Center" />
+
+            <Button
+                x:Name="LoginButton"
+                Text="Se connecter"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="{StaticResource White}"
+                Clicked="OnLoginClicked"
+                Margin="0,8,0,0" />
+
+            <ActivityIndicator x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" Color="{StaticResource Primary}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

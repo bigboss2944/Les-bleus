@@ -14,7 +14,11 @@ namespace Entities
 
         public async Task<PaginatedList<Order>> GetPagedAsync(int page, int pageSize, string? sellerId)
         {
-            var orders = _db.Orders.Include(o => o.Seller).AsQueryable();
+            var orders = _db.Orders
+                .Include(o => o.Seller)
+                .Include(o => o.Customer)
+                .Include(o => o.Bicycles)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(sellerId))
                 orders = orders.Where(o => o.Seller != null && o.Seller.Id == sellerId);
@@ -39,6 +43,24 @@ namespace Entities
                 .Include(o => o.Bicycles)
                 .Include(o => o.Seller)
                 .FirstOrDefaultAsync(o => o.IdOrder == id);
+
+        public Task<List<OrderLineProductViewModel>> GetOrderLinesWithProductTypeAsync(long orderId)
+        {
+            // TODO (exercice jointure) : joindre OrderLine -> ProductType (sur ProductTypeId)
+            // filtré par orderId, et projeter OrderLineId, ProductTypeReference, Quantity.
+            var query = _db.OrderLines
+                .Where(ol=> ol.Order.IdOrder == orderId)
+                .Join(_db.ProductTypes,
+                    orderLine => orderLine.ProductTypeId,
+                    productType => productType.Id,
+                    (orderLine, productType) => new OrderLineProductViewModel
+                    {
+                        OrderLineId = orderLine.Id,
+                        ProductTypeReference = productType.Reference,
+                        Quantity = orderLine.Quantity
+                    });
+            return query.ToListAsync();
+        }
 
         public void Add(Order order) => _db.Orders.Add(order);
 

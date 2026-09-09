@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Maui_FilRouge.Views.CatalogPickerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Maui_FilRouge.Models"
+    Title="Ajouter un vélo"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="8">
+
+        <ActivityIndicator Grid.Row="0" x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" Color="{StaticResource Primary}" />
+
+        <CollectionView Grid.Row="1" x:Name="CatalogCollectionView" SelectionMode="Single" SelectionChanged="OnBicycleSelected">
+            <CollectionView.EmptyView>
+                <Label Text="Aucun vélo disponible en stock." HorizontalOptions="Center" VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:BicycleSummary">
+                    <Grid Padding="0,10" ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="{Binding DisplayName}" FontAttributes="Bold" />
+                            <Label Text="{Binding FreeTaxPrice, StringFormat='{0:F2} € HT'}" FontSize="13" />
+                            <Label Text="{Binding Quantity, StringFormat='Stock : {0}'}" FontSize="12" TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="+" FontSize="24" TextColor="{StaticResource Primary}" VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -12,5 +12,11 @@ namespace Entities
         void Add(Order order);
         void Remove(Order order);
         Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// Jointure OrderLine ↔ ProductType : pour une commande donnée, retourne chaque ligne
+        /// avec la référence du type de produit associé et la quantité commandée.
+        /// </summary>
+        Task<List<OrderLineProductViewModel>> GetOrderLinesWithProductTypeAsync(long orderId);
     }
 }

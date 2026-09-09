@@ -28,6 +28,20 @@ namespace Entities
 
         public async Task<bool> ExistsAsync(string id) => await _db.Sellers.AnyAsync(s => s.Id == id);
 
+        public async Task<List<Order>> GetOrdersBySellerIdAsync(string sellerId) =>
+            await _db.Orders.Where(o => o.Seller.Id == sellerId).ToListAsync();
+
+        public Task<List<Order>> GetOrdersBySellerIdExplicitJoinAsync(string sellerId)
+        {
+            // TODO (exercice jointure) : réécrire GetOrdersBySellerIdAsync avec la syntaxe
+            // `from ... join ... on ... equals ... select ...` plutôt que via la navigation o.Seller.
+            var query = from order in _db.Orders
+                        join seller in _db.Sellers on order.Seller.Id equals seller.Id
+                        where seller.Id == sellerId
+                        select order;
+            return query.ToListAsync();
+        }
+
         public void Add(Seller seller) => _db.Sellers.Add(seller);
 
         public void Remove(Seller seller) => _db.Sellers.Remove(seller);

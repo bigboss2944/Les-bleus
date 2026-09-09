@@ -1,10 +1,13 @@
 using AspNet_FilRouge.Models;
 using AspNet_FilRouge.Services;
 using Microsoft.Data.Sqlite;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var hasHttpsEndpoint = HasHttpsEndpoint(builder.Configuration);
@@ -65,6 +68,30 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.Strict;
 });
 
+// JWT bearer — utilisé par l'application MAUI pour s'authentifier auprès de l'API REST,
+// en complément (et non en remplacement) du cookie Identity utilisé par les pages web.
+var jwtSigningKey = JwtOptionsProvider.GetSigningKey(builder.Configuration, builder.Environment);
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "FilRouge.Admin";
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "FilRouge.Mobile";
+
+builder.Services.AddAuthentication()
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtIssuer,
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSigningKey)),
+            ClockSkew = TimeSpan.FromMinutes(1)
+        };
+    });
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(GetDataProtectionKeysDirectory(builder))
     .SetApplicationName("FilRouge.Admin");
@@ -107,6 +134,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 await SeedDefaultAdminAsync(app.Services, app.Configuration, app.Environment);
+
+if (app.Environment.IsDevelopment())
+{
+    await SeedDemoSellerDataAsync(app.Services);
+}
 
 if (!app.Environment.IsDevelopment())
 {
@@ -393,5 +425,122 @@ static async Task SeedDefaultAdminAsync(IServiceProvider services, IConfiguratio
         {
             throw new InvalidOperationException("Unable to assign Administrateur role to default user.");
         }
+    }
+}
+
+// Jeu de données de démo (Development uniquement) pour tester l'appli MAUI : un compte vendeur,
+// un client, un petit catalogue de vélos et trois commandes dans des états différents
+// (validée, en cours, vide) afin de couvrir les écrans liste/détail/ajout-retrait de vélo.
+static async Task SeedDemoSellerDataAsync(IServiceProvider services)
+{
+    using var scope = services.CreateScope();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var sellerService = scope.ServiceProvider.GetRequiredService<ISellerService>();
+    var customerService = scope.ServiceProvider.GetRequiredService<ICustomerService>();
+    var bicycleService = scope.ServiceProvider.GetRequiredService<IBicycleService>();
+    var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("SeedDemoSellerData");
+
+    const string sellerEmail = "vendeur.demo@filrouge.local";
+    const string sellerPassword = "Vendeur!234";
+
+    var sellerUser = await userManager.FindByEmailAsync(sellerEmail);
+    if (sellerUser == null)
+    {
+        var createResult = await sellerService.CreateSellerAccountAsync(new CreateSellerViewModel
+        {
+            FirstName = "Julie",
+            LastName = "Martin",
+            Email = sellerEmail,
+            Password = sellerPassword,
+            Address = "12 rue des Cycles, 75000 Paris",
+            Phone = "0600000000"
+        });
+        if (!createResult.Succeeded)
+        {
+            logger.LogWarning("Impossible de créer le vendeur de démo : {Errors}",
+                string.Join(", ", createResult.Errors.Select(e => e.Description)));
+            return;
+        }
+        sellerUser = await userManager.FindByEmailAsync(sellerEmail);
+    }
+
+    var seller = await sellerService.GetByIdAsync(sellerUser!.Id);
+    if (seller == null)
+    {
+        logger.LogWarning("Compte Identity du vendeur de démo créé mais entité Seller introuvable.");
+        return;
+    }
+
+    var customers = await customerService.GetAllAsync();
+    var customer = customers.FirstOrDefault(c => c.Email == "client.demo@filrouge.local");
+    if (customer == null)
+    {
+        customer = new Customer
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserName = "client.demo@filrouge.local",
+            Email = "client.demo@filrouge.local",
+            FirstName = "Marc",
+            LastName = "Dupont",
+            Address = "5 avenue des Fleurs",
+            Town = "Lyon",
+            PostalCode = 69000,
+            Phone = "0601020304"
+        };
+        await customerService.CreateAsync(customer);
+    }
+
+    var availableBicycles = await bicycleService.GetAvailableAsync();
+    if (availableBicycles.Count < 5)
+    {
+        var demoBicycles = new[]
+        {
+            new Bicycle { TypeOfBike = "VTT", Category = "Adulte", Reference = "VTT-2024-A", FreeTaxPrice = 450f, Tax = 20f, Quantity = 5, Exchangeable = true, Insurance = false, Deliverable = true },
+            new Bicycle { TypeOfBike = "Route", Category = "Adulte", Reference = "ROUTE-2024-B", FreeTaxPrice = 890f, Tax = 20f, Quantity = 3, Exchangeable = false, Insurance = true, Deliverable = true },
+            new Bicycle { TypeOfBike = "Ville", Category = "Adulte", Reference = "VILLE-2024-C", FreeTaxPrice = 320f, Tax = 20f, Quantity = 4, Exchangeable = true, Insurance = false, Deliverable = false },
+            new Bicycle { TypeOfBike = "Électrique", Category = "Adulte", Reference = "VAE-2024-D", FreeTaxPrice = 1590f, Tax = 20f, Quantity = 2, Exchangeable = false, Insurance = true, Deliverable = true },
+            new Bicycle { TypeOfBike = "Enfant", Category = "Enfant", Reference = "ENF-2024-E", FreeTaxPrice = 180f, Tax = 20f, Quantity = 6, Exchangeable = true, Insurance = false, Deliverable = true },
+        };
+        foreach (var bicycle in demoBicycles)
+        {
+            await bicycleService.CreateAsync(bicycle);
+        }
+        availableBicycles = await bicycleService.GetAvailableAsync();
+    }
+
+    var existingOrders = await orderService.GetPagedAsync(1, 10, seller.Id);
+    if (existingOrders.Count == 0 && availableBicycles.Count >= 3)
+    {
+        var order1 = new Order
+        {
+            Date = DateTime.UtcNow.AddDays(-2),
+            Seller = seller,
+            Customer = customer,
+            PayMode = "Carte"
+        };
+        await orderService.CreateAsync(order1);
+        await orderService.AddBicycleAsync(order1.IdOrder, availableBicycles[0].Id);
+        await orderService.AddBicycleAsync(order1.IdOrder, availableBicycles[1].Id);
+        await orderService.ValidateAsync(order1.IdOrder);
+
+        var order2 = new Order
+        {
+            Date = DateTime.UtcNow.AddDays(-1),
+            Seller = seller,
+            Customer = customer,
+            PayMode = "Espèces"
+        };
+        await orderService.CreateAsync(order2);
+        await orderService.AddBicycleAsync(order2.IdOrder, availableBicycles[2].Id);
+
+        var order3 = new Order
+        {
+            Date = DateTime.UtcNow,
+            Seller = seller
+        };
+        await orderService.CreateAsync(order3);
+
+        logger.LogInformation("Jeu de données de démo créé pour le vendeur {SellerEmail} : 3 commandes.", sellerEmail);
     }
 }

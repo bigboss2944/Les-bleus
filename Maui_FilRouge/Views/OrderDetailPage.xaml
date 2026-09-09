@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Maui_FilRouge.Views.OrderDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Maui_FilRouge.Models"
+    Title="Commande"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="16" RowSpacing="12">
+
+        <Border
+            x:Name="OfflineBanner"
+            Grid.Row="0"
+            IsVisible="False"
+            BackgroundColor="{StaticResource Offline}"
+            Padding="12,8"
+            StrokeShape="RoundRectangle 6"
+            StrokeThickness="0">
+            <Label Text="Mode hors-ligne — la composition de commande nécessite une connexion" TextColor="{StaticResource White}" FontSize="13" />
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+            <Label Grid.Column="0" x:Name="TotalLabel" FontSize="22" FontAttributes="Bold" TextColor="{StaticResource Secondary}" />
+            <Label Grid.Column="1" x:Name="StatusLabel" FontAttributes="Bold" VerticalOptions="Center" />
+        </Grid>
+
+        <Button
+            Grid.Row="2"
+            x:Name="AddBicycleButton"
+            Text="Ajouter un vélo"
+            BackgroundColor="{StaticResource Primary}"
+            TextColor="{StaticResource White}"
+            Clicked="OnAddBicycleClicked" />
+
+        <ActivityIndicator Grid.Row="3" x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" Color="{StaticResource Primary}" VerticalOptions="Center" />
+
+        <Label
+            Grid.Row="3"
+            x:Name="EmptyOfflineLabel"
+            IsVisible="False"
+            Text="Détail indisponible hors connexion."
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+
+        <CollectionView Grid.Row="3" x:Name="BicyclesCollectionView">
+            <CollectionView.EmptyView>
+                <Label Text="Aucun vélo ajouté à cette commande." HorizontalOptions="Center" VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:BicycleSummary">
+                    <Grid Padding="0,10" ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="{Binding DisplayName}" FontAttributes="Bold" />
+                            <Label Text="{Binding FreeTaxPrice, StringFormat='{0:F2} € HT'}" FontSize="13" />
+                        </VerticalStackLayout>
+                        <Button
+                            Grid.Column="1"
+                            Text="Retirer"
+                            CommandParameter="{Binding Id}"
+                            Clicked="OnRemoveBicycleClicked"
+                            BackgroundColor="{StaticResource Danger}"
+                            TextColor="{StaticResource White}"
+                            FontSize="13" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            Grid.Row="4"
+            x:Name="ValidateButton"
+            Text="Valider la commande"
+            BackgroundColor="{StaticResource Secondary}"
+            TextColor="{StaticResource White}"
+            Clicked="OnValidateClicked" />
+
+    </Grid>
+</ContentPage>

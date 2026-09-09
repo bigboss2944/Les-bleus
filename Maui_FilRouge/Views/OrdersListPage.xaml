@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Maui_FilRouge.Views.OrdersListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Maui_FilRouge.Models"
+    Title="Commandes"
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nouvelle" Clicked="OnNewOrderClicked" />
+        <ToolbarItem Text="Déconnexion" Clicked="OnLogoutClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Bandeau hors-ligne -->
+        <Border
+            x:Name="OfflineBanner"
+            Grid.Row="0"
+            IsVisible="False"
+            BackgroundColor="{StaticResource Offline}"
+            Padding="12,8"
+            StrokeThickness="0">
+            <Label Text="Mode hors-ligne — données du dernier cache local, modifications indisponibles" TextColor="{StaticResource White}" FontSize="13" />
+        </Border>
+
+        <!-- État de synchronisation -->
+        <Grid Grid.Row="1" Padding="12,6" ColumnDefinitions="Auto,*">
+            <ActivityIndicator x:Name="SyncIndicator" Grid.Column="0" IsRunning="False" IsVisible="False" HeightRequest="16" WidthRequest="16" Color="{StaticResource Primary}" />
+            <Label x:Name="SyncStatusLabel" Grid.Column="1" FontSize="12" Margin="8,0,0,0" TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+        </Grid>
+
+        <RefreshView x:Name="OrdersRefreshView" Grid.Row="2" Refreshing="OnRefreshing">
+            <CollectionView x:Name="OrdersCollectionView" SelectionMode="Single" SelectionChanged="OnOrderSelected">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="24" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="Aucune commande pour le moment." HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:OrderSummary">
+                        <Grid Padding="16,12" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding IdOrder, StringFormat='Commande n° {0}'}" FontAttributes="Bold" FontSize="16" />
+                            <Label
+                                Grid.Row="0" Grid.Column="1"
+                                Text="{Binding StatusLabel}"
+                                TextColor="{StaticResource White}"
+                                BackgroundColor="{Binding IsValidated, Converter={StaticResource StatusColorConverter}}"
+                                Padding="8,2" FontSize="12" VerticalOptions="Center" />
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Date, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontSize="13" TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                            <Label Grid.Row="2" Grid.Column="0" Text="{Binding Total, StringFormat='Total : {0:F2} €'}" FontAttributes="Bold" TextColor="{StaticResource Secondary}" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding BicycleCount, StringFormat='{0} vélo(s)'}" FontSize="13" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

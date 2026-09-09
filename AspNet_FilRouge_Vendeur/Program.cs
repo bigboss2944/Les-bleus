@@ -217,6 +217,87 @@ if (!app.Environment.IsEnvironment("Testing"))
         });
         await dbContext.SaveChangesAsync();
     }
+
+    // Jeu de données de démo (Development uniquement), pour avoir des commandes à afficher
+    // dans l'appli vendeur dès la première connexion avec le compte "vendeur@lesbleus.fr".
+    if (app.Environment.IsDevelopment() && vendeur != null)
+    {
+        var customerService = scope.ServiceProvider.GetRequiredService<ICustomerService>();
+        var bicycleService = scope.ServiceProvider.GetRequiredService<IBicycleService>();
+        var orderService = scope.ServiceProvider.GetRequiredService<IOrderService>();
+
+        var customers = await customerService.GetAllAsync();
+        var demoCustomer = customers.FirstOrDefault(c => c.Email == "client.demo@filrouge.local");
+        if (demoCustomer == null)
+        {
+            demoCustomer = new Customer
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "client.demo@filrouge.local",
+                Email = "client.demo@filrouge.local",
+                FirstName = "Marc",
+                LastName = "Dupont",
+                Address = "5 avenue des Fleurs",
+                Town = "Lyon",
+                PostalCode = 69000,
+                Phone = "0601020304"
+            };
+            await customerService.CreateAsync(demoCustomer);
+        }
+
+        var availableBicycles = await bicycleService.GetAvailableAsync();
+        if (availableBicycles.Count < 5)
+        {
+            var demoBicycles = new[]
+            {
+                new Bicycle { TypeOfBike = "VTT", Category = "Adulte", Reference = "VTT-2024-A", FreeTaxPrice = 450f, Tax = 20f, Quantity = 5, Exchangeable = true, Insurance = false, Deliverable = true },
+                new Bicycle { TypeOfBike = "Route", Category = "Adulte", Reference = "ROUTE-2024-B", FreeTaxPrice = 890f, Tax = 20f, Quantity = 3, Exchangeable = false, Insurance = true, Deliverable = true },
+                new Bicycle { TypeOfBike = "Ville", Category = "Adulte", Reference = "VILLE-2024-C", FreeTaxPrice = 320f, Tax = 20f, Quantity = 4, Exchangeable = true, Insurance = false, Deliverable = false },
+                new Bicycle { TypeOfBike = "Électrique", Category = "Adulte", Reference = "VAE-2024-D", FreeTaxPrice = 1590f, Tax = 20f, Quantity = 2, Exchangeable = false, Insurance = true, Deliverable = true },
+                new Bicycle { TypeOfBike = "Enfant", Category = "Enfant", Reference = "ENF-2024-E", FreeTaxPrice = 180f, Tax = 20f, Quantity = 6, Exchangeable = true, Insurance = false, Deliverable = true },
+            };
+            foreach (var bicycle in demoBicycles)
+            {
+                await bicycleService.CreateAsync(bicycle);
+            }
+            availableBicycles = await bicycleService.GetAvailableAsync();
+        }
+
+        var existingOrders = await orderService.GetPagedAsync(1, 10, vendeur.Id);
+        if (existingOrders.Count == 0 && availableBicycles.Count >= 3)
+        {
+            var order1 = new Order
+            {
+                Date = DateTime.UtcNow.AddDays(-2),
+                Seller = await dbContext.Sellers.FirstAsync(s => s.Id == vendeur.Id),
+                Customer = demoCustomer,
+                PayMode = "Carte"
+            };
+            await orderService.CreateAsync(order1);
+            await orderService.AddBicycleAsync(order1.IdOrder, availableBicycles[0].Id);
+            await orderService.AddBicycleAsync(order1.IdOrder, availableBicycles[1].Id);
+            await orderService.ValidateAsync(order1.IdOrder);
+
+            var order2 = new Order
+            {
+                Date = DateTime.UtcNow.AddDays(-1),
+                Seller = await dbContext.Sellers.FirstAsync(s => s.Id == vendeur.Id),
+                Customer = demoCustomer,
+                PayMode = "Espèces"
+            };
+            await orderService.CreateAsync(order2);
+            await orderService.AddBicycleAsync(order2.IdOrder, availableBicycles[2].Id);
+
+            var order3 = new Order
+            {
+                Date = DateTime.UtcNow,
+                Seller = await dbContext.Sellers.FirstAsync(s => s.Id == vendeur.Id)
+            };
+            await orderService.CreateAsync(order3);
+
+            seedLogger.LogInformation("Jeu de données de démo créé pour le vendeur {VendeurEmail} : 3 commandes.", vendeurEmail);
+        }
+    }
 }
 
 app.Run();

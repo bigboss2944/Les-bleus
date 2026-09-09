@@ -43,8 +43,7 @@ namespace AspNet_FilRouge_Vendeur.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "Email ou identifiant")]
         public string? Email { get; set; }
 
         [Required]

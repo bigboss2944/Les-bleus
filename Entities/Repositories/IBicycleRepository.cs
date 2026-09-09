@@ -18,5 +18,13 @@ namespace Entities
         void Update(Bicycle bicycle);
         void Remove(Bicycle bicycle);
         Task<int> SaveChangesAsync();
+        Task<Bicycle> GetByReferenceAsync(string reference);
+        Task<IEnumerable<Bicycle>> GetTopSellingAsync(int n);
+
+        /// <summary>
+        /// Jointure Bicycle ↔ Order : pour chaque vélo vendu, retourne sa référence
+        /// et la date de la commande associée.
+        /// </summary>
+        Task<List<BicycleOrderDateViewModel>> GetSoldBicyclesWithOrderDateAsync();
     }
 }

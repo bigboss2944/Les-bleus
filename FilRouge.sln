@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Tests", "Tests\Ent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{5178E4D3-1E1A-4AD0-9AD3-5BF7C31D7D89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maui_FilRouge", "Maui_FilRouge\Maui_FilRouge.csproj", "{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +227,26 @@ Global
 		{5178E4D3-1E1A-4AD0-9AD3-5BF7C31D7D89}.Release|x64.Build.0 = Release|Any CPU
 		{5178E4D3-1E1A-4AD0-9AD3-5BF7C31D7D89}.Release|x86.ActiveCfg = Release|Any CPU
 		{5178E4D3-1E1A-4AD0-9AD3-5BF7C31D7D89}.Release|x86.Build.0 = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|ARM.Build.0 = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|ARM64.Build.0 = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|x64.Build.0 = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1BEDB14-A0C6-475C-803C-256BF18AE4AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

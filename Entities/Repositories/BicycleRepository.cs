@@ -61,5 +61,35 @@ namespace Entities
         public void Remove(Bicycle bicycle) => _db.Bicycles.Remove(bicycle);
 
         public Task<int> SaveChangesAsync() => _db.SaveChangesAsync();
+
+        public async Task<Bicycle> GetByReferenceAsync(string reference) =>
+            await _db.Bicycles.FirstOrDefaultAsync(b => b.Reference == reference) 
+            ?? throw new KeyNotFoundException($"Bicycle with reference '{reference}' not found.");
+
+        public async Task<IEnumerable<Bicycle>> GetTopSellingAsync(int n) =>
+            await _db.Bicycles.Where(b=>b.Order != null)
+                .GroupBy(b=>b.Reference)
+                .Select(g => new { Reference = g.Key, Count = g.Count() })
+                .OrderByDescending(g => g.Count)
+                .Take(n)
+                .Join(_db.Bicycles, g => g.Reference, b => b.Reference, (g, b) => b)
+                .ToListAsync();
+
+        public Task<List<BicycleOrderDateViewModel>> GetSoldBicyclesWithOrderDateAsync()
+        {
+            // TODO (exercice jointure) : joindre Bicycle -> Order (b.Order != null)
+            // et projeter BicycleId, Reference, OrderDate.
+            var query = _db.Bicycles.Where(b=>b.Order != null).Join(_db.Orders,
+                bicycle => bicycle.Order.IdOrder,
+                order => order.IdOrder,
+                (bicycle, order) => new BicycleOrderDateViewModel
+                {
+                    BicycleId = bicycle.Id,
+                    Reference = bicycle.Reference,
+                    OrderDate = order.Date
+                });
+            return query.ToListAsync();
+                    
+        }
     }
 }

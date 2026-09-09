@@ -16,6 +16,28 @@ namespace Entities
         public int Quantity { get; set; }
     }
 
+    public class CustomerShopOrderCountViewModel
+    {
+        public string CustomerId { get; set; } = null!;
+        public string? CustomerLastName { get; set; }
+        public string? ShopName { get; set; }
+        public int OrderCount { get; set; }
+    }
+
+    public class BicycleOrderDateViewModel
+    {
+        public long BicycleId { get; set; }
+        public string? Reference { get; set; }
+        public DateTime OrderDate { get; set; }
+    }
+
+    public class OrderLineProductViewModel
+    {
+        public long OrderLineId { get; set; }
+        public string? ProductTypeReference { get; set; }
+        public int Quantity { get; set; }
+    }
+
     public class PaginatedList<T> : List<T>
     {
         public int PageIndex { get; private set; }
