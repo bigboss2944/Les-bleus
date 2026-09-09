@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Net.Sockets;
 using System.Text.Json;
 using Maui_FilRouge.Models;
 
@@ -103,7 +104,14 @@ namespace Maui_FilRouge.Services
                 request.Content = JsonContent.Create(body);
             }
 
-            return await _httpClient.SendAsync(request);
+            try
+            {
+                return await _httpClient.SendAsync(request);
+            }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or SocketException)
+            {
+                throw new ApiException(0, "Impossible de contacter le serveur. Vérifiez votre connexion et l'adresse configurée.");
+            }
         }
 
         private static async Task<T> ReadOrThrowAsync<T>(HttpResponseMessage response)
